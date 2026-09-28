@@ -434,7 +434,7 @@
 
   /* ================= SECTION 4: Access / pricing ================= */
   .pricing{
-    position:relative;z-index:5;background:var(--page-background);
+    position:relative;z-index:5;
     min-height:100vh;padding:12vh 2.5rem 10vh;
   }
   .rule{height:1px;background:var(--neutral-alpha-medium);transform-origin:left;transform:scaleX(0);
@@ -593,7 +593,7 @@
 
   /* ambient plasma — the same body as the hero, drifting on its own */
   #ambient{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.9;}
-  [data-theme="light"] #ambient{mix-blend-mode:multiply;opacity:.55;filter:invert(1) hue-rotate(180deg);}
+  [data-theme="light"] #ambient{display:none;}
 
   .auth{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
     gap:4vw;padding:8vh 2.5rem 10vh;max-width:1360px;margin:0 auto;align-items:start;}
