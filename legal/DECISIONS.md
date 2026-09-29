@@ -57,4 +57,5 @@ Each fragment opens with a `DECISIONS BEFORE PUBLICATION` comment listing its ow
 that comment in step with the body when an answer lands.
 
 Status of this file: a working note in the repo, not part of the published site (not in
-`sitemap.xml`). Last updated 2026-09-29, alongside commit `974c63f`.
+`sitemap.xml`, and `robots.txt` keeps `/legal/` out of search results — though the file is still
+reachable if someone types the exact path). Last updated 2026-09-29, in the commit that added it.
