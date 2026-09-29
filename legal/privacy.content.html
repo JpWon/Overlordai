@@ -1,0 +1,198 @@
+<!-- DECISIONS BEFORE PUBLICATION
+     Every bracketed token below is deliberately unresolved. One line each, with the recommendation.
+     FILLED 2026-09-29, on the owner's instruction: the contracting entity is De Primus Enterprises
+     and the governing law is the State of Florida, United States. The state of registration is taken
+     to follow the governing law (Florida) — confirm that separately. "Enterprises" is spelled as
+     corrected from his message; confirm it is the exact registered name.
+     - [NOTICES ADDRESS] — no postal address exists; recommend a real address that accepts legal notices, plus a representative if EU or UK users are served.
+     - [PRIVACY CONTACT ADDRESS] — rights requests need a role address; recommend privacy@overlordai.co (a real one) rather than the info@ fallback, and never a channel that does not exist.
+     - [MINIMUM AGE] — no age floor is decided; recommend 13 and stating the mismatch with 18-rated guides, or 16 if the EU is a target market.
+     - [EFFECTIVE DATE] — the policy must take effect on the day it ships, not the draft day; recommend setting it when the licence backend and checkout exist.
+     - [RETENTION PERIOD] — the frame-retention limit is a requirement that is not built; recommend stating the current truth and nothing more.
+-->
+<span class="lg__label">OVR · legal · privacy</span>
+<h1>What leaves<br><em>your machine.</em></h1>
+<div class="lg__meta"><span>Version 1.0</span><span>Draft for review</span><span>Effective [EFFECTIVE DATE]</span><span>Covers the App, the Site and the waitlist</span></div>
+<p class="lg__lede">Two things can leave your machine when you play: one frame of your screen with the text of your question, sent to the endpoint behind the model key you supplied, and, when the telemetry bridge is configured, a session record with no screen content in it. Everything else stays where it is, and this page says which parts of that promise are built and which are still requirements.</p>
+<div class="lg__toc"><b>Contents</b>
+<a href="#s1">1 Scope</a> <span>·</span>
+<a href="#s2">2 The short version</a> <span>·</span>
+<a href="#s3">3 What the App reads and sends</a> <span>·</span>
+<a href="#s4">4 The session record</a> <span>·</span>
+<a href="#s5">5 What never leaves your machine</a> <span>·</span>
+<a href="#s6">6 The Site and the waitlist</a> <span>·</span>
+<a href="#s7">7 The free Demo's licence</a> <span>·</span>
+<a href="#s8">8 Payments</a> <span>·</span>
+<a href="#s9">9 Your rights</a> <span>·</span>
+<a href="#s10">10 Retention</a> <span>·</span>
+<a href="#s11">11 Who processes what</a> <span>·</span>
+<a href="#s12">12 International transfers</a> <span>·</span>
+<a href="#s13">13 Security</a> <span>·</span>
+<a href="#s14">14 Children</a> <span>·</span>
+<a href="#s15">15 Your switches</a> <span>·</span>
+<a href="#s16">16 Changes to this policy</a> <span>·</span>
+<a href="#s17">17 Contact</a>
+</div>
+
+<section id="s1">
+<h2>1 Scope</h2>
+<p>Overlord is a companion guide that reads your screen and talks to you while you play. This policy covers the App on Linux and Steam Deck, the Site at www.overlordai.co, and the waitlist for the Windows build, in beta and not shipped.</p>
+<p>The App is pixel-read only: one captured frame per question, and nothing else. It never reads game memory, never injects code or DLLs, never inspects network traffic and never sends input, and it refuses ranked or competitive multiplayer by design.</p>
+<h3>Not covered here</h3>
+<ul>
+<li>Your game platform or publisher; Steam and the game have their own policies.</li>
+<li>The model provider you point your key at, which is a controller in its own right for the frame it receives.</li>
+<li>Other sites we link to.</li>
+</ul>
+</section>
+
+<section id="s2">
+<h2>2 The short version</h2>
+<table>
+<tr><th>What</th><th>Leaves your machine?</th><th>Why</th></tr>
+<tr><td><strong>A frame of your screen and the text of your question</strong></td><td>Yes, to the endpoint behind your model key</td><td>It cannot answer about an unseen room.</td></tr>
+<tr><td><strong>The session record</strong> (app id, game title, engine, session length, latency, request counts, masked key labels)</td><td>Yes, when the telemetry bridge is configured</td><td>It measures latency and cost per hour.</td></tr>
+<tr><td><strong>Microphone audio, the transcript, the synthesised voice</strong></td><td>No</td><td>Nothing in the speech path is transmitted.</td></tr>
+<tr><td><strong>Guide content, saves, install paths, the Steam library</strong></td><td>No</td><td>Read from local files; not an inventory of what is installed.</td></tr>
+<tr><td><strong>Your model key</strong></td><td>No, except to the endpoint it belongs to</td><td>Only a masked label is ever written to a log line or a record.</td></tr>
+<tr><td><strong>Payment or card data</strong></td><td>No</td><td>There is no live checkout.</td></tr>
+<tr><td><strong>A profile of your play</strong></td><td>No</td><td>Nothing describes what happened in the game.</td></tr>
+<tr><td><strong>A waitlist email, if you join</strong></td><td>Yes, to our waitlist storage</td><td>It is how the list is kept.</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3 What the App reads and sends</h2>
+<h3>The read path is a model call</h3>
+<p>The co-pilot cannot answer about a room it has never seen without looking, so the read path is a model call: one frame and the text of your question, sent over HTTPS to the endpoint behind the model key you supplied. HTTPS is the only protocol it speaks outward.</p>
+<p><strong>DeepSeek is the default provider; Google and Groq are the configured fallbacks, contacted only if a key for them is present.</strong> The provider you point your key at receives that frame and that question. That is the honest boundary: a frame and a question leave the machine every time you ask.</p>
+<p>Nothing else rides along: not your audio, not the transcript, not the synthesised voice, not your save file, not a device identifier.</p>
+<h3>Your key</h3>
+<p>Your key stays on your machine: only a masked label, the first three and last four characters, is ever written to a log line or a record. Getting keys into the OS keyring, rather than a file you edit by hand, is written down as a requirement and is not finished. No analytics SDK, crash reporter or third-party measurement runs inside the co-pilot. To remove the call entirely, point the key at an endpoint you control.</p>
+</section>
+
+<section id="s4">
+<h2>4 The session record</h2>
+<p>When the telemetry bridge is configured, a session record is also written. Its fields are exactly these: app id; game title and slug; detected engine; session length; p95 latency; request counts; masked key labels in use.</p>
+<p>It cannot contain screen content and carries no free text. Every free-text field passes a redaction boundary before it can reach an HTTP body or a log line, so a key or file path in an exception message cannot reach the wire.</p>
+<p>It answers two questions: is latency inside the p95 4 s bar it is measured against, and is an hour of play cheaper than $0.10. Those are targets; this page publishes no live latency figure.</p>
+<div class="lg__note"><b>The gap, stated plainly.</b> An explicit opt-in toggle, with a visible list of every field, is on the roadmap and is not built. Until it ships, treat the session record as on whenever the bridge is configured.</div>
+</section>
+
+<section id="s5">
+<h2>5 What never leaves your machine</h2>
+<ul>
+<li>Your microphone audio. Speech in stays on the machine; there is no ingest of it.</li>
+<li>The transcript of what you said while playing.</li>
+<li>The voice. Lines are synthesised on your machine, and pre-rendered lines are cached locally.</li>
+<li>The guide content you paid for: mapped rooms, loot tables, the objective order, read from local files.</li>
+<li>Your saves, your install directory and your Steam library as a list. The record names the title you are playing, not what else is installed.</li>
+</ul>
+<h3>Where those things live</h3>
+<p>Session state and pre-computed cards live in RAM, in /dev/shm, not on disk, and do not survive a restart. Log lines are session-scoped and pass the same boundary, so a raw key never reaches one. Guide content is a file on disk, read locally.</p>
+</section>
+
+<section id="s6">
+<h2>6 The Site and the waitlist</h2>
+<p>The Site is a website with no screen access and no knowledge of your play.</p>
+<h3>If you join the waitlist</h3>
+<p>The email you give is stored in a Supabase table, and a Resend mail confirms the signup into our own inbox. The service that receives it runs on Railway. That is the whole path: one address, kept so we can tell you when the Windows beta exists.</p>
+<h3>What the Site does not do</h3>
+<ul>
+<li>No analytics and no tracking cookies. The storefront template arrived with a Google Tag Manager container belonging to its original author, which would have measured our visitors into somebody else's account; it is switched off. No analytics load unless we configure a container of our own.</li>
+<li>The Site is served by Vercel from a GitHub repository, and the only thing it writes to your browser is localStorage for the light or dark theme.</li>
+</ul>
+<div class="lg__note"><b>No card data anywhere.</b> There is no checkout and no purchase record here. The catalogue is mock data until the licence store exists, so there is nothing to pay with.</div>
+</section>
+
+<section id="s7">
+<h2>7 The free Demo's licence</h2>
+<p>The Demo is 30 minutes of runtime with the app open. It is the full product: it reads your screen, speaks out loud and covers the published guide. It ends by stopping rather than charging, and no card is taken.</p>
+<p>It does need an email, because the licence key is issued to an account. That address, with a machine fingerprint, enforces one trial per person: the trial is a licence issued to a machine and meant to be used once. The fingerprint is derived on your machine for that purpose, and is not a field on the model call in §3.</p>
+</section>
+
+<section id="s8">
+<h2>8 Payments</h2>
+<p>Checkout is not live. Nothing on the Site can take a payment today, the catalogue is mock data, and the licence store does not exist. When it does, billing will be Stripe, which handles card data: no card number, no security code and no expiry date reaches our systems.</p>
+<p>A paid licence holds the email on the account and the licence assignment. Subscription is $14.99/month or $149.99/year, one machine, all published guides. Pro is $39.99/month or $399.99/year, three machines on one account, re-assignable by deactivating one and activating another, because hardware dies.</p>
+<p>Cancelling is from the account page, any time, monthly or yearly, with no lock-in. It stops the next charge; access runs to the end of the period you have paid for.</p>
+</section>
+
+<section id="s9">
+<h2>9 Your rights</h2>
+<h3>EEA, UK and Switzerland</h3>
+<p>Under the GDPR and UK GDPR you may access, correct, erase, restrict, port and object to the processing of your personal data, and withdraw consent at any time.</p>
+<h3>California</h3>
+<p>Under the CCPA and CPRA you may know, delete, correct and port your personal information, and opt out of its sale or sharing. <strong>We do not sell personal information, and we do not share it for cross-context behavioural advertising.</strong> There is no analytics or advertising code on the Site to do either with.</p>
+<p>To exercise any of these, write to [PRIVACY CONTACT ADDRESS]. We may need to verify your identity, and we will respond inside the timeframe the law allows.</p>
+<div class="lg__note"><b>What a request can actually reach today.</b> Most of what the App handles never reaches us: it is on your machine or at the endpoint behind your key. A request reaches your waitlist email and any licence record. It cannot recall a frame from a model provider.</div>
+</section>
+
+<section id="s10">
+<h2>10 Retention</h2>
+<p>A captured frame lives as long as the process that took it. A retention limit, where older frames do not survive, is written down as a requirement and is not built. Until it is, that is the whole truth, and the limit we will commit to is <strong>[RETENTION PERIOD]</strong>, to be set when the limit exists — a number we cannot back is worse than the gap it hides.</p>
+<p>The session record lives as long as the telemetry it is written to.</p>
+<p>A waitlist email is kept until you ask for its removal. A licence record is kept while the licence is active, and afterwards only to honour it or meet a tax obligation.</p>
+</section>
+
+<section id="s11">
+<h2>11 Who processes what</h2>
+<p>These services handle data for us.</p>
+<table>
+<tr><th>Service</th><th>What it handles</th><th>Role</th></tr>
+<tr><td><strong>Supabase</strong></td><td>the waitlist email</td><td>database storage</td></tr>
+<tr><td><strong>Resend</strong></td><td>the mail confirming a signup, to our own address</td><td>email sending</td></tr>
+<tr><td><strong>Railway</strong></td><td>the service that receives a signup</td><td>application hosting</td></tr>
+<tr><td><strong>Vercel</strong></td><td>hosting and delivery of this website</td><td>static hosting</td></tr>
+<tr><td><strong>GitHub</strong></td><td>the repository this site is published from</td><td>source hosting</td></tr>
+<tr><td><strong>DeepSeek, Google, Groq</strong></td><td>the endpoint behind your own key, which receives the frame and the question</td><td>model providers; only the one you configure is contacted, and only with a key</td></tr>
+</table>
+<p>Stripe is not here yet because checkout is not live; it will be added, and it will be the only party that sees card data. There is no support inbox, chat server or advertising processor.</p>
+</section>
+
+<section id="s12">
+<h2>12 International transfers</h2>
+<p>The services in §11 are cloud services and may process data in a country other than yours, including the United States. The model endpoint you configure decides where a frame is processed, and that choice is yours.</p>
+<p>The transfer mechanism for each destination is an open decision, not a settled one. De Primus Enterprises is registered in the State of Florida, United States, and the safeguard that will apply to each transfer, whether standard contractual clauses or an adequacy route, is to be named here before launch. We will not claim a transfer ground we have not put in place.</p>
+</section>
+
+<section id="s13">
+<h2>13 Security</h2>
+<p>What the design does: every outbound call is HTTPS, the only protocol the co-pilot speaks. Session state and pre-computed cards live in RAM, not on disk. Log lines pass a redaction boundary, and only a masked key label, the first three and last four characters, ever reaches one.</p>
+<h3>Not finished</h3>
+<p>Getting keys into the OS keyring, rather than a file you edit by hand, is a requirement that has not shipped; until it does, your key's safety depends partly on keeping that file out of a backup or a screenshot.</p>
+<div class="lg__note"><b>No certification claim is made here.</b> There is no SOC 2 report, no ISO 27001 certificate and no HIPAA claim in this policy or the product, and there will not be one until an audit says there is. A frame you send is protected by the transport and the provider you chose, and by nothing we have certified.</div>
+</section>
+
+<section id="s14">
+<h2>14 Children</h2>
+<p>The App is for players old enough to buy and run the games it guides, and is not directed at children. It is not offered to anyone under [MINIMUM AGE]. We do not knowingly collect personal data from anyone under that age; if you believe a child has sent us an address through the waitlist, write to [PRIVACY CONTACT ADDRESS] and we will remove it.</p>
+<div class="lg__note"><b>The age floor has a mismatch to resolve.</b> The one title mapped today, Control, carries an 18 rating in some territories. If [MINIMUM AGE] is set below the rating of a title we publish a guide for, that mismatch should be settled.</div>
+</section>
+
+<section id="s15">
+<h2>15 Your switches</h2>
+<p>The switch that exists today is the process itself. Stopping it stops the screen reads, the model calls and the speech together, because there is no queue that outlives it.</p>
+<h3>Not built yet</h3>
+<ul>
+<li>A visible "what I just sent" panel, showing the last frame that went out.</li>
+<li>A single kill switch that stops polling, stops speech and blanks the card.</li>
+<li>The session-record opt-in toggle described in §4.</li>
+</ul>
+<p>All three are requirements with a written definition of done, and none has shipped.</p>
+</section>
+
+<section id="s16">
+<h2>16 Changes to this policy</h2>
+<p>This is Version 1.0, a draft for review, and the effective date is [EFFECTIVE DATE] as it is not published yet. When it changes, the version number and the effective date change with it, and a material change to what leaves your machine gets notice on the Site rather than a silent edit.</p>
+<p>The data path is the thing to watch. If a feature ships that changes §3 or §4, the "what I just sent" panel, the frame-retention limit or the session-record toggle, this page is updated in the same change, not afterwards.</p>
+</section>
+
+<section id="s17">
+<h2>17 Contact</h2>
+<p>Privacy questions and rights requests go to [PRIVACY CONTACT ADDRESS]. Until that address exists, the interim address is info@overlordai.co, the site's own waitlist fallback, answered by the same person who answers everything else.</p>
+<p>Legal notices go to [NOTICES ADDRESS]. This policy is one of three documents: the <a href="eula.html">end-user licence</a> and the <a href="terms.html">terms of service</a> are the other two.</p>
+<div class="lg__note"><b>No channel is printed that does not exist.</b> There is no support inbox, chat server or community forum yet, and this policy will not list one to look complete.</div>
+</section>
+
+<p class="lg__end">Part of a set: <a href="eula.html">End-user licence</a> · <a href="terms.html">Terms of service</a></p>
