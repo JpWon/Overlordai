@@ -776,7 +776,11 @@
   .cs__title{position:relative;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(4rem,15vw,13rem);line-height:.9;letter-spacing:-.01em;color:#fff;}
   .cs__title span{color:#a894ff;}
   .cs__sub{position:relative;margin-top:1.6rem;font-size:clamp(.78rem,1.5vw,1rem);letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.6);}
-  .cs__wait{position:relative;margin-top:3.6rem;display:inline-flex;text-decoration:none;font-family:'Space Mono',monospace;font-size:.76rem;letter-spacing:.26em;text-transform:uppercase;color:#fff;padding:1.15rem 2.6rem;border:1px solid rgba(255,255,255,.25);overflow:hidden;isolation:isolate;transition:border-color .4s ease;}
+  .cs__form{position:relative;margin-top:3.6rem;display:flex;flex-wrap:wrap;gap:.9rem;align-items:center;justify-content:center;}
+  .cs__email{font-family:'Space Mono',monospace;font-size:.76rem;letter-spacing:.12em;color:#fff;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.25);padding:1.15rem 1.5rem;min-width:260px;outline:none;transition:border-color .4s ease;}
+  .cs__email::placeholder{color:rgba(255,255,255,.35);}
+  .cs__email:focus{border-color:var(--accent);}
+  .cs__wait{position:relative;display:inline-flex;align-items:center;text-decoration:none;font-family:'Space Mono',monospace;font-size:.76rem;letter-spacing:.26em;text-transform:uppercase;color:#fff;padding:1.15rem 2.6rem;background:none;border:1px solid rgba(255,255,255,.25);overflow:hidden;isolation:isolate;cursor:pointer;transition:border-color .4s ease;}
   .cs__wait::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.19,1,.22,1);}
   .cs__wait:hover::after{transform:scaleX(1);}
   .cs__wait:hover{border-color:transparent;}
@@ -1528,7 +1532,10 @@
   <p class="cs__kicker">Overlord AI</p>
   <h2 class="cs__title">Coming <span>Soon</span></h2>
   <p class="cs__sub">The live gaming guidebook companion</p>
-  <a class="cs__wait" href="mailto:jmprimus1@gmail.com?subject=Overlord%20AI%20Waitlist">Join the waitlist</a>
+  <form class="cs__form" id="csForm" novalidate>
+    <input class="cs__email" type="email" name="email" placeholder="you@email.com" required aria-label="Email address" autocomplete="email">
+    <button class="cs__wait" type="submit">Join the waitlist</button>
+  </form>
 </div>
 
 <script>
@@ -1540,6 +1547,17 @@
   setTimeout(open, 180000);
   document.getElementById('csClose').addEventListener('click', close);
   addEventListener('keydown', e => { if (e.key === 'Escape' && cs.classList.contains('is-open')) close(); });
+
+  // waitlist: collect the address, hand it to the visitor's mail client addressed to info@overlordai.co
+  const form = document.getElementById('csForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = form.querySelector('.cs__email').value.trim();
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return;
+    const subject = encodeURIComponent('Overlord AI waitlist');
+    const body = encodeURIComponent('Waitlist signup: ' + email);
+    window.location.href = 'mailto:info@overlordai.co?subject=' + subject + '&body=' + body;
+  });
 })();
 </script>
 
