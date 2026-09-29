@@ -309,6 +309,20 @@
     text-shadow:.5px 0 0 currentColor,-.5px 0 0 currentColor;
   }
 
+  /* Coming-soon banner in the nav */
+  .nav-coming{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 14px;border-radius:999px;
+    border:1px solid var(--accent);background:transparent;
+    cursor:pointer;
+    font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);
+    transition:background .35s ease,color .35s ease;
+  }
+  .nav-coming:hover{background:var(--accent);color:#fff;}
+  .nav-coming__dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:coming-pulse 2.4s ease-in-out infinite;flex:none;}
+  @keyframes coming-pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
   /* Celestial Toggle — Day/Night */
   .celestial-toggle{
     position:relative;display:flex;align-items:center;justify-content:center;
@@ -818,6 +832,7 @@
       <a class="nav-hover" href="#work"><span class="nav-link-text">Preview</span></a>
       <a class="nav-hover" href="plans.html"><span class="nav-link-text">Plans</span></a>
       <a class="nav-hover" href="login.html"><span class="nav-link-text">Log in</span></a>
+      <button class="nav-coming" id="navComing" type="button"><span class="nav-coming__dot" aria-hidden="true"></span><span class="nav-coming__text">Coming soon</span></button>
     </div>
 
     <!-- Right — Celestial toggle + Cart -->
@@ -1546,6 +1561,7 @@
   const close = () => { cs.classList.remove('is-open'); cs.setAttribute('aria-hidden','true'); };
   setTimeout(open, 180000);
   document.getElementById('csClose').addEventListener('click', close);
+  document.getElementById('navComing').addEventListener('click', open);
   addEventListener('keydown', e => { if (e.key === 'Escape' && cs.classList.contains('is-open')) close(); });
 
   // waitlist: collect the address, hand it to the visitor's mail client addressed to info@overlordai.co
