@@ -1,0 +1,10 @@
+# Overlord AI
+User-agent: *
+Allow: /
+# unreferenced design mockups — never served as pages, kept out of the index
+Disallow: /_qa-brand.html
+Disallow: /_qa-brand-dark.html
+Disallow: /overlordai-co-v1.html
+Disallow: /waitlist-api/
+
+Sitemap: https://overlordai.vercel.app/sitemap.xml
