@@ -1,0 +1,13 @@
+{
+  "name": "overlord-waitlist-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Waitlist endpoint for Overlord AI: stores signup in Supabase and emails info@overlordai.co via Resend.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

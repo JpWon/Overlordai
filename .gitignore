@@ -5,3 +5,7 @@ _qa-brand-dark.html
 # old / unreferenced files
 overlordai-co-v1.html
 *.png
+
+# secrets / deps (waitlist-api)
+.env
+node_modules/
