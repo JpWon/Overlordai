@@ -768,6 +768,20 @@
   .site-footer__bottom .legal{display:flex;flex-wrap:wrap;gap:1.4rem;}
   .site-footer__bottom a{color:var(--neutral-on-background-weak);text-decoration:none;transition:color .35s ease;}
   .site-footer__bottom a:hover{color:var(--accent);}
+  /* ================= COMING SOON takeover ================= */
+  .cs{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem;background:#05050a;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .55s ease,visibility .55s ease;}
+  .cs.is-open{opacity:1;visibility:visible;pointer-events:auto;}
+  .cs__glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 50% at 50% 42%,rgba(109,92,255,.20),transparent 70%),radial-gradient(40% 36% at 50% 58%,rgba(140,90,255,.12),transparent 70%);}
+  .cs__kicker{position:relative;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:2.2rem;}
+  .cs__title{position:relative;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(4rem,15vw,13rem);line-height:.9;letter-spacing:-.01em;color:#fff;}
+  .cs__title span{color:#a894ff;}
+  .cs__sub{position:relative;margin-top:1.6rem;font-size:clamp(.78rem,1.5vw,1rem);letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.6);}
+  .cs__wait{position:relative;margin-top:3.6rem;display:inline-flex;text-decoration:none;font-family:'Space Mono',monospace;font-size:.76rem;letter-spacing:.26em;text-transform:uppercase;color:#fff;padding:1.15rem 2.6rem;border:1px solid rgba(255,255,255,.25);overflow:hidden;isolation:isolate;transition:border-color .4s ease;}
+  .cs__wait::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.19,1,.22,1);}
+  .cs__wait:hover::after{transform:scaleX(1);}
+  .cs__wait:hover{border-color:transparent;}
+  .cs__close{position:absolute;top:1.6rem;right:2rem;z-index:2;width:46px;height:46px;display:grid;place-items:center;background:none;border:1px solid rgba(255,255,255,.25);border-radius:50%;color:#fff;font-size:1.25rem;line-height:1;cursor:pointer;transition:border-color .4s ease,color .4s ease,transform .4s ease;}
+  .cs__close:hover{border-color:var(--accent);color:#a894ff;transform:rotate(90deg);}
 </style>
 </head>
 <body>
@@ -1504,6 +1518,28 @@
     for (const e of entries) if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
   }, {threshold:.18, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.rv, .rv-mask, .rv-line').forEach(el => io.observe(el));
+})();
+</script>
+
+<!-- COMING SOON takeover -->
+<div class="cs" id="cs" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Coming soon">
+  <div class="cs__glow" aria-hidden="true"></div>
+  <button class="cs__close" id="csClose" aria-label="Close">&times;</button>
+  <p class="cs__kicker">Overlord AI</p>
+  <h2 class="cs__title">Coming <span>Soon</span></h2>
+  <p class="cs__sub">The live gaming guidebook companion</p>
+  <a class="cs__wait" href="mailto:jmprimus1@gmail.com?subject=Overlord%20AI%20Waitlist">Join the waitlist</a>
+</div>
+
+<script>
+/* Coming-soon takeover — fills the screen 3 minutes after load */
+(() => {
+  const cs = document.getElementById('cs');
+  const open = () => { cs.classList.add('is-open'); cs.setAttribute('aria-hidden','false'); };
+  const close = () => { cs.classList.remove('is-open'); cs.setAttribute('aria-hidden','true'); };
+  setTimeout(open, 180000);
+  document.getElementById('csClose').addEventListener('click', close);
+  addEventListener('keydown', e => { if (e.key === 'Escape' && cs.classList.contains('is-open')) close(); });
 })();
 </script>
 
