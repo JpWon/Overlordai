@@ -6,7 +6,7 @@
 <title>Overlord — Support</title>
 <script>
   /* theme init — same contract as S2S layout.tsx: localStorage "data-theme" */
-  document.documentElement.setAttribute('data-theme', localStorage.getItem('data-theme') || 'light');
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('data-theme') || 'dark');
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -593,7 +593,7 @@
 
   /* ambient plasma — the same body as the hero, drifting on its own */
   #ambient{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.9;}
-  [data-theme="light"] #ambient{mix-blend-mode:multiply;opacity:.55;filter:invert(1) hue-rotate(180deg);}
+  [data-theme="light"] #ambient{display:none;}
 
   .auth{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
     gap:4vw;padding:8vh 2.5rem 10vh;max-width:1360px;margin:0 auto;align-items:start;}
