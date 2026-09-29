@@ -432,12 +432,12 @@
   .ovr-logo__text{display:flex;flex-direction:column;}
   /* the mark, masked so its fill follows the wordmark's colour in both themes */
   .ovr-logo__icon{
-    width:45px;height:45px;flex:0 0 auto;margin:-6px 0;
+    width:40px;height:40px;flex:0 0 auto;
     background-color:currentColor;
     -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
             mask:url('assets/rooster-nav.svg') center/contain no-repeat;
   }
-  @media (max-width:520px){ .ovr-logo__icon{width:36px;height:36px;margin:-6px 0;} }
+  @media (max-width:520px){ .ovr-logo__icon{width:32px;height:32px;} }
   .ovr-logo__mark{font-size:1.25rem;line-height:1.2;letter-spacing:.05em;font-weight:600;}
   .ovr-logo__sub{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;color:var(--neutral-on-background-weak);}
 
@@ -539,6 +539,7 @@
   }
   .drawer-col{display:flex;flex-direction:column;gap:48px;}
   .drawer-head{display:flex;flex-direction:column;gap:8px;}
+  .drawer-head__row{display:flex;align-items:center;gap:10px;}
   .drawer-head span{
     text-transform:uppercase;letter-spacing:.4em;font-size:.55rem;font-weight:600;
     color:var(--neutral-on-background-weak);
@@ -548,6 +549,9 @@
     background-color:var(--neutral-on-background-strong);
     -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
             mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+  }
+  .drawer-head .drawer-head__label{
+    font-size:.5rem;letter-spacing:.22em;white-space:nowrap;
   }
   .drawer-head i{display:block;width:24px;height:1px;background:var(--neutral-alpha-medium);}
   .drawer-links{display:flex;flex-direction:column;gap:20px;}
@@ -923,7 +927,10 @@
     padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem);background:var(--page-background);}
   .site-footer__inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:2.2rem;}
   .site-footer__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;}
-  .site-footer__brand{display:flex;align-items:center;gap:.6rem;font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;color:var(--neutral-on-background-strong);}
+  .site-footer__brand{display:flex;align-items:center;gap:.6rem;color:var(--neutral-on-background-strong);}
+  .site-footer__text{display:flex;flex-direction:column;}
+  .site-footer__name{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;}
+  .site-footer__tag{margin-top:.2rem;font-size:.5rem;letter-spacing:.24em;text-transform:uppercase;font-weight:500;color:var(--neutral-on-background-weak);}
   .site-footer__mark{
     display:block;width:28px;height:28px;flex:0 0 auto;background-color:currentColor;
     -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
@@ -1029,7 +1036,7 @@
 <!-- Slide-out crystal drawer -->
 <div class="navbar-drawer" id="navDrawer" aria-hidden="true">
   <div class="drawer-col">
-    <div class="drawer-head"><span class="drawer-head__mark" aria-hidden="true"></span><i></i></div>
+    <div class="drawer-head"><div class="drawer-head__row"><span class="drawer-head__mark" aria-hidden="true"></span><span class="drawer-head__label">Live Gaming Companion</span></div><i></i></div>
     <div class="drawer-links">
       <div class="drawer-item"><a class="royal-nav-item" href="#top"><div class="row"><span class="royal-highlight">Home</span></div></a></div>
       <div class="drawer-item"><a class="royal-nav-item" href="#work"><div class="row"><span class="royal-highlight">Preview</span></div></a></div>
@@ -1208,7 +1215,7 @@
 <footer class="site-footer" id="footer">
   <div class="site-footer__inner">
     <div class="site-footer__top">
-      <div class="site-footer__brand"><span class="site-footer__mark" aria-hidden="true"></span>Overlord <em>AI</em></div>
+      <div class="site-footer__brand"><span class="site-footer__mark" aria-hidden="true"></span><span class="site-footer__text"><span class="site-footer__name">Overlord <em>AI</em></span><span class="site-footer__tag">Live Gaming Guidebook Companion</span></span></div>
       <nav class="site-footer__nav">
         <a href="index.html#top">Home</a>
         <a href="index.html#work">Preview</a>
