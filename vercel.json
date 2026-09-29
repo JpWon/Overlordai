@@ -2,6 +2,17 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "overlordai\\.vercel\\.app"
+        }
+      ],
+      "destination": "https://www.overlordai.co/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
