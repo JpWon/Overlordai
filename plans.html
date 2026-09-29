@@ -331,12 +331,12 @@
   .ovr-logo__text{display:flex;flex-direction:column;}
   /* the mark, masked so its fill follows the wordmark's colour in both themes */
   .ovr-logo__icon{
-    width:30px;height:30px;flex:0 0 auto;
+    width:45px;height:45px;flex:0 0 auto;margin:-6px 0;
     background-color:currentColor;
     -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
             mask:url('assets/rooster-nav.svg') center/contain no-repeat;
   }
-  @media (max-width:520px){ .ovr-logo__icon{width:24px;height:24px;} }
+  @media (max-width:520px){ .ovr-logo__icon{width:36px;height:36px;margin:-6px 0;} }
   .ovr-logo__mark{font-size:1.25rem;line-height:1.2;letter-spacing:.05em;font-weight:600;}
   .ovr-logo__sub{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;color:var(--neutral-on-background-weak);}
 
@@ -427,6 +427,12 @@
   .drawer-head span{
     text-transform:uppercase;letter-spacing:.4em;font-size:.55rem;font-weight:600;
     color:var(--neutral-on-background-weak);
+  }
+  .drawer-head .drawer-head__mark{
+    display:block;width:30px;height:30px;flex:0 0 auto;
+    background-color:var(--neutral-on-background-strong);
+    -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+            mask:url('assets/rooster-nav.svg') center/contain no-repeat;
   }
   .drawer-head i{display:block;width:24px;height:1px;background:var(--neutral-alpha-medium);}
   .drawer-links{display:flex;flex-direction:column;gap:20px;}
@@ -862,7 +868,12 @@
     padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem);background:var(--page-background);}
   .site-footer__inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:2.2rem;}
   .site-footer__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;}
-  .site-footer__brand{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;color:var(--neutral-on-background-strong);}
+  .site-footer__brand{display:flex;align-items:center;gap:.6rem;font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;color:var(--neutral-on-background-strong);}
+  .site-footer__mark{
+    display:block;width:28px;height:28px;flex:0 0 auto;background-color:currentColor;
+    -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+            mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+  }
   .site-footer__brand em{font-style:normal;color:var(--accent);}
   .site-footer__nav{display:flex;flex-wrap:wrap;gap:1.6rem;}
   .site-footer__nav a{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--neutral-on-background-weak);transition:color .35s ease;}
@@ -942,7 +953,7 @@
 <!-- Slide-out crystal drawer -->
 <div class="navbar-drawer" id="navDrawer" aria-hidden="true">
   <div class="drawer-col">
-    <div class="drawer-head"><span>Site</span><i></i></div>
+    <div class="drawer-head"><span class="drawer-head__mark" aria-hidden="true"></span><i></i></div>
     <div class="drawer-links">
       <div class="drawer-item"><a class="royal-nav-item" href="index.html#top"><div class="row"><span class="royal-highlight">Home</span></div></a></div>
       <div class="drawer-item"><a class="royal-nav-item" href="index.html#work"><div class="row"><span class="royal-highlight">Preview</span></div></a></div>
@@ -1021,7 +1032,7 @@
 <footer class="site-footer" id="footer">
   <div class="site-footer__inner">
     <div class="site-footer__top">
-      <div class="site-footer__brand">Overlord <em>AI</em></div>
+      <div class="site-footer__brand"><span class="site-footer__mark" aria-hidden="true"></span>Overlord <em>AI</em></div>
       <nav class="site-footer__nav">
         <a href="index.html#top">Home</a>
         <a href="index.html#work">Preview</a>
