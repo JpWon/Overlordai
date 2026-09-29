@@ -5,6 +5,13 @@ _qa-brand-dark.html
 # old / unreferenced files
 overlordai-co-v1.html
 *.png
+# ...but the icon + mark set IS referenced by every page head
+!favicon-*.png
+!apple-touch-icon.png
+!icon-192.png
+!icon-512.png
+!og-thumbnail.png
+!assets/*.png
 
 # secrets / deps (waitlist-api)
 .env

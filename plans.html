@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Overlord — Plans</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <script>
   /* theme init — same contract as S2S layout.tsx: localStorage "data-theme" */
   document.documentElement.setAttribute('data-theme', localStorage.getItem('data-theme') || 'dark');
@@ -194,7 +202,16 @@
   .is-open .royal-icon .bar-bot{d:path("M6 16L16 6");}
   .is-open .royal-icon .bar-mid{opacity:0;transform:scaleX(0);}
 
-  .ovr-logo{display:flex;flex-direction:column;text-decoration:none;color:var(--neutral-on-background-strong);}
+  .ovr-logo{display:flex;flex-direction:row;align-items:center;gap:10px;text-decoration:none;color:var(--neutral-on-background-strong);}
+  .ovr-logo__text{display:flex;flex-direction:column;}
+  /* the mark, masked so its fill follows the wordmark's colour in both themes */
+  .ovr-logo__icon{
+    width:30px;height:30px;flex:0 0 auto;
+    background-color:currentColor;
+    -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+            mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+  }
+  @media (max-width:520px){ .ovr-logo__icon{width:24px;height:24px;} }
   .ovr-logo__mark{font-size:1.25rem;line-height:1.2;letter-spacing:.05em;font-weight:600;}
   .ovr-logo__sub{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;color:var(--neutral-on-background-weak);}
 
@@ -752,8 +769,11 @@
         </button>
       </div>
       <a class="ovr-logo" href="index.html#top">
-        <span class="ovr-logo__mark">OVERLORD</span>
-        <span class="ovr-logo__sub">AI Co-Pilot</span>
+        <span class="ovr-logo__icon" aria-hidden="true"></span>
+        <span class="ovr-logo__text">
+          <span class="ovr-logo__mark">OVERLORD</span>
+          <span class="ovr-logo__sub">AI Co-Pilot</span>
+        </span>
       </a>
     </div>
 
