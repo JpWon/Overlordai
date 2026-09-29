@@ -22,23 +22,28 @@ def signed_area(pts):
         a += x0 * y1 - x1 * y0
     return a / 2
 
-def geometry():
+def geometry(samples=900, precision=2):
     SZ = V / mod.SS                      # generators work supersampled; ask for V units
-    subs = [mod.shape_points(SZ)[0]]     # the traced outline
+    subs = [mod.resample(mod.shape_points(SZ)[0], samples)]   # the traced outline
     if VARIANT == "profile":             # + the grafted beak and comb
         subs += [mod.beak_points(SZ), mod.comb_points(SZ)]
     # subpaths only union under fill-rule:nonzero if they wind the same way
     ref = signed_area(subs[0]) > 0
     subs = [s if (signed_area(s) > 0) == ref else s[::-1] for s in subs]
-    d = " ".join("M" + " L".join(f"{x:.2f},{y:.2f}" for (x, y) in s) + " Z" for s in subs)
+    fmt = "{:." + str(precision) + "f}"
+    d = " ".join("M" + " L".join((fmt + "," + fmt).format(x, y) for (x, y) in s) + " Z" for s in subs)
     scale, xf, yf = mod.transform(SZ)
     unit = mod.BH if VARIANT == "rooster" else mod.BW
     cx, cy = xf(mod.X0 + mod.EYE_CX_F * mod.BW), yf(mod.Y0 + mod.EYE_CY_F * mod.BH)
     r = mod.EYE_R_F * unit * scale
     return d, cx, cy, r
 
-def svg(mark_colour, tile=None, grain=True):
-    d, cx, cy, r = geometry()
+def _thin(pts, samples, precision):
+    mod_resample = mod.resample
+    return mod_resample(list(pts), samples)
+
+def svg(mark_colour, tile=None, grain=True, samples=900, precision=2):
+    d, cx, cy, r = geometry(samples, precision)
     mask = (f'<mask id="hole" maskUnits="userSpaceOnUse" x="0" y="0" width="{V}" height="{V}">'
             f'<rect width="{V}" height="{V}" fill="#fff"/>'
             f'<circle cx="{cx:.2f}" cy="{cy:.2f}" r="{r:.2f}" fill="#000"/></mask>')
@@ -67,5 +72,9 @@ if __name__ == "__main__":
     stem = "rooster" if VARIANT == "rooster" else "profile"
     (out / f"{stem}-ink.svg").write_text(svg(INK))
     (out / f"{stem}-paper.svg").write_text(svg(PAPER))
-    (out / "favicon.svg").write_text(svg(INK, tile=PAPER))
-    print(f"wrote {stem}-ink.svg, {stem}-paper.svg, favicon.svg")
+    # the tab icon is the DARK tile: ink ground, paper (white) mark — the user's call
+    (out / "favicon.svg").write_text(svg(PAPER, tile=INK))
+    # flat + fewer points: used as a CSS mask for the nav lockup, where the fill must follow
+    # currentColor (so the icon themes with the wordmark) and the alpha must be clean
+    (out / f"{stem}-nav.svg").write_text(svg(INK, grain=False, samples=340, precision=1))
+    print(f"wrote {stem}-ink.svg, {stem}-paper.svg, favicon.svg, {stem}-nav.svg")
