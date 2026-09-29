@@ -9,6 +9,7 @@ legal/eula.content.html     the document itself (fragment)       <- edit the wor
 legal/privacy.content.html
 legal/terms.content.html
 legal/build_legal.py        splice: skeleton + fragment -> page
+legal/DECISIONS.md          the open questions, for the owner to answer later (not served, not in the sitemap)
     |
     +--> eula.html, privacy.html, terms.html   (generated, committed, served by Vercel)
 ```
@@ -32,6 +33,13 @@ Rules
   `lg__toc`, `lg__note`, `lg__end`, plus `section`/`h2`/`h3`/`p`/`ul`/`ol`/`li`/`table`. Styling a
   new element means editing the skeleton, which changes all three documents at once — that is the
   point, not a side effect.
+- **A table must never widen the page.** Mark a table that can get wide `class="lg-stack"` and give
+  every cell except the first a `data-label`; the skeleton stacks such a table into labelled blocks at
+  ≤700 px and prints the label from `td[data-label]::before`. The five-column plans table in
+  `terms.content.html` pushed the page to 475 px in a 390 px viewport without this; the three-column
+  tables fit unmarked. Check every page at both widths — `node ~/.hermes/cache/scratch/overflow_audit.mjs
+  http://127.0.0.1:3000 390,360` reports `page <sw>/<vw>` per page and names the offending element;
+  the legal pages must read `390/390` and `360/360`.
 - Square-bracket tokens in UPPERCASE are **undecided facts** (`[LEGAL ENTITY NAME]`,
   `[GOVERNING LAW]`, `[REFUND POLICY]`, …). Each fragment opens with a `DECISIONS BEFORE
   PUBLICATION` comment listing them. Do not fill one in without a decision from the owner, and

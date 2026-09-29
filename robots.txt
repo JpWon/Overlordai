@@ -6,5 +6,7 @@ Disallow: /_qa-brand.html
 Disallow: /_qa-brand-dark.html
 Disallow: /overlordai-co-v1.html
 Disallow: /waitlist-api/
+# build sources for the legal pages (the pages themselves sit at the root) + the decisions note
+Disallow: /legal/
 
 Sitemap: https://www.overlordai.co/sitemap.xml
