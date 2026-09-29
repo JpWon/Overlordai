@@ -653,6 +653,9 @@
   /* ambient plasma — the same body as the hero, drifting on its own */
   #ambient{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.9;}
   [data-theme="light"] #ambient{display:none;}
+  /* light ground: the console's dark-violet drop shadow (35% @ 100px blur) read as a
+     grey wash across the white page — keep the lift, drop the cloud */
+  [data-theme="light"] .console{box-shadow:0 10px 22px -18px rgba(30,20,80,.16);}
 
   .auth{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
     gap:4vw;padding:8vh 2.5rem 10vh;max-width:1360px;margin:0 auto;align-items:start;}
