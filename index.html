@@ -135,6 +135,80 @@
         "Single-player, first-person games only",
         "Pixel-read: never touches game memory"
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.overlordai.co/#faq",
+      "url": "https://www.overlordai.co/",
+      "isPartOf": {
+        "@id": "https://www.overlordai.co/#website"
+      },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does the free demo include?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Thirty minutes of runtime with the app open \u2014 the real product, not a cut-down one. It reads your screen, speaks out loud and covers the core guide. No card: it ends by stopping, not by charging. One trial per person."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a credit card to start?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The 30 minutes start without one, and they end by stopping rather than charging. A card is only ever taken when you choose the Subscription or Pro."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which games does Overlord cover?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Control \u2014 five sectors mapped and shipped, with every new sector landing in the guide as it is finished. Guides are built one title at a time, so the next title is not decided yet: the games people ask for most come first. Everything published is included in the Subscription."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What platforms are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Linux and Steam Deck, native \u2014 not a Windows build in a wrapper. That is the build that exists. Windows is in beta and not shipped: there is a waitlist on the site, and no date until we have one we control."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will using Overlord get me banned?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It reads pixels \u2014 the view a person sitting beside you would have \u2014 and nothing else: no game memory, no injection, no input automation. It is built for single-player games and refuses ranked or competitive multiplayer by design, which is where third-party tools get players banned."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my game data read or sent anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Read, yes: a frame of your screen and the text of your question, which is how a question about a room it has never seen gets answered. That one call goes over HTTPS to the endpoint behind your own model key. Your audio, the transcript, your voice and your saves never leave the machine."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many machines can I use it on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Subscription is one machine. Pro is three, and you can move a seat any time \u2014 deactivate a machine, activate another. Licences are re-assignable, because hardware dies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I cancel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "From the account page, any time \u2014 monthly or yearly, no lock-in of either kind. Cancelling stops the next charge; access runs to the end of the period you have already paid for."
+          }
+        }
+      ]
     }
   ]
 }
@@ -1201,12 +1275,14 @@
       <p class="faqsec__cta">Still stuck? <a href="plans.html">Try the free demo</a> or <a href="support.html">talk to us</a>.</p>
     </div>
     <div class="faqsec__list">
-      <details class="faqsec__item"><summary>What does the free demo include?</summary><p>Placeholder — the answer goes here.</p></details>
-      <details class="faqsec__item"><summary>Which games does Overlord cover?</summary><p>Placeholder — the answer goes here.</p></details>
-      <details class="faqsec__item"><summary>Do I need a credit card to start?</summary><p>Placeholder — the answer goes here.</p></details>
-      <details class="faqsec__item"><summary>What platforms are supported?</summary><p>Placeholder — the answer goes here.</p></details>
-      <details class="faqsec__item"><summary>How do I cancel?</summary><p>Placeholder — the answer goes here.</p></details>
-      <details class="faqsec__item"><summary>Is my game data read or sent anywhere?</summary><p>Placeholder — the answer goes here.</p></details>
+      <details class="faqsec__item"><summary>What does the free demo include?</summary><p>Thirty minutes of runtime with the app open — the real product, not a cut-down one. It reads your screen, speaks out loud and covers the core guide. No card: it ends by stopping, not by charging. One trial per person.</p></details>
+      <details class="faqsec__item"><summary>Do I need a credit card to start?</summary><p>No. The 30 minutes start without one, and they end by stopping rather than charging. A card is only ever taken when you choose the Subscription or Pro.</p></details>
+      <details class="faqsec__item"><summary>Which games does Overlord cover?</summary><p>Control — five sectors mapped and shipped, with every new sector landing in the guide as it is finished. Guides are built one title at a time, so the next title is not decided yet: the games people ask for most come first. Everything published is included in the Subscription.</p></details>
+      <details class="faqsec__item"><summary>What platforms are supported?</summary><p>Linux and Steam Deck, native — not a Windows build in a wrapper. That is the build that exists. Windows is in beta and not shipped: there is a waitlist on the site, and no date until we have one we control.</p></details>
+      <details class="faqsec__item"><summary>Will using Overlord get me banned?</summary><p>No. It reads pixels — the view a person sitting beside you would have — and nothing else: no game memory, no injection, no input automation. It is built for single-player games and refuses ranked or competitive multiplayer by design, which is where third-party tools get players banned.</p></details>
+      <details class="faqsec__item"><summary>Is my game data read or sent anywhere?</summary><p>Read, yes: a frame of your screen and the text of your question, which is how a question about a room it has never seen gets answered. That one call goes over HTTPS to the endpoint behind your own model key. Your audio, the transcript, your voice and your saves never leave the machine.</p></details>
+      <details class="faqsec__item"><summary>How many machines can I use it on?</summary><p>Subscription is one machine. Pro is three, and you can move a seat any time — deactivate a machine, activate another. Licences are re-assignable, because hardware dies.</p></details>
+      <details class="faqsec__item"><summary>How do I cancel?</summary><p>From the account page, any time — monthly or yearly, no lock-in of either kind. Cancelling stops the next charge; access runs to the end of the period you have already paid for.</p></details>
     </div>
   </div>
 </section>
