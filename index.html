@@ -147,7 +147,7 @@
 
   /* ===== section 2 — editorial alternating rows, after S2S app/page.tsx "The Process" ===== */
   .intro--editorial{justify-content:flex-start;padding:16vh 2.5rem 16vh;}
-  .vp-head{max-width:800px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px;}
+  .vp-head{width:100%;max-width:800px;min-width:0;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px;}
   .vp-head .kicker{margin-bottom:0;font-size:.65rem;letter-spacing:.25em;opacity:1;color:var(--neutral-on-background-weak);}
 
   /* the brand line — the product name, set to pop */
@@ -170,7 +170,7 @@
   /* tactical overlay — the live HUD banner from the app */
   .hud{
     display:flex;align-items:center;
-    width:min(768px,100%);margin-top:2rem;
+    width:100%;max-width:768px;min-width:0;margin-top:2rem;
     height:48px;padding:0 16px;
     background:rgba(12,8,20,.92);
     backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
@@ -184,7 +184,7 @@
   .hud__title{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#b9a8ff;white-space:nowrap;}
   .hud__divider{width:1px;height:22px;flex-shrink:0;margin:0 14px;
     background:linear-gradient(180deg,transparent,rgba(109,92,255,.6),transparent);}
-  .hud__ticker{flex:1;overflow:hidden;position:relative;height:100%;display:flex;align-items:center;
+  .hud__ticker{flex:1;min-width:0;overflow:hidden;position:relative;height:100%;display:flex;align-items:center;
     mask-image:linear-gradient(to right,transparent,black 12px,black calc(100% - 12px),transparent);
     -webkit-mask-image:linear-gradient(to right,transparent,black 12px,black calc(100% - 12px),transparent);}
   .hud__track{display:flex;white-space:nowrap;will-change:transform;animation:hud-ticker 35s linear infinite;}
@@ -1285,7 +1285,12 @@
       }
     }
   }, {threshold:.35});
-  io.observe(document.getElementById('intro'));
+  /* Observe the HEAD, never the section. #intro is ~3750px tall while the
+     viewport is 844px, so at most 22% of it can ever intersect: a .35
+     threshold on it can never fire, and the tagline stayed at
+     opacity:0/blur(6px) on every screen size. The head is 256-455px tall, so
+     .35 of it is reachable as soon as you scroll past the hero. */
+  io.observe(document.querySelector('.vp-head'));
 })();
 
 /* ---------- NAV — behaviour ported from S2S Navbar.tsx ---------- */
