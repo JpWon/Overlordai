@@ -925,6 +925,76 @@
   .ledger dd small{display:block;margin-top:.35rem;font-size:.74rem;line-height:1.55;color:var(--neutral-on-background-weak);}
   @media (max-width:560px){ .ledger{grid-template-columns:1fr;gap:.3rem 0;} .ledger dd{margin-bottom:1rem;} }
   .money{font-family:'Space Mono',monospace;font-variant-numeric:tabular-nums;}
+
+  /* ================= flows — the cancel / delete trees ================= */
+  .flow{position:fixed;inset:0;z-index:1500;display:flex;align-items:center;justify-content:center;padding:4vh 1.25rem;
+    background:rgba(4,3,11,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    opacity:0;pointer-events:none;transition:opacity .45s cubic-bezier(0.19,1,0.22,1);}
+  [data-theme="light"] .flow{background:rgba(240,240,245,.72);}
+  .flow.is-open{opacity:1;pointer-events:all;}
+  .flow__card{position:relative;width:100%;max-width:660px;min-width:0;max-height:92vh;overflow:auto;
+    border:1px solid var(--neutral-alpha-medium);border-radius:8px;
+    background:color-mix(in srgb,var(--page-background) 94%,transparent);
+    box-shadow:0 40px 100px -30px rgba(20,10,60,.5);
+    transform:translateY(18px) scale(.98);transition:transform .5s cubic-bezier(0.19,1,0.22,1);}
+  .flow.is-open .flow__card{transform:none;}
+  [data-theme="light"] .flow__card{box-shadow:0 20px 50px -28px rgba(30,20,80,.28);}
+  .flow__head{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 1.2rem;
+    border-bottom:1px solid var(--neutral-alpha-weak);font-size:.57rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--neutral-on-background-weak);}
+  .flow__close{background:none;border:none;cursor:pointer;color:inherit;font:inherit;letter-spacing:.16em;
+    text-transform:uppercase;padding:.3rem .2rem;transition:color .3s ease;}
+  .flow__close:hover{color:var(--neutral-on-background-strong);}
+  .flow__steps{display:flex;gap:.4rem;padding:.9rem 1.2rem 0;}
+  .flow__steps i{flex:1 1 auto;height:2px;background:var(--neutral-alpha-weak);min-width:0;transition:background .4s ease;}
+  .flow__steps i.on{background:var(--accent);}
+  .flow__body{padding:1.6rem 1.2rem 1.4rem;}
+  .fstep{display:none;}
+  .fstep.on{display:block;animation:pane-in .6s cubic-bezier(0.19,1,0.22,1);}
+  .fstep h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.02;}
+  .fstep p{margin-top:.7rem;font-size:.84rem;line-height:1.6;color:var(--neutral-on-background-weak);max-width:46rem;}
+  .fstep p + p{margin-top:.6rem;}
+  .fstep b{color:var(--neutral-on-background-strong);font-weight:500;}
+  .fstep a{color:var(--neutral-on-background-strong);}
+  .opts{display:flex;flex-direction:column;gap:.55rem;margin-top:1.4rem;}
+  .opt{position:relative;display:grid;grid-template-columns:18px 1fr;gap:.85rem;align-items:start;
+    padding:.9rem 1rem;border:1px solid var(--neutral-alpha-medium);border-radius:4px;cursor:pointer;
+    transition:border-color .35s ease,background .35s ease;}
+  .opt:hover{border-color:var(--neutral-on-background-strong);}
+  .opt input{appearance:none;width:16px;height:16px;margin-top:2px;border:1px solid var(--neutral-alpha-medium);
+    border-radius:50%;cursor:pointer;display:grid;place-content:center;transition:border-color .3s ease;}
+  .opt input:checked{border-color:var(--accent);}
+  .opt input:checked::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent);}
+  .opt:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 4px rgba(109,92,255,.12);}
+  .opt b{display:block;font-weight:500;font-size:.86rem;}
+  .opt small{display:block;margin-top:.35rem;font-size:.72rem;line-height:1.5;color:var(--neutral-on-background-weak);}
+  .opt--rec small{color:var(--accent);}
+  .opt.off{opacity:.45;cursor:not-allowed;}
+  .opt.off input{cursor:not-allowed;}
+
+  .fsum{margin-top:1.4rem;border:1px solid var(--neutral-alpha-weak);border-radius:4px;padding:1rem 1.1rem;
+    display:grid;grid-template-columns:auto 1fr;gap:.65rem 1.3rem;font-size:.8rem;}
+  .fsum dt{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neutral-on-background-weak);padding-top:.2rem;}
+  .fsum dd{min-width:0;}
+  @media (max-width:560px){ .fsum{grid-template-columns:1fr;gap:.25rem 0;} .fsum dd{margin-bottom:.8rem;} }
+
+  .typein{display:flex;flex-direction:column;gap:.45rem;margin-top:1.4rem;}
+  .typein span{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .fnote{margin-top:1.2rem;padding:.85rem 1rem;border-radius:4px;border:1px solid var(--neutral-alpha-weak);
+    border-left:2px solid var(--accent);font-size:.76rem;line-height:1.55;color:var(--neutral-on-background-weak);}
+  .fnote b{color:var(--neutral-on-background-strong);}
+  .fnav{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:flex-end;margin-top:1.8rem;
+    padding-top:1.2rem;border-top:1px solid var(--neutral-alpha-weak);}
+  .fnav .mini[disabled]{opacity:.4;cursor:not-allowed;}
+  .fnav .mini[disabled]:hover{color:var(--neutral-on-background-strong);}
+  .fnav .mini[disabled]:hover::after{transform:scaleX(0);}
+  .fstate{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-top:1rem;}
+  @media (prefers-reduced-motion: reduce){
+    .flow,.flow__card{transition:none;}
+    .fstep.on{animation:none;}
+  }
+  .flow[hidden]{display:none;}
 </style>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -1017,7 +1087,7 @@
     <h1>Welcome back,<br><em>Operator.</em></h1>
     <p>Your account is your email, your key and the machines that hold it. It carries what you own — never how you play.</p>
     <div class="dash__chips">
-      <span class="chip chip--on"><i></i>Subscription · active</span>
+      <span class="chip chip--on" id="planChip"><i></i>Subscription · active</span>
       <span class="chip">1 licence · 1 machine</span>
       <span class="chip">Renews 01 Oct '26</span>
       <span class="chip">Linux + Steam Deck</span>
@@ -1058,7 +1128,7 @@
 
         <div class="stats">
           <div class="stat"><span class="stat__k">Plan</span><span class="stat__v">Sub<em>scription</em></span>
-            <span class="stat__sub">$14.99 / month</span></div>
+            <span class="stat__sub" id="statPlanSub">$14.99 / month</span></div>
           <div class="stat"><span class="stat__k">Licences</span><span class="stat__v">1 / 1</span>
             <span class="stat__sub">Active · 1 machine</span></div>
           <div class="stat"><span class="stat__k">Devices</span><span class="stat__v">1</span>
@@ -1097,6 +1167,11 @@
               <div class="krow__main"><b>Bring a second machine on</b><span class="krow__sub">Subscription covers one · Pro covers three</span></div>
               <div class="krow__meta"><span class="chip">Seat 02 free on Pro</span></div>
               <div class="krow__act"><a class="mini" href="plans.html">See Pro <span class="arr">&rarr;</span></a></div>
+            </div>
+            <div class="krow">
+              <div class="krow__main"><b>Change or cancel the plan</b><span class="krow__sub">Monthly or yearly, no lock-in, access to the end of the period you have paid for</span></div>
+              <div class="krow__meta"><span class="chip">No cancellation fee</span></div>
+              <div class="krow__act"><button class="mini" type="button" data-panel-link="billing">Billing <span class="arr">&rarr;</span></button></div>
             </div>
             <div class="krow">
               <div class="krow__main"><b>Get the app on this machine</b><span class="krow__sub">Linux · Steam Deck</span></div>
@@ -1209,7 +1284,7 @@
         <h2>Billing</h2>
         <p class="sub">Stripe processes the card, the receipts and the recurring charge. We hold the plan, the licences and the keys — never your card number.</p>
 
-        <div class="price-row"><b>$14.99</b><span>Subscription · per month · renews automatically 01 Oct '26</span></div>
+        <div class="price-row"><b>$14.99</b><span id="billWhen">Subscription · per month · renews automatically 01 Oct '26</span></div>
 
         <div class="rowlist">
           <div class="krow">
@@ -1223,9 +1298,9 @@
             <div class="krow__act"><button class="mini" type="button" data-mock-link="Yearly switch — mockup, no charge is made">Switch</button></div>
           </div>
           <div class="krow">
-            <div class="krow__main"><b>Cancel Subscription</b><span class="krow__sub">Stops the next charge · access runs to the end of the period you have paid for</span></div>
-            <div class="krow__meta"><span class="chip">No cancellation fee</span></div>
-            <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Cancel — mockup. Cancelling here would stop the next charge">Cancel</button></div>
+            <div class="krow__main"><b id="cancelTitle">Cancel Subscription</b><span class="krow__sub" id="cancelSub">Stops the next charge · access runs to the end of the period you have paid for</span></div>
+            <div class="krow__meta" id="cancelMeta"><span class="chip">No cancellation fee</span></div>
+            <div class="krow__act" id="cancelAct"><button class="mini mini--quiet" type="button" data-flow-open="cancelFlow">Cancel</button></div>
           </div>
         </div>
 
@@ -1297,14 +1372,20 @@
         </div>
 
         <div class="sect">
-          <div class="sect__head"><span class="mono">Closing the account</span></div>
+          <div class="sect__head"><span class="mono">Your rights</span><a href="privacy.html#rights">What the policy promises</a></div>
           <div class="rowlist">
             <div class="krow">
-              <div class="krow__main"><b>Delete account</b><span class="krow__sub">Ends the plan, the licences and the seats. Ask us for a copy of your account data first if you want one.</span></div>
-              <div class="krow__meta"><span class="chip">Irreversible</span></div>
-              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Delete account — mockup, nothing was deleted">Delete</button></div>
+              <div class="krow__main"><b>Take a copy of your data</b><span class="krow__sub">Profile, licences, seats and invoice history, as a file you keep</span></div>
+              <div class="krow__meta"><span class="chip">Access &amp; portability</span></div>
+              <div class="krow__act"><button class="mini" type="button" data-mock-link="Export — mockup, nothing was sent">Export</button></div>
+            </div>
+            <div class="krow">
+              <div class="krow__main"><b>Request deletion of the account</b><span class="krow__sub">Cancelling is not deleting. This asks for the account and its records to go, subject to what we must keep for tax and accounting</span></div>
+              <div class="krow__meta" id="deleteState"><span class="chip">Nothing requested</span></div>
+              <div class="krow__act"><button class="mini mini--quiet" type="button" data-flow-open="deleteFlow">Delete account</button></div>
             </div>
           </div>
+          <div class="note"><span class="mono">i</span><span>Deletion is a request we confirm by email before anything is removed — nobody should be able to erase an account off a borrowed session. Rights requests also go to <b>privacy@overlordai.co</b>.</span></div>
         </div>
       </div>
 
@@ -1314,6 +1395,168 @@
       </div>
     </section>
   </div>
+<!-- ============ flow: cancel ============ -->
+<div class="flow" id="cancelFlow" role="dialog" aria-modal="true" aria-labelledby="cfTitle" hidden>
+  <div class="flow__card">
+    <div class="flow__head mono"><span id="cfHead">Cancel · 1 of 5</span>
+      <button class="flow__close" type="button" data-flow-close>Close ✕</button></div>
+    <div class="flow__steps" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+    <div class="flow__body">
+
+      <div class="fstep on" data-fstep="reason">
+        <h3 id="cfTitle">Before you go.</h3>
+        <p>Monthly or yearly, no lock-in and no cancellation fee. Nothing here takes a second click you cannot undo — until the period ends you can switch it back on.</p>
+        <p><b>One question, so we know what to fix:</b></p>
+        <div class="opts" id="cfReasons">
+          <label class="opt"><input type="radio" name="cfReason" value="price"><span><b>It costs more than it earns</b><small>The yearly price is $149.99 — about seventeen percent off the monthly.</small></span></label>
+          <label class="opt"><input type="radio" name="cfReason" value="notplaying"><span><b>I am not playing enough</b><small>Fair. A licence is one machine's right to run the app — it does not expire while you keep it.</small></span></label>
+          <label class="opt"><input type="radio" name="cfReason" value="missing"><span><b>A game or a map is missing</b><small>The catalogue is single-player games on Steam, and new maps land as they are finished.</small></span></label>
+          <label class="opt"><input type="radio" name="cfReason" value="technical"><span><b>Something is broken</b><small>Then this is a bug report, not a churn. We would rather have it.</small></span></label>
+          <label class="opt"><input type="radio" name="cfReason" value="other"><span><b>Something else</b><small>Tell us in a line, if you want to.</small></span></label>
+        </div>
+        <div class="typein" id="cfOtherWrap" hidden>
+          <span>In your words (optional)</span>
+          <div class="input"><input id="cfOther" type="text" maxlength="200" placeholder="One line is enough"></div>
+        </div>
+        <div class="fnav">
+          <button class="mini" type="button" data-flow-close>Keep my subscription</button>
+          <button class="mini mini--solid" type="button" data-flow-next disabled id="cfNext1">Continue <span class="arr">&rarr;</span></button>
+        </div>
+      </div>
+
+      <div class="fstep" data-fstep="offer">
+        <h3>One thing first.</h3>
+        <p id="cfOfferLine">Here is the only thing we can offer that is real, and one that costs nothing.</p>
+        <div class="opts">
+          <label class="opt opt--rec"><input type="radio" name="cfOffer" value="yearly"><span><b>Move to yearly — $149.99</b><small>Same tier, one charge, and it works out about seventeen percent off. Takes effect at your next renewal.</small></span></label>
+          <label class="opt"><input type="radio" name="cfOffer" value="support"><span><b>Talk to us first</b><small>If something is broken or a map is missing, we would rather hear it than lose the seat.</small></span></label>
+          <label class="opt"><input type="radio" name="cfOffer" value="none"><span><b>Nothing — carry on</b><small>Straight to cancelling. No countdown, no offer you have to refuse twice.</small></span></label>
+        </div>
+        <div class="fnav">
+          <button class="mini" type="button" data-flow-back>Back</button>
+          <button class="mini mini--solid" type="button" data-flow-next id="cfNext2">Continue <span class="arr">&rarr;</span></button>
+        </div>
+      </div>
+
+      <div class="fstep" data-fstep="timing">
+        <h3>When should it end?</h3>
+        <p>Whichever you pick, you can put it back any time before the date it takes effect.</p>
+        <div class="opts">
+          <label class="opt opt--rec"><input type="radio" name="cfTiming" value="period" checked><span><b>At the end of the period — <span class="cf-renew">01 Oct '26</span></b><small>The next charge is stopped and everything keeps working until then, including the guides already on your machine. Recommended, and what the FAQ says happens.</small></span></label>
+          <label class="opt"><input type="radio" name="cfTiming" value="now"><span><b>Right away</b><small>The licence stops now and you lose what is left of the period you have paid for. A cancelled subscription cannot be resumed — you would re-subscribe instead.</small></span></label>
+          <label class="opt off" id="cfRefundOpt"><input type="radio" name="cfTiming" value="refund" disabled><span><b>Refund this period and end now</b><small id="cfRefundWhy">Not available: the seven-day window covers a first paid period only, and this charge is a renewal. Cancelling still stops the next charge.</small></span></label>
+        </div>
+        <div class="fnav">
+          <button class="mini" type="button" data-flow-back>Back</button>
+          <button class="mini mini--solid" type="button" data-flow-next id="cfNext3">Continue <span class="arr">&rarr;</span></button>
+        </div>
+      </div>
+
+      <div class="fstep" data-fstep="confirm">
+        <h3>Confirm.</h3>
+        <p>Here is exactly what changes, and when. Nothing on this page is a trick; it is the same list your confirmation email will carry.</p>
+        <dl class="fsum">
+          <dt>Plan</dt><dd id="cfSumPlan">Subscription · $14.99 / month</dd>
+          <dt>Next charge</dt><dd id="cfSumCharge">Stopped — no further charge</dd>
+          <dt>Access until</dt><dd id="cfSumAccess">01 Oct '26</dd>
+          <dt>Licences</dt><dd id="cfSumLicences">The key stops working when the period ends; the application asks for a valid key again.</dd>
+          <dt>Guides on your machine</dt><dd>Guides downloaded for the period stop being usable when the period ends.</dd>
+          <dt>Your account</dt><dd>Stays, with your licences and seats. Cancelling is not deleting — that is a separate request under <a href="terms.html">section 7 of the Terms</a>.</dd>
+          <dt>Reversible</dt><dd id="cfSumReversible">Yes — switch it back on any time before 01 Oct '26 and nothing happens.</dd>
+        </dl>
+        <div class="fnav">
+          <button class="mini" type="button" data-flow-back>Back</button>
+          <button class="mini mini--solid" type="button" id="cfConfirm">Cancel at period end <span class="arr">&rarr;</span></button>
+        </div>
+      </div>
+
+      <div class="fstep" data-fstep="done">
+        <h3 id="cfDoneTitle">Scheduled.</h3>
+        <p id="cfDoneBody">Nothing was charged and nothing was deleted. Your confirmation email is on its way to <b id="cfDoneEmail">operator@domain.com</b>.</p>
+        <div class="fsum">
+          <dt>Status</dt><dd id="cfDoneStatus">Cancels on 01 Oct '26 · access continues until then</dd>
+          <dt>Reversal</dt><dd id="cfDoneReversal">One click in Billing, any time before the date — the plan carries on and no new charge is missed.</dd>
+        </div>
+        <div class="fnav">
+          <button class="mini" type="button" data-flow-close>Close</button>
+          <button class="mini mini--solid" type="button" id="cfReactivate2">Reactivate now</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============ flow: delete account (a request, per Terms §7) ============ -->
+<div class="flow" id="deleteFlow" role="dialog" aria-modal="true" aria-labelledby="dfTitle" hidden>
+  <div class="flow__card">
+    <div class="flow__head mono"><span id="dfHead">Delete · 1 of 4</span>
+      <button class="flow__close" type="button" data-flow-close>Close ✕</button></div>
+    <div class="flow__steps" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+    <div class="flow__body">
+
+      <div class="fstep on" data-fstep="what">
+        <h3 id="dfTitle">Deleting is not cancelling.</h3>
+        <p>Cancelling stops the charge and keeps the account. Deleting asks us to remove the account and its records as well — which is a request we confirm by email before anything is removed, because a stolen session should never be able to erase an account in one click.</p>
+        <p id="dfSubState">Your subscription is still live, so pick the one you mean:</p>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="dfMode" value="cancel"><span><b>Cancel only</b><small>Keeps the account, stops the charge, access runs to the end of the period.</small></span></label>
+          <label class="opt opt--rec"><input type="radio" name="dfMode" value="both"><span><b>Cancel and delete</b><small>Cancels first, then asks for the account and its records to be removed.</small></span></label>
+          <label class="opt"><input type="radio" name="dfMode" value="only"><span><b>Delete without cancelling</b><small>Only if the subscription is already cancelled — otherwise the charge would keep running.</small></span></label>
+        </div>
+        <div class="fnav">
+          <button class="mini" type="button" data-flow-close>Back out</button>
+          <button class="mini mini--solid" type="button" data-flow-next id="dfNext1" disabled>Continue <span class="arr">&rarr;</span></button>
+        </div>
+      </div>
+
+      <div class="fstep" data-fstep="keeps">
+        <h3>What we keep, and why.</h3>
+        <p>Most of it goes: the email, the licence key, the seats and the machine fingerprints are removed with the account. What stays is the minimum we are required to keep — the receipts and the accounting record behind them — which is what the Terms mean by <b>subject to what we must keep for tax and accounting</b>.</p>
+        <p>Before you ask, take a copy. Access and portability are rights you have, and the export includes your profile, licences, seats and invoice history.</p>
+        <div class="fnav">
+          <button class="mini" type="button" data-flow-back>Back</button>
+          <button class="mini" type="button" data-mock-link="Export — mockup, nothing was sent">Export my account data</button>
+          <button class="mini mini--solid" type="button" data-flow-next>Continue <span class="arr">&rarr;</span></button>
+        </div>
+      </div>
+
+      <div class="fstep" data-fstep="confirm">
+        <h3>Confirm the request.</h3>
+        <dl class="fsum">
+          <dt>Ends</dt><dd>Your plan and every licence under it, and the seats those licences hold.</dd>
+          <dt>Taken out</dt><dd>Email, licence keys, seat bindings, machine fingerprints, the account record.</dd>
+          <dt>Kept</dt><dd>Receipts and the accounting record, for as long as tax law requires.</dd>
+          <dt>Guides</dt><dd>Anything already on your machine stops working when the period ends; nothing is wiped from your disk by us.</dd>
+          <dt>Not instant</dt><dd>We email a confirmation link first. Nothing is removed until you open it.</dd>
+        </dl>
+        <div class="typein">
+          <span>Type <b class="mono">DELETE</b> to enable the button</span>
+          <div class="input"><input id="dfConfirmWord" type="text" autocomplete="off" placeholder="DELETE"></div>
+        </div>
+        <div class="fnav">
+          <button class="mini" type="button" data-flow-back>Back</button>
+          <button class="mini mini--solid" type="button" id="dfConfirm" disabled>Send deletion request <span class="arr">&rarr;</span></button>
+        </div>
+      </div>
+
+      <div class="fstep" data-fstep="done">
+        <h3>Request received.</h3>
+        <p>We have sent a confirmation link to <b id="dfDoneEmail">operator@domain.com</b>. Nothing is removed until you open it — and if you did not ask for this, open nothing and the request lapses.</p>
+        <div class="fsum">
+          <dt>Status</dt><dd id="dfDoneStatus">Deletion requested · awaiting your email confirmation</dd>
+          <dt>Subscription</dt><dd id="dfDoneSub">Cancelled at the end of the current period.</dd>
+          <dt>Questions</dt><dd>Rights requests go to <b>privacy@overlordai.co</b> — the address the <a href="privacy.html">privacy policy</a> publishes for them.</dd>
+        </div>
+        <div class="fnav">
+          <button class="mini" type="button" data-flow-close>Close</button>
+          <button class="mini mini--solid" type="button" id="dfUndo">Withdraw the request</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 </main>
 
 <footer class="site-footer" id="footer">
@@ -1499,6 +1742,216 @@
   const clock = document.getElementById('clock');
   const tick = () => { clock.textContent = new Date().toTimeString().slice(0,8); };
   tick(); setInterval(tick, 1000);
+})();
+/* ---------- cancel + delete trees (mock: state lives in the page, nothing is sent) ---------- */
+(() => {
+  /* The one mock account this page renders. Change firstPaidAt to today to see the
+     refund branch of the cancel tree switch on — the seven-day window is measured from
+     the first paid period's charge, which is exactly what terms.html promises. */
+  const MOCK = {
+    email: 'operator@domain.com',
+    plan: 'Subscription', price: '$14.99', interval: 'month',
+    renews: "01 Oct '26",
+    firstPaidAt: '2026-07-01',
+    refundDays: 7
+  };
+  const daysSince = iso => Math.floor((Date.now() - Date.parse(iso)) / 86400000);
+  const refundEligible = () => daysSince(MOCK.firstPaidAt) <= MOCK.refundDays;
+
+  const toast = document.getElementById('toast'); let tt;
+  const say = m => { toast.textContent = m; toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('on'), 2600); };
+
+  let lastFocus = null;
+  const flows = [...document.querySelectorAll('.flow')];
+
+  function show(f, i){
+    const steps = [...f.querySelectorAll('.fstep')];
+    steps.forEach((s, n) => s.classList.toggle('on', n === i));
+    f.dataset.i = i;
+    f.querySelectorAll('.flow__steps i').forEach((b, n) => b.classList.toggle('on', n <= i));
+    const label = f.id === 'cancelFlow' ? 'Cancel' : 'Delete';
+    f.querySelector('.flow__head span').textContent = `${label} · ${i + 1} of ${steps.length}`;
+    if (f.id === 'cancelFlow' && steps[i].dataset.fstep === 'offer') tailorOffer();
+    if (f.id === 'deleteFlow' && steps[i].dataset.fstep === 'what') syncDeleteStart();
+    f.querySelector('.flow__card').scrollTop = 0;
+  }
+  const at = f => Number(f.dataset.i || 0);
+
+  function openFlow(id){
+    const f = document.getElementById(id);
+    lastFocus = document.activeElement;
+    f.hidden = false;
+    requestAnimationFrame(() => f.classList.add('is-open'));
+    show(f, 0);
+    document.body.style.overflow = 'hidden';
+    f.querySelector('.flow__close').focus({ preventScroll: true });
+  }
+  function closeFlow(){
+    const f = flows.find(x => x.classList.contains('is-open'));
+    if (!f) return;
+    f.classList.remove('is-open');
+    document.body.style.overflow = '';
+    setTimeout(() => { f.hidden = true; }, 420);
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
+  }
+
+  document.querySelectorAll('[data-flow-open]').forEach(b =>
+    b.addEventListener('click', () => openFlow(b.dataset.flowOpen)));
+  document.querySelectorAll('[data-flow-close]').forEach(b => b.addEventListener('click', closeFlow));
+  document.querySelectorAll('[data-flow-next]').forEach(b =>
+    b.addEventListener('click', () => show(b.closest('.flow'), at(b.closest('.flow')) + 1)));
+  document.querySelectorAll('[data-flow-back]').forEach(b =>
+    b.addEventListener('click', () => show(b.closest('.flow'), at(b.closest('.flow')) - 1)));
+  flows.forEach(f => f.addEventListener('click', e => { if (e.target === f) closeFlow(); }));
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeFlow(); });
+
+  /* ---------- cancel: reason ---------- */
+  const cfNext1 = document.getElementById('cfNext1');
+  const cfOtherWrap = document.getElementById('cfOtherWrap');
+  document.querySelectorAll('input[name="cfReason"]').forEach(r => r.addEventListener('change', () => {
+    cfNext1.disabled = false;
+    cfOtherWrap.hidden = r.value !== 'other';
+  }));
+
+  const OFFER_LINE = {
+    price: 'You said it costs more than it earns. The only real lever we have is the yearly price.',
+    notplaying: 'You said you are not playing enough. Nothing about the licence expires — but nothing here pretends a pause exists either.',
+    missing: 'You said something is missing. New maps land in the guide as they are finished, and they are included in the tier you have.',
+    technical: 'You said something is broken. That is a bug report, and it is the one reason we would rather have than lose.',
+    other: 'Whatever it is, here is the only offer we have.'
+  };
+  function tailorOffer(){
+    const r = document.querySelector('input[name="cfReason"]:checked');
+    const line = document.getElementById('cfOfferLine');
+    line.textContent = r ? OFFER_LINE[r.value] : 'Here is the only offer we have.';
+  }
+
+  /* ---------- cancel: timing ---------- */
+  const cfRefundOpt = document.getElementById('cfRefundOpt');
+  const cfRefundWhy = document.getElementById('cfRefundWhy');
+  if (refundEligible()){
+    const input = cfRefundOpt.querySelector('input');
+    input.disabled = false;
+    cfRefundOpt.classList.remove('off');
+    cfRefundWhy.textContent = `Available: the charge for your first paid period was ${daysSince(MOCK.firstPaidAt)} days ago, inside the seven-day window, so that period is refunded in full and the licence ends now.`;
+  }
+  const timing = () => (document.querySelector('input[name="cfTiming"]:checked') || {}).value || 'period';
+  const TERMS_NOTE = 'The key stops working when the period ends; the application asks for a valid key again.';
+
+  function syncConfirm(){
+    const t = timing();
+    document.getElementById('cfSumPlan').textContent = `${MOCK.plan} · ${MOCK.price} / ${MOCK.interval}`;
+    document.getElementById('cfSumAccess').textContent = t === 'period' ? MOCK.renews + ' — the end of the period you have paid for' : 'Now';
+    document.getElementById('cfSumCharge').textContent = t === 'refund'
+      ? 'Stopped, and the current period refunded in full to the card'
+      : 'Stopped — no further charge';
+    document.getElementById('cfSumLicences').textContent = t === 'period'
+      ? 'Active until ' + MOCK.renews + ', then: ' + TERMS_NOTE
+      : TERMS_NOTE;
+    document.getElementById('cfSumReversible').textContent = t === 'period'
+      ? 'Yes — switch it back on any time before ' + MOCK.renews + ' and nothing happens.'
+      : 'No — a cancelled subscription cannot be resumed. You would subscribe again.';
+    document.getElementById('cfConfirm').firstChild.textContent = t === 'period' ? 'Cancel at period end ' : (t === 'refund' ? 'Refund and cancel now ' : 'End access now ');
+  }
+  document.querySelectorAll('input[name="cfTiming"]').forEach(r => r.addEventListener('change', syncConfirm));
+
+  /* ---------- the page state the flow leaves behind ---------- */
+  const PLAN_SUB_DEFAULT = '$14.99 / month';
+  function renderBilling(state){
+    const chip = document.getElementById('planChip');
+    const title = document.getElementById('cancelTitle');
+    const sub = document.getElementById('cancelSub');
+    const meta = document.getElementById('cancelMeta');
+    const act = document.getElementById('cancelAct');
+    const when = document.getElementById('billWhen');
+    const statSub = document.getElementById('statPlanSub');
+    if (state === 'cancelling'){
+      chip.className = 'chip chip--accent';
+      chip.replaceChildren(document.createElement('i'),
+        `${MOCK.plan} · cancels ${MOCK.renews}`);
+      title.textContent = `Cancels ${MOCK.renews}`;
+      sub.textContent = 'No further charge · everything works until then, including the guides already downloaded';
+      meta.innerHTML = '<span class="chip chip--accent">Scheduled</span>';
+      act.innerHTML = '<button class="mini mini--solid" type="button" id="reactivateBtn">Reactivate <span class="arr">&rarr;</span></button>';
+      when.textContent = `${MOCK.plan} · per ${MOCK.interval} · cancels ${MOCK.renews} — no further charge`;
+      statSub.textContent = `cancels ${MOCK.renews}`;
+      document.getElementById('reactivateBtn').addEventListener('click', () => { renderBilling('active'); say('Reactivated — mockup, nothing was sent to Stripe'); });
+    } else {
+      chip.className = 'chip chip--on';
+      chip.innerHTML = '<i></i>Subscription · active';
+      title.textContent = 'Cancel Subscription';
+      sub.textContent = 'Stops the next charge · access runs to the end of the period you have paid for';
+      meta.innerHTML = '<span class="chip">No cancellation fee</span>';
+      act.innerHTML = '<button class="mini mini--quiet" type="button" data-flow-open="cancelFlow">Cancel</button>';
+      act.querySelector('[data-flow-open]').addEventListener('click', e => openFlow(e.currentTarget.dataset.flowOpen));
+      when.textContent = `${MOCK.plan} · per ${MOCK.interval} · renews automatically ${MOCK.renews}`;
+      statSub.textContent = PLAN_SUB_DEFAULT;
+    }
+  }
+  renderBilling('active');
+
+  document.getElementById('cfConfirm').addEventListener('click', () => {
+    const t = timing();
+    const f = document.getElementById('cancelFlow');
+    renderBilling('cancelling');
+    say('Cancel scheduled — mockup, nothing was sent to Stripe');
+    const done = {
+      period: [`Cancels on ${MOCK.renews} · access continues until then`,
+               'One click in Billing, any time before the date — the plan carries on and no new charge is missed.'],
+      now:    ['Ended now · the licence has stopped',
+               'A cancelled subscription cannot be resumed. Subscribing again is the way back.'],
+      refund: ['Ended now · the current period is being refunded to the card',
+               'The refund lands back on the card within a few business days. Subscribing again is the way back.']
+    }[t];
+    document.getElementById('cfDoneTitle').textContent = t === 'period' ? 'Scheduled.' : 'Ended.';
+    document.getElementById('cfDoneStatus').textContent = done[0];
+    document.getElementById('cfDoneReversal').textContent = done[1];
+    document.getElementById('cfDoneBody').innerHTML = 'Nothing was deleted on this page, and your account is untouched. Your confirmation email is on its way to <b>' + MOCK.email + '</b>.';
+    document.getElementById('cfReactivate2').hidden = t !== 'period';
+    show(f, 4);
+  });
+  document.getElementById('cfReactivate2').addEventListener('click', () => {
+    renderBilling('active'); say('Reactivated — mockup, nothing was sent to Stripe'); closeFlow();
+  });
+
+  /* ---------- delete: a request, not a nuke ---------- */
+  const dfNext1 = document.getElementById('dfNext1');
+  document.querySelectorAll('input[name="dfMode"]').forEach(r => r.addEventListener('change', () => { dfNext1.disabled = false; }));
+  function syncDeleteStart(){
+    const cancelled = document.getElementById('cancelTitle').textContent.startsWith('Cancels');
+    const state = document.getElementById('dfSubState');
+    const only = document.querySelector('input[name="dfMode"][value="only"]');
+    if (cancelled){
+      state.textContent = 'Your subscription is already scheduled to end, so either of the first two is fine — the account is what is left to decide about.';
+      only.disabled = false; only.closest('.opt').classList.remove('off');
+    } else {
+      state.textContent = 'Your subscription is still live, so pick the one you mean:';
+      only.disabled = true; only.closest('.opt').classList.add('off');
+      if (only.checked) only.checked = false;
+    }
+  }
+  const dfWord = document.getElementById('dfConfirmWord');
+  const dfConfirm = document.getElementById('dfConfirm');
+  dfWord.addEventListener('input', () => { dfConfirm.disabled = dfWord.value.trim().toUpperCase() !== 'DELETE'; });
+  dfConfirm.addEventListener('click', () => {
+    const mode = (document.querySelector('input[name="dfMode"]:checked') || {}).value;
+    if (mode !== 'only') renderBilling('cancelling');
+    const status = document.getElementById('deleteState');
+    if (status){
+      status.innerHTML = '<span class="chip chip--accent">Deletion requested</span><span class="chip">Awaiting your email confirmation</span>';
+    }
+    document.getElementById('dfDoneSub').textContent = mode === 'only'
+      ? 'Untouched — the subscription was already ended.'
+      : `Cancelled at the end of the current period (${MOCK.renews}).`;
+    say('Deletion requested — mockup, nothing was sent');
+    show(document.getElementById('deleteFlow'), 3);
+  });
+  document.getElementById('dfUndo').addEventListener('click', () => {
+    const status = document.getElementById('deleteState');
+    if (status) status.innerHTML = '<span class="chip">Nothing requested</span>';
+    say('Request withdrawn — mockup');
+    closeFlow();
+  });
 })();
 </script>
 </body>
