@@ -3,75 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign In — Overlord AI</title>
+<title>Control Deck — Overlord AI</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<!-- SEO + social: absolute URLs, factual only (no reviews exist, so no ratings) -->
-<!-- Search Console: paste your verification tag here as
-     <meta name="google-site-verification" content=…> once you add the property -->
-<meta name="description" content="Sign in to Overlord AI, or start the free 30-minute demo — no credit card required, one trial per person.">
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
-<link rel="canonical" href="https://www.overlordai.co/login.html">
+<!-- SEO: this page is behind the sign-in, so it is deliberately noindex and carries
+     no JSON-LD. It is NOT in add_site_metadata.py's PAGES tuple and NOT in sitemap.xml. -->
+<meta name="description" content="Your Overlord AI account: plan, licences, devices, downloads and billing. One account for your plan, your licences and your machines.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://www.overlordai.co/dashboard.html">
 <meta name="application-name" content="Overlord AI">
 <meta name="apple-mobile-web-app-title" content="Overlord">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Overlord AI">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Sign In — Overlord AI">
-<meta property="og:description" content="Sign in to Overlord AI, or start the free 30-minute demo — no credit card required, one trial per person.">
-<meta property="og:url" content="https://www.overlordai.co/login.html">
+<meta property="og:title" content="Control Deck — Overlord AI">
+<meta property="og:description" content="Your Overlord AI account: plan, licences, devices, downloads and billing. One account for your plan, your licences and your machines.">
+<meta property="og:url" content="https://www.overlordai.co/dashboard.html">
 <meta property="og:image" content="https://www.overlordai.co/og-thumbnail.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Overlord AI rooster mark on paper">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sign In — Overlord AI">
-<meta name="twitter:description" content="Sign in to Overlord AI, or start the free 30-minute demo — no credit card required, one trial per person.">
+<meta name="twitter:title" content="Control Deck — Overlord AI">
+<meta name="twitter:description" content="Your Overlord AI account: plan, licences, devices, downloads and billing. One account for your plan, your licences and your machines.">
 <meta name="twitter:image" content="https://www.overlordai.co/og-thumbnail.png">
-<meta name="twitter:image:alt" content="Overlord AI rooster mark on paper">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://www.overlordai.co/#organization",
-      "name": "Overlord AI",
-      "url": "https://www.overlordai.co/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.overlordai.co/icon-512.png",
-        "width": 512,
-        "height": 512
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://www.overlordai.co/#website",
-      "url": "https://www.overlordai.co/",
-      "name": "Overlord AI",
-      "publisher": {
-        "@id": "https://www.overlordai.co/#organization"
-      },
-      "inLanguage": "en"
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://www.overlordai.co/login.html#webpage",
-      "url": "https://www.overlordai.co/login.html",
-      "name": "Sign In \u2014 Overlord AI",
-      "description": "Sign in to Overlord AI, or start the free 30-minute demo \u2014 no credit card required, one trial per person.",
-      "isPartOf": {
-        "@id": "https://www.overlordai.co/#website"
-      }
-    }
-  ]
-}
-</script>
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <script>
@@ -833,6 +789,142 @@
   .site-footer__bottom .legal{display:flex;flex-wrap:wrap;gap:1.4rem;}
   .site-footer__bottom a{color:var(--neutral-on-background-weak);text-decoration:none;transition:color .35s ease;}
   .site-footer__bottom a:hover{color:var(--accent);}
+
+  /* ================= dashboard — the account page behind the login ================= */
+  .dash{position:relative;z-index:2;max-width:1360px;margin:0 auto;padding:8vh 2.5rem 10vh;
+    display:flex;flex-direction:column;gap:3rem;}
+  .dash > *{opacity:0;transform:translateY(24px);animation:rise 1.2s cubic-bezier(0.19,1,0.22,1) forwards;}
+  .dash > *:nth-child(2){animation-delay:.15s;}
+  @media (prefers-reduced-motion: reduce){ .dash > *{animation:none;opacity:1;transform:none;} }
+  @media (max-width:560px){ .dash{padding:6vh 1.25rem 8vh;} }
+
+  .dash__head .mono{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .dash__head h1{margin-top:1.4rem;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(2.8rem,7vw,6.5rem);line-height:.9;letter-spacing:-.01em;}
+  .dash__head h1 em{font-style:normal;color:var(--accent);}
+  .dash__head p{margin-top:1.4rem;max-width:40rem;line-height:1.6;color:var(--neutral-on-background-weak);}
+  .dash__chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem;}
+
+  .chip{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .72rem;border:1px solid var(--neutral-alpha-medium);
+    border-radius:999px;color:var(--neutral-on-background-weak);
+    font:500 .57rem/1 'Space Grotesk',sans-serif;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;}
+  .chip--on{color:var(--neutral-on-background-strong);border-color:var(--neutral-on-background-strong);}
+  .chip--accent{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent);}
+  .chip i{width:6px;height:6px;flex:0 0 auto;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);
+    animation:blink 2.4s ease-in-out infinite;}
+
+  .dash__grid{display:grid;grid-template-columns:minmax(0,250px) minmax(0,1fr);gap:1.5rem;align-items:start;}
+  @media (max-width:980px){ .dash__grid{grid-template-columns:1fr;} }
+
+  /* left rail — same glass as the console, same left-to-right violet fill as the buttons */
+  .rail{position:relative;display:flex;flex-direction:column;align-self:start;}
+  @media (min-width:981px){ .rail{position:sticky;top:96px;} }
+  .rail__items{display:flex;flex-direction:column;padding:.55rem;}
+  .rail__item{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;gap:.85rem;
+    width:100%;min-width:0;padding:.85rem .9rem;border:none;border-radius:4px;background:transparent;cursor:pointer;text-align:left;
+    color:var(--neutral-on-background-weak);font:500 .64rem/1 'Space Grotesk',sans-serif;
+    letter-spacing:.2em;text-transform:uppercase;transition:color .4s ease;}
+  .rail__item::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--accent);
+    transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(0.19,1,0.22,1);}
+  .rail__item:hover{color:#fff;}
+  .rail__item:hover::after{transform:scaleX(1);}
+  .rail__item.on{color:var(--neutral-on-background-strong);}
+  .rail__item.on::before{content:'';position:absolute;left:0;top:22%;bottom:22%;width:2px;background:var(--neutral-on-background-strong);}
+  .rail__idx{flex:0 0 auto;font-size:.54rem;letter-spacing:.1em;opacity:.55;}
+  .rail__label{flex:1 1 auto;min-width:0;}
+  .rail__item.on .rail__idx{opacity:1;}
+  .rail__foot{display:flex;justify-content:space-between;gap:1rem;padding:.9rem 1.2rem;border-top:1px solid var(--neutral-alpha-weak);
+    font-size:.57rem;letter-spacing:.14em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .rail__foot a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;
+    transition:color .35s ease,border-color .35s ease;}
+  .rail__foot a:hover{color:var(--neutral-on-background-strong);border-bottom-color:var(--neutral-on-background-strong);}
+  @media (max-width:980px){
+    .rail__items{flex-direction:row;flex-wrap:wrap;gap:.4rem;padding:.55rem;}
+    .rail__item{width:auto;flex:1 1 auto;justify-content:center;padding:.75rem .7rem;}
+    .rail__item.on::before{display:none;}
+    .rail__item.on{border:1px solid var(--neutral-on-background-strong);}
+  }
+
+  /* the deck: one glass panel, one pane at a time */
+  .deck{position:relative;}
+  .panel{display:none;padding:2rem 1.6rem 1.4rem;}
+  .panel.on{display:block;animation:pane-in .8s cubic-bezier(0.19,1,0.22,1);}
+  .panel h2{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(1.7rem,2.8vw,2.5rem);line-height:1;letter-spacing:-.005em;}
+  .panel .sub{margin-top:.6rem;font-size:.84rem;line-height:1.55;color:var(--neutral-on-background-weak);max-width:44rem;}
+  @media (max-width:560px){ .panel{padding:1.6rem 1.2rem 1.2rem;} }
+  @media (prefers-reduced-motion: reduce){ .panel.on{animation:none;} }
+
+  .sect{margin-top:2.4rem;}
+  .sect__head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+    padding-bottom:.9rem;border-bottom:1px solid var(--neutral-alpha-weak);}
+  .sect__head .mono{font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .sect__head a{color:var(--neutral-on-background-strong);font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;
+    text-decoration:none;border-bottom:1px solid var(--neutral-alpha-medium);padding-bottom:2px;transition:border-color .35s ease;}
+  .sect__head a:hover{border-bottom-color:var(--neutral-on-background-strong);}
+
+  .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin-top:1.8rem;}
+  @media (max-width:780px){ .stats{grid-template-columns:repeat(2,minmax(0,1fr));} }
+  .stat{padding:1rem 1.05rem;border:1px solid var(--neutral-alpha-weak);border-radius:4px;min-width:0;}
+  .stat__k{display:block;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .stat__v{display:block;margin-top:.65rem;font-family:'Anton',sans-serif;font-weight:400;
+    font-size:clamp(1.35rem,2.2vw,2rem);line-height:1;text-transform:uppercase;}
+  .stat__v em{font-style:normal;color:var(--accent);}
+  .stat__sub{display:block;margin-top:.55rem;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--neutral-on-background-weak);}
+
+  /* rows — stay one block on a phone instead of a table that can widen the page */
+  .rowlist{display:flex;flex-direction:column;}
+  .krow{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) auto;gap:.9rem 1.4rem;align-items:center;
+    padding:1.1rem 0;}
+  .krow + .krow{border-top:1px solid var(--neutral-alpha-weak);}
+  .krow__main b{display:block;font-weight:500;font-size:.9rem;letter-spacing:.05em;word-break:break-word;}
+  .krow__sub{display:block;margin-top:.4rem;font-size:.57rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--neutral-on-background-weak);}
+  .krow__meta{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center;min-width:0;}
+  .krow__act{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:flex-end;}
+  @media (max-width:820px){
+    .krow{grid-template-columns:1fr;}
+    .krow__act{justify-content:flex-start;}
+  }
+
+  .mini{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;gap:.5rem;
+    padding:.6rem .85rem;border-radius:3px;border:1px solid var(--neutral-alpha-medium);background:transparent;
+    color:var(--neutral-on-background-strong);cursor:pointer;
+    font:500 .56rem/1 'Space Grotesk',sans-serif;letter-spacing:.18em;text-transform:uppercase;
+    transition:color .45s cubic-bezier(0.19,1,0.22,1),border-color .45s ease;}
+  .mini::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--accent);
+    transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(0.19,1,0.22,1);}
+  .mini:hover{color:#fff;border-color:var(--accent);}
+  .mini:hover::after{transform:scaleX(1);}
+  .mini--solid{background:var(--neutral-on-background-strong);border-color:var(--neutral-on-background-strong);
+    color:var(--page-background);}
+  .mini--quiet{color:var(--neutral-on-background-weak);border-color:var(--neutral-alpha-weak);}
+  .mini--quiet:hover{color:#fff;}
+
+  .note{display:flex;gap:.9rem;align-items:flex-start;margin-top:1.6rem;padding:1rem 1.1rem;border-radius:4px;
+    border:1px solid var(--neutral-alpha-weak);border-left:2px solid var(--accent);
+    font-size:.78rem;line-height:1.6;color:var(--neutral-on-background-weak);}
+  .note b{color:var(--neutral-on-background-strong);font-weight:500;}
+
+  .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;margin-top:1.8rem;}
+  @media (max-width:860px){ .facts{grid-template-columns:1fr;} }
+  .fact{min-width:0;}
+  .fact .mono{display:block;margin-bottom:.7rem;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--neutral-on-background-weak);}
+  .fact h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:1.05rem;line-height:1.1;}
+  .fact p{margin-top:.6rem;font-size:.78rem;line-height:1.55;color:var(--neutral-on-background-weak);}
+
+  .price-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:.7rem;margin-top:1.8rem;}
+  .price-row b{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(2.6rem,4.4vw,4rem);line-height:1;
+    font-variant-numeric:tabular-nums;}
+  .price-row span{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .ledger{display:grid;grid-template-columns:auto 1fr;gap:.7rem 1.4rem;margin-top:1.8rem;font-size:.8rem;}
+  .ledger dt{font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neutral-on-background-weak);padding-top:.18rem;}
+  .ledger dd{color:var(--neutral-on-background-strong);}
+  .ledger dd small{display:block;margin-top:.35rem;font-size:.74rem;line-height:1.55;color:var(--neutral-on-background-weak);}
+  @media (max-width:560px){ .ledger{grid-template-columns:1fr;gap:.3rem 0;} .ledger dd{margin-bottom:1rem;} }
+  .money{font-family:'Space Mono',monospace;font-variant-numeric:tabular-nums;}
 </style>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -918,84 +1010,309 @@
 
 <canvas id="ambient"></canvas>
 
-<main class="auth">
-  <section class="auth__intro">
-    <div class="mono">OVR · access terminal · secure sign-in (mock)</div>
-    <h1>Identify<br><em>yourself.</em></h1>
-    <p>One account for your plan, your licences and your devices. It holds what you own — never how you play.</p>
+<main class="dash">
+  <section class="dash__head">
+    <div class="mono">OVR · control deck · secure session · mock</div>
+    <h1>Welcome back,<br><em>Operator.</em></h1>
+    <p>Your account is your email, your key and the machines that hold it. It carries what you own — never how you play.</p>
+    <div class="dash__chips">
+      <span class="chip chip--on"><i></i>Subscription · active</span>
+      <span class="chip">1 licence · 1 machine</span>
+      <span class="chip">Renews 01 Oct '26</span>
+      <span class="chip">Linux + Steam Deck</span>
+      <span class="chip chip--accent">Sample account</span>
+    </div>
   </section>
 
-  <section class="console signin" aria-label="Sign in">
-    <div class="console__bar mono"><span><span class="dot"></span>Secure channel · TLS</span><span id="clock">--:--:--</span></div>
+  <div class="dash__grid">
+    <nav class="rail console" aria-label="Account sections">
+      <div class="console__bar mono"><span><span class="dot"></span>Account</span><span>OVR-0001</span></div>
+      <div class="rail__items" role="tablist" aria-orientation="vertical">
+        <button class="rail__item on" role="tab" id="tab-overview" data-panel="overview" aria-selected="true" aria-controls="panel-overview">
+          <span class="rail__idx mono">01</span><span class="rail__label">Overview</span></button>
+        <button class="rail__item" role="tab" id="tab-licences" data-panel="licences" aria-selected="false" aria-controls="panel-licences">
+          <span class="rail__idx mono">02</span><span class="rail__label">Licences</span></button>
+        <button class="rail__item" role="tab" id="tab-devices" data-panel="devices" aria-selected="false" aria-controls="panel-devices">
+          <span class="rail__idx mono">03</span><span class="rail__label">Devices</span></button>
+        <button class="rail__item" role="tab" id="tab-downloads" data-panel="downloads" aria-selected="false" aria-controls="panel-downloads">
+          <span class="rail__idx mono">04</span><span class="rail__label">Downloads</span></button>
+        <button class="rail__item" role="tab" id="tab-billing" data-panel="billing" aria-selected="false" aria-controls="panel-billing">
+          <span class="rail__idx mono">05</span><span class="rail__label">Billing</span></button>
+        <button class="rail__item" role="tab" id="tab-account" data-panel="account" aria-selected="false" aria-controls="panel-account">
+          <span class="rail__idx mono">06</span><span class="rail__label">Account</span></button>
+      </div>
+      <div class="rail__foot mono">
+        <a href="plans.html">Upgrade</a>
+        <a href="login.html">Sign out</a>
+      </div>
+    </nav>
 
-    <!-- step 1: choose a provider or email -->
-    <div class="pane on" data-step="choose">
-      <h2>Sign in</h2>
-      <p class="sub">Use the account you already trust. New here? The same buttons create your account.</p>
+    <section class="deck console" aria-label="Account">
+      <div class="console__bar mono"><span><span class="dot"></span>Secure channel · TLS</span><span id="clock">--:--:--</span></div>
 
-      <div class="oauth">
-        <button class="oauth__btn" type="button" data-provider="Google">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-            <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.2-2.1 3.5-5.1 3.5-8.7z"/>
-            <path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.9-3c-1.1.7-2.4 1.2-4 1.2-3.1 0-5.7-2.1-6.6-4.9H1.4v3.1A12 12 0 0 0 12 24z"/>
-            <path fill="#FBBC05" d="M5.4 14.4a7.2 7.2 0 0 1 0-4.7V6.6H1.4a12 12 0 0 0 0 10.8l4-3z"/>
-            <path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.4 6.6l4 3.1C6.3 6.9 8.9 4.8 12 4.8z"/>
-          </svg>
-          <span>Continue with Google</span><span class="arr">&rarr;</span>
-        </button>
-        <button class="oauth__btn" type="button" data-provider="Facebook">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-            <circle cx="12" cy="12" r="12" fill="#1877F2"/>
-            <path fill="#fff" d="M13.4 24v-8.4h2.8l.4-3.3h-3.2v-2.1c0-.9.3-1.6 1.6-1.6h1.7v-3a22 22 0 0 0-2.5-.1c-2.5 0-4.2 1.5-4.2 4.3v2.5H7.2v3.3H10V24h3.4z"/>
-          </svg>
-          <span>Continue with Facebook</span><span class="arr">&rarr;</span>
-        </button>
-        <button class="oauth__btn" type="button" data-provider="Apple">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" class="apple">
-            <path fill="currentColor" d="M16.4 12.7c0-2.6 2.1-3.8 2.2-3.9a4.8 4.8 0 0 0-3.8-2c-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9a5 5 0 0 0-4.2 2.6c-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5a11 11 0 0 0 1.4-2.9 4.5 4.5 0 0 1-2.6-4.1zM13.9 5.1c.7-.9 1.2-2 1.1-3.1-1 0-2.3.7-3 1.6-.7.8-1.2 1.9-1.1 3 1.1.1 2.3-.6 3-1.5z"/>
-          </svg>
-          <span>Continue with Apple</span><span class="arr">&rarr;</span>
-        </button>
+      <!-- ============ 01 Overview ============ -->
+      <div class="panel on" id="panel-overview" data-panel="overview" role="tabpanel" aria-labelledby="tab-overview" tabindex="0">
+        <h2>The deck</h2>
+        <p class="sub">One account for your plan, your licences and your devices. It holds what you own — never how you play.</p>
+
+        <div class="stats">
+          <div class="stat"><span class="stat__k">Plan</span><span class="stat__v">Sub<em>scription</em></span>
+            <span class="stat__sub">$14.99 / month</span></div>
+          <div class="stat"><span class="stat__k">Licences</span><span class="stat__v">1 / 1</span>
+            <span class="stat__sub">Active · 1 machine</span></div>
+          <div class="stat"><span class="stat__k">Devices</span><span class="stat__v">1</span>
+            <span class="stat__sub">Bound · station-01</span></div>
+          <div class="stat"><span class="stat__k">Runtime · period</span><span class="stat__v">12h 40m</span>
+            <span class="stat__sub">Single-player only</span></div>
+        </div>
+
+        <div class="sect">
+          <div class="sect__head"><span class="mono">Last session</span><a href="index.html#work">What the guide covers</a></div>
+          <div class="rowlist">
+            <div class="krow">
+              <div class="krow__main"><b>Single-player session</b><span class="krow__sub">Last night · 2h 14m · callouts spoken out loud</span></div>
+              <div class="krow__meta"><span class="chip">Pixel-read</span><span class="chip">Local voice</span></div>
+              <div class="krow__act"><button class="mini mini--solid" type="button" data-mock-link="Launch — mockup, nothing starts">Launch Overlord <span class="arr">&rarr;</span></button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sect">
+          <div class="sect__head"><span class="mono">How it behaves</span><a href="privacy.html">What leaves the machine</a></div>
+          <div class="facts">
+            <div class="fact"><span class="mono">01 · Read path</span><h3>Pixel-read only</h3>
+              <p>One captured frame per question, the view a person beside you would have. No game memory, no injection, no input automation.</p></div>
+            <div class="fact"><span class="mono">02 · Scope</span><h3>Single-player</h3>
+              <p>Built for single-player games on Steam. Online multiplayer is not supported at all, and ranked or competitive play is refused by design.</p></div>
+            <div class="fact"><span class="mono">03 · Keep</span><h3>Local by default</h3>
+              <p>Audio, transcript, voice and your saves stay on this machine. The one call that leaves carries the frame and your question to the endpoint behind your own key.</p></div>
+          </div>
+        </div>
+
+        <div class="sect">
+          <div class="sect__head"><span class="mono">Shortcuts</span></div>
+          <div class="rowlist">
+            <div class="krow">
+              <div class="krow__main"><b>Bring a second machine on</b><span class="krow__sub">Subscription covers one · Pro covers three</span></div>
+              <div class="krow__meta"><span class="chip">Seat 02 free on Pro</span></div>
+              <div class="krow__act"><a class="mini" href="plans.html">See Pro <span class="arr">&rarr;</span></a></div>
+            </div>
+            <div class="krow">
+              <div class="krow__main"><b>Get the app on this machine</b><span class="krow__sub">Linux · Steam Deck</span></div>
+              <div class="krow__meta"><span class="chip">v[BUILD]</span></div>
+              <div class="krow__act"><button class="mini" type="button" data-panel-link="downloads">Downloads <span class="arr">&rarr;</span></button></div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="or" style="margin:1.6rem 0 0">or use email</div>
+      <!-- ============ 02 Licences ============ -->
+      <div class="panel" id="panel-licences" data-panel="licences" role="tabpanel" aria-labelledby="tab-licences" tabindex="0">
+        <h2>Licences</h2>
+        <p class="sub">A licence is one machine's right to run the application. Subscription carries one; Pro carries three under one account.</p>
 
-      <form id="emailForm" style="margin-top:1.2rem">
-        <div class="field"><label for="si-email">Email</label>
-          <div class="input"><input id="si-email" type="email" autocomplete="username" placeholder="you@domain.com" required></div></div>
-        <button class="btn btn--solid" type="submit">Continue with email <span class="arr">&rarr;</span></button>
-      </form>
-      <p class="alt" style="margin-top:1.2rem">No plan yet? <a href="plans.html" style="color:inherit">See plans</a></p>
-    </div>
+        <div class="sect">
+          <div class="sect__head"><span class="mono">Your key</span><span class="mono">Sample data</span></div>
+          <div class="rowlist">
+            <div class="krow">
+              <div class="krow__main"><b class="mono">OVRD-4K7Q-91XZ-0M2E</b><span class="krow__sub">Seat 01 of 01 · Subscription · activated 01 Jul '26</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Bound to station-01</span></div>
+              <div class="krow__act">
+                <button class="mini" type="button" data-mock-link="Key copied — mockup, nothing was put on the clipboard">Copy</button>
+                <button class="mini mini--quiet" type="button" data-mock-link="Deactivate — mockup. In the real account page this frees the seat">Deactivate</button>
+              </div>
+            </div>
+            <div class="krow">
+              <div class="krow__main"><b class="mono">Seat 02 · not in use</b><span class="krow__sub">Opens with Pro · move a seat any time</span></div>
+              <div class="krow__meta"><span class="chip">Locked on Subscription</span></div>
+              <div class="krow__act"><a class="mini" href="plans.html">Unlock <span class="arr">&rarr;</span></a></div>
+            </div>
+          </div>
+        </div>
 
-    <!-- step 2: email password (or one-time code) -->
-    <div class="pane" data-step="password">
-      <button class="back mono" type="button" data-back>&larr; Back</button>
-      <h2>Enter password</h2>
-      <p class="sub">Signing in as <b id="who"></b></p>
-      <form id="passForm" data-go="dashboard.html">
-        <div class="field"><label for="si-pass">Password <a href="#" data-mock-link="Reset link sent — mockup">Forgot?</a></label>
-          <div class="input"><input id="si-pass" type="password" autocomplete="current-password" placeholder="••••••••••" required>
-            <button type="button" class="peek" data-peek="si-pass">Show</button></div></div>
-        <label class="check"><input type="checkbox" checked> Remember this device for 30 days</label>
-        <button class="btn btn--solid" type="submit">Sign in <span class="arr">&rarr;</span></button>
-        <button class="btn" type="button" data-mock-link="One-time code sent — mockup">Email me a one-time code instead <span class="arr">&rarr;</span></button>
-      </form>
-    </div>
+        <div class="sect">
+          <div class="sect__head"><span class="mono">Free demo</span></div>
+          <div class="rowlist">
+            <div class="krow">
+              <div class="krow__main"><b>30-minute trial</b><span class="krow__sub">Used · 30 of 30 minutes · no card was taken · one per person, enforced by email + machine fingerprint</span></div>
+              <div class="krow__meta"><span class="chip">Consumed</span></div>
+              <div class="krow__act"><a class="mini" href="plans.html">Subscribe <span class="arr">&rarr;</span></a></div>
+            </div>
+          </div>
+        </div>
 
-    <!-- provider hand-off (mock) -->
-    <div class="pane" data-step="oauth">
-      <button class="back mono" type="button" data-back>&larr; Back</button>
-      <div class="handoff">
-        <span class="handoff__ring"></span>
-        <h2 id="provTitle">Connecting…</h2>
-        <p class="sub" id="provSub">A secure window would open here. This is a mockup, so nothing leaves the page.</p>
+        <div class="note"><span class="mono">!</span><span><b>Licences are re-assignable, because hardware dies.</b> Deactivate a machine and activate another — on Pro the same across three seats. Sharing one key across machines you do not own is what gets a key switched off.</span></div>
       </div>
-    </div>
 
-    <p class="legal">By continuing you agree to the <a href="#" data-mock-link="EULA — mockup">EULA</a> and <a href="#" data-mock-link="Privacy — mockup">privacy policy</a>. Pixel-read only · no game memory.</p>
-    <div class="console__foot mono"><span>© '26 Overlord AI</span><span><a href="plans.html">Plans</a> · <a href="#" data-mock-link="Support — mockup">Support</a></span></div>
-  </section>
+      <!-- ============ 03 Devices ============ -->
+      <div class="panel" id="panel-devices" data-panel="devices" role="tabpanel" aria-labelledby="tab-devices" tabindex="0">
+        <h2>Devices</h2>
+        <p class="sub">Machines holding one of your seats. Deactivating one frees the seat for another machine.</p>
+
+        <div class="sect">
+          <div class="sect__head"><span class="mono">Active</span><span class="mono">1 of 1</span></div>
+          <div class="rowlist">
+            <div class="krow">
+              <div class="krow__main"><b>station-01</b><span class="krow__sub">Linux · x86_64 · fingerprint fp_9c4e·a71b</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Last seen today</span><span class="chip">Seat 01</span></div>
+              <div class="krow__act">
+                <button class="mini" type="button" data-mock-link="Renamed — mockup">Rename</button>
+                <button class="mini mini--quiet" type="button" data-mock-link="Deactivated — mockup. The seat is free until you activate another machine">Deactivate</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sect">
+          <div class="sect__head"><span class="mono">Free seats</span></div>
+          <div class="rowlist">
+            <div class="krow">
+              <div class="krow__main"><b>Nothing to bind</b><span class="krow__sub">Subscription is one machine. Pro adds two more, and a seat moves whenever you re-image a Deck.</span></div>
+              <div class="krow__meta"><span class="chip">Seats 02–03 on Pro</span></div>
+              <div class="krow__act"><a class="mini" href="plans.html">Plans <span class="arr">&rarr;</span></a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="note"><span class="mono">i</span><span>A machine fingerprint is a hash of the hardware, kept to enforce one trial per person and to count seats. It is not a name, and it is not your play. <a href="privacy.html">Privacy policy</a>.</span></div>
+      </div>
+
+      <!-- ============ 04 Downloads ============ -->
+      <div class="panel" id="panel-downloads" data-panel="downloads" role="tabpanel" aria-labelledby="tab-downloads" tabindex="0">
+        <h2>Downloads</h2>
+        <p class="sub">Linux and Steam Deck, native — not a Windows build in a wrapper. Sign in on the machine and the key activates itself.</p>
+
+        <div class="dl">
+          <a href="#" data-mock-link="Linux AppImage — mockup, nothing downloads"><b>Linux · x86_64</b><small>AppImage · version [BUILD]</small><span class="go">Download &rarr;</span></a>
+          <a href="#" data-mock-link="Debian package — mockup, nothing downloads"><b>Linux · Debian / Ubuntu</b><small>.deb package · version [BUILD]</small><span class="go">Download &rarr;</span></a>
+          <a href="#" data-mock-link="Flatpak — mockup, nothing downloads"><b>Steam Deck</b><small>Flatpak · version [BUILD]</small><span class="go">Download &rarr;</span></a>
+          <a href="index.html#top"><b>Windows <span class="beta">· beta, not shipped</span></b><small>In test on our own machines · no date until we have one we control</small><span class="go">Waitlist &rarr;</span></a>
+        </div>
+
+        <div class="sect">
+          <div class="sect__head"><span class="mono">Before you install</span></div>
+          <dl class="spec">
+            <dt>Runs on</dt><dd>Linux and Steam Deck, native. Windows is in beta and not shipped.</dd>
+            <dt>Voice</dt><dd>Rendered on this machine — no audio leaves it. PipeWire or PulseAudio for the headset.</dd>
+            <dt>Model key</dt><dd>Your own key, pasted into the app. The one outbound call goes to the endpoint behind it.</dd>
+            <dt>Licence</dt><dd>Activates against your key on first run; no key, no guide.</dd>
+          </dl>
+          <p class="hash mono">Every build is published with its SHA-256 and signature at release. [BUILD]</p>
+        </div>
+
+        <div class="note"><span class="mono">i</span><span><b>Windows is beta and not shipped.</b> There is a waitlist and no date until we have one we control — this page will not invent one.</span></div>
+      </div>
+
+      <!-- ============ 05 Billing ============ -->
+      <div class="panel" id="panel-billing" data-panel="billing" role="tabpanel" aria-labelledby="tab-billing" tabindex="0">
+        <h2>Billing</h2>
+        <p class="sub">Stripe processes the card, the receipts and the recurring charge. We hold the plan, the licences and the keys — never your card number.</p>
+
+        <div class="price-row"><b>$14.99</b><span>Subscription · per month · renews automatically 01 Oct '26</span></div>
+
+        <div class="rowlist">
+          <div class="krow">
+            <div class="krow__main"><b>Subscription · monthly</b><span class="krow__sub">Started 01 Jul '26 · one licence · one machine</span></div>
+            <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Card ···· 4242</span></div>
+            <div class="krow__act"><button class="mini" type="button" data-mock-link="Stripe customer portal — mockup">Manage</button></div>
+          </div>
+          <div class="krow">
+            <div class="krow__main"><b>Switch to yearly</b><span class="krow__sub">$149.99 / year · the same tier, billed once</span></div>
+            <div class="krow__meta"><span class="chip chip--accent">-17%</span></div>
+            <div class="krow__act"><button class="mini" type="button" data-mock-link="Yearly switch — mockup, no charge is made">Switch</button></div>
+          </div>
+          <div class="krow">
+            <div class="krow__main"><b>Cancel Subscription</b><span class="krow__sub">Stops the next charge · access runs to the end of the period you have paid for</span></div>
+            <div class="krow__meta"><span class="chip">No cancellation fee</span></div>
+            <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Cancel — mockup. Cancelling here would stop the next charge">Cancel</button></div>
+          </div>
+        </div>
+
+        <div class="sect">
+          <div class="sect__head"><span class="mono">Terms of the money</span><a href="terms.html">Terms of service</a></div>
+          <dl class="ledger">
+            <dt>Refunds</dt><dd class="money">Seven-day window<small>Cancel a first paid period — monthly or yearly, Subscription or Pro — within seven days of the charge and it is refunded in full. Renewals are outside the window; outside it, cancelling still stops the next charge.</small></dd>
+            <dt>Price changes</dt><dd class="money">30 days' notice<small>A price change or a material change to what a plan gives you is notified to this account's email 30 days ahead. A renewal at an unchanged price is simply renewed.</small></dd>
+            <dt>Tax</dt><dd class="money">Exclusive of tax<small>Calculated at checkout and shown on the receipt.</small></dd>
+            <dt>Declined card</dt><dd class="money">We tell you and retry<small>If it still cannot be collected the licence stops at the end of the period you have paid for. A failed payment does not cancel the plan for you.</small></dd>
+          </dl>
+        </div>
+
+        <div class="sect">
+          <div class="sect__head"><span class="mono">Receipts</span><span class="mono">Sample data</span></div>
+          <div class="rowlist">
+            <div class="krow">
+              <div class="krow__main"><b class="money">01 Sep '26 · $14.99</b><span class="krow__sub">Subscription · monthly · card ···· 4242</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
+              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt — mockup">Receipt</button></div>
+            </div>
+            <div class="krow">
+              <div class="krow__main"><b class="money">01 Aug '26 · $14.99</b><span class="krow__sub">Subscription · monthly · card ···· 4242</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
+              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt — mockup">Receipt</button></div>
+            </div>
+            <div class="krow">
+              <div class="krow__main"><b class="money">01 Jul '26 · $14.99</b><span class="krow__sub">Subscription · monthly · first charge</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
+              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt — mockup">Receipt</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ 06 Account ============ -->
+      <div class="panel" id="panel-account" data-panel="account" role="tabpanel" aria-labelledby="tab-account" tabindex="0">
+        <h2>Account</h2>
+        <p class="sub">An account here is an email address plus a licence key. That is all it is asked to be.</p>
+
+        <div class="rowlist">
+          <div class="krow">
+            <div class="krow__main"><b>operator@domain.com</b><span class="krow__sub">Email · how we reach you, how the demo limit is enforced, how a key is delivered</span></div>
+            <div class="krow__meta"><span class="chip chip--on"><i></i>Verified</span></div>
+            <div class="krow__act"><button class="mini" type="button" data-mock-link="Change email — mockup">Change</button></div>
+          </div>
+          <div class="krow">
+            <div class="krow__main"><b>Password</b><span class="krow__sub">Last changed 01 Jul '26 · one-time code sign-in available</span></div>
+            <div class="krow__meta"><span class="chip">Reset by email</span></div>
+            <div class="krow__act"><button class="mini" type="button" data-mock-link="Reset link sent — mockup">Reset</button></div>
+          </div>
+          <div class="krow">
+            <div class="krow__main"><b>Sessions</b><span class="krow__sub">This browser · signed in today</span></div>
+            <div class="krow__meta"><span class="chip">1 active</span></div>
+            <div class="krow__act"><a class="mini" href="login.html">Sign out <span class="arr">&rarr;</span></a></div>
+          </div>
+        </div>
+
+        <div class="sect">
+          <div class="sect__head"><span class="mono">Your data</span><a href="privacy.html">Privacy policy</a></div>
+          <div class="facts">
+            <div class="fact"><span class="mono">Leaves the machine</span><h3>One frame</h3>
+              <p>The captured screen frame and the text of your question, over HTTPS, to the endpoint behind the model key you supplied.</p></div>
+            <div class="fact"><span class="mono">Stays on the machine</span><h3>Everything else</h3>
+              <p>Your audio, the transcript, your voice, your saves and the guide data never leave it.</p></div>
+            <div class="fact"><span class="mono">Held here</span><h3>Email, key, seats</h3>
+              <p>The account email, the licence key and which machines hold a seat. Not your play history, not a game.</p></div>
+          </div>
+        </div>
+
+        <div class="sect">
+          <div class="sect__head"><span class="mono">Closing the account</span></div>
+          <div class="rowlist">
+            <div class="krow">
+              <div class="krow__main"><b>Delete account</b><span class="krow__sub">Ends the plan, the licences and the seats. Ask us for a copy of your account data first if you want one.</span></div>
+              <div class="krow__meta"><span class="chip">Irreversible</span></div>
+              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Delete account — mockup, nothing was deleted">Delete</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="console__foot mono">
+        <span>© '26 Overlord AI · sample account, no backend</span>
+        <span><a href="plans.html">Plans</a> · <a href="support.html">Support</a> · <a href="terms.html">Terms</a></span>
+      </div>
+    </section>
+  </div>
 </main>
 
 <footer class="site-footer" id="footer">
@@ -1135,47 +1452,52 @@
   requestAnimationFrame(draw);
 })();
 
-/* ---------- sign-in flow: provider / email -> password (all mock) ---------- */
+/* ---------- control deck: rail tabs, hash deep-links, mock actions, clock ---------- */
 (() => {
-  const panes = [...document.querySelectorAll('.signin .pane')];
-  const go = step => panes.forEach(p => p.classList.toggle('on', p.dataset.step === step));
-  document.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => go('choose')));
-
-  document.querySelectorAll('.oauth__btn').forEach(btn => {
-    btn.addEventListener('pointermove', e => { const r = btn.getBoundingClientRect(); btn.style.setProperty('--mx', (e.clientX - r.left) + 'px'); });
-    btn.addEventListener('click', () => {
-      const p = btn.dataset.provider;
-      document.getElementById('provTitle').textContent = `Connecting to ${p}…`;
-      document.getElementById('provSub').textContent = `A secure ${p} window would open here. This is a mockup, so nothing leaves the page.`;
-      go('oauth');
-    });
-  });
-
-  document.getElementById('emailForm').addEventListener('submit', e => {
-    e.preventDefault();
-    document.getElementById('who').textContent = document.getElementById('si-email').value;
-    go('password');
-    setTimeout(() => document.getElementById('si-pass').focus(), 50);
-  });
-
-  document.querySelectorAll('[data-peek]').forEach(b => b.addEventListener('click', () => {
-    const f = document.getElementById(b.dataset.peek); const on = f.type === 'password';
-    f.type = on ? 'text' : 'password'; b.textContent = on ? 'Hide' : 'Show';
-  }));
+  const rail   = document.querySelector('.rail__items');
+  const items  = [...document.querySelectorAll('.rail__item')];
+  const panels = [...document.querySelectorAll('.panel')];
+  const names  = items.map(i => i.dataset.panel);
 
   const toast = document.getElementById('toast'); let tt;
   const say = m => { toast.textContent = m; toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('on'), 2400); };
-  document.querySelectorAll('form[data-mock]').forEach(f => f.addEventListener('submit', e => { e.preventDefault(); say(f.dataset.mock); }));
-  /* the mock sign-in lands on the account page — no backend, so the dashboard is static too */
-  document.querySelectorAll('form[data-go]').forEach(f => f.addEventListener('submit', e => {
-    e.preventDefault();
-    say('Signed in — mockup. Opening the control deck.');
-    setTimeout(() => { location.href = f.dataset.go; }, 700);
+
+  function go(name, {hash = true} = {}){
+    if (!names.includes(name)) name = names[0];
+    items.forEach(i => i.setAttribute('aria-selected', String(i.dataset.panel === name)));
+    items.forEach(i => i.classList.toggle('on', i.dataset.panel === name));
+    panels.forEach(p => p.classList.toggle('on', p.dataset.panel === name));
+    if (hash) history.replaceState(null, '', '#' + name);
+  }
+
+  items.forEach(i => i.addEventListener('click', () => go(i.dataset.panel)));
+  document.querySelectorAll('[data-panel-link]').forEach(b => b.addEventListener('click', () => {
+    go(b.dataset.panelLink);
+    document.querySelector('.deck').scrollIntoView({block:'start'});
   }));
-  document.querySelectorAll('[data-mock-link]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); say(a.dataset.mockLink); }));
+
+  /* arrow keys move along the rail, the way a tablist is supposed to */
+  rail.addEventListener('keydown', e => {
+    const i = items.findIndex(x => x.classList.contains('on'));
+    const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1
+            : e.key === 'ArrowUp'   || e.key === 'ArrowLeft'  ? -1 : 0;
+    if (!d) return;
+    e.preventDefault();
+    const n = items[(i + d + items.length) % items.length];
+    n.focus(); go(n.dataset.panel);
+  });
+
+  /* every action on this page is a mockup — say so rather than pretend */
+  document.querySelectorAll('[data-mock-link]').forEach(el => el.addEventListener('click', e => {
+    e.preventDefault(); say(el.dataset.mockLink);
+  }));
+
+  go((location.hash || '').replace('#',''), {hash:false});
+  addEventListener('hashchange', () => go(location.hash.replace('#',''), {hash:false}));
 
   const clock = document.getElementById('clock');
-  const tick = () => { clock.textContent = new Date().toTimeString().slice(0,8); }; tick(); setInterval(tick, 1000);
+  const tick = () => { clock.textContent = new Date().toTimeString().slice(0,8); };
+  tick(); setInterval(tick, 1000);
 })();
 </script>
 </body>

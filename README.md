@@ -8,6 +8,8 @@ companion that reads your screen and talks you through the game.
 - `index.html` — home (hero, live callouts, preview, FAQ, footer)
 - `plans.html` — pricing (free demo / subscription / pro; monthly & yearly)
 - `login.html` — sign in / create account
+- `dashboard.html` — the account page behind the sign-in (plan, licences,
+  devices, downloads, billing). Mock data, no backend; `noindex` by design.
 - `support.html` — contact, FAQ, legal
 
 ## Stack
