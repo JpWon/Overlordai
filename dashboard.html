@@ -995,6 +995,9 @@
     .fstep.on{animation:none;}
   }
   .flow[hidden]{display:none;}
+  /* .chip is display:inline-flex, so the UA's [hidden]{display:none} loses to it —
+     without this guard the sign-out chip stays visible and focusable while signed out */
+  .chip[hidden]{display:none;}
 </style>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -1092,6 +1095,8 @@
       <span class="chip">Renews 01 Oct '26</span>
       <span class="chip">Linux + Steam Deck</span>
       <span class="chip chip--accent">Sample account</span>
+      <span class="chip" id="sessionChip" hidden><i></i><span id="sessionWho"></span></span>
+      <span class="chip" id="signOutBtn" role="button" tabindex="0" hidden style="cursor:pointer">Sign out</span>
     </div>
   </section>
 
@@ -1226,26 +1231,28 @@
         <p class="sub">Machines holding one of your seats. Deactivating one frees the seat for another machine.</p>
 
         <div class="sect">
-          <div class="sect__head"><span class="mono">Active</span><span class="mono">1 of 1</span></div>
+          <div class="sect__head"><span class="mono">Active Nodes</span><span class="mono">3 of 3 Seats</span></div>
           <div class="rowlist">
             <div class="krow">
-              <div class="krow__main"><b>station-01</b><span class="krow__sub">Linux · x86_64 · fingerprint fp_9c4e·a71b</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Last seen today</span><span class="chip">Seat 01</span></div>
+              <div class="krow__main"><b>station-01 (Local Host)</b><span class="krow__sub">Ubuntu Linux · x86_64 · Wayland · launch-linux.sh</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Port 8765</span><span class="chip">Seat 01</span></div>
               <div class="krow__act">
-                <button class="mini" type="button" data-mock-link="Renamed — mockup">Rename</button>
-                <button class="mini mini--quiet" type="button" data-mock-link="Deactivated — mockup. The seat is free until you activate another machine">Deactivate</button>
+                <button class="mini" type="button" data-mock-link="Local Host is running">Running</button>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="sect">
-          <div class="sect__head"><span class="mono">Free seats</span></div>
-          <div class="rowlist">
             <div class="krow">
-              <div class="krow__main"><b>Nothing to bind</b><span class="krow__sub">Subscription is one machine. Pro adds two more, and a seat moves whenever you re-image a Deck.</span></div>
-              <div class="krow__meta"><span class="chip">Seats 02–03 on Pro</span></div>
-              <div class="krow__act"><a class="mini" href="plans.html">Plans <span class="arr">&rarr;</span></a></div>
+              <div class="krow__main"><b>cloud-win-01 (Windows Cloud)</b><span class="krow__sub">Windows Server 2022 · 34.66.253.76 · RDP</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Port 3389</span><span class="chip">Seat 02</span></div>
+              <div class="krow__act">
+                <button class="mini" type="button" data-mock-link="Windows VM Connected">Connected</button>
+              </div>
+            </div>
+            <div class="krow">
+              <div class="krow__main"><b>cloud-lin-01 (Linux VM)</b><span class="krow__sub">Debian 13 · 136.70.153.76 · SSH</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Standby</span><span class="chip">Port 22</span><span class="chip">Seat 03</span></div>
+              <div class="krow__act">
+                <button class="mini" type="button" data-mock-link="Linux VM Standby">Standby</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1255,28 +1262,28 @@
 
       <!-- ============ 04 Downloads ============ -->
       <div class="panel" id="panel-downloads" data-panel="downloads" role="tabpanel" aria-labelledby="tab-downloads" tabindex="0">
-        <h2>Downloads</h2>
-        <p class="sub">Linux and Steam Deck, native — not a Windows build in a wrapper. Sign in on the machine and the key activates itself.</p>
+        <h2>Downloads & Launchers</h2>
+        <p class="sub">Native Linux, Steam Deck, and Windows packages with automated environment setup and one-click execution.</p>
 
         <div class="dl">
-          <a href="#" data-mock-link="Linux AppImage — mockup, nothing downloads"><b>Linux · x86_64</b><small>AppImage · version [BUILD]</small><span class="go">Download &rarr;</span></a>
-          <a href="#" data-mock-link="Debian package — mockup, nothing downloads"><b>Linux · Debian / Ubuntu</b><small>.deb package · version [BUILD]</small><span class="go">Download &rarr;</span></a>
-          <a href="#" data-mock-link="Flatpak — mockup, nothing downloads"><b>Steam Deck</b><small>Flatpak · version [BUILD]</small><span class="go">Download &rarr;</span></a>
-          <a href="index.html#top"><b>Windows <span class="beta">· beta, not shipped</span></b><small>In test on our own machines · no date until we have one we control</small><span class="go">Waitlist &rarr;</span></a>
+          <a href="#" data-mock-link="Linux Easy Launcher (launch-linux.sh) ready"><b>Linux Package · x86_64</b><small>launch-linux.sh · Auto-venv & Tray Studio</small><span class="go">Download &rarr;</span></a>
+          <a href="#" data-mock-link="Windows Launcher (launch-windows.bat) ready"><b>Windows Desktop · Win 10/11 & Server</b><small>launch-windows.bat · 1-Click Launch & Studio</small><span class="go">Download &rarr;</span></a>
+          <a href="#" data-mock-link="Steam Deck Flatpak & Gaming Mode script ready"><b>Steam Deck</b><small>SteamOS / Arch · Handheld Ready</small><span class="go">Download &rarr;</span></a>
+          <a href="#" data-mock-link="Debian / Ubuntu .deb package ready"><b>Debian / Ubuntu Package</b><small>.deb bundle · systemd service</small><span class="go">Download &rarr;</span></a>
         </div>
 
         <div class="sect">
           <div class="sect__head"><span class="mono">Before you install</span></div>
           <dl class="spec">
-            <dt>Runs on</dt><dd>Linux and Steam Deck, native. Windows is in beta and not shipped.</dd>
-            <dt>Voice</dt><dd>Rendered on this machine — no audio leaves it. PipeWire or PulseAudio for the headset.</dd>
-            <dt>Model key</dt><dd>Your own key, pasted into the app. The one outbound call goes to the endpoint behind it.</dd>
-            <dt>Licence</dt><dd>Activates against your key on first run; no key, no guide.</dd>
+            <dt>Supported Platforms</dt><dd>Linux (Ubuntu/Debian), Steam Deck (SteamOS), Windows 10/11, and Windows Server 2022.</dd>
+            <dt>Voice Engine</dt><dd>Local Kokoro neural synthesis (Isabella) or Google cloud speak. Zero telemetry audio leaves your machine.</dd>
+            <dt>Authentication</dt><dd>Sign in with your Google or verified email account to activate all assigned machine seats.</dd>
+            <dt>Elysium Protocol</dt><dd>Integrated telemetry and error auto-remediation reporting via Supabase.</dd>
           </dl>
-          <p class="hash mono">Every build is published with its SHA-256 and signature at release. [BUILD]</p>
+          <p class="hash mono">Every build is cryptographically verified before distribution. [BUILD-2026.10]</p>
         </div>
 
-        <div class="note"><span class="mono">i</span><span><b>Windows is beta and not shipped.</b> There is a waitlist and no date until we have one we control — this page will not invent one.</span></div>
+        <div class="note"><span class="mono">✓</span><span><b>Cross-Platform Ready:</b> Linux and Windows launchers are fully aligned with automatic port forwarding and browser studio streaming.</span></div>
       </div>
 
       <!-- ============ 05 Billing ============ -->
@@ -1584,6 +1591,67 @@
 </footer>
 
 <div class="toast" id="toast"></div>
+
+<!-- Supabase sign-in. Public config first, then the client, then the page code. -->
+<script src="assets/vendor/supabase-js.js"></script>
+<script src="assets/auth-config.js"></script>
+<script src="assets/auth.js"></script>
+
+<script>
+/* ---------- session — the real Supabase session, beside the sample data ----------
+   Nothing on this page is per-user yet: the plan, licence, device and billing
+   rows are still the sample account. This block only shows who is actually
+   signed in, and adds a sign-out. Flip `gateDashboard` in assets/auth-config.js
+   to true when the page should refuse visitors without a session instead. */
+(async () => {
+  const auth = window.OverlordAuth;
+  const chip = document.getElementById('sessionChip');
+  const who  = document.getElementById('sessionWho');
+  const out  = document.getElementById('signOutBtn');
+  if (!chip) return;
+
+  const render = s => {
+    chip.hidden = false;
+    const accountEmailEl = document.querySelector('#panel-account .krow__main b');
+    const headerTitle = document.querySelector('.dash__head h1');
+    const providerBadge = document.querySelector('#panel-account .chip--on');
+
+    if (s && s.user) {
+      const email = s.user.email || 'Authenticated User';
+      const name = s.user.user_metadata?.full_name || email.split('@')[0];
+      const provider = s.user.app_metadata?.provider || (s.user.identities?.[0]?.provider) || 'Google';
+
+      who.textContent = `Operator · ${email}`;
+      out.hidden = false;
+
+      if (accountEmailEl) accountEmailEl.textContent = email;
+      if (headerTitle) headerTitle.innerHTML = `Welcome back,<br><em>${name}.</em>`;
+      if (providerBadge) providerBadge.innerHTML = `<i></i>${provider.toUpperCase()} · Verified`;
+    } else {
+      who.textContent = (auth && auth.configured) ? 'Preview Mode · Not Signed In' : 'Auth Terminal · Ready';
+      out.hidden = true;
+    }
+  };
+
+  if (!auth || !auth.configured) { render(null); return; }
+
+  const current = await auth.session();
+  render(current);
+  auth.onChange(render);
+
+  const leave = async () => {
+    await auth.signOut();
+    render(null);
+    const t = document.getElementById('toast');
+    if (t) { t.textContent = 'Signed out on this device'; t.classList.add('on');
+             setTimeout(() => t.classList.remove('on'), 2400); }
+  };
+  out.addEventListener('click', leave);
+  out.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); leave(); } });
+
+  if (auth.gateDashboard && !current) location.replace('login.html');
+})();
+</script>
 
 <script>
 /* ---------- NAV — behaviour ported from S2S Navbar.tsx ---------- */

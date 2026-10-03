@@ -921,7 +921,7 @@
 
 <main class="auth">
   <section class="auth__intro">
-    <div class="mono">OVR · access terminal · secure sign-in (mock)</div>
+    <div class="mono" id="modeLabel">OVR · access terminal · secure sign-in</div>
     <h1>Identify<br><em>yourself.</em></h1>
     <p>One account for your plan, your licences and your devices. It holds what you own — never how you play.</p>
   </section>
@@ -1024,6 +1024,11 @@
 </footer>
 
 <div class="toast" id="toast"></div>
+
+<!-- Supabase sign-in. Public config first, then the client, then the page code. -->
+<script src="assets/vendor/supabase-js.js"></script>
+<script src="assets/auth-config.js"></script>
+<script src="assets/auth.js"></script>
 
 <script>
 /* ---------- NAV — behaviour ported from S2S Navbar.tsx ---------- */
@@ -1136,19 +1141,41 @@
   requestAnimationFrame(draw);
 })();
 
-/* ---------- sign-in flow: provider / email -> password (all mock) ---------- */
+/* ---------- sign-in flow: providers are real (Supabase), email is still a mock ---------- */
 (() => {
   const panes = [...document.querySelectorAll('.signin .pane')];
   const go = step => panes.forEach(p => p.classList.toggle('on', p.dataset.step === step));
   document.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => go('choose')));
 
+  /* the header label states which page this actually is, live or mockup */
+  const modeLabel = document.getElementById('modeLabel');
+  if (modeLabel) {
+    modeLabel.textContent = 'OVR · access terminal · secure sign-in · '
+      + ((window.OverlordAuth && window.OverlordAuth.configured) ? 'live' : 'mock');
+  }
+
   document.querySelectorAll('.oauth__btn').forEach(btn => {
     btn.addEventListener('pointermove', e => { const r = btn.getBoundingClientRect(); btn.style.setProperty('--mx', (e.clientX - r.left) + 'px'); });
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       const p = btn.dataset.provider;
+      const auth = window.OverlordAuth;
       document.getElementById('provTitle').textContent = `Connecting to ${p}…`;
-      document.getElementById('provSub').textContent = `A secure ${p} window would open here. This is a mockup, so nothing leaves the page.`;
+      document.getElementById('provSub').textContent = `Opening ${p}'s own secure window.`;
       go('oauth');
+      if (!auth || !auth.configured) {
+        document.getElementById('provTitle').textContent = `${p} isn't available yet`;
+        document.getElementById('provSub').textContent =
+          `The ${p} keys are still being added, so nothing leaves the page.`;
+        return;
+      }
+      try {
+        await auth.signIn(p);            /* navigates away to the provider */
+      } catch (err) {
+        /* a real provider refusal has to be visible, not swallowed */
+        document.getElementById('provTitle').textContent = `${p} sign-in failed`;
+        document.getElementById('provSub').textContent = (err && err.message) || String(err);
+        console.error(err);
+      }
     });
   });
 
@@ -1165,15 +1192,70 @@
   }));
 
   const toast = document.getElementById('toast'); let tt;
-  const say = m => { toast.textContent = m; toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('on'), 2400); };
+  const say = m => { toast.textContent = m; toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('on'), 3000); };
+
+  /* Live Supabase Email / Password & Auto-Signup */
+  const passForm = document.getElementById('passForm');
+  if (passForm) {
+    passForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const email = document.getElementById('si-email').value.trim();
+      const password = document.getElementById('si-pass').value;
+      const auth = window.OverlordAuth;
+      if (!auth || !auth.configured) {
+        say('Supabase not configured yet. Opening control deck (preview mode).');
+        setTimeout(() => { location.href = 'dashboard.html'; }, 900);
+        return;
+      }
+      say('Authenticating with Supabase…');
+      try {
+        await auth.signInWithEmail(email, password);
+        say('Signed in successfully! Loading Control Deck…');
+        setTimeout(() => { location.href = 'dashboard.html'; }, 800);
+      } catch (err) {
+        const msg = (err && err.message) || String(err);
+        if (msg.includes('Invalid login credentials') || msg.includes('User not found')) {
+          try {
+            say('Creating new Overlord account…');
+            const res = await auth.signUpWithEmail(email, password);
+            if (res && res.user && !res.session) {
+              say('Verification link sent to ' + email + '! Check your inbox.');
+            } else {
+              say('Account created! Welcome, Operator.');
+              setTimeout(() => { location.href = 'dashboard.html'; }, 800);
+            }
+            return;
+          } catch (signupErr) {
+            say((signupErr && signupErr.message) || 'Account creation error');
+            return;
+          }
+        }
+        say(msg);
+      }
+    });
+  }
+
+  /* One-time Code / Magic link button */
+  const otpBtn = document.querySelector('button[data-mock-link*="One-time code"]');
+  if (otpBtn) {
+    otpBtn.addEventListener('click', async e => {
+      e.preventDefault();
+      const email = document.getElementById('si-email').value.trim();
+      const auth = window.OverlordAuth;
+      if (!email) { say('Please enter your email address first.'); return; }
+      if (!auth || !auth.configured) { say('One-time code sent (preview mode).'); return; }
+      try {
+        say('Sending magic sign-in link to ' + email + '…');
+        await auth.signInWithOtp(email);
+        say('Sign-in link sent! Check your inbox at ' + email);
+      } catch (err) {
+        say((err && err.message) || 'Failed to send magic link');
+      }
+    });
+  }
+
   document.querySelectorAll('form[data-mock]').forEach(f => f.addEventListener('submit', e => { e.preventDefault(); say(f.dataset.mock); }));
-  /* the mock sign-in lands on the account page — no backend, so the dashboard is static too */
-  document.querySelectorAll('form[data-go]').forEach(f => f.addEventListener('submit', e => {
-    e.preventDefault();
-    say('Signed in — mockup. Opening the control deck.');
-    setTimeout(() => { location.href = f.dataset.go; }, 700);
-  }));
-  document.querySelectorAll('[data-mock-link]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); say(a.dataset.mockLink); }));
+  document.querySelectorAll('[data-mock-link]:not([data-mock-link*="One-time code"])').forEach(a => a.addEventListener('click', e => { e.preventDefault(); say(a.dataset.mockLink); }));
 
   const clock = document.getElementById('clock');
   const tick = () => { clock.textContent = new Date().toTimeString().slice(0,8); }; tick(); setInterval(tick, 1000);
