@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign in — Overlord AI</title>
+<title>Create your account — Overlord AI</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -878,7 +878,7 @@
       <a class="nav-hover" href="index.html#top"><span class="nav-link-text">Home</span></a>
       <a class="nav-hover" href="index.html#work"><span class="nav-link-text">Preview</span></a>
       <a class="nav-hover" href="plans.html"><span class="nav-link-text">Plans</span></a>
-      <a class="nav-hover" href="login.html" aria-current="page"><span class="nav-link-text">Sign Up</span></a>
+      <a class="nav-hover" href="login.html"><span class="nav-link-text">Sign Up</span></a>
     </div>
 
     <!-- Right — Celestial toggle + Cart -->
@@ -933,12 +933,12 @@
     <p>One account for your plan, your licences and your devices. It holds what you own — never how you play.</p>
   </section>
 
-  <section class="console signin" aria-label="Sign in">
+  <section class="console signin" aria-label="Create account">
     <div class="console__bar mono"><span><span class="dot"></span>Secure channel &middot; TLS</span><span id="clock">--:--:--</span></div>
 
-    <div class="pane on" data-step="signin">
-      <h2>Sign in</h2>
-      <p class="sub">Use the account you already trust &mdash; or create one in a minute.</p>
+    <div class="pane on" data-step="create">
+      <h2>Create your account</h2>
+      <p class="sub">One account for your plan, your licences and your devices.</p>
 
       <div class="oauth">
         <button class="oauth__btn" type="button" data-provider="Google">
@@ -967,28 +967,30 @@
 
       <div class="or" style="margin:1.6rem 0 0">or use email</div>
 
-      <form id="signinForm" style="margin-top:1.2rem" novalidate>
-        <div class="field"><label for="si-email">Email</label>
-          <div class="input"><input id="si-email" type="email" autocomplete="username" placeholder="you@domain.com" required></div></div>
-        <div class="field"><label for="si-pass">Password <a href="#" id="forgotLink" style="color:inherit">Forgot?</a></label>
-          <div class="input"><input id="si-pass" type="password" autocomplete="current-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
-            <button type="button" class="peek" data-peek="si-pass">Show</button></div></div>
-        <label class="check"><input type="checkbox" id="remember" checked> Remember this device for 30 days</label>
-        <button class="btn btn--solid" type="submit" id="signinBtn">Sign in <span class="arr">&rarr;</span></button>
-        <p class="msg mono" id="signinMsg" role="status" aria-live="polite"></p>
+      <form id="signupForm" style="margin-top:1.2rem" novalidate>
+        <div class="field"><label for="su-name">Display name</label>
+          <div class="input"><input id="su-name" type="text" autocomplete="nickname" placeholder="What should we call you?" required></div></div>
+        <div class="field"><label for="su-email">Email</label>
+          <div class="input"><input id="su-email" type="email" autocomplete="username" placeholder="you@domain.com" required></div></div>
+        <div class="field"><label for="su-pass">Password</label>
+          <div class="input"><input id="su-pass" type="password" autocomplete="new-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
+            <button type="button" class="peek" data-peek="su-pass">Show</button></div>
+          <p class="rule">At least 8 characters.</p></div>
+        <button class="btn btn--solid" type="submit" id="signupBtn">Create account <span class="arr">&rarr;</span></button>
+        <p class="msg mono" id="signupMsg" role="status" aria-live="polite"></p>
       </form>
 
-      <p class="alt" style="margin-top:1.4rem"><b>New here?</b>
-        <a href="signup.html" id="toSignup" style="color:inherit"><b>Create an account &rarr;</b></a></p>
-      <p class="alt" style="margin-top:.6rem"><a href="#" id="toOtp" style="color:inherit">Email me a one-time code instead</a></p>
+      <p class="alt" style="margin-top:1.4rem">Already have an account?
+        <a href="login.html" id="toLogin" style="color:inherit"><b>Sign in &rarr;</b></a></p>
     </div>
 
-    <div class="pane" data-step="otp">
+    <div class="pane" data-step="confirm">
       <button class="back mono" type="button" data-back>&larr; Back</button>
-      <h2>One-time code</h2>
-      <p class="sub">We&rsquo;ll email a sign-in link to <b id="otpWho"></b>.</p>
-      <button class="btn btn--solid" type="button" id="otpSend">Send the link <span class="arr">&rarr;</span></button>
-      <p class="msg mono" id="otpMsg" role="status" aria-live="polite"></p>
+      <h2>Check your inbox</h2>
+      <p class="sub">We sent a confirmation link to <b id="confirmWho"></b>. Click it to switch your account on
+        &mdash; and look in spam if it hasn&rsquo;t arrived in a minute.</p>
+      <button class="btn btn--solid" type="button" id="resendBtn">Send it again <span class="arr">&rarr;</span></button>
+      <p class="msg mono" id="confirmMsg" role="status" aria-live="polite"></p>
     </div>
   </section>
 </main>
@@ -1135,25 +1137,25 @@
   requestAnimationFrame(draw);
 })();
 
-/* ---------- sign-in flow — REAL Supabase auth (this block used to be a mock) ----------
- * Providers hand off to Supabase, email + password goes to signInWithPassword.
- * One rule matters more than the rest: an unknown email and a wrong password show
- * the SAME message. Telling them apart would turn this page into a way to ask
- * "does this person have an account?" — a list of who to phish.
+/* ---------- create-account flow — REAL Supabase auth ----------
+ * Same three providers (the provider does not care whether the account is new),
+ * then display name + email + password. The display name is REQUIRED because
+ * Apple's hand-off returns no name at all, so asking here keeps every account
+ * shaped the same. A brand-new account goes FORWARD into the product, never back
+ * to the marketing page.
  */
 (() => {
   const auth  = window.OverlordAuth || {};
-  const form  = document.getElementById('signinForm');
-  const email = document.getElementById('si-email');
-  const pass  = document.getElementById('si-pass');
-  const msg   = document.getElementById('signinMsg');
-  const btn   = document.getElementById('signinBtn');
+  const form  = document.getElementById('signupForm');
+  const name  = document.getElementById('su-name');
+  const email = document.getElementById('su-email');
+  const pass  = document.getElementById('su-pass');
+  const msg   = document.getElementById('signupMsg');
+  const btn   = document.getElementById('signupBtn');
   const panes = [...document.querySelectorAll('.pane')];
   const show  = step => panes.forEach(p => p.classList.toggle('on', p.dataset.step === step));
   const say   = (t, kind) => { if (!msg) return; msg.textContent = t || ''; msg.dataset.kind = kind || ''; };
 
-  /* Carry the address across pages: if someone lands on the wrong one, what they
-     typed is not lost. Cheapest thing that makes the flow feel good. */
   const carried = new URLSearchParams(location.search).get('email')
                || sessionStorage.getItem('ovr_email') || '';
   if (carried && email) email.value = carried;
@@ -1167,54 +1169,44 @@
   }));
 
   document.querySelectorAll('.oauth__btn[data-provider]').forEach(b => b.addEventListener('click', async () => {
-    try { await auth.signIn(b.dataset.provider); }        // on success the page navigates away
+    try { await auth.signIn(b.dataset.provider); }
     catch (err) { say((err && err.message) || 'Could not reach that provider.'); }
   }));
 
-  document.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => show('signin')));
+  document.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => show('create')));
 
   if (form) form.addEventListener('submit', async e => {
     e.preventDefault();
-    const e1 = (email.value || '').trim(), p1 = pass.value || '';
-    if (!e1 || !p1) { say('Enter your email and password.'); return; }
-    btn.disabled = true; say('Signing in\u2026');
+    const n = (name.value || '').trim(), e1 = (email.value || '').trim(), p1 = pass.value || '';
+    if (!n) { say('Pick a display name first.'); return; }
+    if (!e1) { say('Enter your email.'); return; }
+    if (p1.length < 8) { say('Passwords need at least 8 characters.'); return; }
+    btn.disabled = true; say('Creating your account\u2026');
     try {
-      await auth.signInWithEmail(e1, p1);
+      const out = await auth.signUpWithEmail(e1, p1, n);
       sessionStorage.setItem('ovr_email', e1);
-      say('Signed in \u2014 taking you to your account\u2026', 'ok');
-      location.assign(auth.redirectTo || 'dashboard.html');
+      if (out && out.session) {                       // email confirmation is OFF
+        say('Account created \u2014 taking you in\u2026', 'ok');
+        location.assign(auth.redirectTo || 'dashboard.html');
+        return;
+      }
+      const who = document.getElementById('confirmWho');
+      if (who) who.textContent = e1;
+      show('confirm');
     } catch (err) {
-      say('Email or password is incorrect.', 'bad');
+      say((err && err.message) || 'Could not create the account.', 'bad');
       btn.disabled = false;
     }
   });
 
-  const forgot = document.getElementById('forgotLink');
-  if (forgot) forgot.addEventListener('click', async e => {
-    e.preventDefault();
-    const e1 = (email.value || '').trim();
-    if (!e1) { say('Type your email first, then tap Forgot.'); return; }
-    try {
-      await auth.resetPassword(e1);
-      say('If that address has an account, a reset link is on its way.', 'ok');
-    } catch (err) { say((err && err.message) || 'Could not send the reset link.'); }
-  });
-
-  const toOtp = document.getElementById('toOtp');
-  if (toOtp) toOtp.addEventListener('click', e => {
-    e.preventDefault();
-    const who = document.getElementById('otpWho');
-    if (who) who.textContent = (email.value || '').trim() || 'your address';
-    show('otp');
-  });
-  const otpSend = document.getElementById('otpSend');
-  if (otpSend) otpSend.addEventListener('click', async () => {
-    const e1 = (email.value || '').trim();
-    const m  = document.getElementById('otpMsg');
+  const resend = document.getElementById('resendBtn');
+  if (resend) resend.addEventListener('click', async () => {
+    const m = document.getElementById('confirmMsg');
     const set = (t, k) => { if (m) { m.textContent = t; m.dataset.kind = k || ''; } };
-    if (!e1) { show('signin'); say('Type your email first.'); return; }
-    try { await auth.signInWithOtp(e1); set('Sign-in link sent \u2014 check your inbox.', 'ok'); }
-    catch (err) { set((err && err.message) || 'Could not send the link.', 'bad'); }
+    const e1 = (email.value || '').trim();
+    if (!e1) { set('No address to resend to.', 'bad'); return; }
+    try { await auth.resendConfirmation(e1); set('Sent again \u2014 check your inbox.', 'ok'); }
+    catch (err) { set((err && err.message) || 'Could not resend.', 'bad'); }
   });
 
   const clock = document.getElementById('clock');

@@ -73,12 +73,31 @@
   }
 
   /* Email + Password Sign Up */
-  async function signUpWithEmail(email, password) {
+  async function signUpWithEmail(email, password, displayName) {
     if (!configured) throw new Error('sign-in is not configured on this host yet');
-    const { data, error } = await client.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: redirectTo }
+    const options = { emailRedirectTo: redirectTo };
+    /* Apple's hand-off returns no name, so the create-account page collects one and
+       we keep it on the user record here. */
+    if (displayName) options.data = { display_name: String(displayName).trim() };
+    const { data, error } = await client.auth.signUp({ email, password, options });
+    if (error) throw error;
+    return data;
+  }
+
+  /* Password reset: Supabase emails a recovery link; the landing page picks the
+     session up out of the URL, same implicit flow as the provider hand-off. */
+  async function resetPassword(email) {
+    if (!configured) throw new Error('sign-in is not configured on this host yet');
+    const { data, error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
+    if (error) throw error;
+    return data;
+  }
+
+  /* Send the confirmation email again, for the "check your inbox" pane. */
+  async function resendConfirmation(email) {
+    if (!configured) throw new Error('sign-in is not configured on this host yet');
+    const { data, error } = await client.auth.resend({
+      type: 'signup', email, options: { emailRedirectTo: redirectTo }
     });
     if (error) throw error;
     return data;
@@ -98,6 +117,7 @@
   window.OverlordAuth = {
     configured, redirectTo, gateDashboard: Boolean(cfg.gateDashboard),
     signIn, signInWithEmail, signUpWithEmail, signInWithOtp, session, signOut, onChange, provider,
+    resetPassword, resendConfirmation,
     /* escape hatch for the per-page code */
     client: () => client
   };
