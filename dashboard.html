@@ -1108,10 +1108,9 @@
       <div class="dash__chips">
         <span class="chip chip--on" id="planChip"><i></i>Subscription · active</span>
         <span class="chip">1 licence · 1 machine</span>
-        <span class="chip">Renews 01 Oct '26</span>
+        <span class="chip">Renews 01 Nov '26</span>
         <span class="chip">Linux and Windows</span>
         <span class="chip chip--accent">Verified</span>
-        <span class="chip" id="sessionChip" hidden><i></i><span id="sessionWho"></span></span>
         <span class="chip" id="signOutBtn" role="button" tabindex="0" hidden style="cursor:pointer">Sign out</span>
       </div>
     </div>
@@ -1315,7 +1314,7 @@
         <h2>Billing</h2>
         <p class="sub">Stripe processes the card, the receipts and the recurring charge. We hold the plan, the licences and the keys — never your card number.</p>
 
-        <div class="price-row"><b>$14.99</b><span id="billWhen">Subscription · per month · renews automatically 01 Oct '26</span></div>
+        <div class="price-row"><b>$14.99</b><span id="billWhen">Subscription · per month · renews automatically 01 Nov '26</span></div>
 
         <div class="rowlist">
           <div class="krow">
@@ -1349,17 +1348,17 @@
           <div class="sect__head"><span class="mono">Receipts</span><span class="mono">Billing History</span></div>
           <div class="rowlist">
             <div class="krow">
+              <div class="krow__main"><b class="money">01 Oct '26 · $14.99</b><span class="krow__sub">Subscription · monthly · card ···· 4242</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
+              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt downloaded as PDF">Receipt</button></div>
+            </div>
+            <div class="krow">
               <div class="krow__main"><b class="money">01 Sep '26 · $14.99</b><span class="krow__sub">Subscription · monthly · card ···· 4242</span></div>
               <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
               <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt downloaded as PDF">Receipt</button></div>
             </div>
             <div class="krow">
               <div class="krow__main"><b class="money">01 Aug '26 · $14.99</b><span class="krow__sub">Subscription · monthly · card ···· 4242</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
-              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt downloaded as PDF">Receipt</button></div>
-            </div>
-            <div class="krow">
-              <div class="krow__main"><b class="money">01 Jul '26 · $14.99</b><span class="krow__sub">Subscription · monthly · first charge</span></div>
               <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
               <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt downloaded as PDF">Receipt</button></div>
             </div>
@@ -1473,7 +1472,7 @@
         <h3>When should it end?</h3>
         <p>Whichever you pick, you can put it back any time before the date it takes effect.</p>
         <div class="opts">
-          <label class="opt opt--rec"><input type="radio" name="cfTiming" value="period" checked><span><b>At the end of the period — <span class="cf-renew">01 Oct '26</span></b><small>The next charge is stopped and everything keeps working until then, including the guides already on your machine. Recommended, and what the FAQ says happens.</small></span></label>
+          <label class="opt opt--rec"><input type="radio" name="cfTiming" value="period" checked><span><b>At the end of the period — <span class="cf-renew">01 Nov '26</span></b><small>The next charge is stopped and everything keeps working until then, including the guides already on your machine. Recommended, and what the FAQ says happens.</small></span></label>
           <label class="opt"><input type="radio" name="cfTiming" value="now"><span><b>Right away</b><small>The licence stops now and you lose what is left of the period you have paid for. A cancelled subscription cannot be resumed — you would re-subscribe instead.</small></span></label>
           <label class="opt off" id="cfRefundOpt"><input type="radio" name="cfTiming" value="refund" disabled><span><b>Refund this period and end now</b><small id="cfRefundWhy">Not available: the seven-day window covers a first paid period only, and this charge is a renewal. Cancelling still stops the next charge.</small></span></label>
         </div>
@@ -1489,11 +1488,11 @@
         <dl class="fsum">
           <dt>Plan</dt><dd id="cfSumPlan">Subscription · $14.99 / month</dd>
           <dt>Next charge</dt><dd id="cfSumCharge">Stopped — no further charge</dd>
-          <dt>Access until</dt><dd id="cfSumAccess">01 Oct '26</dd>
+          <dt>Access until</dt><dd id="cfSumAccess">01 Nov '26</dd>
           <dt>Licences</dt><dd id="cfSumLicences">The key stops working when the period ends; the application asks for a valid key again.</dd>
           <dt>Guides on your machine</dt><dd>Guides downloaded for the period stop being usable when the period ends.</dd>
           <dt>Your account</dt><dd>Stays, with your licences and seats. Cancelling is not deleting — that is a separate request under <a href="terms.html">section 7 of the Terms</a>.</dd>
-          <dt>Reversible</dt><dd id="cfSumReversible">Yes — switch it back on any time before 01 Oct '26 and nothing happens.</dd>
+          <dt>Reversible</dt><dd id="cfSumReversible">Yes — switch it back on any time before 01 Nov '26 and nothing happens.</dd>
         </dl>
         <div class="fnav">
           <button class="mini" type="button" data-flow-back>Back</button>
@@ -1505,7 +1504,7 @@
         <h3 id="cfDoneTitle">Scheduled.</h3>
         <p id="cfDoneBody">Nothing was charged and nothing was deleted. Your confirmation email is on its way to <b id="cfDoneEmail">operator@domain.com</b>.</p>
         <div class="fsum">
-          <dt>Status</dt><dd id="cfDoneStatus">Cancels on 01 Oct '26 · access continues until then</dd>
+          <dt>Status</dt><dd id="cfDoneStatus">Cancels on 01 Nov '26 · access continues until then</dd>
           <dt>Reversal</dt><dd id="cfDoneReversal">One click in Billing, any time before the date — the plan carries on and no new charge is missed.</dd>
         </div>
         <div class="fnav">
@@ -1629,13 +1628,10 @@
    to true when the page should refuse visitors without a session instead. */
 (async () => {
   const auth = window.OverlordAuth;
-  const chip = document.getElementById('sessionChip');
-  const who  = document.getElementById('sessionWho');
   const out  = document.getElementById('signOutBtn');
-  if (!chip) return;
+  if (!out) return;
 
   const render = s => {
-    chip.hidden = false;
     const accountEmailEl = document.querySelector('#panel-account .krow__main b');
     const headerTitle = document.querySelector('.dash__head h1');
     const providerBadge = document.querySelector('#panel-account .chip--on');
@@ -1645,14 +1641,12 @@
       const name = s.user.user_metadata?.full_name || email.split('@')[0];
       const provider = s.user.app_metadata?.provider || (s.user.identities?.[0]?.provider) || 'Google';
 
-      who.textContent = `Operator · ${email}`;
       out.hidden = false;
 
       if (accountEmailEl) accountEmailEl.textContent = email;
       if (headerTitle) headerTitle.innerHTML = `Welcome back,<br><em>${name}.</em>`;
       if (providerBadge) providerBadge.innerHTML = `<i></i>${provider.toUpperCase()} · Verified`;
     } else {
-      who.textContent = (auth && auth.configured) ? 'Preview Mode · Not Signed In' : 'Auth Terminal · Ready';
       out.hidden = true;
     }
   };
@@ -1894,8 +1888,8 @@
   const MOCK = {
     email: 'operator@domain.com',
     plan: 'Subscription', price: '$14.99', interval: 'month',
-    renews: "01 Oct '26",
-    firstPaidAt: '2026-07-01',
+    renews: "01 Nov '26",
+    firstPaidAt: '2026-10-01',
     refundDays: 7
   };
   const daysSince = iso => Math.floor((Date.now() - Date.parse(iso)) / 86400000);
