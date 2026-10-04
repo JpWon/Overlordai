@@ -798,12 +798,30 @@
   @media (prefers-reduced-motion: reduce){ .dash > *{animation:none;opacity:1;transform:none;} }
   @media (max-width:560px){ .dash{padding:6vh 1.25rem 8vh;} }
 
+  .dash__head{display:flex;justify-content:space-between;align-items:flex-end;gap:2.5rem;flex-wrap:wrap;}
+  .dash__head-content{flex:1;min-width:min(100%, 520px);}
   .dash__head .mono{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
   .dash__head h1{margin-top:1.4rem;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
     font-size:clamp(2.8rem,7vw,6.5rem);line-height:.9;letter-spacing:-.01em;}
   .dash__head h1 em{font-style:normal;color:var(--accent);}
   .dash__head p{margin-top:1.4rem;max-width:40rem;line-height:1.6;color:var(--neutral-on-background-weak);}
   .dash__chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem;}
+
+  /* Smart OS Download Widget */
+  .dash__head-action{display:flex;flex-direction:column;align-items:stretch;gap:.55rem;padding:1.4rem 1.6rem;
+    border:1px solid var(--neutral-alpha-medium);border-radius:6px;background:var(--neutral-alpha-weak);
+    min-width:320px;max-width:380px;align-self:flex-end;}
+  @media (max-width:980px){ .dash__head-action{width:100%;max-width:100%;} }
+  .btn--smart-dl{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;
+    width:100%;padding:.95rem 1.4rem;background:var(--accent);color:#fff;border-radius:4px;
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.9rem;text-decoration:none;
+    letter-spacing:.02em;box-shadow:0 4px 20px rgba(109,92,255,.35);transition:all .25s ease;}
+  .btn--smart-dl:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(109,92,255,.55);color:#fff;}
+  .btn--smart-dl svg{width:18px;height:18px;flex:0 0 auto;}
+  .dl-meta{font-size:.62rem;font-family:'Space Mono',monospace;color:var(--neutral-on-background-weak);letter-spacing:.04em;text-align:center;}
+  .dl-alt{font-size:.68rem;color:var(--neutral-on-background-weak);text-align:center;margin-top:.1rem;}
+  .dl-alt a{color:inherit;text-decoration:underline;text-underline-offset:3px;}
+  .dl-alt a:hover{color:var(--accent);}
 
   .chip{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .72rem;border:1px solid var(--neutral-alpha-medium);
     border-radius:999px;color:var(--neutral-on-background-weak);
@@ -1085,17 +1103,28 @@
 
 <main class="dash">
   <section class="dash__head">
-    <div class="mono">OVR · control deck · secure session · mock</div>
-    <h1>Welcome back,<br><em>Operator.</em></h1>
-    <p>Your account is your email, your key and the machines that hold it. It carries what you own — never how you play.</p>
-    <div class="dash__chips">
-      <span class="chip chip--on" id="planChip"><i></i>Subscription · active</span>
-      <span class="chip">1 licence · 1 machine</span>
-      <span class="chip">Renews 01 Oct '26</span>
-      <span class="chip">Linux + Steam Deck</span>
-      <span class="chip chip--accent">Sample account</span>
-      <span class="chip" id="sessionChip" hidden><i></i><span id="sessionWho"></span></span>
-      <span class="chip" id="signOutBtn" role="button" tabindex="0" hidden style="cursor:pointer">Sign out</span>
+    <div class="dash__head-content">
+      <div class="mono">OVR · control deck · secure session · active</div>
+      <h1>Welcome back,<br><em>Operator.</em></h1>
+      <p>Your account is your email, your key and the machines that hold it. It carries what you own — never how you play.</p>
+      <div class="dash__chips">
+        <span class="chip chip--on" id="planChip"><i></i>Subscription · active</span>
+        <span class="chip">1 licence · 1 machine</span>
+        <span class="chip">Renews 01 Oct '26</span>
+        <span class="chip">Linux + Steam Deck + Win</span>
+        <span class="chip chip--accent">Verified</span>
+        <span class="chip" id="sessionChip" hidden><i></i><span id="sessionWho"></span></span>
+        <span class="chip" id="signOutBtn" role="button" tabindex="0" hidden style="cursor:pointer">Sign out</span>
+      </div>
+    </div>
+
+    <div class="dash__head-action" id="smartDlWidget">
+      <a class="btn--smart-dl" id="smartDlBtn" href="https://github.com/JpWon/Overlordai/releases/latest/download/overlord_0.1.0_amd64.deb" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span id="smartDlText">Download for Linux (.deb)</span>
+      </a>
+      <div class="dl-meta" id="smartDlMeta">Detected: Linux x86_64 · 1-click installer</div>
+      <div class="dl-alt" id="smartDlAlt">Looking for Windows? <a href="https://github.com/JpWon/Overlordai/releases/latest/download/Overlord-Windows.zip" download>Download .zip</a> · <a href="#tab-downloads" class="to-dl-tab">All platforms</a></div>
     </div>
   </section>
 
@@ -1265,10 +1294,10 @@
         <p class="sub">Native Linux, Steam Deck, and Windows packages with automated environment setup and one-click execution.</p>
 
         <div class="dl">
-          <a href="#" data-mock-link="Linux Easy Launcher (launch-linux.sh) ready"><b>Linux Package · x86_64</b><small>launch-linux.sh · Auto-venv & Tray Studio</small><span class="go">Download &rarr;</span></a>
+          <a href="https://github.com/JpWon/Overlordai/releases/latest/download/overlord_0.1.0_amd64.deb" download><b>Debian / Ubuntu Package (.deb)</b><small>1-Click Install · App Menu integration & clean uninstall</small><span class="go">Download &rarr;</span></a>
           <a href="https://github.com/JpWon/Overlordai/releases/latest/download/Overlord-Windows.zip" download><b>Windows Desktop · Win 10/11 & Server</b><small>launch-windows.bat · 1-Click Launch & Studio</small><span class="go">Download &rarr;</span></a>
-          <a href="#" data-mock-link="Steam Deck Flatpak & Gaming Mode script ready"><b>Steam Deck</b><small>SteamOS / Arch · Handheld Ready</small><span class="go">Download &rarr;</span></a>
-          <a href="#" data-mock-link="Debian / Ubuntu .deb package ready"><b>Debian / Ubuntu Package</b><small>.deb bundle · systemd service</small><span class="go">Download &rarr;</span></a>
+          <a href="https://github.com/JpWon/Overlordai/releases/latest/download/Overlord-0.1.0.AppImage" download><b>Linux Portable (AppImage)</b><small>Single executable · Fedora / Arch / SteamOS</small><span class="go">Download &rarr;</span></a>
+          <a href="#" data-mock-link="Steam Deck Flatpak & Gaming Mode script ready"><b>Steam Deck (Gaming Mode)</b><small>SteamOS / Arch · Handheld Ready</small><span class="go">Download &rarr;</span></a>
         </div>
 
         <div class="sect">
@@ -1649,6 +1678,50 @@
   out.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); leave(); } });
 
   if (auth.gateDashboard && !current) location.replace('login.html');
+})();
+</script>
+
+<script>
+/* ---------- Smart OS Detection & Top-Right Download Button ---------- */
+(() => {
+  const btn = document.getElementById('smartDlBtn');
+  const txt = document.getElementById('smartDlText');
+  const meta = document.getElementById('smartDlMeta');
+  const alt = document.getElementById('smartDlAlt');
+  if (!btn || !txt) return;
+
+  const ua = navigator.userAgent || '';
+  const platform = (navigator.userAgentData?.platform || navigator.platform || '').toLowerCase();
+  const isWin = /win/i.test(platform) || /windows/i.test(ua);
+  const isMac = /mac/i.test(platform) || /macintosh/i.test(ua);
+
+  const winUrl = 'https://github.com/JpWon/Overlordai/releases/latest/download/Overlord-Windows.zip';
+  const debUrl = 'https://github.com/JpWon/Overlordai/releases/latest/download/overlord_0.1.0_amd64.deb';
+
+  if (isWin) {
+    btn.href = winUrl;
+    txt.textContent = 'Download for Windows';
+    meta.textContent = 'Detected: Windows 10/11 · Standalone Launcher';
+    alt.innerHTML = 'Looking for Linux? <a href="' + debUrl + '" download>Download .deb</a> · <a href="#tab-downloads" class="to-dl-tab">All platforms</a>';
+  } else {
+    // Linux default (Ubuntu/Debian/Mint/Pop) or Mac preview
+    btn.href = debUrl;
+    txt.textContent = 'Download for Linux (.deb)';
+    meta.textContent = 'Detected: Linux x86_64 · 1-Click Install (.deb)';
+    alt.innerHTML = 'Looking for Windows? <a href="' + winUrl + '" download>Download .zip</a> · <a href="#tab-downloads" class="to-dl-tab">All platforms</a>';
+  }
+
+  // Smooth switch to full Downloads tab on click
+  document.querySelectorAll('.to-dl-tab').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      const tab = document.getElementById('tab-downloads');
+      if (tab) {
+        tab.click();
+        tab.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
 })();
 </script>
 
