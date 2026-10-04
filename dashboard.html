@@ -1122,7 +1122,7 @@
         <span class="arr">&rarr;</span>
       </a>
       <div class="dl-meta" id="smartDlMeta">Detected: Linux x86_64 · 1-click installer</div>
-      <div class="dl-alt" id="smartDlAlt">Looking for Windows? <a href="https://github.com/JpWon/Overlordai/releases/latest/download/Overlord-Windows.zip" download>Download .zip</a> · <a href="#tab-downloads" class="to-dl-tab">All platforms</a></div>
+      <div class="dl-alt" id="smartDlAlt">Looking for Windows? <a href="https://github.com/JpWon/Overlordai/releases/latest/download/Overlord-Windows.zip" download>Download .zip</a> · <a href="#tab-downloads" class="to-dl-tab">All downloads</a></div>
     </div>
   </section>
 
@@ -1292,10 +1292,8 @@
         <p class="sub">Native Linux, Steam Deck, and Windows packages with automated environment setup and one-click execution.</p>
 
         <div class="dl">
-          <a href="https://github.com/JpWon/Overlordai/releases/latest/download/overlord_0.1.0_amd64.deb" download><b>Debian / Ubuntu Package (.deb)</b><small>1-Click Install · App Menu integration & clean uninstall</small><span class="go">Download &rarr;</span></a>
-          <a href="https://github.com/JpWon/Overlordai/releases/latest/download/Overlord-Windows.zip" download><b>Windows Desktop · Win 10/11 & Server</b><small>launch-windows.bat · 1-Click Launch & Studio</small><span class="go">Download &rarr;</span></a>
-          <a href="https://github.com/JpWon/Overlordai/releases/latest/download/Overlord-0.1.0.AppImage" download><b>Linux Portable (AppImage)</b><small>Single executable · Fedora / Arch / SteamOS</small><span class="go">Download &rarr;</span></a>
-          <a href="#" data-mock-link="Steam Deck Flatpak & Gaming Mode script ready"><b>Steam Deck (Gaming Mode)</b><small>SteamOS / Arch · Handheld Ready</small><span class="go">Download &rarr;</span></a>
+          <a href="https://github.com/JpWon/Overlordai/releases/latest/download/overlord_0.1.0_amd64.deb" download><b>Linux Package (.deb)</b><small>Ubuntu / Debian / Linux Mint · 1-Click GUI install & app menu integration</small><span class="go">Download &rarr;</span></a>
+          <a href="https://github.com/JpWon/Overlordai/releases/latest/download/Overlord-Windows.zip" download><b>Windows Desktop (64-bit)</b><small>Windows 10 / 11 & Server · 1-Click Launch & Studio</small><span class="go">Download &rarr;</span></a>
         </div>
 
         <div class="sect">
@@ -1700,13 +1698,13 @@
     btn.href = winUrl;
     txt.textContent = 'Download for Windows';
     meta.textContent = 'Detected: Windows 10/11 · Standalone Launcher';
-    alt.innerHTML = 'Looking for Linux? <a href="' + debUrl + '" download>Download .deb</a> · <a href="#tab-downloads" class="to-dl-tab">All platforms</a>';
+    alt.innerHTML = 'Looking for Linux? <a href="' + debUrl + '" download>Download .deb</a> · <a href="#tab-downloads" class="to-dl-tab">All downloads</a>';
   } else {
     // Linux default (Ubuntu/Debian/Mint/Pop) or Mac preview
     btn.href = debUrl;
     txt.textContent = 'Download for Linux (.deb)';
     meta.textContent = 'Detected: Linux x86_64 · 1-Click Install (.deb)';
-    alt.innerHTML = 'Looking for Windows? <a href="' + winUrl + '" download>Download .zip</a> · <a href="#tab-downloads" class="to-dl-tab">All platforms</a>';
+    alt.innerHTML = 'Looking for Windows? <a href="' + winUrl + '" download>Download .zip</a> · <a href="#tab-downloads" class="to-dl-tab">All downloads</a>';
   }
 
   // Smooth switch to full Downloads tab on click
