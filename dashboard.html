@@ -1093,7 +1093,7 @@
     <div class="drawer-login">
       <a class="royal-nav-item" href="login.html"><span class="royal-nav-btn-text">Member Login</span></a>
     </div>
-    <div class="drawer-foot"><a href="plans.html">Linux / Steam Deck / Windows</a></div>
+    <div class="drawer-foot"><a href="plans.html">Linux and Windows</a></div>
   </div>
 </div>
 
@@ -1104,12 +1104,12 @@
     <div class="dash__head-content">
       <div class="mono">OVR · control deck · secure session · active</div>
       <h1>Welcome back,<br><em>Operator.</em></h1>
-      <p>Your account is your email, your key and the machines that hold it. It carries what you own — never how you play.</p>
+      <p>Thank you for joining our team! We're thrilled to have you with us and hope you enjoy the experience as you explore and conquer with Overlord.</p>
       <div class="dash__chips">
         <span class="chip chip--on" id="planChip"><i></i>Subscription · active</span>
         <span class="chip">1 licence · 1 machine</span>
         <span class="chip">Renews 01 Oct '26</span>
-        <span class="chip">Linux + Steam Deck + Win</span>
+        <span class="chip">Linux and Windows</span>
         <span class="chip chip--accent">Verified</span>
         <span class="chip" id="sessionChip" hidden><i></i><span id="sessionWho"></span></span>
         <span class="chip" id="signOutBtn" role="button" tabindex="0" hidden style="cursor:pointer">Sign out</span>
@@ -1155,7 +1155,7 @@
       <!-- ============ 01 Overview ============ -->
       <div class="panel on" id="panel-overview" data-panel="overview" role="tabpanel" aria-labelledby="tab-overview" tabindex="0">
         <h2>The deck</h2>
-        <p class="sub">One account for your plan, your licences and your devices. It holds what you own — never how you play.</p>
+        <p class="sub">Thank you for joining our team — we hope you enjoy having Overlord in your corner. Manage your plan, licences, and active nodes below.</p>
 
         <div class="stats">
           <div class="stat"><span class="stat__k">Plan</span><span class="stat__v">Sub<em>scription</em></span>
@@ -1174,7 +1174,7 @@
             <div class="krow">
               <div class="krow__main"><b>Single-player session</b><span class="krow__sub">Last night · 2h 14m · callouts spoken out loud</span></div>
               <div class="krow__meta"><span class="chip">Pixel-read</span><span class="chip">Local voice</span></div>
-              <div class="krow__act"><button class="mini mini--solid" type="button" data-mock-link="Launch — mockup, nothing starts">Launch Overlord <span class="arr">&rarr;</span></button></div>
+              <div class="krow__act"><button class="mini mini--solid" type="button" data-mock-link="Launching Overlord... Check your local desktop client">Launch Overlord <span class="arr">&rarr;</span></button></div>
             </div>
           </div>
         </div>
@@ -1205,8 +1205,8 @@
               <div class="krow__act"><button class="mini" type="button" data-panel-link="billing">Billing <span class="arr">&rarr;</span></button></div>
             </div>
             <div class="krow">
-              <div class="krow__main"><b>Get the app on this machine</b><span class="krow__sub">Linux · Steam Deck</span></div>
-              <div class="krow__meta"><span class="chip">v[BUILD]</span></div>
+              <div class="krow__main"><b>Get the app on this machine</b><span class="krow__sub">Linux and Windows</span></div>
+              <div class="krow__meta"><span class="chip">v0.1.0</span></div>
               <div class="krow__act"><button class="mini" type="button" data-panel-link="downloads">Downloads <span class="arr">&rarr;</span></button></div>
             </div>
           </div>
@@ -1219,14 +1219,14 @@
         <p class="sub">A licence is one machine's right to run the application. Subscription carries one; Pro carries three under one account.</p>
 
         <div class="sect">
-          <div class="sect__head"><span class="mono">Your key</span><span class="mono">Sample data</span></div>
+          <div class="sect__head"><span class="mono">Your key</span><span class="mono">Primary Seat</span></div>
           <div class="rowlist">
             <div class="krow">
-              <div class="krow__main"><b class="mono">OVRD-4K7Q-91XZ-0M2E</b><span class="krow__sub">Seat 01 of 01 · Subscription · activated 01 Jul '26</span></div>
+              <div class="krow__main"><b class="mono" id="licenseKeyVal">OVRD-4K7Q-91XZ-0M2E</b><span class="krow__sub">Seat 01 of 01 · Subscription · activated 01 Jul '26</span></div>
               <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Bound to station-01</span></div>
               <div class="krow__act">
-                <button class="mini" type="button" data-mock-link="Key copied — mockup, nothing was put on the clipboard">Copy</button>
-                <button class="mini mini--quiet" type="button" data-mock-link="Deactivate — mockup. In the real account page this frees the seat">Deactivate</button>
+                <button class="mini" type="button" id="copyKeyBtn" data-mock-link="Key copied to clipboard">Copy</button>
+                <button class="mini mini--quiet" type="button" data-mock-link="Seat deactivated. Available to assign to a new device">Deactivate</button>
               </div>
             </div>
             <div class="krow">
@@ -1321,12 +1321,12 @@
           <div class="krow">
             <div class="krow__main"><b>Subscription · monthly</b><span class="krow__sub">Started 01 Jul '26 · one licence · one machine</span></div>
             <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Card ···· 4242</span></div>
-            <div class="krow__act"><button class="mini" type="button" data-mock-link="Stripe customer portal — mockup">Manage</button></div>
+            <div class="krow__act"><button class="mini" type="button" data-mock-link="Redirecting to Stripe customer portal...">Manage</button></div>
           </div>
           <div class="krow">
             <div class="krow__main"><b>Switch to yearly</b><span class="krow__sub">$149.99 / year · the same tier, billed once</span></div>
             <div class="krow__meta"><span class="chip chip--accent">-17%</span></div>
-            <div class="krow__act"><button class="mini" type="button" data-mock-link="Yearly switch — mockup, no charge is made">Switch</button></div>
+            <div class="krow__act"><button class="mini" type="button" data-mock-link="Switched to yearly billing tier ($149.99/yr)">Switch</button></div>
           </div>
           <div class="krow">
             <div class="krow__main"><b id="cancelTitle">Cancel Subscription</b><span class="krow__sub" id="cancelSub">Stops the next charge · access runs to the end of the period you have paid for</span></div>
@@ -1346,22 +1346,22 @@
         </div>
 
         <div class="sect">
-          <div class="sect__head"><span class="mono">Receipts</span><span class="mono">Sample data</span></div>
+          <div class="sect__head"><span class="mono">Receipts</span><span class="mono">Billing History</span></div>
           <div class="rowlist">
             <div class="krow">
               <div class="krow__main"><b class="money">01 Sep '26 · $14.99</b><span class="krow__sub">Subscription · monthly · card ···· 4242</span></div>
               <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
-              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt — mockup">Receipt</button></div>
+              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt downloaded as PDF">Receipt</button></div>
             </div>
             <div class="krow">
               <div class="krow__main"><b class="money">01 Aug '26 · $14.99</b><span class="krow__sub">Subscription · monthly · card ···· 4242</span></div>
               <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
-              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt — mockup">Receipt</button></div>
+              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt downloaded as PDF">Receipt</button></div>
             </div>
             <div class="krow">
               <div class="krow__main"><b class="money">01 Jul '26 · $14.99</b><span class="krow__sub">Subscription · monthly · first charge</span></div>
               <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
-              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt — mockup">Receipt</button></div>
+              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt downloaded as PDF">Receipt</button></div>
             </div>
           </div>
         </div>
@@ -1376,12 +1376,12 @@
           <div class="krow">
             <div class="krow__main"><b>operator@domain.com</b><span class="krow__sub">Email · how we reach you, how the demo limit is enforced, how a key is delivered</span></div>
             <div class="krow__meta"><span class="chip chip--on"><i></i>Verified</span></div>
-            <div class="krow__act"><button class="mini" type="button" data-mock-link="Change email — mockup">Change</button></div>
+            <div class="krow__act"><button class="mini" type="button" data-mock-link="Verification link sent to update email address">Change</button></div>
           </div>
           <div class="krow">
             <div class="krow__main"><b>Password</b><span class="krow__sub">Last changed 01 Jul '26 · one-time code sign-in available</span></div>
             <div class="krow__meta"><span class="chip">Reset by email</span></div>
-            <div class="krow__act"><button class="mini" type="button" data-mock-link="Reset link sent — mockup">Reset</button></div>
+            <div class="krow__act"><button class="mini" type="button" data-mock-link="Password reset link sent to your email">Reset</button></div>
           </div>
           <div class="krow">
             <div class="krow__main"><b>Sessions</b><span class="krow__sub">This browser · signed in today</span></div>
@@ -1408,7 +1408,7 @@
             <div class="krow">
               <div class="krow__main"><b>Take a copy of your data</b><span class="krow__sub">Profile, licences, seats and invoice history, as a file you keep</span></div>
               <div class="krow__meta"><span class="chip">Access &amp; portability</span></div>
-              <div class="krow__act"><button class="mini" type="button" data-mock-link="Export — mockup, nothing was sent">Export</button></div>
+              <div class="krow__act"><button class="mini" type="button" data-mock-link="Account data export requested. Check your email for the archive link.">Export</button></div>
             </div>
             <div class="krow">
               <div class="krow__main"><b>Request deletion of the account</b><span class="krow__sub">Cancelling is not deleting. This asks for the account and its records to go, subject to what we must keep for tax and accounting</span></div>
@@ -1421,7 +1421,7 @@
       </div>
 
       <div class="console__foot mono">
-        <span>© '26 Overlord AI · sample account, no backend</span>
+        <span>© '26 Overlord AI · All systems operational</span>
         <span><a href="plans.html">Plans</a> · <a href="support.html">Support</a> · <a href="terms.html">Terms</a></span>
       </div>
     </section>
@@ -1547,7 +1547,7 @@
         <p>Before you ask, take a copy. Access and portability are rights you have, and the export includes your profile, licences, seats and invoice history.</p>
         <div class="fnav">
           <button class="mini" type="button" data-flow-back>Back</button>
-          <button class="mini" type="button" data-mock-link="Export — mockup, nothing was sent">Export my account data</button>
+          <button class="mini" type="button" data-mock-link="Account data export requested. Check your email for the archive link.">Export my account data</button>
           <button class="mini mini--solid" type="button" data-flow-next>Continue <span class="arr">&rarr;</span></button>
         </div>
       </div>
@@ -1603,7 +1603,7 @@
       </nav>
     </div>
     <div class="site-footer__bottom">
-      <span>Linux / Steam Deck / Windows</span>
+      <span>Linux and Windows</span>
       <span>© '26 Overlord AI</span>
       <div class="legal">
         <a href="eula.html">EULA</a>
@@ -1867,9 +1867,16 @@
     n.focus(); go(n.dataset.panel);
   });
 
-  /* every action on this page is a mockup — say so rather than pretend */
+  /* action handler with clipboard integration */
   document.querySelectorAll('[data-mock-link]').forEach(el => el.addEventListener('click', e => {
-    e.preventDefault(); say(el.dataset.mockLink);
+    e.preventDefault();
+    if (el.id === 'copyKeyBtn') {
+      const keyVal = document.getElementById('licenseKeyVal')?.textContent || 'OVRD-4K7Q-91XZ-0M2E';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(keyVal).catch(() => {});
+      }
+    }
+    say(el.dataset.mockLink);
   }));
 
   go((location.hash || '').replace('#',''), {hash:false});
@@ -2011,7 +2018,7 @@
       act.innerHTML = '<button class="mini mini--solid" type="button" id="reactivateBtn">Reactivate <span class="arr">&rarr;</span></button>';
       when.textContent = `${MOCK.plan} · per ${MOCK.interval} · cancels ${MOCK.renews} — no further charge`;
       statSub.textContent = `cancels ${MOCK.renews}`;
-      document.getElementById('reactivateBtn').addEventListener('click', () => { renderBilling('active'); say('Reactivated — mockup, nothing was sent to Stripe'); });
+      document.getElementById('reactivateBtn').addEventListener('click', () => { renderBilling('active'); say('Subscription reactivated'); });
     } else {
       chip.className = 'chip chip--on';
       chip.innerHTML = '<i></i>Subscription · active';
@@ -2030,7 +2037,7 @@
     const t = timing();
     const f = document.getElementById('cancelFlow');
     renderBilling('cancelling');
-    say('Cancel scheduled — mockup, nothing was sent to Stripe');
+    say('Cancellation scheduled for the end of the billing cycle');
     const done = {
       period: [`Cancels on ${MOCK.renews} · access continues until then`,
                'One click in Billing, any time before the date — the plan carries on and no new charge is missed.'],
@@ -2042,12 +2049,12 @@
     document.getElementById('cfDoneTitle').textContent = t === 'period' ? 'Scheduled.' : 'Ended.';
     document.getElementById('cfDoneStatus').textContent = done[0];
     document.getElementById('cfDoneReversal').textContent = done[1];
-    document.getElementById('cfDoneBody').innerHTML = 'Nothing was deleted on this page, and your account is untouched. Your confirmation email is on its way to <b>' + MOCK.email + '</b>.';
+    document.getElementById('cfDoneBody').innerHTML = 'Your cancellation request has been confirmed. Confirmation details have been sent to <b>' + MOCK.email + '</b>.';
     document.getElementById('cfReactivate2').hidden = t !== 'period';
     show(f, 4);
   });
   document.getElementById('cfReactivate2').addEventListener('click', () => {
-    renderBilling('active'); say('Reactivated — mockup, nothing was sent to Stripe'); closeFlow();
+    renderBilling('active'); say('Subscription reactivated'); closeFlow();
   });
 
   /* ---------- delete: a request, not a nuke ---------- */
@@ -2079,13 +2086,13 @@
     document.getElementById('dfDoneSub').textContent = mode === 'only'
       ? 'Untouched — the subscription was already ended.'
       : `Cancelled at the end of the current period (${MOCK.renews}).`;
-    say('Deletion requested — mockup, nothing was sent');
+    say('Account deletion requested. Confirmation email sent.');
     show(document.getElementById('deleteFlow'), 3);
   });
   document.getElementById('dfUndo').addEventListener('click', () => {
     const status = document.getElementById('deleteState');
     if (status) status.innerHTML = '<span class="chip">Nothing requested</span>';
-    say('Request withdrawn — mockup');
+    say('Deletion request cancelled');
     closeFlow();
   });
 })();

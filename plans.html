@@ -13,7 +13,7 @@
 <!-- SEO + social: absolute URLs, factual only (no reviews exist, so no ratings) -->
 <!-- Search Console: paste your verification tag here as
      <meta name="google-site-verification" content=…> once you add the property -->
-<meta name="description" content="Overlord AI plans: free 30-minute demo, Subscription at $14.99/month or $149.99/year, and Pro at $39.99/month or $399.99/year with three licences. Linux and Steam Deck.">
+<meta name="description" content="Overlord AI plans: free 30-minute demo, Subscription at $14.99/month or $149.99/year, and Pro at $39.99/month or $399.99/year with three licences. Linux and Windows.">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <link rel="canonical" href="https://www.overlordai.co/plans.html">
 <meta name="application-name" content="Overlord AI">
@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Overlord AI">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Overlord AI — Plans & Pricing (Free 30-Minute Demo, $14.99/mo)">
-<meta property="og:description" content="Overlord AI plans: free 30-minute demo, Subscription at $14.99/month or $149.99/year, and Pro at $39.99/month or $399.99/year with three licences. Linux and Steam Deck.">
+<meta property="og:description" content="Overlord AI plans: free 30-minute demo, Subscription at $14.99/month or $149.99/year, and Pro at $39.99/month or $399.99/year with three licences. Linux and Windows.">
 <meta property="og:url" content="https://www.overlordai.co/plans.html">
 <meta property="og:image" content="https://www.overlordai.co/og-thumbnail.png">
 <meta property="og:image:width" content="1200">
@@ -30,7 +30,7 @@
 <meta property="og:image:alt" content="Overlord AI rooster mark on paper">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Overlord AI — Plans & Pricing (Free 30-Minute Demo, $14.99/mo)">
-<meta name="twitter:description" content="Overlord AI plans: free 30-minute demo, Subscription at $14.99/month or $149.99/year, and Pro at $39.99/month or $399.99/year with three licences. Linux and Steam Deck.">
+<meta name="twitter:description" content="Overlord AI plans: free 30-minute demo, Subscription at $14.99/month or $149.99/year, and Pro at $39.99/month or $399.99/year with three licences. Linux and Windows.">
 <meta name="twitter:image" content="https://www.overlordai.co/og-thumbnail.png">
 <meta name="twitter:image:alt" content="Overlord AI rooster mark on paper">
 <script type="application/ld+json">
@@ -64,7 +64,7 @@
       "@id": "https://www.overlordai.co/plans.html#webpage",
       "url": "https://www.overlordai.co/plans.html",
       "name": "Overlord AI \u2014 Plans & Pricing (Free 30-Minute Demo, $14.99/mo)",
-      "description": "Overlord AI plans: free 30-minute demo, Subscription at $14.99/month or $149.99/year, and Pro at $39.99/month or $399.99/year with three licences. Linux and Steam Deck.",
+      "description": "Overlord AI plans: free 30-minute demo, Subscription at $14.99/month or $149.99/year, and Pro at $39.99/month or $399.99/year with three licences. Linux and Windows.",
       "isPartOf": {
         "@id": "https://www.overlordai.co/#website"
       },
@@ -352,6 +352,39 @@
   .nav-hover:hover .nav-link-text{
     color:var(--brand-strong) !important;border-bottom-color:var(--brand-strong) !important;
     text-shadow:.5px 0 0 currentColor,-.5px 0 0 currentColor;
+  }
+
+  /* Live Now badge in the nav */
+  .nav-live{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 14px;border-radius:999px;
+    border:1px solid rgba(34,197,94,.42);background:rgba(34,197,94,.06);
+    cursor:pointer;text-decoration:none;
+    font-family:'Space Mono',monospace;font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:#4ade80;
+    transition:all .35s ease;
+  }
+  .nav-live:hover{
+    background:rgba(34,197,94,.16);border-color:rgba(34,197,94,.85);color:#86efac;
+    box-shadow:0 0 16px rgba(34,197,94,.24);
+  }
+  .nav-live__dot-wrap{
+    position:relative;display:inline-flex;align-items:center;justify-content:center;
+    width:8px;height:8px;flex:none;
+  }
+  .nav-live__dot{
+    width:6px;height:6px;border-radius:50%;
+    background:#22c55e;box-shadow:0 0 6px #22c55e;
+  }
+  .nav-live__ring{
+    position:absolute;inset:-3px;border-radius:50%;
+    border:1.5px solid #22c55e;
+    animation:live-pulse 2.2s cubic-bezier(0.2,0.8,0.2,1) infinite;
+  }
+  @keyframes live-pulse{
+    0%{transform:scale(.6);opacity:.85;}
+    60%{transform:scale(2.2);opacity:0;}
+    100%{transform:scale(2.2);opacity:0;}
   }
 
   /* Celestial Toggle — Day/Night */
@@ -928,7 +961,14 @@
       <a class="nav-hover" href="index.html#top"><span class="nav-link-text">Home</span></a>
       <a class="nav-hover" href="index.html#work"><span class="nav-link-text">Preview</span></a>
       <a class="nav-hover" href="plans.html" aria-current="page"><span class="nav-link-text">Plans</span></a>
-      <a class="nav-hover" href="login.html"><span class="nav-link-text">Sign Up</span></a>
+      <a class="nav-hover" href="login.html"><span class="nav-link-text">Sign In</span></a>
+      <a class="nav-live" href="dashboard.html" title="Access Control Deck">
+        <span class="nav-live__dot-wrap" aria-hidden="true">
+          <span class="nav-live__dot"></span>
+          <span class="nav-live__ring"></span>
+        </span>
+        <span class="nav-live__text">Live Now</span>
+      </a>
     </div>
 
     <!-- Right — Celestial toggle + Cart -->
@@ -970,7 +1010,7 @@
     <div class="drawer-login">
       <a class="royal-nav-item" href="login.html"><span class="royal-nav-btn-text">Member Login</span></a>
     </div>
-    <div class="drawer-foot"><a href="plans.html">Linux / Steam Deck / Windows</a></div>
+    <div class="drawer-foot"><a href="plans.html">Linux and Windows</a></div>
   </div>
 </div>
 
@@ -1015,7 +1055,7 @@
         <li>Guided missions</li>
         <li>Local voice, on your PC</li>
       </ul>
-      <div class="plan__cta"><a class="btn btn--solid" href="#" data-mock-link="Paid subscriptions temporarily paused while we button up the app — free demo is open!">Coming Soon &mdash; $14.99/mo <span class="arr">&rarr;</span></a></div>
+      <div class="plan__cta"><a class="btn btn--solid" href="https://buy.stripe.com/aFa4gz99b8zRanKcCLaIM00">Subscribe &mdash; $14.99/mo <span class="arr">&rarr;</span></a></div>
     </article>
 
     <article class="plan in" style="--d:.25s">
@@ -1030,7 +1070,7 @@
         <li>Move a seat any time</li>
         <li>Priority game profiles</li>
       </ul>
-      <div class="plan__cta"><a class="btn btn--solid" href="#" data-mock-link="Paid subscriptions temporarily paused while we button up the app — free demo is open!">Coming Soon &mdash; $39.99/mo <span class="arr">&rarr;</span></a></div>
+      <div class="plan__cta"><a class="btn btn--solid" href="https://buy.stripe.com/9B6eVdcln4jB67ugT1aIM01">Go Pro &mdash; $39.99/mo <span class="arr">&rarr;</span></a></div>
     </article>
   </div>
 
@@ -1049,7 +1089,7 @@
       </nav>
     </div>
     <div class="site-footer__bottom">
-      <span>Linux / Steam Deck / Windows</span>
+      <span>Linux and Windows</span>
       <span>© '26 Overlord AI</span>
       <div class="legal">
         <a href="eula.html">EULA</a>

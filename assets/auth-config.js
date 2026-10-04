@@ -16,5 +16,5 @@ window.OVERLORD_SUPABASE = {
      set `gateDashboard: true` and dashboard.html redirects a visitor with no
      session to login.html instead of showing the sample account. Left false
      while the pre-launch review links point straight at the dashboard. */
-  gateDashboard: false
+  gateDashboard: true
 };
