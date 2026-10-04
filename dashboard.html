@@ -798,7 +798,7 @@
   @media (prefers-reduced-motion: reduce){ .dash > *{animation:none;opacity:1;transform:none;} }
   @media (max-width:560px){ .dash{padding:6vh 1.25rem 8vh;} }
 
-  .dash__head{display:flex;justify-content:space-between;align-items:flex-end;gap:2.5rem;flex-wrap:wrap;}
+  .dash__head{display:flex;justify-content:space-between;align-items:center;gap:2.5rem;flex-wrap:wrap;}
   .dash__head-content{flex:1;min-width:min(100%, 520px);}
   .dash__head .mono{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
   .dash__head h1{margin-top:1.4rem;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
@@ -807,17 +807,15 @@
   .dash__head p{margin-top:1.4rem;max-width:40rem;line-height:1.6;color:var(--neutral-on-background-weak);}
   .dash__chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem;}
 
-  /* Smart OS Download Widget */
-  .dash__head-action{display:flex;flex-direction:column;align-items:stretch;gap:.55rem;padding:1.4rem 1.6rem;
+  /* Smart OS Download Widget — centered midway in top-right */
+  .dash__head-action{display:flex;flex-direction:column;align-items:stretch;gap:.6rem;padding:1.35rem 1.6rem;
     border:1px solid var(--neutral-alpha-medium);border-radius:6px;background:var(--neutral-alpha-weak);
-    min-width:320px;max-width:380px;align-self:flex-end;}
-  @media (max-width:980px){ .dash__head-action{width:100%;max-width:100%;} }
-  .btn--smart-dl{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;
-    width:100%;padding:.95rem 1.4rem;background:var(--accent);color:#fff;border-radius:4px;
-    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.9rem;text-decoration:none;
-    letter-spacing:.02em;box-shadow:0 4px 20px rgba(109,92,255,.35);transition:all .25s ease;}
-  .btn--smart-dl:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(109,92,255,.55);color:#fff;}
-  .btn--smart-dl svg{width:18px;height:18px;flex:0 0 auto;}
+    min-width:320px;max-width:390px;align-self:center;margin-top:1rem;}
+  @media (max-width:980px){ .dash__head-action{width:100%;max-width:100%;margin-top:0;} }
+  .btn--smart-dl{
+    padding:.95rem 1.35rem;font-size:.74rem;letter-spacing:.2em;
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
+  }
   .dl-meta{font-size:.62rem;font-family:'Space Mono',monospace;color:var(--neutral-on-background-weak);letter-spacing:.04em;text-align:center;}
   .dl-alt{font-size:.68rem;color:var(--neutral-on-background-weak);text-align:center;margin-top:.1rem;}
   .dl-alt a{color:inherit;text-decoration:underline;text-underline-offset:3px;}
@@ -1119,9 +1117,9 @@
     </div>
 
     <div class="dash__head-action" id="smartDlWidget">
-      <a class="btn--smart-dl" id="smartDlBtn" href="https://github.com/JpWon/Overlordai/releases/latest/download/overlord_0.1.0_amd64.deb" download>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <a class="btn btn--solid btn--smart-dl" id="smartDlBtn" href="https://github.com/JpWon/Overlordai/releases/latest/download/overlord_0.1.0_amd64.deb" download>
         <span id="smartDlText">Download for Linux (.deb)</span>
+        <span class="arr">&rarr;</span>
       </a>
       <div class="dl-meta" id="smartDlMeta">Detected: Linux x86_64 · 1-click installer</div>
       <div class="dl-alt" id="smartDlAlt">Looking for Windows? <a href="https://github.com/JpWon/Overlordai/releases/latest/download/Overlord-Windows.zip" download>Download .zip</a> · <a href="#tab-downloads" class="to-dl-tab">All platforms</a></div>
