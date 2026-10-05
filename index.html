@@ -1130,25 +1130,6 @@
   .drawer-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:12px 14px;}
   .drawer-card h4{font-family:'Space Mono',monospace;font-size:.7rem;color:#00ffaa;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
   .drawer-card p{font-size:.8rem;color:var(--neutral-on-background-weak);line-height:1.45;}
-  /* ================= COMING SOON takeover ================= */
-  .cs{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem;background:#05050a;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .55s ease,visibility .55s ease;}
-  .cs.is-open{opacity:1;visibility:visible;pointer-events:auto;}
-  .cs__glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 50% at 50% 42%,rgba(109,92,255,.20),transparent 70%),radial-gradient(40% 36% at 50% 58%,rgba(140,90,255,.12),transparent 70%);}
-  .cs__kicker{position:relative;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:2.2rem;}
-  .cs__title{position:relative;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(4rem,15vw,13rem);line-height:.9;letter-spacing:-.01em;color:#fff;}
-  .cs__title span{color:#a894ff;}
-  .cs__sub{position:relative;margin-top:1.6rem;font-size:clamp(.78rem,1.5vw,1rem);letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.6);}
-  .cs__form{position:relative;margin-top:3.6rem;display:flex;flex-wrap:wrap;gap:.9rem;align-items:center;justify-content:center;}
-  .cs__email{font-family:'Space Mono',monospace;font-size:.76rem;letter-spacing:.12em;color:#fff;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.25);padding:1.15rem 1.5rem;min-width:260px;outline:none;transition:border-color .4s ease;}
-  .cs__email::placeholder{color:rgba(255,255,255,.35);}
-  .cs__email:focus{border-color:var(--accent);}
-  .cs__done{position:relative;margin-top:3.6rem;font-family:'Space Mono',monospace;font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;color:#a894ff;}
-  .cs__wait{position:relative;display:inline-flex;align-items:center;text-decoration:none;font-family:'Space Mono',monospace;font-size:.76rem;letter-spacing:.26em;text-transform:uppercase;color:#fff;padding:1.15rem 2.6rem;background:none;border:1px solid rgba(255,255,255,.25);overflow:hidden;isolation:isolate;cursor:pointer;transition:border-color .4s ease;}
-  .cs__wait::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.19,1,.22,1);}
-  .cs__wait:hover::after{transform:scaleX(1);}
-  .cs__wait:hover{border-color:transparent;}
-  .cs__close{position:absolute;top:1.6rem;right:2rem;z-index:2;width:46px;height:46px;display:grid;place-items:center;background:none;border:1px solid rgba(255,255,255,.25);border-radius:50%;color:#fff;font-size:1.25rem;line-height:1;cursor:pointer;transition:border-color .4s ease,color .4s ease,transform .4s ease;}
-  .cs__close:hover{border-color:var(--accent);color:#a894ff;transform:rotate(90deg);}
 </style>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -2251,63 +2232,6 @@
 })();
 </script>
 
-<!-- COMING SOON takeover -->
-<div class="cs" id="cs" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Coming soon">
-  <div class="cs__glow" aria-hidden="true"></div>
-  <button class="cs__close" id="csClose" aria-label="Close">&times;</button>
-  <p class="cs__kicker">Overlord AI</p>
-  <h2 class="cs__title">Coming <span>Soon</span></h2>
-  <p class="cs__sub">The live gaming guidebook companion</p>
-  <form class="cs__form" id="csForm" novalidate>
-    <input class="cs__email" type="email" name="email" placeholder="you@email.com" required aria-label="Email address" autocomplete="email">
-    <button class="cs__wait" type="submit">Join the waitlist</button>
-  </form>
-</div>
-
-<script>
-/* Coming-soon modal (manual trigger only, auto-popup disabled) */
-(() => {
-  const cs = document.getElementById('cs');
-  if (!cs) return;
-  const open = () => { cs.classList.add('is-open'); cs.setAttribute('aria-hidden','false'); };
-  const close = () => { cs.classList.remove('is-open'); cs.setAttribute('aria-hidden','true'); };
-  const csClose = document.getElementById('csClose');
-  if (csClose) csClose.addEventListener('click', close);
-  addEventListener('keydown', e => { if (e.key === 'Escape' && cs.classList.contains('is-open')) close(); });
-
-  // waitlist: POST straight to Supabase (no backend needed)
-  const SUPABASE_URL = 'https://bzxzhizvfzmldpkxxuqu.supabase.co'; // live project (public anon key, same one auth-config.js ships)
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ6eHpoaXp2ZnptbGRwa3h4dXF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NzUwNTYsImV4cCI6MjEwNjE1MTA1Nn0.2Yj_uJF7g_0BEp1ZbhwrgfbUOv52Ob6i0iRNdebXk9g';               // public by design: it is already client-side in assets/auth-config.js
-  const form = document.getElementById('csForm');
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    const input = form.querySelector('.cs__email');
-    const email = input.value.trim();
-    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return;
-    const btn = form.querySelector('.cs__wait');
-    btn.disabled = true;
-    btn.textContent = 'Joining...';
-    try {
-      const r = await fetch(SUPABASE_URL + '/rest/v1/waitlist', {
-        method: 'POST',
-        headers: {
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({ email })
-      });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      if (window.rdt) rdt('track', 'Lead');   // real signup, not a page load
-      form.innerHTML = '<p class="cs__done">You are on the list.</p>';
-    } catch (err) {
-      btn.disabled = false;
-      btn.textContent = 'Join the waitlist';
-      window.location.href = 'mailto:info@overlordai.co?subject=' + encodeURIComponent('Overlord AI waitlist') + '&body=' + encodeURIComponent('Waitlist signup: ' + email);
-    }
-  });})();
-</script>
 
 <!-- Section 2 Interactive Cards Logic -->
 <script>

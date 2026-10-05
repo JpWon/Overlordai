@@ -1091,7 +1091,7 @@
 -->
 <span class="lg__label">OVR · legal · privacy</span>
 <h1>What leaves<br><em>your machine.</em></h1>
-<div class="lg__meta"><span>Version 1.0</span><span>Draft for review</span><span>Effective 29 September 2026</span><span>Covers the App, the Site and the waitlist</span></div>
+<div class="lg__meta"><span>Version 1.0</span><span>Draft for review</span><span>Effective 29 September 2026</span><span>Covers the App, the Site and your account</span></div>
 <p class="lg__lede">Two things can leave your machine when you play: one frame of your screen with the text of your question, sent to the endpoint behind the model key you supplied, and, when the telemetry bridge is configured, a session record with no screen content in it. Everything else stays where it is, and this page says which parts of that promise are built and which are still requirements.</p>
 <div class="lg__toc"><b>Contents</b>
 <a href="#s1">1 Scope</a> <span>·</span>
@@ -1099,7 +1099,7 @@
 <a href="#s3">3 What the App reads and sends</a> <span>·</span>
 <a href="#s4">4 The session record</a> <span>·</span>
 <a href="#s5">5 What never leaves your machine</a> <span>·</span>
-<a href="#s6">6 The Site and the waitlist</a> <span>·</span>
+<a href="#s6">6 The Site</a> <span>·</span>
 <a href="#s7">7 The free Demo's licence</a> <span>·</span>
 <a href="#s8">8 Payments</a> <span>·</span>
 <a href="#s9">9 Your rights</a> <span>·</span>
@@ -1115,7 +1115,7 @@
 
 <section id="s1">
 <h2>1 Scope</h2>
-<p>Overlord is a companion guide that reads your screen and talks to you while you play. This policy covers the App on Windows and Linux, the Site at www.overlordai.co, and the waitlist.</p>
+<p>Overlord is a companion guide that reads your screen and talks to you while you play. This policy covers the App on Windows and Linux, the Site at www.overlordai.co, and your account.</p>
 <p>The App is pixel-read only: one captured frame per question, and nothing else. It never reads game memory, never injects code or DLLs, never inspects network traffic and never sends input, and it refuses ranked or competitive multiplayer by design.</p>
 <h3>Not covered here</h3>
 <ul>
@@ -1136,7 +1136,7 @@
 <tr><td><strong>Your model key</strong></td><td>No, except to the endpoint it belongs to</td><td>Only a masked label is ever written to a log line or a record.</td></tr>
 <tr><td><strong>Payment or card data</strong></td><td>No</td><td>There is no live checkout.</td></tr>
 <tr><td><strong>A profile of your play</strong></td><td>No</td><td>Nothing describes what happened in the game.</td></tr>
-<tr><td><strong>A waitlist email, if you join</strong></td><td>Yes, to our waitlist storage</td><td>It is how the list is kept.</td></tr>
+<tr><td><strong>Your email, if you take a licence or the Demo</strong></td><td>Yes, to your account record</td><td>A licence is issued to an account, and it holds the free trial to one machine.</td></tr>
 </table>
 </section>
 
@@ -1172,10 +1172,10 @@
 </section>
 
 <section id="s6">
-<h2>6 The Site and the waitlist</h2>
+<h2>6 The Site</h2>
 <p>The Site is a website with no screen access and no knowledge of your play.</p>
-<h3>If you join the waitlist</h3>
-<p>The email you give is stored in a Supabase table, and a Resend mail confirms the signup into our own inbox. The service that receives it runs on Railway. That is the whole path: one address, kept so we can write to you about releases and the product.</p>
+<h3>If you create an account</h3>
+<p>There is no waitlist and no mailing list. An account holds your email address and it exists for one reason: a licence key is issued to an account, and the free Demo is a licence. It is created on the sign-up page or by the App, and the record is held in Supabase. The mail that confirms the address or resets a password is sent to you through Proton Mail from privacy@overlordai.co. That is the whole path.</p>
 <h3>Advertising pixels</h3>
 <p>Since 5 October 2026 one third-party script runs on these pages: the Reddit Ads pixel (<code>redditstatic.com/ads/pixel.js</code>). We are running a small advertising test on Reddit, and that pixel is how the test is measured. It reports that a page was viewed, which page it was, and the click identifier from the advertisement that brought you here, then sends that to Reddit under a first-party cookie it sets in your browser. It is how we learn which advertisement is worth paying for, and it is what lets us stop showing advertisements to people who already use the App.</p>
 <p>What it does not do: it never sees your screen, your licence key, your account or anything the App reads (§3, §5). It does not run inside the App at all — only on these web pages — and the Site works normally without it. If you would rather not be measured, block it the way you would block any ad script, or write to privacy@overlordai.co and we will record the objection against your address.</p>
@@ -1206,16 +1206,16 @@
 <h3>EEA, UK and Switzerland</h3>
 <p>Under the GDPR and UK GDPR you may access, correct, erase, restrict, port and object to the processing of your personal data, and withdraw consent at any time.</p>
 <h3>California</h3>
-<p>Under the CCPA and CPRA you may know, delete, correct and port your personal information, and opt out of its sale or sharing. <strong>We do not sell personal information, and we do not share it for cross-context behavioural advertising.</strong> There is no analytics or advertising code on the Site to do either with.</p>
+<p>Under the CCPA and CPRA you may know, delete, correct and port your personal information, and opt out of its sale or sharing. <strong>We do not sell personal information, and we do not share it for cross-context behavioural advertising.</strong> The only measurement on the Site is the Reddit advertising pixel described in §6: it reports that a page was viewed and which advertisement brought you here, and we do not use it to profile you or to share anything with anyone.</p>
 <p>To exercise any of these, write to <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a>. We may need to verify your identity, and we will respond inside the timeframe the law allows.</p>
-<div class="lg__note"><b>What a request can actually reach today.</b> Most of what the App handles never reaches us: it is on your machine or at the endpoint behind your key. A request reaches your waitlist email and any licence record. It cannot recall a frame from a model provider.</div>
+<div class="lg__note"><b>What a request can actually reach today.</b> Most of what the App handles never reaches us: it is on your machine or at the endpoint behind your key. A request reaches your account email and any licence record. It cannot recall a frame from a model provider.</div>
 </section>
 
 <section id="s10">
 <h2>10 Retention</h2>
 <p>A captured frame lives as long as the process that took it. A retention limit, where older frames do not survive, is written down as a requirement and is not built. Until it is, that is the whole truth: no limit is enforced today, and we will name the number when one exists — a number we cannot back is worse than the gap it hides.</p>
 <p>The session record lives as long as the telemetry it is written to.</p>
-<p>A waitlist email is kept until you ask for its removal. A licence record is kept while the licence is active, and afterwards only to honour it or meet a tax obligation.</p>
+<p>An account email is kept while the account exists, and removed when you ask for it. A licence record is kept while the licence is active, and afterwards only to honour it or meet a tax obligation.</p>
 </section>
 
 <section id="s11">
@@ -1223,14 +1223,13 @@
 <p>These services handle data for us.</p>
 <table>
 <tr><th>Service</th><th>What it handles</th><th>Role</th></tr>
-<tr><td><strong>Supabase</strong></td><td>the waitlist email</td><td>database storage</td></tr>
-<tr><td><strong>Resend</strong></td><td>the mail confirming a signup, to our own address</td><td>email sending</td></tr>
-<tr><td><strong>Railway</strong></td><td>the service that receives a signup</td><td>application hosting</td></tr>
+<tr><td><strong>Supabase</strong></td><td>your account email, the trial fingerprint and the licence record</td><td>database and account storage</td></tr>
+<tr><td><strong>Proton Mail</strong></td><td>the mail sent to you about your account: address confirmation, password reset</td><td>email sending</td></tr>
 <tr><td><strong>Vercel</strong></td><td>hosting and delivery of this website</td><td>static hosting</td></tr>
 <tr><td><strong>GitHub</strong></td><td>the repository this site is published from</td><td>source hosting</td></tr>
 <tr><td><strong>DeepSeek, Google, Groq</strong></td><td>the endpoint behind your own key, which receives the frame and the question</td><td>model providers; only the one you configure is contacted, and only with a key</td></tr>
 </table>
-<p>Stripe is not here yet because checkout is not live; it will be added, and it will be the only party that sees card data. There is no support inbox, chat server or advertising processor.</p>
+<p>Stripe is not here yet because checkout is not live; it will be added, and it will be the only party that sees card data. Beyond the mail provider above, there is no chat server: support reaches us at the address in §14. The Reddit pixel described in §6 is a measurement service rather than a processor — it receives a page view and the click identifier from an advertisement, never your account.</p>
 </section>
 
 <section id="s12">
@@ -1249,7 +1248,7 @@
 
 <section id="s14">
 <h2>14 Children</h2>
-<p>The App is for players old enough to buy and run the games it guides, and is not directed at children. It is not offered to anyone under 13. We do not knowingly collect personal data from anyone under that age; if you believe a child has sent us an address through the waitlist, write to <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a> and we will remove it.</p>
+<p>The App is for players old enough to buy and run the games it guides, and is not directed at children. It is not offered to anyone under 13. We do not knowingly collect personal data from anyone under that age; if you believe a child has sent us an address through an account or the Demo, write to <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a> and we will remove it.</p>
 <div class="lg__note"><b>The age floor is 13, and the games are not.</b> Single-player titles carry their own ratings, up to 18 in some territories. An account at 13 is not permission to play: the guide is sold for a game the player must already be old enough to buy, and the account age is not the play age.</div>
 </section>
 
@@ -1273,7 +1272,7 @@
 
 <section id="s17">
 <h2>17 Contact</h2>
-<p>Privacy questions and rights requests go to <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a>, and a request sent there is answered inside the timeframe the law allows. Waitlist mail is served by <a href="mailto:info@overlordai.co">info@overlordai.co</a>.</p>
+<p>Privacy questions and rights requests go to <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a>, and a request sent there is answered inside the timeframe the law allows. Account mail is sent from <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a>, the same address.</p>
 <p>Legal notices go to info@overlordai.co. This policy is one of three documents: the <a href="eula.html">end-user licence</a> and the <a href="terms.html">terms of service</a> are the other two.</p>
 <div class="lg__note"><b>No channel is printed that does not exist.</b> There is no support inbox, chat server or community forum yet, and this policy will not list one to look complete.</div>
 </section>
