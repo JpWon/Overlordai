@@ -331,13 +331,13 @@
     ['assimilating',4200],
     ['guidance',   5600],
   ];
-  let alive = true;
+  let alive = true, pending = null;
   function run(i = 0){
     if (!alive) return;
     if (reduce){ phase('guidance'); return; }
     const [name, ms] = LOOP[i];
     phase(name);
-    setTimeout(() => run((i + 1) % LOOP.length), ms);
+    pending = setTimeout(() => run((i + 1) % LOOP.length), ms);
   }
   /* keep the pill telemetry breathing so it reads as live */
   setInterval(() => {
@@ -357,7 +357,14 @@
 
   /* QA hook: window.__hud.phase('guidance') pins any beat for screenshots */
   addEventListener('animationend', () => {}, false);
-  window.__hud = { phase, get index(){ return LOOP.map(l => l[0]); }, reset };
+  /* phase() is not a pin — the timeline keeps running and would overwrite a forced beat.
+     pin() cancels the pending step so a beat can be held for a screenshot; resume() restarts. */
+  window.__hud = {
+    phase, reset,
+    pin(name){ clearTimeout(pending); pending = null; phase(name); },
+    resume(){ clearTimeout(pending); run(); },
+    get index(){ return LOOP.map(l => l[0]); },
+  };
   const s = document.createElement('style');
   s.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
   document.head.appendChild(s);
