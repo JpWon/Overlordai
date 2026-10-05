@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Reddit Ads pixel: retargeting + campaign measurement (see privacy.html) -->
+<script>
+  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+  rdt('init','a2_jsu6ejw28fu8');
+  rdt('track','PageVisit');
+  rdt('track','ViewContent');   // this is the campaign's landing page
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overlord AI — Black Myth: Wukong voice co-pilot (free 30-minute demo)</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<!-- SEO + social: absolute URLs, factual only (no reviews exist, so no ratings) -->
+<meta name="description" content="Half the people who bought Black Myth: Wukong never finished it. Overlord is a desktop voice co-pilot that reads your screen and talks you past the boss that made you quit. Free 30-minute demo, Windows and Linux.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link rel="canonical" href="https://www.overlordai.co/wukong.html">
+<meta name="application-name" content="Overlord AI">
+<meta name="apple-mobile-web-app-title" content="Overlord">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Overlord AI">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Overlord AI — Black Myth: Wukong voice co-pilot (free 30-minute demo)">
+<meta property="og:description" content="Half the people who bought Black Myth: Wukong never finished it. A desktop voice co-pilot that reads your screen and talks you past the boss that made you quit. Free 30-minute demo.">
+<meta property="og:url" content="https://www.overlordai.co/wukong.html">
+<meta property="og:image" content="https://www.overlordai.co/og-thumbnail.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Overlord AI rooster mark on paper">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Overlord AI — Black Myth: Wukong voice co-pilot (free 30-minute demo)">
+<meta name="twitter:description" content="Half the people who bought Black Myth: Wukong never finished it. A desktop voice co-pilot that reads your screen and talks you past the boss that made you quit. Free 30-minute demo.">
+<meta name="twitter:image" content="https://www.overlordai.co/og-thumbnail.png">
+<meta name="twitter:image:alt" content="Overlord AI rooster mark on paper">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<script>
+  /* theme init — same contract as S2S layout.tsx: localStorage "data-theme" */
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('data-theme') || 'dark');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#6d5cff;                       /* site accent (brand sheet: #7C6BFF) */
+    /* brand sheet — panel / hairline / text / muted / faint */
+    --ovr-bg:#08080B; --ovr-panel:#101014; --ovr-hairline:#23232B;
+    --ovr-text:#E8E8EF; --ovr-muted:#9A9AAB; --ovr-faint:#6E6E7C; --ovr-violet:#7C6BFF;
+    --faint:#6E6E7C;                        /* reads on both grounds */
+    /* S2S tokens the nav reads */
+    --naples-moss:#2A4A3E; --naples-terracotta:#C17F3A; --naples-gold:#D4A24E;
+    --brand-strong:var(--neutral-on-background-strong);
+  }
+  [data-theme="light"]{
+    --page-background:#ffffff;
+    --neutral-on-background-strong:#0a0a0a;
+    --neutral-on-background-weak:#6b6b6b;
+    --neutral-alpha-weak:rgba(0,0,0,.08);
+    --neutral-alpha-medium:rgba(0,0,0,.22);
+  }
+  [data-theme="dark"]{
+    --page-background:#000000;
+    --neutral-on-background-strong:#ffffff;
+    --neutral-on-background-weak:#a3a3a3;
+    --neutral-alpha-weak:rgba(255,255,255,.12);
+    --neutral-alpha-medium:rgba(255,255,255,.26);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--page-background);
+    color:var(--neutral-on-background-strong);
+    font-family:'Space Grotesk',sans-serif;
+    cursor:default;min-height:100vh;overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'Space Mono',monospace;}
+
+  /* ================= NAV — ported from S2S Navbar.tsx + globals.css ================= */
+  .ovr-nav{
+    position:sticky;top:0;width:100%;display:flex;
+    z-index:1200;isolation:isolate;
+    background:color-mix(in srgb, var(--page-background) 80%, transparent);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--neutral-alpha-weak);
+    cursor:default;
+  }
+  .ovr-nav__row{
+    display:flex;width:100%;justify-content:space-between;align-items:center;
+    padding:16px 24px;
+  }
+  .ovr-nav__side{display:flex;align-items:center;gap:12px;flex:1;}
+  .ovr-nav__side--end{justify-content:flex-end;}
+  .icon-btn{
+    display:flex;align-items:center;justify-content:center;
+    width:40px;height:40px;border-radius:8px;border:none;background:transparent;
+    color:var(--neutral-on-background-strong);cursor:pointer;
+    transition:background-color .3s ease;
+  }
+  .icon-btn:hover{background:var(--neutral-alpha-weak);}
+  .navbar-hamburger{
+    display:flex !important;align-items:center;justify-content:center;
+    visibility:visible !important;opacity:1 !important;
+    z-index:1000;cursor:pointer;gap:8px;
+  }
+  .navbar-hamburger .icon-btn{pointer-events:none;z-index:1300;}
+  .navbar-hamburger:hover .icon-btn{background:var(--neutral-alpha-weak);}
+  .royal-icon path{stroke:currentColor;stroke-width:1.2;stroke-linecap:square;}
+  .royal-icon .bar-top,.royal-icon .bar-bot{transition:all .8s cubic-bezier(0.19,1,0.22,1);}
+  .royal-icon .bar-mid{transition:all .6s ease;transform-origin:center;transform-box:fill-box;}
+  .is-open .royal-icon .bar-top{d:path("M6 6L16 16");}
+  .is-open .royal-icon .bar-bot{d:path("M6 16L16 6");}
+  .is-open .royal-icon .bar-mid{opacity:0;transform:scaleX(0);}
+
+  .ovr-logo{display:flex;flex-direction:row;align-items:center;gap:10px;text-decoration:none;color:var(--neutral-on-background-strong);}
+  .ovr-logo__text{display:flex;flex-direction:column;}
+  .ovr-logo__icon{
+    width:40px;height:40px;flex:0 0 auto;
+    background-color:currentColor;
+    -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+            mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+  }
+  @media (max-width:520px){ .ovr-logo__icon{width:32px;height:32px;} }
+  .ovr-logo__mark{font-size:1.25rem;line-height:1.2;letter-spacing:.05em;font-weight:600;}
+  .ovr-logo__sub{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;color:var(--neutral-on-background-weak);}
+
+  .navbar-desktop-links{display:none !important;align-items:center;gap:32px;}
+  @media (min-width:768px){ .navbar-desktop-links{display:flex !important;} }
+  .nav-hover{text-decoration:none;}
+  .nav-link-text{
+    display:inline-block;padding-bottom:4px;
+    letter-spacing:.2em;text-transform:uppercase;font-size:.65rem;font-weight:400;
+    color:var(--neutral-on-background-weak);border-bottom:1px solid transparent;
+    transition:all .4s cubic-bezier(0.19,1,0.22,1) !important;
+  }
+  .nav-hover:hover .nav-link-text{
+    color:var(--brand-strong) !important;border-bottom-color:var(--brand-strong) !important;
+    text-shadow:.5px 0 0 currentColor,-.5px 0 0 currentColor;
+  }
+  .nav-live{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 14px;border-radius:999px;
+    border:1px solid rgba(34,197,94,.42);background:rgba(34,197,94,.06);
+    cursor:pointer;text-decoration:none;
+    font-family:'Space Mono',monospace;font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:#4ade80;transition:all .35s ease;
+  }
+  .nav-live:hover{
+    background:rgba(34,197,94,.16);border-color:rgba(34,197,94,.85);color:#86efac;
+    box-shadow:0 0 16px rgba(34,197,94,.24);
+  }
+  .nav-live__dot-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;width:8px;height:8px;flex:none;}
+  .nav-live__dot{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;}
+  .nav-live__ring{position:absolute;inset:-3px;border-radius:50%;border:1.5px solid #22c55e;
+    animation:live-pulse 2.2s cubic-bezier(0.2,0.8,0.2,1) infinite;}
+  @keyframes live-pulse{
+    0%{transform:scale(.6);opacity:.85;}
+    60%{transform:scale(2.2);opacity:0;}
+    100%{transform:scale(2.2);opacity:0;}
+  }
+
+  .celestial-toggle{
+    position:relative;display:flex;align-items:center;justify-content:center;
+    width:36px;height:36px;border:none;border-radius:50%;background:transparent;cursor:pointer;
+    color:var(--neutral-on-background-strong);
+    transition:color .4s ease,transform .3s ease;outline:none;-webkit-tap-highlight-color:transparent;
+  }
+  .celestial-toggle:hover{transform:scale(1.1);}
+  .celestial-toggle:active{transform:scale(.95);}
+  .celestial-toggle:focus-visible{outline:2px solid var(--naples-moss);outline-offset:3px;}
+  .celestial-toggle__icon-wrapper{position:relative;width:20px;height:20px;}
+  .celestial-toggle__sun,.celestial-toggle__moon{position:absolute;inset:0;
+    transition:transform .5s cubic-bezier(0.23,1,0.32,1),opacity .4s ease;}
+  .celestial-toggle__icon--visible{opacity:1;transform:scale(1) rotate(0deg);}
+  .celestial-toggle__icon--hidden{opacity:0;transform:scale(.5) rotate(90deg);pointer-events:none;}
+  .celestial-toggle--day .celestial-toggle__sun{color:var(--neutral-on-background-strong);}
+  .celestial-toggle--night .celestial-toggle__moon{color:var(--neutral-on-background-strong);}
+  .celestial-toggle--animating .celestial-toggle__icon-wrapper{animation:celestial-spin .6s cubic-bezier(0.23,1,0.32,1);}
+  @keyframes celestial-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+  .celestial-toggle__glow{position:absolute;inset:-4px;border-radius:50%;opacity:0;pointer-events:none;transition:opacity .4s ease;}
+  .celestial-toggle--day .celestial-toggle__glow{
+    background:radial-gradient(circle,rgba(0,0,0,.14) 0%,rgba(0,0,0,.04) 50%,transparent 70%);
+    animation:sun-glow 4s ease-in-out infinite;}
+  .celestial-toggle--night .celestial-toggle__glow{
+    background:radial-gradient(circle,rgba(255,255,255,.16) 0%,rgba(255,255,255,.05) 50%,transparent 70%);
+    animation:moon-glow 5s ease-in-out infinite;}
+  @keyframes sun-glow{0%,100%{opacity:.3;transform:scale(1)}30%{opacity:0;transform:scale(.95)}50%{opacity:.8;transform:scale(1.15)}70%{opacity:.2;transform:scale(1.05)}}
+  @keyframes moon-glow{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:.5;transform:scale(1.1)}}
+
+  .navbar-backdrop{display:none;position:fixed;inset:0;z-index:1050;
+    background:rgba(0,0,0,.1);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);}
+  @media (max-width:767px){ .navbar-backdrop.is-open{display:block;} }
+
+  .navbar-drawer{
+    position:fixed;top:72px;left:32px;width:280px;z-index:1100;
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(32px) saturate(180%);-webkit-backdrop-filter:blur(32px) saturate(180%);
+    opacity:0;max-height:0;
+    transform-origin:top left;transform:scale(.95) skewX(-2deg);
+    transition:all .8s cubic-bezier(0.19,1,0.22,1);
+    overflow:hidden;border-radius:2px;
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+    border:1px solid rgba(255,255,255,.1);
+    padding:0 32px;pointer-events:none;cursor:default;
+  }
+  .navbar-drawer.is-open{opacity:1;max-height:600px;transform:scale(1) skewX(0deg);
+    padding-top:48px;padding-bottom:48px;pointer-events:all;}
+  @media (max-width:767px){
+    .navbar-drawer{left:16px !important;right:16px !important;width:calc(100vw - 32px) !important;}
+  }
+  .drawer-col{display:flex;flex-direction:column;gap:48px;}
+  .drawer-head{display:flex;flex-direction:column;gap:8px;}
+  .drawer-head__row{display:flex;align-items:center;gap:10px;}
+  .drawer-head span{text-transform:uppercase;letter-spacing:.4em;font-size:.55rem;font-weight:600;
+    color:var(--neutral-on-background-weak);}
+  .drawer-head .drawer-head__mark{
+    display:block;width:30px;height:30px;flex:0 0 auto;background-color:var(--neutral-on-background-strong);
+    -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+            mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+  }
+  .drawer-head .drawer-head__label{font-size:.58rem;letter-spacing:.2em;white-space:nowrap;}
+  .drawer-head i{display:block;width:24px;height:1px;background:var(--neutral-alpha-medium);}
+  .drawer-links{display:flex;flex-direction:column;gap:20px;}
+  .drawer-item{opacity:0;transform:translateY(10px);transition:all .8s cubic-bezier(0.19,1,0.22,1);}
+  .navbar-drawer.is-open .drawer-item{opacity:1;transform:translateY(0);}
+  .royal-nav-item{position:relative;overflow:hidden;isolation:isolate;display:flex;text-decoration:none;transition:all .4s cubic-bezier(0.19,1,0.22,1) !important;}
+  .royal-nav-item::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(0.19,1,0.22,1);}
+  .royal-nav-item:hover::after{transform:scaleX(1);}
+  .royal-nav-item .row{display:flex;align-items:center;padding:8px;transition:all .4s cubic-bezier(0.19,1,0.22,1);}
+  .royal-highlight{display:inline-block;color:var(--neutral-on-background-weak);
+    letter-spacing:.25em;text-transform:uppercase;font-size:.75rem;font-weight:300;transition:all .4s ease;}
+  .royal-nav-item:hover .royal-highlight{color:#fff !important;}
+  .drawer-login{opacity:0;transform:translateY(20px);
+    transition:all 1s cubic-bezier(0.19,1,0.22,1) 0s;
+    border-top:1px solid rgba(255,255,255,.1);padding-top:32px;}
+  .navbar-drawer.is-open .drawer-login{opacity:1;transform:translateY(0);transition-delay:.6s;}
+  .drawer-login .royal-nav-item{width:100%;justify-content:center;padding:8px 0;border-radius:4px;
+    border:1px solid var(--neutral-alpha-weak);transition:all .3s ease;}
+  .drawer-login .royal-nav-item:hover{border-color:var(--accent) !important;}
+  .royal-nav-btn-text{letter-spacing:.25em;text-transform:uppercase;font-size:.65rem;font-weight:600;
+    color:var(--neutral-on-background-strong);transition:all .3s ease;}
+  .royal-nav-item:hover .royal-nav-btn-text{color:#fff !important;}
+  .drawer-foot{text-align:center;font-size:.55rem;letter-spacing:.15em;margin-top:auto;
+    color:var(--neutral-on-background-weak);text-transform:uppercase;}
+  .drawer-foot a{color:inherit;text-decoration:none;transition:color .4s ease;}
+  .drawer-foot a:hover{color:var(--accent);}
+
+  /* ================= page shell ================= */
+  .wk-wrap{max-width:1200px;margin:0 auto;width:100%;}
+  .wk-sec{position:relative;z-index:5;padding:clamp(4rem,9vh,7rem) clamp(1.5rem,5vw,4rem);}
+  .wk-sec__label{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);margin-bottom:1.2rem;display:block;}
+  .wk-h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(2rem,4.6vw,3.6rem);line-height:1.05;letter-spacing:-.01em;max-width:20ch;text-wrap:balance;}
+  .wk-h2 em{font-style:normal;color:var(--accent);}
+  .wk-sub{margin-top:1rem;max-width:40rem;font-size:1rem;line-height:1.7;color:var(--neutral-on-background-weak);}
+
+  /* ================= hero ================= */
+  .wk-hero{position:relative;z-index:5;overflow:hidden;
+    padding:clamp(4.5rem,11vh,8rem) clamp(1.5rem,5vw,4rem) clamp(2.5rem,6vh,4rem);}
+  .wk-hero::before{
+    content:'';position:absolute;inset:-30% -12% auto;z-index:-1;pointer-events:none;height:130%;
+    background:
+      radial-gradient(42% 46% at 26% 34%,rgba(109,92,255,.30),transparent 70%),
+      radial-gradient(38% 42% at 74% 30%,rgba(140,100,255,.22),transparent 72%);
+    filter:blur(50px);
+  }
+  .wk-kicker{font-family:'Space Mono',monospace;font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .wk-title{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(2.5rem,6.6vw,5.6rem);line-height:1.02;letter-spacing:-.01em;margin-top:1.4rem;max-width:18ch;text-wrap:balance;}
+  .wk-title em{font-style:normal;color:var(--accent);}
+  .wk-lede{margin-top:1.6rem;max-width:42rem;font-size:1.1rem;line-height:1.7;color:var(--neutral-on-background-weak);}
+  .wk-lede strong{color:var(--neutral-on-background-strong);font-weight:500;}
+  .wk-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:2.4rem;align-items:center;}
+  .wk-note{margin-top:1.1rem;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);}
+
+  /* buttons — ported from S2S NarrativeBlock */
+  .nb-btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 1.9rem;border-radius:999px;
+    text-decoration:none;font:500 .82rem/1 'Space Grotesk',sans-serif;letter-spacing:.08em;text-transform:uppercase;
+    transition:transform .4s cubic-bezier(0.19,1,0.22,1),background-color .35s ease,color .35s ease,border-color .35s ease,box-shadow .5s ease;}
+  .nb-btn:hover{transform:translateY(-2px);}
+  .nb-btn--primary{background:#fff;color:#0a0a0a;border:1px solid #fff;}
+  .nb-btn--primary:hover{box-shadow:0 12px 40px -8px rgba(109,92,255,.7);}
+  .nb-btn--violet{background:var(--accent);color:#fff;border:1px solid var(--accent);}
+  .nb-btn--violet:hover{box-shadow:0 14px 44px -10px rgba(109,92,255,.85);background:var(--ovr-violet);border-color:var(--ovr-violet);}
+  .nb-btn--secondary{background:color-mix(in srgb,var(--neutral-on-background-strong) 6%,transparent);color:var(--neutral-on-background-strong);border:1px solid var(--neutral-alpha-medium);}
+  .nb-btn--secondary:hover{border-color:var(--neutral-on-background-strong);}
+
+  /* ================= stats ================= */
+  .wk-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:2.6rem;}
+  @media (max-width:980px){ .wk-stats{grid-template-columns:1fr;} }
+  .wk-stat{
+    position:relative;isolation:isolate;overflow:hidden;
+    border:1px solid var(--neutral-alpha-medium);border-radius:6px;
+    padding:1.5rem 1.5rem 1.6rem;
+    background:color-mix(in srgb,var(--page-background) 76%,transparent);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  }
+  .wk-stat::before{content:'';position:absolute;right:-70px;top:-70px;width:220px;height:220px;z-index:-1;pointer-events:none;
+    background:radial-gradient(circle at 50% 50%,rgba(109,92,255,.24),transparent 68%);filter:blur(10px);}
+  .wk-stat__num{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(2.5rem,4.4vw,3.6rem);line-height:1;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .wk-stat__num small{font-size:.42em;color:var(--neutral-on-background-strong);margin-left:.35em;letter-spacing:.02em;}
+  .wk-stat__label{margin-top:.8rem;font-size:1rem;line-height:1.5;color:var(--neutral-on-background-strong);}
+  .wk-stat__label strong{font-weight:500;}
+  .wk-src{margin-top:.9rem;font-size:.68rem;line-height:1.5;color:var(--faint);}
+  .wk-quote{margin-top:2.4rem;border-left:3px solid var(--accent);padding:.2rem 0 .2rem 1.3rem;max-width:46rem;
+    font-size:1.15rem;line-height:1.6;color:var(--neutral-on-background-strong);}
+  .wk-quote cite{display:block;margin-top:.8rem;font-style:normal;font-family:'Space Mono',monospace;
+    font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);}
+
+  /* ================= how it works ================= */
+  .wk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:2.4rem;}
+  @media (max-width:820px){ .wk-grid{grid-template-columns:1fr;} }
+  .wk-feat{border:1px solid var(--neutral-alpha-weak);border-radius:8px;padding:1.3rem 1.3rem 1.4rem;
+    background:color-mix(in srgb,var(--neutral-on-background-strong) 3%,transparent);}
+  .wk-feat h3{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
+  .wk-feat p{margin-top:.7rem;font-size:.92rem;line-height:1.58;color:var(--neutral-on-background-weak);}
+  .wk-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.6rem;}
+  @media (max-width:820px){ .wk-steps{grid-template-columns:1fr;} }
+  .wk-step{border-top:1px solid var(--neutral-alpha-medium);padding-top:1.1rem;}
+  .wk-step b{font-family:'Anton',sans-serif;font-weight:400;font-size:1.7rem;line-height:1;color:var(--neutral-on-background-weak);}
+  .wk-step h3{margin-top:.7rem;font-size:1.05rem;font-weight:500;letter-spacing:.01em;}
+  .wk-step p{margin-top:.5rem;font-size:.92rem;line-height:1.6;color:var(--neutral-on-background-weak);}
+
+  /* ================= pricing recap ================= */
+  .wk-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:2.4rem;}
+  @media (max-width:980px){ .wk-tiers{grid-template-columns:1fr;} }
+  .wk-tier{border:1px solid var(--neutral-alpha-medium);border-radius:6px;padding:1.5rem 1.5rem 1.6rem;
+    display:flex;flex-direction:column;gap:.5rem;background:color-mix(in srgb,var(--page-background) 76%,transparent);}
+  .wk-tier__name{font-family:'Anton',sans-serif;font-weight:400;font-size:1.7rem;line-height:1;text-transform:uppercase;}
+  .wk-tier__price{font-family:'Anton',sans-serif;font-weight:400;font-size:2.4rem;line-height:1;color:var(--neutral-on-background-strong);}
+  .wk-tier__price small{font-family:'Space Grotesk',sans-serif;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--neutral-on-background-weak);margin-left:.5rem;}
+  .wk-tier__tag{font-size:.86rem;line-height:1.5;color:var(--neutral-on-background-weak);}
+  .wk-tier__cta{margin-top:.9rem;}
+  .wk-tier__cta .nb-btn{width:100%;height:46px;font-size:.72rem;}
+
+  /* ================= FAQ (ported from index.html) ================= */
+  .faqsec{position:relative;z-index:5;padding:clamp(4rem,10vh,7rem) clamp(1.5rem,5vw,4rem);}
+  .faqsec__inner{max-width:1080px;margin:0 auto;width:100%;
+    display:grid;grid-template-columns:minmax(240px,1fr) minmax(0,1.6fr);
+    gap:clamp(2rem,6vw,5rem);align-items:start;}
+  .faqsec__label{font-size:.64rem;letter-spacing:.25em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .faqsec__head h2{font-family:'Anton',sans-serif;font-weight:400;
+    font-size:clamp(2.2rem,4.6vw,4rem);line-height:1.02;letter-spacing:-.01em;
+    color:var(--neutral-on-background-strong);margin-top:1.2rem;}
+  .faqsec__head h2 em{font-style:normal;color:var(--accent);}
+  .faqsec__cta{margin-top:2.2rem;font-size:.88rem;line-height:1.6;color:var(--neutral-on-background-weak);}
+  .faqsec__cta a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px;transition:letter-spacing .3s ease;}
+  .faqsec__cta a:hover{letter-spacing:.04em;}
+  .faqsec__list{border-top:1px solid var(--neutral-alpha-weak);}
+  .faqsec__item{border-bottom:1px solid var(--neutral-alpha-weak);}
+  .faqsec__item summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;
+    padding:1.4rem .25rem;font-size:1rem;font-weight:500;color:var(--neutral-on-background-strong);letter-spacing:.01em;}
+  .faqsec__item summary::-webkit-details-marker{display:none;}
+  .faqsec__item summary::after{content:'+';font-family:'Space Mono',monospace;color:var(--accent);font-size:1.2rem;transition:transform .3s ease;}
+  .faqsec__item[open] summary::after{transform:rotate(45deg);}
+  .faqsec__item p{padding:0 .25rem 1.4rem;font-size:.92rem;line-height:1.65;color:var(--neutral-on-background-weak);max-width:44rem;}
+  @media (max-width:820px){ .faqsec__inner{grid-template-columns:1fr;} }
+
+  /* ================= closing ================= */
+  .wk-close{position:relative;z-index:5;overflow:hidden;text-align:center;
+    padding:clamp(4rem,10vh,7rem) clamp(1.5rem,5vw,4rem);}
+  .wk-close::before{content:'';position:absolute;inset:auto -10% -60%;height:120%;z-index:-1;pointer-events:none;
+    background:radial-gradient(48% 60% at 50% 60%,rgba(109,92,255,.28),transparent 72%);filter:blur(60px);}
+  .wk-close h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;max-width:16ch;margin:0 auto;text-wrap:balance;}
+  .wk-close p{margin:1.4rem auto 0;max-width:36rem;font-size:1.05rem;line-height:1.7;color:var(--neutral-on-background-weak);}
+  .wk-close .wk-actions{justify-content:center;}
+  .wk-close .wk-note{text-align:center;}
+
+  /* ================= scroll reveals ================= */
+  .rv{opacity:0;transform:translateY(42px);
+    transition:opacity 1.1s cubic-bezier(0.19,1,0.22,1), transform 1.3s cubic-bezier(0.19,1,0.22,1);
+    transition-delay:var(--d, 0s);}
+  .rv.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion: reduce){ .rv{opacity:1;transform:none;transition:none;} }
+
+  html{scroll-behavior:smooth;}
+  #numbers,#how,#faq,#pricing{scroll-margin-top:64px;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+  /* theme transition — smooth */
+  html,html body{transition:background-color .5s ease,color .5s ease,border-color .3s ease;}
+
+  /* ================= footer ================= */
+  .site-footer{position:relative;z-index:5;border-top:1px solid var(--neutral-alpha-weak);
+    padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem);background:var(--page-background);}
+  .site-footer__inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:2.2rem;}
+  .site-footer__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;}
+  .site-footer__brand{display:flex;align-items:center;gap:.1rem;color:var(--neutral-on-background-strong);}
+  .site-footer__text{display:flex;flex-direction:column;align-items:center;}
+  .site-footer__name{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;line-height:1.3;}
+  .site-footer__tag{margin-top:.35rem;font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500;color:var(--neutral-on-background-weak);white-space:nowrap;}
+  .site-footer__mark{
+    display:block;width:49px;height:49px;flex:0 0 auto;background-color:currentColor;
+    -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+            mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+  }
+  .site-footer__brand em{font-style:normal;color:var(--accent);}
+  .site-footer__nav{display:flex;flex-wrap:wrap;gap:1.6rem;}
+  .site-footer__nav a{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--neutral-on-background-weak);transition:color .35s ease;}
+  .site-footer__nav a:hover{color:var(--accent);}
+  .site-footer__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;
+    padding-top:1.8rem;border-top:1px solid var(--neutral-alpha-weak);
+    font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .site-footer__bottom .legal{display:flex;flex-wrap:wrap;gap:1.4rem;}
+  .site-footer__bottom a{color:var(--neutral-on-background-weak);text-decoration:none;transition:color .35s ease;}
+  .site-footer__bottom a:hover{color:var(--accent);}
+
+  /* Anti-Cheat Compliance & Fair Play Strip */
+  .compliance-strip{background:color-mix(in srgb,var(--neutral-on-background-strong) 3%,transparent);border:1px solid var(--neutral-alpha-weak);border-radius:12px;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;backdrop-filter:blur(12px);}
+  .compliance-badges{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,2vw,24px);}
+  .compliance-badge{display:flex;align-items:center;gap:10px;}
+  .badge-icon-box{width:34px;height:34px;border-radius:8px;background:rgba(0,255,170,.08);border:1px solid rgba(0,255,170,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#00ffaa;}
+  .badge-icon-box svg{width:17px;height:17px;fill:currentColor;}
+  .badge-icon-box.purple{background:rgba(109,92,255,.1);border-color:rgba(109,92,255,.3);color:#b9a8ff;}
+  .badge-icon-box.gold{background:rgba(255,190,59,.1);border-color:rgba(255,190,59,.3);color:#ffbe3b;}
+  .badge-text{display:flex;flex-direction:column;}
+  .badge-title{font-family:'Space Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.04em;color:var(--neutral-on-background-strong);text-transform:uppercase;}
+  .badge-sub{font-size:.66rem;color:var(--neutral-on-background-weak);margin-top:1px;}
+  .compliance-cta{display:inline-flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--neutral-on-background-strong) 5%,transparent);border:1px solid var(--neutral-alpha-weak);color:var(--neutral-on-background-strong);font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:6px;cursor:pointer;transition:all .2s ease;}
+  .compliance-cta:hover{background:rgba(0,255,170,.15);border-color:#00ffaa;color:#00ffaa;}
+  .security-drawer{display:none;background:#0f121a;border:1px solid rgba(0,255,170,.3);border-radius:12px;padding:22px;margin-top:-10px;animation:drawerFade .3s ease;}
+  @keyframes drawerFade{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+  .sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08);}
+  .sec-head h3{font-family:'Anton',sans-serif;font-size:1.15rem;letter-spacing:.02em;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:8px;}
+  .drawer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+  .drawer-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:12px 14px;}
+  .drawer-card h4{font-family:'Space Mono',monospace;font-size:.7rem;color:#00ffaa;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
+  .drawer-card p{font-size:.8rem;color:#a3a3a3;line-height:1.45;}
+</style>
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<!-- ============ NAV — ported from S2S components/Navbar.tsx ============ -->
+<div class="navbar-backdrop" id="navBackdrop"></div>
+
+<nav class="ovr-nav" id="ovrNav">
+  <div class="ovr-nav__row">
+    <div class="ovr-nav__side">
+      <div class="navbar-hamburger" id="navHamburger">
+        <button class="icon-btn" aria-label="Toggle menu" aria-expanded="false" id="navToggleBtn">
+          <svg class="royal-icon" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="bar-top" d="M4 7H18"/>
+            <path class="bar-mid" d="M4 11H18"/>
+            <path class="bar-bot" d="M4 15H18"/>
+          </svg>
+        </button>
+      </div>
+      <a class="ovr-logo" href="index.html#top">
+        <span class="ovr-logo__icon" aria-hidden="true"></span>
+        <span class="ovr-logo__text">
+          <span class="ovr-logo__mark">OVERLORD</span>
+          <span class="ovr-logo__sub">AI Co-Pilot</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="navbar-desktop-links" id="navDesktopLinks">
+      <a class="nav-hover" href="index.html#top"><span class="nav-link-text">Home</span></a>
+      <a class="nav-hover" href="index.html#work"><span class="nav-link-text">Preview</span></a>
+      <a class="nav-hover" href="plans.html"><span class="nav-link-text">Plans</span></a>
+      <a class="nav-hover" href="login.html"><span class="nav-link-text">Sign In</span></a>
+      <a class="nav-live" href="dashboard.html" title="Access Control Deck">
+        <span class="nav-live__dot-wrap" aria-hidden="true">
+          <span class="nav-live__dot"></span>
+          <span class="nav-live__ring"></span>
+        </span>
+        <span class="nav-live__text">Live Now</span>
+      </a>
+    </div>
+
+    <div class="ovr-nav__side ovr-nav__side--end">
+      <button id="celestial-toggle" class="celestial-toggle celestial-toggle--day" aria-label="Switch to dark mode">
+        <div class="celestial-toggle__icon-wrapper">
+          <svg class="celestial-toggle__sun celestial-toggle__icon--visible" viewBox="0 0 24 24" fill="none" width="20" height="20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.4"/>
+            <path d="M12 2.7v2.1M12 19.2v2.1M2.7 12h2.1M19.2 12h2.1M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M18.6 5.4l-1.5 1.5M6.9 17.1l-1.5 1.5"/>
+          </svg>
+          <svg class="celestial-toggle__moon celestial-toggle__icon--hidden" viewBox="0 0 24 24" fill="none" width="20" height="20">
+            <path d="M20.6 13.4A8.6 8.6 0 1 1 10.6 3.4a7.1 7.1 0 0 0 10 10z" fill="currentColor"/>
+            <path d="M18.7 3.9l.5 1.2 1.2.5-1.2.5-.5 1.2-.5-1.2-1.2-.5 1.2-.5z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="celestial-toggle__glow"></div>
+      </button>
+      <a class="icon-btn" href="plans.html" aria-label="shoppingCart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 4h2.2l1.9 9.2a2 2 0 0 0 2 1.6h8a2 2 0 0 0 1.9-1.4l1.8-6.4H6.4"/>
+          <circle cx="9.3" cy="20.5" r="1.6"/>
+          <circle cx="17.7" cy="20.5" r="1.6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Slide-out crystal drawer -->
+<div class="navbar-drawer" id="navDrawer" aria-hidden="true">
+  <div class="drawer-col">
+    <div class="drawer-head"><div class="drawer-head__row"><span class="drawer-head__mark" aria-hidden="true"></span><span class="drawer-head__label">Live Gaming Companion</span></div><i></i></div>
+    <div class="drawer-links">
+      <div class="drawer-item"><a class="royal-nav-item" href="index.html#top"><div class="row"><span class="royal-highlight">Home</span></div></a></div>
+      <div class="drawer-item"><a class="royal-nav-item" href="index.html#work"><div class="row"><span class="royal-highlight">Preview</span></div></a></div>
+      <div class="drawer-item"><a class="royal-nav-item" href="plans.html"><div class="row"><span class="royal-highlight">Plans</span></div></a></div>
+      <div class="drawer-item"><a class="royal-nav-item" href="support.html"><div class="row"><span class="royal-highlight">Support / FAQ</span></div></a></div>
+    </div>
+    <div class="drawer-login">
+      <a class="royal-nav-item" href="login.html"><span class="royal-nav-btn-text">Member Login</span></a>
+    </div>
+    <div class="drawer-foot"><a href="plans.html">Linux and Windows</a></div>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- ============ 1 · hero ============ -->
+  <section class="wk-hero">
+    <div class="wk-wrap">
+      <span class="wk-kicker">Black Myth: Wukong · Voice co-pilot</span>
+      <h1 class="wk-title rv">Half the people who bought Black Myth: Wukong never finished it.</h1>
+      <p class="wk-lede rv" style="--d:.12s">
+        Overlord is a desktop voice co-pilot that gets you past the boss that made you quit.
+        It runs beside the game on <strong>your own Windows or Linux PC</strong>, watches your screen the way a
+        person sitting next to you would, and <strong>speaks the next objective, the item you missed, and the fight
+        that is about to turn</strong> — on the bosses, loot and routes this game actually has.
+      </p>
+      <div class="wk-actions rv" style="--d:.22s">
+        <a class="nb-btn nb-btn--primary" href="signup.html">Start the free demo</a>
+        <a class="nb-btn nb-btn--secondary" href="plans.html#pricing">See plans and pricing</a>
+      </div>
+      <p class="wk-note rv" style="--d:.3s">30 minutes free · no credit card · Windows and Linux</p>
+    </div>
+  </section>
+
+  <!-- ============ 2 · the numbers ============ -->
+  <section class="wk-sec" id="numbers">
+    <div class="wk-wrap">
+      <span class="wk-sec__label">The numbers behind the quit</span>
+      <h2 class="wk-h2 rv">It is not that the game is bad. It is that most people never see the end of it.</h2>
+      <p class="wk-sub rv" style="--d:.1s">
+        These are public figures, not marketing. They describe a very large group of players who paid full price and
+        stopped before the credits rolled.
+      </p>
+
+      <div class="wk-stats">
+        <article class="wk-stat rv">
+          <div class="wk-stat__num">30<small>million</small></div>
+          <p class="wk-stat__label">Copies of Black Myth: Wukong sold in under two years.</p>
+          <p class="wk-src">Source: publisher sales figures. Ten million copies sold in the first three days.</p>
+        </article>
+        <article class="wk-stat rv" style="--d:.1s">
+          <div class="wk-stat__num">43–46<small>%</small></div>
+          <p class="wk-stat__label">The endgame achievement on Steam — so only about 45% of buyers ever finished it.</p>
+          <p class="wk-src">Source: Steam global achievement statistics.</p>
+        </article>
+        <article class="wk-stat rv" style="--d:.2s">
+          <div class="wk-stat__num">15<small>%</small></div>
+          <p class="wk-stat__label">Completion in the first month after launch.</p>
+          <p class="wk-src">Source: Steam global achievement statistics for the first month.</p>
+        </article>
+        <article class="wk-stat rv" style="--d:.1s">
+          <div class="wk-stat__num">16<small>million</small></div>
+          <p class="wk-stat__label">Roughly the number of people who paid full price and did not finish.</p>
+          <p class="wk-src">Source: worked from the 30 million sales and the roughly 45% completion figure above.</p>
+        </article>
+        <article class="wk-stat rv" style="--d:.2s">
+          <div class="wk-stat__num">59.7<small>%</small></div>
+          <p class="wk-stat__label">Of players rate its difficulty as “Tough”. A further 11.3% call it “Unforgiving”.</p>
+          <p class="wk-src">Source: difficulty tags attached by players on Steam.</p>
+        </article>
+        <article class="wk-stat rv" style="--d:.3s">
+          <div class="wk-stat__num">≈70<small>%</small></div>
+          <p class="wk-stat__label">Of players quit a new game within three days if they never reach a flow state. The average abandonment window is 45 minutes.</p>
+          <p class="wk-src">Source: player-retention research on new games.</p>
+        </article>
+        <article class="wk-stat rv" style="--d:.2s">
+          <div class="wk-stat__num">30–37<small>%</small></div>
+          <p class="wk-stat__label">How many people finish a Souls-like. Dark Souls sits at 37%, Bloodborne at 32%.</p>
+          <p class="wk-src">Source: Steam completion data for Dark Souls and Bloodborne.</p>
+        </article>
+        <article class="wk-stat rv" style="--d:.3s">
+          <div class="wk-stat__num">45<small>min</small></div>
+          <p class="wk-stat__label">The average window before an unengaged player puts a new game down.</p>
+          <p class="wk-src">Source: same player-retention research as above.</p>
+        </article>
+        <article class="wk-stat rv" style="--d:.4s">
+          <div class="wk-stat__num">0<small>guarantees</small></div>
+          <p class="wk-stat__label">We cannot promise you will finish it. We can put a guide that knows the fights beside you while you try.</p>
+          <p class="wk-src">No completion, score or outcome is guaranteed. Overlord gives guidance, not results.</p>
+        </article>
+      </div>
+
+      <blockquote class="wk-quote rv" style="--d:.2s">
+        “Many players will find themselves quitting early on and ultimately feeling cheated for their purchase.”
+        <cite>— player discussion, r/ShouldIbuythisgame</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ============ 3 · what it does ============ -->
+  <section class="wk-sec" id="how">
+    <div class="wk-wrap">
+      <span class="wk-sec__label">What Overlord is</span>
+      <h2 class="wk-h2 rv">A co-pilot, not a cheat menu.</h2>
+      <p class="wk-sub rv" style="--d:.1s">
+        Overlord runs on your computer, beside the game. It is built for single-player play and it is deliberately
+        simple about what it touches and what it does not.
+      </p>
+
+      <div class="wk-grid">
+        <div class="wk-feat rv">
+          <h3>Reads the screen</h3>
+          <p>It reads the screen pixels — the view a person sitting beside you would have. No game-memory reading. No injection. No input automation. It never presses a key for you.</p>
+        </div>
+        <div class="wk-feat rv" style="--d:.1s">
+          <h3>Speaks in real time</h3>
+          <p>It calls the next objective, the item you just walked past, and the fight that is about to turn — out loud, while you play, instead of on a second monitor.</p>
+        </div>
+        <div class="wk-feat rv" style="--d:.2s">
+          <h3>Knows this game</h3>
+          <p>Black Myth: Wukong is researched and preloaded, so it knows the actual bosses, the loot and the routes — not generic advice.</p>
+        </div>
+        <div class="wk-feat rv">
+          <h3>Three in-character voices</h3>
+          <p>A celestial sovereign, a field general and a shadow guru — premium voices built on Google Cloud Chirp3-HD and Neural2.</p>
+        </div>
+        <div class="wk-feat rv" style="--d:.1s">
+          <h3>On your machine</h3>
+          <p>Runs natively on Windows and Linux, on your own desktop, beside the game you already own.</p>
+        </div>
+        <div class="wk-feat rv" style="--d:.2s">
+          <h3>Single-player only</h3>
+          <p>Online multiplayer is not supported, and ranked or competitive play is refused by design. That is the line where third-party tools get players banned.</p>
+        </div>
+      </div>
+
+      <div class="wk-steps">
+        <div class="wk-step rv"><b>01</b><h3>Start it beside the game</h3><p>Launch Overlord on your Windows or Linux desktop, then launch Black Myth: Wukong as usual.</p></div>
+        <div class="wk-step rv" style="--d:.1s"><b>02</b><h3>It watches the screen</h3><p>It reads pixels only, so there is nothing to install into the game and nothing to configure.</p></div>
+        <div class="wk-step rv" style="--d:.2s"><b>03</b><h3>It talks you through</h3><p>Voice callouts for the objective, the loot and the boss in front of you. Ask it a question any time.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · pricing recap ============ -->
+  <section class="wk-sec" id="pricing">
+    <div class="wk-wrap">
+      <span class="wk-sec__label">Cost, honestly</span>
+      <h2 class="wk-h2 rv">Try it for free before you decide.</h2>
+      <p class="wk-sub rv" style="--d:.1s">
+        The demo is the real product for 30 minutes, with no card. If it helps, the paid plans are month to month
+        and you can cancel any time.
+      </p>
+      <div class="wk-tiers">
+        <article class="wk-tier rv">
+          <span class="wk-tier__name">Free demo</span>
+          <span class="wk-tier__price">$0<small>30 minutes</small></span>
+          <p class="wk-tier__tag">The real product for 30 minutes of live play. No credit card, one trial per person.</p>
+          <div class="wk-tier__cta"><a class="nb-btn nb-btn--primary" href="signup.html">Start the free demo</a></div>
+        </article>
+        <article class="wk-tier rv" style="--d:.1s">
+          <span class="wk-tier__name">Subscription</span>
+          <span class="wk-tier__price">$14.99<small>/ month</small></span>
+          <p class="wk-tier__tag">The full guide, month to month. Also $149.99 a year. One machine.</p>
+          <div class="wk-tier__cta"><a class="nb-btn nb-btn--secondary" href="plans.html#pricing">Compare plans</a></div>
+        </article>
+        <article class="wk-tier rv" style="--d:.2s">
+          <span class="wk-tier__name">Pro</span>
+          <span class="wk-tier__price">$39.99<small>/ month</small></span>
+          <p class="wk-tier__tag">Everything in Subscription across three PCs. Also $399.99 a year. Move a seat any time.</p>
+          <div class="wk-tier__cta"><a class="nb-btn nb-btn--secondary" href="plans.html#pricing">Compare plans</a></div>
+        </article>
+      </div>
+      <p class="wk-note rv" style="--d:.2s">Prices in USD. Cancel any time from the account page.</p>
+    </div>
+  </section>
+
+  <!-- ============ 5 · FAQ ============ -->
+  <section class="faqsec" id="faq">
+    <div class="faqsec__inner">
+      <div class="faqsec__head">
+        <span class="faqsec__label">FAQ</span>
+        <h2>The questions people ask<br><em>before they try it.</em></h2>
+        <p class="faqsec__cta">Still unsure? <a href="signup.html">Start the free demo</a> or <a href="support.html">talk to us</a>.</p>
+      </div>
+      <div class="faqsec__list">
+        <details class="faqsec__item"><summary>Will using Overlord get me banned?</summary><p>No. It reads pixels — the view a person sitting beside you would have — and nothing else: no game memory, no injection, no input automation. It is built for single-player games on Steam. Online multiplayer is not supported at all, and ranked or competitive play is refused by design, which is where third-party tools get players banned.</p></details>
+        <details class="faqsec__item"><summary>What do I need to run it?</summary><p>A Windows or Linux desktop, sitting beside the game you already own. There is nothing to install into the game itself, so there is no game-memory access and no patch to manage. Black Myth: Wukong is researched and preloaded.</p></details>
+        <details class="faqsec__item"><summary>How much does it cost?</summary><p>The demo is free: 30 minutes of live play with no credit card, one trial per person. After that, Subscription is $14.99 a month or $149.99 a year for one machine, and Pro is $39.99 a month or $399.99 a year for three PCs. You can cancel any time.</p></details>
+        <details class="faqsec__item"><summary>Does it only work on Black Myth: Wukong?</summary><p>Wukong is researched and preloaded, so it knows those bosses, loot and routes. Overlord runs on single-player games on Steam, and new titles are added over time. Online multiplayer is not supported, and the paid guides are included in the Subscription.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6 · closing ============ -->
+  <section class="wk-close">
+    <div class="wk-wrap">
+      <h2 class="rv">Get past the boss that made you quit.</h2>
+      <p class="rv" style="--d:.12s">Thirty minutes free, no card. See whether a co-pilot that has read every fight is the thing that finally gets you through.</p>
+      <div class="wk-actions rv" style="--d:.22s">
+        <a class="nb-btn nb-btn--violet" href="signup.html">Start the free demo</a>
+        <a class="nb-btn nb-btn--secondary" href="plans.html#pricing">See plans and pricing</a>
+      </div>
+      <p class="wk-note rv" style="--d:.3s">Single-player only · Windows and Linux · guidance, not guarantees</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ footer ============ -->
+<footer class="site-footer" id="footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <div class="site-footer__brand"><span class="site-footer__mark" aria-hidden="true"></span><span class="site-footer__text"><span class="site-footer__name">Overlord <em>AI</em></span><span class="site-footer__tag">Live Gaming Companion</span></span></div>
+      <nav class="site-footer__nav">
+        <a href="index.html#top">Home</a>
+        <a href="index.html#work">Preview</a>
+        <a href="plans.html">Plans</a>
+        <a href="support.html">Support / FAQ</a>
+        <a href="login.html">Log in</a>
+      </nav>
+    </div>
+
+    <!-- Anti-Cheat & Fair Play Compliance Strip -->
+    <div class="compliance-strip">
+      <div class="compliance-badges">
+        <div class="compliance-badge">
+          <div class="badge-icon-box">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </div>
+          <div class="badge-text">
+            <span class="badge-title">100% Anti-Cheat Safe</span>
+            <span class="badge-sub">EAC &bull; BattlEye &bull; VAC Compliant</span>
+          </div>
+        </div>
+        <div class="compliance-badge">
+          <div class="badge-icon-box purple">
+            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          </div>
+          <div class="badge-text">
+            <span class="badge-title">Pure Pixel-Read Architecture</span>
+            <span class="badge-sub">Zero Memory Access &bull; Zero DLL Injection</span>
+          </div>
+        </div>
+        <div class="compliance-badge">
+          <div class="badge-icon-box gold">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+          </div>
+          <div class="badge-text">
+            <span class="badge-title">Fair Play &amp; TOS Certified</span>
+            <span class="badge-sub">Single-Player &bull; No Input Macros</span>
+          </div>
+        </div>
+      </div>
+      <button class="compliance-cta" id="toggleSecBtn" onclick="toggleSafetyDrawer()">Safety Specs &darr;</button>
+    </div>
+
+    <!-- Security Specs Expandable Drawer -->
+    <div class="security-drawer" id="secDrawer">
+      <div class="sec-head">
+        <h3>
+          <svg style="width:20px;height:20px;fill:#00ffaa;" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          Anti-Cheat Technical Architecture &amp; Fair Play Policy
+        </h3>
+        <button class="compliance-cta" onclick="toggleSafetyDrawer()">&times; Close</button>
+      </div>
+      <div class="drawer-grid">
+        <div class="drawer-card">
+          <h4>&#10003; Zero Process Injection</h4>
+          <p>Overlord runs strictly as an external, isolated desktop companion. It never hooks into game memory or injects DLLs.</p>
+        </div>
+        <div class="drawer-card">
+          <h4>&#10003; Pure Visual Observation</h4>
+          <p>Operates identically to a friend sitting beside your desk looking at your monitor. Pixels are inspected via native desktop APIs.</p>
+        </div>
+        <div class="drawer-card">
+          <h4>&#10003; No Input Automation</h4>
+          <p>Overlord delivers guidance and tactical callouts. It never sends keystrokes or mouse movements to the game client.</p>
+        </div>
+        <div class="drawer-card">
+          <h4>&#10003; Single-Player Sandbox</h4>
+          <p>Strictly engineered for single-player campaign progression. Online competitive multiplayer is completely disabled.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <span>Linux and Windows</span>
+      <span>© '26 Overlord AI</span>
+      <div class="legal">
+        <a href="eula.html">EULA</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- NAV — behaviour ported from S2S Navbar.tsx ---------- */
+(() => {
+  const drawer    = document.getElementById('navDrawer');
+  const backdrop  = document.getElementById('navBackdrop');
+  const hamburger = document.getElementById('navHamburger');
+  const btn       = document.getElementById('navToggleBtn');
+  const desktop   = document.getElementById('navDesktopLinks');
+  const items     = [...drawer.querySelectorAll('.drawer-item')];
+  let open = false, timer = null;
+
+  function render(){
+    drawer.classList.toggle('is-open', open);
+    backdrop.classList.toggle('is-open', open);
+    hamburger.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    drawer.setAttribute('aria-hidden', String(!open));
+    items.forEach((el, i) => {
+      const delay = open ? 0.1 + i * 0.08 : (items.length - 1 - i) * 0.05;
+      el.style.transitionDelay = delay + 's';
+    });
+  }
+  const setOpen = v => { open = v; render(); };
+  const toggle  = () => setOpen(!open);
+  const close   = () => setOpen(false);
+
+  const enter = () => { if (innerWidth >= 768){ clearTimeout(timer); setOpen(true); } };
+  const leave = () => { if (innerWidth >= 768){ timer = setTimeout(close, 400); } };
+
+  hamburger.addEventListener('click', toggle);
+  for (const el of [hamburger, desktop, drawer]){
+    el.addEventListener('mouseenter', enter);
+    el.addEventListener('mouseleave', leave);
+  }
+  backdrop.addEventListener('click', close);
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  render();
+})();
+
+/* ---------- Celestial toggle — ported from S2S CelestialToggle.tsx ---------- */
+(() => {
+  const t    = document.getElementById('celestial-toggle');
+  const sun  = t.querySelector('.celestial-toggle__sun');
+  const moon = t.querySelector('.celestial-toggle__moon');
+
+  let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  let animating = false;
+
+  function render(){
+    t.classList.toggle('celestial-toggle--night', isDark);
+    t.classList.toggle('celestial-toggle--day', !isDark);
+    sun.classList.toggle('celestial-toggle__icon--hidden', isDark);
+    sun.classList.toggle('celestial-toggle__icon--visible', !isDark);
+    moon.classList.toggle('celestial-toggle__icon--visible', isDark);
+    moon.classList.toggle('celestial-toggle__icon--hidden', !isDark);
+    t.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  t.addEventListener('click', () => {
+    if (animating) return;
+    animating = true;
+    t.classList.add('celestial-toggle--animating');
+    isDark = !isDark;
+    const theme = isDark ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('data-theme', theme);
+    render();
+    setTimeout(() => { animating = false; t.classList.remove('celestial-toggle--animating'); }, 600);
+  });
+  render();
+})();
+
+/* ---------- safety specs drawer ---------- */
+window.toggleSafetyDrawer = function () {
+  const d = document.getElementById('secDrawer');
+  const b = document.getElementById('toggleSecBtn');
+  if (!d) return;
+  const isShowing = d.style.display === 'block';
+  d.style.display = isShowing ? 'none' : 'block';
+  if (b) b.innerHTML = isShowing ? 'Safety Specs &darr;' : 'Safety Specs &uarr;';
+};
+
+/* ---------- scroll reveals ---------- */
+(() => {
+  const io = new IntersectionObserver(entries => {
+    for (const e of entries) if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  }, {threshold:.18, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
