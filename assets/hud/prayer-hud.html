@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tactical HUD — Divine Prayer</title>
+<!--
+  Marketing animation: the crystal tactical pill (the "Pill Cart") running one Divine Prayer.
+  Faithful to the shipping behaviour in psyche/:
+    · control_watcher.py fire_prayer() — double-tap F4 emits, in order:
+        "Divine Prayer: Listening to your prayer..."            (status=analyzing, 9s)
+        "Divine Prayer: Assimilating prayer & surveying coordinates..." (status=analyzing, 12s)
+      then tactical_engine.py --prayer resolves the guidance card.
+    · tactical-overlay.html — title flips "Tactical HUD" -> "Tactical Radar" while analyzing;
+      .status-analyzing line is accent-soft and SITS STILL (only idle lines marquee);
+      telemetry cells CPU/GPU/FPS/Temp; bar is 52px, radius 24, skewX(-7deg), glass.
+    · tactical_interface.html — the card sections rendered are the real ones:
+      Target Visual Intel, Mission Directives, Action Tip.
+  Card copy is sample text; the vocabulary (radar, prayers, stealth dismiss, launch) is the app's.
+  Design canvas 900x560, scaled by --s so the same layout holds in a carousel card and full size.
+-->
+<style>
+  :root{
+    --accent:#6d5cff; --accent-soft:#b9a8ff;
+    --glass-bg:linear-gradient(168deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,.038) 45%,rgba(255,255,255,.055) 78%,rgba(255,255,255,.03) 100%);
+    --glass-border:rgba(255,255,255,.12);
+    --glass-shadow:0 20px 40px rgba(0,0,0,.28);
+    --ink:#05040c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--ink);overflow:hidden;
+    font-family:'Space Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+  body{display:block}
+
+  /* ---------- stage: fixed 900x560 canvas, scaled to fit ---------- */
+  #stage{position:absolute;top:0;left:0;width:900px;height:560px;transform-origin:top left;
+    transform:scale(var(--s,1));overflow:hidden}
+
+  /* ---------- themed background: the overlay's own pillar / beam / floor family ---------- */
+  .sky{position:absolute;inset:0;background:
+      radial-gradient(120% 80% at 50% 8%,#241a52 0%,#120c2c 42%,#05040c 78%),
+      linear-gradient(180deg,#08061a 0%,#05040c 100%)}
+  .glow{position:absolute;left:50%;top:16%;width:70%;height:56%;transform:translate(-50%,-30%);
+    background:radial-gradient(50% 50% at 50% 50%,rgba(124,107,255,.42) 0%,rgba(124,107,255,.10) 45%,transparent 72%);
+    filter:blur(6px);animation:breathe 6.5s ease-in-out infinite}
+  .pillar{position:absolute;top:22%;bottom:24%;width:6.5%;border-top:1px solid rgba(255,255,255,.10);
+    background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.012) 55%,rgba(0,0,0,.42))}
+  .pillar.p1{left:7%} .pillar.p2{left:24%} .pillar.p3{right:24%} .pillar.p4{right:7%}
+  .beam{position:absolute;top:15%;height:60%;width:3px;left:50%;filter:blur(1.4px);
+    background:linear-gradient(180deg,rgba(220,228,238,.75),rgba(190,200,220,.04))}
+  .floor{position:absolute;left:0;right:0;bottom:0;height:26%;
+    background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.94));border-top:1px solid rgba(255,255,255,.12)}
+  .grain{position:absolute;inset:0;opacity:.05;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.9) .5px,transparent .5px);background-size:3px 3px}
+  .scan{position:absolute;inset:0;pointer-events:none;opacity:.16;
+    background:repeating-linear-gradient(180deg,rgba(255,255,255,.055) 0 1px,transparent 1px 3px)}
+
+  /* survey grid + radar sweep, used by the 'assimilating' beat */
+  .grid{position:absolute;left:50%;top:47%;width:64%;height:58%;transform:translate(-50%,-50%);
+    opacity:0;transition:opacity .8s ease;
+    background-image:linear-gradient(rgba(124,107,255,.20) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(124,107,255,.20) 1px,transparent 1px);
+    background-size:44px 44px;mask-image:radial-gradient(60% 60% at 50% 50%,#000 30%,transparent 78%);
+    -webkit-mask-image:radial-gradient(60% 60% at 50% 50%,#000 30%,transparent 78%)}
+  .sweep{position:absolute;left:50%;top:47%;width:210px;height:210px;margin:-105px 0 0 -105px;border-radius:50%;
+    opacity:0;transition:opacity .6s ease;
+    border:1px solid rgba(124,107,255,.30);
+    background:conic-gradient(from 0deg,rgba(124,107,255,.42),rgba(124,107,255,.06) 28%,transparent 42%)}
+  .sweep::after{content:'';position:absolute;inset:26%;border-radius:50%;border:1px dashed rgba(185,168,255,.28)}
+
+  /* ---------- the pill bar ---------- */
+  .hud-wrap{position:absolute;top:38px;left:50%;transform:translateX(-50%);width:812px}
+  .hud-bar{position:relative;display:flex;align-items:center;height:52px;padding:0 14px 0 12px;
+    background:var(--glass-bg);backdrop-filter:blur(18px) saturate(115%);-webkit-backdrop-filter:blur(18px) saturate(115%);
+    border:1px solid var(--glass-border);border-radius:24px;box-shadow:var(--glass-shadow);
+    transform:skewX(-7deg);opacity:0;animation:barIn .9s cubic-bezier(.19,1,.22,1) .15s forwards}
+  .hud-bar>*{transform:skewX(7deg)}                    /* un-skew the contents, keep the pill's cant */
+  .tube{position:absolute;inset:0;border-radius:23px;pointer-events:none;z-index:6;transform:none;
+    background:linear-gradient(180deg,rgba(255,255,255,.14),transparent 42%,rgba(124,107,255,.10))}
+  .hud-badge{display:flex;align-items:center;gap:9px;flex:0 0 auto;position:relative;z-index:2}
+  .hud-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 12px var(--accent);animation:hud-pulse 2s ease-in-out infinite;transition:background .3s,box-shadow .3s}
+  .hud-title{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-soft);white-space:nowrap}
+  .hud-divider{width:1px;height:24px;flex:0 0 auto;margin:0 9px;position:relative;z-index:2;
+    background:linear-gradient(180deg,transparent,rgba(109,92,255,.65),transparent)}
+  .hud-ticker{flex:1 1 auto;min-width:0;height:100%;position:relative;overflow:hidden;z-index:2;display:flex;align-items:center;
+    mask-image:linear-gradient(to right,transparent,#000 16px,#000 calc(100% - 16px),transparent);
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 16px,#000 calc(100% - 16px),transparent)}
+  .hud-line{position:absolute;left:8px;white-space:nowrap;font-size:.84rem;color:rgba(255,255,255,.9);transition:color .3s,letter-spacing .3s}
+  .hud-line.analyzing{color:var(--accent-soft);letter-spacing:.05em}
+  .hud-clock{display:flex;align-items:center;gap:9px;flex:0 0 auto;position:relative;z-index:2;
+    font-family:'Space Mono',ui-monospace,Menlo,monospace}
+  .perf-cell{display:flex;flex-direction:column;align-items:center;line-height:1;gap:2px}
+  .perf-val{font-style:normal;font-size:.62rem;color:#fff}
+  .perf-key{font-style:normal;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.42)}
+  .perf-cell.off{opacity:.35}
+  .perf-divider{width:1px;height:20px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.18),transparent)}
+
+  /* listening: the ears */
+  .ears{position:absolute;right:8px;display:flex;align-items:center;gap:2.5px;opacity:0;transition:opacity .35s}
+  .ears i{display:block;width:2.5px;height:6px;border-radius:2px;background:var(--accent-soft);
+    animation:ear .68s ease-in-out infinite}
+  .ears i:nth-child(2){animation-delay:.09s} .ears i:nth-child(3){animation-delay:.18s}
+  .ears i:nth-child(4){animation-delay:.27s} .ears i:nth-child(5){animation-delay:.36s}
+  .ears i:nth-child(6){animation-delay:.45s} .ears i:nth-child(7){animation-delay:.54s}
+  .rec{position:absolute;left:-26px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:5px;
+    font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.14em;color:#ff7a86;opacity:0;transition:opacity .35s}
+  .rec b{width:6px;height:6px;border-radius:50%;background:#ff5f6d;box-shadow:0 0 8px #ff5f6d;animation:blink 1.1s steps(1,end) infinite}
+
+  /* double-tap cue */
+  .keys{position:absolute;left:50%;top:104px;transform:translateX(-50%);display:flex;align-items:center;gap:7px;opacity:0}
+  .keys kbd{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.1em;color:#fff;
+    padding:4px 10px;border-radius:7px;border:1px solid rgba(255,255,255,.34);
+    background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.04));box-shadow:0 6px 16px rgba(0,0,0,.5)}
+  .keys .x2{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--accent-soft);letter-spacing:.08em}
+  .keys.hit kbd{animation:tap .3s ease 2 both}
+  .ripple{position:absolute;left:50%;top:64px;width:12px;height:12px;margin-left:-6px;border-radius:50%;
+    border:1px solid rgba(185,168,255,.75);opacity:0}
+  .ripple.go{animation:ripple 1.05s ease-out 2}
+
+  /* ---------- the guidance card it resolves into ---------- */
+  .card{position:absolute;left:50%;top:136px;width:560px;transform:translate(-50%,26px) scale(.97);opacity:0;
+    transition:opacity .7s cubic-bezier(.19,1,.22,1),transform .7s cubic-bezier(.19,1,.22,1);
+    background:var(--glass-bg);backdrop-filter:blur(18px) saturate(115%);-webkit-backdrop-filter:blur(18px) saturate(115%);
+    border:1px solid var(--glass-border);border-radius:14px;box-shadow:0 40px 90px rgba(0,0,0,.55);padding:16px 18px 18px;overflow:hidden}
+  .card.show{opacity:1;transform:translate(-50%,0) scale(1)}
+  .card::before{content:'';position:absolute;inset:0;pointer-events:none;border-radius:14px;
+    background:linear-gradient(180deg,rgba(124,107,255,.10),transparent 34%)}
+  .card__head{display:flex;align-items:center;gap:9px;padding-bottom:11px;margin-bottom:13px;
+    border-bottom:1px solid rgba(255,255,255,.10);position:relative}
+  .mark{color:var(--accent-soft);font-size:.9rem}
+  .card__title{font-family:'Anton',Impact,system-ui,sans-serif;font-size:1.02rem;letter-spacing:.04em;
+    text-transform:uppercase;color:#fff}
+  .card__sub{margin-left:auto;font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--accent-soft);border:1px solid rgba(185,168,255,.36);border-radius:100px;padding:3px 9px}
+  .sec{margin-top:13px}
+  .sec:first-of-type{margin-top:0}
+  .oc-tag{display:inline-block;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;
+    color:rgba(255,255,255,.55);margin-bottom:7px}
+  .oc-tag.action{color:var(--accent-soft)}
+  .nointel{height:56px;border-radius:9px;border:1px dashed rgba(185,168,255,.34);
+    background:linear-gradient(180deg,rgba(124,107,255,.10),rgba(0,0,0,.24));
+    display:flex;align-items:center;justify-content:center;font-size:.62rem;letter-spacing:.2em;
+    text-transform:uppercase;color:rgba(185,168,255,.85)}
+  .steps{display:flex;flex-wrap:wrap;gap:7px}
+  .step{font-size:.66rem;letter-spacing:.06em;color:rgba(255,255,255,.92);
+    padding:6px 11px;border-radius:100px;border:1px solid rgba(255,255,255,.16);
+    background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.02));
+    opacity:0;transform:translateY(6px);animation:stepIn .5s cubic-bezier(.19,1,.22,1) forwards}
+  .tip{display:flex;gap:9px;align-items:flex-start;font-size:.72rem;line-height:1.5;color:rgba(255,255,255,.9);
+    padding:10px 12px;border-radius:10px;border:1px solid rgba(124,107,255,.30);
+    background:linear-gradient(180deg,rgba(124,107,255,.13),rgba(124,107,255,.03));
+    opacity:0;transform:translateY(6px);animation:stepIn .5s cubic-bezier(.19,1,.22,1) forwards}
+  .tip .bulb{filter:drop-shadow(0 0 6px rgba(185,168,255,.8))}
+  .stamp{position:absolute;right:18px;bottom:12px;font-family:'Space Mono',monospace;font-size:.5rem;
+    letter-spacing:.24em;text-transform:uppercase;color:rgba(67,224,138,.9);opacity:0;transition:opacity .5s}
+  .stamp.on{opacity:1}
+
+  @keyframes hud-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.84)}}
+  @keyframes breathe{0%,100%{opacity:.75;transform:translate(-50%,-30%) scale(1)}50%{opacity:1;transform:translate(-50%,-30%) scale(1.06)}}
+  @keyframes barIn{to{opacity:1}}
+  @keyframes ear{0%,100%{height:5px;opacity:.65}50%{height:17px;opacity:1}}
+  @keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:.15}}
+  @keyframes tap{0%{transform:translateY(0);border-color:rgba(255,255,255,.34)}45%{transform:translateY(2px);border-color:rgba(185,168,255,.95)}100%{transform:translateY(0)}}
+  @keyframes ripple{from{opacity:.9;transform:scale(1)}to{opacity:0;transform:scale(26)}}
+  @keyframes stepIn{to{opacity:1;transform:none}}
+
+  /* reduced motion: no timeline, land straight on the delivered guidance */
+  @media (prefers-reduced-motion: reduce){
+    .glow,.hud-dot,.ears i,.rec b{animation:none}
+    .hud-bar{animation:none;opacity:1}
+    .card{opacity:1;transform:translate(-50%,0) scale(1);transition:none}
+    .step,.tip{animation:none;opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="sky"></div>
+  <div class="glow"></div>
+  <span class="pillar p1"></span><span class="pillar p2"></span><span class="pillar p3"></span><span class="pillar p4"></span>
+  <span class="beam"></span>
+  <div class="grid" id="grid"></div>
+  <div class="sweep" id="sweep"></div>
+  <div class="floor"></div>
+  <div class="scan"></div>
+
+  <div class="hud-wrap">
+    <div class="rec" id="rec"><b></b><span>REC</span></div>
+    <div class="hud-bar" id="bar">
+      <span class="tube" aria-hidden="true"></span>
+      <div class="hud-badge"><span class="hud-dot" id="dot"></span><span class="hud-title" id="title">Tactical HUD</span></div>
+      <div class="hud-divider"></div>
+      <div class="hud-ticker">
+        <div class="hud-line" id="line">Initializing tactical scanner…</div>
+        <span class="ears" id="ears"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="hud-divider"></div>
+      <div class="hud-clock">
+        <span class="perf-cell"><i class="perf-val" id="cpu">18%</i><i class="perf-key">CPU</i></span>
+        <div class="perf-divider"></div>
+        <span class="perf-cell"><i class="perf-val" id="gpu">41%</i><i class="perf-key">GPU</i></span>
+        <span class="perf-cell off"><i class="perf-val">—</i><i class="perf-key">FPS</i></span>
+        <div class="perf-divider"></div>
+        <span class="perf-cell"><i class="perf-val" id="temp">61°</i><i class="perf-key">Temp</i></span>
+      </div>
+    </div>
+    <div class="keys" id="keys"><kbd>F4</kbd><span class="x2">×2</span></div>
+    <div class="ripple" id="ripple"></div>
+  </div>
+
+  <div class="card" id="card">
+    <div class="card__head">
+      <span class="mark">❖</span><span class="card__title">Divine Prayer</span>
+      <span class="card__sub">Guidance</span>
+    </div>
+    <div class="sec">
+      <span class="oc-tag">Target Visual Intel</span>
+      <div class="nointel">✦ Objective Directives Mapped ✦</div>
+    </div>
+    <div class="sec">
+      <span class="oc-tag">Mission Directives</span>
+      <div class="steps" id="steps"></div>
+    </div>
+    <div class="sec">
+      <span class="oc-tag action">💡 Action Tip</span>
+      <div class="tip" id="tip"><span class="bulb">💡</span><span id="tipText"></span></div>
+    </div>
+    <div class="stamp" id="stamp">Guidance delivered</div>
+  </div>
+
+  <div class="grain"></div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stage = document.getElementById('stage');
+  const el = {
+    title: document.getElementById('title'), line: document.getElementById('line'),
+    dot: document.getElementById('dot'), ears: document.getElementById('ears'), rec: document.getElementById('rec'),
+    keys: document.getElementById('keys'), ripple: document.getElementById('ripple'),
+    card: document.getElementById('card'), steps: document.getElementById('steps'), tip: document.getElementById('tip'),
+    tipText: document.getElementById('tipText'), stamp: document.getElementById('stamp'),
+    grid: document.getElementById('grid'), sweep: document.getElementById('sweep'),
+    cpu: document.getElementById('cpu'), gpu: document.getElementById('gpu'), temp: document.getElementById('temp'),
+  };
+
+  /* scale the 900x560 canvas to whatever box the panel is given */
+  const fit = () => {
+    const s = Math.min(innerWidth / 900, innerHeight / 560);
+    stage.style.setProperty('--s', s);
+  };
+  addEventListener('resize', fit); fit();
+
+  /* the real lines, in the real order (control_watcher.py fire_prayer) */
+  const MSG = {
+    idle:         'Initializing tactical scanner…',
+    listening:    'Divine Prayer: Listening to your prayer...',
+    assimilating: 'Divine Prayer: Assimilating prayer & surveying coordinates...',
+  };
+  const DIRECTIVES = [
+    'Sweep the west flank — Hiss cluster reforming',
+    'Take the elevated nodes before the ground wave',
+    'Pierce the shielded, Launch the exposed',
+  ];
+  const ADVICE = '💡 Recommended next step: dismiss stealth, then Launch.';   // the pill's post-resolution line
+  const TIP = 'You are boxed in on the west flank. Dismiss stealth and open with Launch — the node above you is the kill.';
+
+  /* phase -> DOM. analysing => title flips to Tactical Radar and the line sits still. */
+  function say(text, analyzing){
+    el.line.textContent = text;
+    el.line.classList.toggle('analyzing', !!analyzing);
+    el.title.textContent = analyzing ? 'Tactical Radar' : 'Tactical HUD';
+  }
+  function reset(){
+    say(MSG.idle, false);
+    el.dot.style.background = el.dot.style.boxShadow = '';
+    el.ears.style.opacity = 0; el.rec.style.opacity = 0;
+    el.keys.classList.remove('hit'); el.keys.style.opacity = 0;
+    el.ripple.classList.remove('go');
+    el.card.classList.remove('show'); el.stamp.classList.remove('on');
+    el.grid.style.opacity = 0; el.sweep.style.opacity = 0;
+    el.steps.innerHTML = ''; el.tip.style.opacity = 0; el.tip.style.animation = 'none';
+    el.stamp.classList.remove('on');
+  }
+  function phase(name){
+    if (name === 'idle'){ reset(); return; }
+    if (name === 'tap'){
+      el.keys.style.opacity = 1; el.ripple.classList.add('go');
+      void el.keys.offsetWidth; el.keys.classList.add('hit'); return;
+    }
+    if (name === 'listening'){
+      el.keys.style.opacity = 0;
+      say(MSG.listening, true);
+      el.ears.style.opacity = 1; el.rec.style.opacity = 1;
+      el.dot.style.background = '#ffb648'; el.dot.style.boxShadow = '0 0 14px #ffb648';
+      return;
+    }
+    if (name === 'assimilating'){
+      say(MSG.assimilating, true);
+      el.ears.style.opacity = 0; el.rec.style.opacity = 0;
+      el.dot.style.background = ''; el.dot.style.boxShadow = '';
+      el.grid.style.opacity = 1; el.sweep.style.opacity = 1;
+      el.sweep.style.animation = 'spin 1.6s linear infinite';
+      return;
+    }
+    if (name === 'guidance'){
+      el.grid.style.opacity = 0; el.sweep.style.opacity = 0; el.sweep.style.animation = 'none';
+      /* control_watcher.py pushes the advice line once the prayer resolves;
+         status is no longer 'analyzing', so the title flips back */
+      say(ADVICE, false);
+      el.card.classList.add('show');
+      el.steps.innerHTML = DIRECTIVES.map((d,i) =>
+        `<span class="step" style="animation-delay:${.18 + i*.22}s">${d}</span>`).join('');
+      el.tip.style.animation = 'none'; el.tip.style.opacity = 0;
+      void el.tip.offsetWidth;
+      el.tip.style.animation = `stepIn .5s cubic-bezier(.19,1,.22,1) ${.18 + DIRECTIVES.length*.22 + .1}s forwards`;
+      el.tipText.textContent = TIP;
+      setTimeout(() => el.stamp.classList.add('on'), 1500);
+      return;
+    }
+  }
+
+  /* timeline — the real cadence: 9s of listening, then the assimilation pass */
+  const LOOP = [
+    ['idle',        900],
+    ['tap',         900],
+    ['listening',  3600],
+    ['assimilating',4200],
+    ['guidance',   5600],
+  ];
+  let alive = true;
+  function run(i = 0){
+    if (!alive) return;
+    if (reduce){ phase('guidance'); return; }
+    const [name, ms] = LOOP[i];
+    phase(name);
+    setTimeout(() => run((i + 1) % LOOP.length), ms);
+  }
+  /* keep the pill telemetry breathing so it reads as live */
+  setInterval(() => {
+    if (!alive) return;
+    el.cpu.textContent = (14 + Math.random()*10).toFixed(0) + '%';
+    el.gpu.textContent = (33 + Math.random()*22).toFixed(0) + '%';
+    el.temp.textContent = (58 + Math.random()*7).toFixed(0) + '°';
+  }, 1400);
+
+  /* run only while visible — a carousel pane must not burn CPU off-screen */
+  let timer = null;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting){ if (!timer){ alive = true; reset(); run(); timer = 1; } }
+    else { alive = false; timer = null; }
+  }), {threshold:.12});
+  io.observe(stage);
+
+  /* QA hook: window.__hud.phase('guidance') pins any beat for screenshots */
+  addEventListener('animationend', () => {}, false);
+  window.__hud = { phase, get index(){ return LOOP.map(l => l[0]); }, reset };
+  const s = document.createElement('style');
+  s.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
+  document.head.appendChild(s);
+  if (reduce) phase('guidance');
+})();
+</script>
+</body>
+</html>

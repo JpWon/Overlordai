@@ -5,11 +5,17 @@ change needed:
 
 | file           | pane |
 |----------------|------|
-| `shot-02.jpg`  | 2    |
 | `shot-04.jpg`  | 4    |
 | `shot-06.jpg`  | 6    |
 
-Panes 1, 3 and 5 are **Video** panes (pane 1 is the live dashboard demo in `assets/reels/`).
+The other panes are already filled:
+
+| pane | what it is |
+|------|------------|
+| 1    | **Dashboard demo** — the screen recording in `assets/reels/`, plays in the lightbox |
+| 2    | **Divine Prayer** — the live tactical HUD panel, `assets/hud/prayer-hud.html` |
+| 3    | empty video slot |
+| 5    | empty video slot |
 
 Want a different filename, or a clip instead of a still? Edit the `CARDS` array near the
 bottom of `index.html` and set:
@@ -19,6 +25,7 @@ img:    'assets/shots/control-01.jpg'            // a screenshot pane
 video:  'assets/reels/my-clip.mp4',              // a clip pane
 poster: 'assets/reels/my-clip-poster.jpg',
 ratio:  '1462/816',                              // the clip's own shape — no letterbox bars
+embed:  'assets/hud/prayer-hud.html',            // a live animated panel
 ```
 
 A pane whose file is missing keeps its purple gradient, so nothing ever renders empty.
