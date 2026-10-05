@@ -2046,7 +2046,7 @@
     const face = c.poster || c.img;                       // real media wins, gradient is the fallback
     el.innerHTML = `<div class="card__float" style="--bob:${(-i*1.1).toFixed(1)}s">
         <div class="card__face" style="--art:${face ? `url('${face}') center/cover no-repeat,${c.art}` : c.art}">
-          ${c.embed ? `<iframe class="card__embed" src="${c.embed}" loading="lazy" title="${c.title}" scrolling="no" tabindex="-1"></iframe>` : ''}
+          ${c.embed ? `<iframe class="card__embed" src="${c.embed}" title="${c.title}" scrolling="no" tabindex="-1"></iframe>` : ''}
           <span class="card__tag">${c.tag}</span>
           ${c.tag === 'Video' ? '<div class="card__play"></div>' : ''}
           <div class="card__meta"><span>${c.title}</span><span>${c.dur}</span></div>
