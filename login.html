@@ -621,6 +621,7 @@
   .btn--solid{background:var(--neutral-on-background-strong);color:var(--page-background);border-color:var(--neutral-on-background-strong);}
   .plan--pro .btn--solid{background:var(--page-background);color:var(--neutral-on-background-strong);border-color:var(--page-background);}
   .btn--inline{display:inline-flex;width:auto;gap:1.2rem;}
+  .hint{margin-top:.55rem;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
 
   .pricing__foot{
     margin-top:6vh;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1.5rem;
@@ -963,6 +964,8 @@
       <form id="signinForm" style="margin-top:1.2rem" novalidate>
         <div class="field"><label for="si-email">Email</label>
           <div class="input"><input id="si-email" type="email" autocomplete="username" placeholder="you@domain.com" required></div></div>
+        <button class="btn" type="button" id="oneClick" style="margin-top:.9rem">Sign in with one click <span class="arr">&rarr;</span></button>
+        <p class="hint">No password &mdash; we email you a sign-in link.</p>
         <div class="field"><label for="si-pass">Password <a href="#" id="forgotLink" style="color:inherit">Forgot?</a></label>
           <div class="input"><input id="si-pass" type="password" autocomplete="current-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
             <button type="button" class="peek" data-peek="si-pass">Show</button></div></div>
@@ -973,15 +976,18 @@
 
       <p class="alt" style="margin-top:1.4rem"><b>New here?</b>
         <a href="signup.html" id="toSignup" style="color:inherit"><b>Create an account &rarr;</b></a></p>
-      <p class="alt" style="margin-top:.6rem"><a href="#" id="toOtp" style="color:inherit">Email me a one-time code instead</a></p>
     </div>
 
     <div class="pane" data-step="otp">
       <button class="back mono" type="button" data-back>&larr; Back</button>
-      <h2>One-time code</h2>
-      <p class="sub">We&rsquo;ll email a sign-in link to <b id="otpWho"></b>.</p>
-      <button class="btn btn--solid" type="button" id="otpSend">Send the link <span class="arr">&rarr;</span></button>
-      <p class="msg mono" id="otpMsg" role="status" aria-live="polite"></p>
+      <h2>Sign in with one click</h2>
+      <p class="sub">We&rsquo;ll email you a sign-in link. No password, nothing to remember.</p>
+      <form id="otpForm" style="margin-top:1.3rem" novalidate>
+        <div class="field"><label for="otpEmail">Email</label>
+          <div class="input"><input id="otpEmail" type="email" autocomplete="email" placeholder="you@domain.com" required></div></div>
+        <button class="btn btn--solid" type="button" id="otpSend" style="margin-top:1rem">Send the sign-in link <span class="arr">&rarr;</span></button>
+        <p class="msg mono" id="otpMsg" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 </main>
@@ -1193,21 +1199,40 @@
     } catch (err) { say((err && err.message) || 'Could not send the reset link.'); }
   });
 
-  const toOtp = document.getElementById('toOtp');
-  if (toOtp) toOtp.addEventListener('click', e => {
-    e.preventDefault();
-    const who = document.getElementById('otpWho');
-    if (who) who.textContent = (email.value || '').trim() || 'your address';
-    show('otp');
+  /* One-click sign-in. The entry point sits directly under the email box: with an
+     address already typed it sends straight away (that is the "one click"), and with
+     nothing typed it opens the pane, which carries its own email box. */
+  const oneClick  = document.getElementById('oneClick');
+  const otpEmail  = document.getElementById('otpEmail');
+  const otpMsgEl  = document.getElementById('otpMsg');
+  const otpSet = (t, k) => { if (otpMsgEl) { otpMsgEl.textContent = t; otpMsgEl.dataset.kind = k || ''; } };
+
+  if (oneClick) oneClick.addEventListener('click', async () => {
+    const e1 = (email.value || '').trim();
+    if (otpEmail) otpEmail.value = e1;
+    if (!e1) {                                   // no address yet -> offer the box
+      show('otp');
+      otpSet('');
+      if (otpEmail) otpEmail.focus();
+      return;
+    }
+    oneClick.disabled = true;
+    try { await auth.signInWithOtp(e1); say('Sign-in link sent \u2014 check your inbox.', 'ok'); }
+    catch (err) { say((err && err.message) || 'Could not send the link.', 'bad'); }
+    finally { oneClick.disabled = false; }
   });
+
   const otpSend = document.getElementById('otpSend');
   if (otpSend) otpSend.addEventListener('click', async () => {
-    const e1 = (email.value || '').trim();
-    const m  = document.getElementById('otpMsg');
-    const set = (t, k) => { if (m) { m.textContent = t; m.dataset.kind = k || ''; } };
-    if (!e1) { show('signin'); say('Type your email first.'); return; }
-    try { await auth.signInWithOtp(e1); set('Sign-in link sent \u2014 check your inbox.', 'ok'); }
-    catch (err) { set((err && err.message) || 'Could not send the link.', 'bad'); }
+    const e1 = ((otpEmail && otpEmail.value) || '').trim();
+    if (!e1) { otpSet('Type your email to get the link.'); if (otpEmail) otpEmail.focus(); return; }
+    otpSend.disabled = true;
+    try { await auth.signInWithOtp(e1); otpSet('Sign-in link sent \u2014 check your inbox.', 'ok'); }
+    catch (err) { otpSet((err && err.message) || 'Could not send the link.', 'bad'); }
+    finally { otpSend.disabled = false; }
+  });
+  if (otpEmail) otpEmail.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); if (otpSend) otpSend.click(); }
   });
 
   const clock = document.getElementById('clock');
