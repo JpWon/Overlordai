@@ -836,6 +836,8 @@
   .lightbox.is-open .lightbox__frame{transform:none;}
   .lightbox__frame .card__play{width:84px;height:84px;margin:-42px 0 0 -42px;}
   .lightbox__frame .card__play::before{border-width:14px 0 14px 24px;}
+  .lb-media{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:none;background:#07051a;}
+  .lb-media.is-on{display:block;}
   .lightbox__cap{position:absolute;left:1.4rem;bottom:1.2rem;color:#fff;font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;}
   .lightbox__close{
     position:absolute;top:1.6rem;right:2rem;width:44px;height:44px;border-radius:50%;
@@ -1713,6 +1715,8 @@
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox__close" id="lbClose" aria-label="Close">&times;</button>
   <div class="lightbox__frame" id="lbFrame">
+    <video id="lbVideo" class="lb-media" controls playsinline preload="metadata"></video>
+    <img id="lbImg" class="lb-media" alt="">
     <div class="card__play"></div>
     <div class="lightbox__cap" id="lbCap"></div>
   </div>
@@ -2011,13 +2015,20 @@
 /* ---------- Work '26 — ring carousel ---------- */
 (() => {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const CARDS = [   // placeholders — swap --art for real screenshots / video posters
-    {tag:'Video',      title:'Clip 01', dur:'0:42', art:'radial-gradient(120% 90% at 30% 20%,#8fb3ff 0%,#4b3bd6 38%,#140c3a 100%)'},
-    {tag:'Screenshot', title:'Shot 02', dur:'',     art:'linear-gradient(135deg,#1b1240 0%,#5a2bd8 55%,#c7b8ff 100%)'},
+  const CARDS = [
+    /*  The six panes. Put game screenshots in assets/shots/ and clips in assets/reels/, then
+        point a pane at them:  img:'assets/shots/control-01.jpg'  or
+        video:'…/clip.mp4', poster:'…/clip-poster.jpg', ratio:'1462/816'.
+        `art` is the gradient fallback — a pane still looks finished before its file exists,
+        and a screenshot pane whose file 404s simply keeps its gradient. `dur` shows bottom-right.  */
+    {tag:'Video',      title:'Dashboard demo', dur:'1:34',
+     video:'assets/reels/dashboard-demo.mp4', poster:'assets/reels/dashboard-demo-poster.jpg', ratio:'1462/816',
+     art:'radial-gradient(120% 90% at 30% 20%,#8fb3ff 0%,#4b3bd6 38%,#140c3a 100%)'},
+    {tag:'Screenshot', title:'Shot 02', dur:'', img:'assets/shots/shot-02.jpg', art:'linear-gradient(135deg,#1b1240 0%,#5a2bd8 55%,#c7b8ff 100%)'},
     {tag:'Video',      title:'Clip 03', dur:'1:08', art:'radial-gradient(90% 90% at 70% 70%,#e1e8ff 0%,#6f7bff 30%,#0d0a26 80%)'},
-    {tag:'Screenshot', title:'Shot 04', dur:'',     art:'conic-gradient(from 200deg at 40% 60%,#0c0a22,#3d2bb8,#9d8cff,#0c0a22)'},
+    {tag:'Screenshot', title:'Shot 04', dur:'', img:'assets/shots/shot-04.jpg', art:'conic-gradient(from 200deg at 40% 60%,#0c0a22,#3d2bb8,#9d8cff,#0c0a22)'},
     {tag:'Video',      title:'Clip 05', dur:'0:27', art:'linear-gradient(160deg,#0a0820 10%,#2a47d9 50%,#b28dff 100%)'},
-    {tag:'Screenshot', title:'Shot 06', dur:'',     art:'radial-gradient(70% 60% at 50% 40%,#ffffff 0%,#9aa9ff 22%,#3a1f9c 60%,#07051a 100%)'},
+    {tag:'Screenshot', title:'Shot 06', dur:'', img:'assets/shots/shot-06.jpg', art:'radial-gradient(70% 60% at 50% 40%,#ffffff 0%,#9aa9ff 22%,#3a1f9c 60%,#07051a 100%)'},
   ];
   const stage = document.getElementById('ringStage');
   const ring  = document.getElementById('ring');
@@ -2028,8 +2039,9 @@
   CARDS.forEach((c, i) => {
     const el = document.createElement('div');
     el.className = 'card';
+    const face = c.poster || c.img;                       // real media wins, gradient is the fallback
     el.innerHTML = `<div class="card__float" style="--bob:${(-i*1.1).toFixed(1)}s">
-        <div class="card__face" style="--art:${c.art}">
+        <div class="card__face" style="--art:${face ? `url('${face}') center/cover no-repeat,${c.art}` : c.art}">
           <span class="card__tag">${c.tag}</span>
           ${c.tag === 'Video' ? '<div class="card__play"></div>' : ''}
           <div class="card__meta"><span>${c.title}</span><span>${c.dur}</span></div>
@@ -2107,15 +2119,37 @@
 
   /* lightbox */
   const lb = document.getElementById('lightbox'), frame = document.getElementById('lbFrame'), cap = document.getElementById('lbCap');
+  const lbVid = document.getElementById('lbVideo'), lbImg = document.getElementById('lbImg');
+  function clearMedia(){                                    // stop playback and drop the bytes
+    lbVid.pause(); lbVid.removeAttribute('src'); lbVid.removeAttribute('poster'); lbVid.load();
+    lbVid.classList.remove('is-on');
+    lbImg.classList.remove('is-on'); lbImg.removeAttribute('src');
+  }
   function open(i){
     const c = CARDS[i];
     snapTo(0); target = -i * STEP;                          // bring the clicked card to the front
     frame.style.setProperty('--art', c.art);
-    frame.querySelector('.card__play').style.display = c.tag === 'Video' ? '' : 'none';
+    frame.style.aspectRatio = c.ratio || '16/9';            // a clip keeps its own shape — no bars
+    clearMedia();
+    const play = frame.querySelector('.card__play');
+    if (c.video){
+      lbVid.poster = c.poster || '';
+      lbVid.src = c.video;
+      lbVid.classList.add('is-on');
+      play.style.display = 'none';
+      lbVid.play().catch(() => {});                          // the click is the user gesture, so sound plays
+    } else if (c.img){
+      lbImg.onerror = () => lbImg.classList.remove('is-on'); // file not there yet -> gradient shows
+      lbImg.src = c.img; lbImg.alt = c.title;
+      lbImg.classList.add('is-on');
+      play.style.display = 'none';
+    } else {
+      play.style.display = c.tag === 'Video' ? '' : 'none';
+    }
     cap.textContent = `${c.title} — ${c.tag}${c.dur ? ' · ' + c.dur : ''}`;
     lb.classList.add('is-open'); lb.setAttribute('aria-hidden','false');
   }
-  const close = () => { lb.classList.remove('is-open'); lb.setAttribute('aria-hidden','true'); };
+  const close = () => { clearMedia(); lb.classList.remove('is-open'); lb.setAttribute('aria-hidden','true'); };
   document.getElementById('lbClose').onclick = close;
   lb.addEventListener('click', e => { if (e.target === lb) close(); });
   addEventListener('keydown', e => {
