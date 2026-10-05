@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tactical HUD — GPS Radar</title>
+<!--
+  Marketing animation: the shipping GPS tactical radar, faithfully reproduced.
+  Source of truth — psyche/OverlordApp/tactical_interface.js
+  (shell/tactical_interface.js is byte-identical; assets/tactical-interface.css is the shipped copy).
+
+  NODE / FRAME (what the radar is mounted in):
+    · tactical_interface.html:97-102  — the variant block, comment "variant: GPS tactical radar display (Eros 2026-10-02)";
+        <div id="oc-gps-radar" class="oc-gps-radar"><canvas id="oc-radar-canvas" class="oc-radar-canvas" width="253" height="215"></canvas></div>
+    · tactical-interface.css:531-542  — .oc[data-config="gps"] .oc-gps-radar{position:absolute;inset:0;width:100%;height:100%}
+        and .oc-radar-canvas{width:100%;height:100%;display:block}
+    · tactical_interface.js:1584-1606 — JS overrides the canvas to a SQUARE: size = gps_square_size (default 240, render-card.html:112),
+        card.width = card.height = size; canvas.width = canvas.height = size. So the radar is a square that fills the square card.
+
+  DRAW VALUES — every number below is copied verbatim, with its source line:
+    · pad = 2 ................................................. js:803
+    · ux,uy = user_norm * [w,h]; user_norm default [0.50,0.50]  js:798-800
+    · corners c1..c4 at pad ................................... js:804-807
+    · cornerDistMax = max |corner-center| ..................... js:810-815
+    · maxRadius = cornerDistMax + 14 .......................... js:816
+    · FRAME_RADIUS_FRACTION = 0.44; framePx = min(w,h)*0.44 ... js:869-872
+    · PING CADENCE: pulseDurationMs = 3800 .................... js:978
+    · cycle = (elapsed % pulseDurationMs)/pulseDurationMs ..... js:1030-1031
+    · clearRect(0,0,w,h) ...................................... js:1033
+    · crystal boundary strokeRect, rgba(56,189,248,0.15), lw1 .. js:1037-1039
+    · corner brackets bLen=14, rgba(56,189,248,0.50), lw1.5 ... js:1042-1050
+    · range rings [45,95,145], rgba(56,189,248,0.06) .......... js:1053-1058
+    · faint crosshairs ±16, rgba(56,189,248,0.08) ............. js:1082-1086
+    · compass compRadius = min(w,h)*0.44 ..................... js:1089
+    · N diamond #38bdf8 shadowBlur 8 (6/4 dia), label 'N' 800 11px at cy-13  js:1104-1118
+    · E/S/W rgba(148,163,184,0.70) 700 9.5px ................. js:1120-1124
+    · ticks every 30deg (skip 90s), tLen4, rgba(56,189,248,0.18)  js:1129-1140
+    · heading readout rgba(56,189,248,0.75) 700 9px at (pad+10,h-pad-10)  js:1143-1149
+    · OUTWARD WAVE (cycle 0..0.48): pProg=cycle/0.48, r=pProg*maxRadius,
+        alpha = max(0, 0.92*(1-pProg*0.85)) .................. js:1163-1167
+      outer ring   r,      lw2.8, rgba(74,222,128,α),      flareAmp4.2, phase0    js:1170
+      core ring    r-1.5,  lw1.5, rgba(220,252,231,α*0.95),flareAmp3.5, phase0.5  js:1172
+      secondary    r-18,   lw1.8, rgba(74,222,128,α*0.55), flareAmp2.8, phase1.2 (if r>18)  js:1175
+      tertiary     r-34,   lw1.2, rgba(74,222,128,α*0.30), flareAmp2.0, phase2.4 (if r>34)  js:1179
+      → FOUR concentric plasma rings per ping ................ (ring count)
+      ionization sheet radial gradient rgba(74,222,128,0..0.26)  js:1183-1190
+      7 orbiting sparks, r1.6, rgba(240,253,244,α*0.85) ..... js:1193-1204
+    · drawPlasmaRing: 64 segments, 3-harmonic flare, shadow #4ade80  js:981-1006
+    · INWARD ECHO (cycle 0.48..1.0): inProg=(cycle-0.48)/0.52,
+        wavefronts curTop/Bot/Left/Right, inAlpha=max(0,0.85*(1-inProg*0.75)),
+        coreAlpha=min(1,inAlpha*1.2) .......................... js:1205-1215
+      four wavy plasma bars (32 seg, bow 6*(1-inProg*0.5), ripple 1.8),
+        stroked rgba(74,222,128,inAlpha) lw2.4 then rgba(240,253,244,coreAlpha) lw1.2  js:1222-1248
+      corner return pulses r max(2,6*(1-inProg)), rgba(134,239,172,inAlpha*0.7)  js:1260-1269
+      converging fill sheet rgba(74,222,128,inAlpha*0.08) .... js:1274-1277
+      corner flash on cycle 0.42..0.54: strokeRect lw3.2 shadow18,
+        4 corner squares 8px rgba(220,252,231,·), burst arcs r16*flash  js:1282-1315
+    · BEACON (the fixed blip at the user, always drawn): ........ js:1490-1535
+      FOV cone 30deg, fovRadius=min(w,h)*0.30, green radial 0.16→0  js:1492-1504
+      forward chevron (ux,uy-12)/±4, rgba(240,253,244,0.95), shadow #4ade80 blur6  js:1506-1515
+      user aura 12+flash*8, white core r3.5+flash*1.5, shadow 10+flash*12  js:1520-1534
+      (flash: isEchoWave && curWaveRadius<24 → 1.0 during the whole echo, js:1517-1518)
+
+  This file: transparent, self-contained, 900x560 design box, no network, no audio.
+  It shows the radar and its ping — no card chrome, no targets, no copy.
+-->
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  /* THE PAGE PAINTS NOTHING: the violet gradient lives behind the panel. */
+  html,body{margin:0;height:100%;background:transparent;overflow:hidden}
+  body{font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif}
+
+  /* fixed 900x560 design canvas (16:10), scaled to whatever box the panel is given */
+  #stage{position:absolute;top:0;left:0;width:900px;height:560px;transform-origin:top left;
+    transform:scale(var(--s,1));overflow:hidden}
+
+  /* the radar is a SQUARE that fills its square card (js:1584-1596); here it sits
+     centred in the 16:10 stage. Only canvas ink, never a panel background. */
+  .radar{position:absolute;left:50%;top:50%;width:480px;height:480px;
+    transform:translate(-50%,-50%)}
+  .radar canvas{width:100%;height:100%;display:block}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="radar"><canvas id="oc-radar-canvas" class="oc-radar-canvas"></canvas></div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stage  = document.getElementById('stage');
+  const canvas = document.getElementById('oc-radar-canvas');
+  const ctx    = canvas.getContext('2d');
+
+  /* ---- logical design square: mirrors the shipped square card (js:1584-1596) ---- */
+  const D       = 240;                       // gps_square_size default (render-card.html:112)
+  const BACKING = 960;                       // backing store for a crisp downscale
+  const K       = BACKING / D;               // 4
+  const w = D, h = D;
+  canvas.width = canvas.height = BACKING;
+
+  /* ---- geometry, verbatim from tactical_interface.js ---- */
+  const pad = 2;                                            // js:803
+  const ux = 0.50 * w, uy = 0.50 * h;                       // js:798-800
+  const c1 = [pad, pad], c2 = [w - pad, pad],
+        c3 = [w - pad, h - pad], c4 = [pad, h - pad];       // js:804-807
+  const cornerDistMax = Math.max(                            // js:810-815
+    Math.hypot(c1[0] - ux, c1[1] - uy),
+    Math.hypot(c2[0] - ux, c2[1] - uy),
+    Math.hypot(c3[0] - ux, c3[1] - uy),
+    Math.hypot(c4[0] - ux, c4[1] - uy)
+  );
+  const maxRadius = cornerDistMax + 14;                      // js:816
+  const FRAME_RADIUS_FRACTION = 0.44;                        // js:869
+  const framePx = Math.min(w, h) * FRAME_RADIUS_FRACTION;    // js:872
+  const compRadius = Math.min(w, h) * 0.44;                  // js:1089
+  const pulseDurationMs = 3800;                              // js:978
+  const headingRad = 0;                                      // player_heading_deg default 0 (js:820-827)
+
+  /* ---- plasma ring helper, ported verbatim (js:981-1006) ---- */
+  function drawPlasmaRing(radius, alpha, lineWidth, color, flareAmp, phaseOffset, now) {
+    if (radius <= 2) return;
+    ctx.save();
+    ctx.beginPath();
+    const steps = 64;
+    for (let i = 0; i <= steps; i++) {
+      const theta = (i / steps) * Math.PI * 2;
+      const flare = flareAmp * (
+        0.55 * Math.sin(theta * 6 + now * 0.005 + phaseOffset) +
+        0.30 * Math.cos(theta * 11 - now * 0.007) +
+        0.15 * Math.sin(theta * 17 + now * 0.010)
+      );
+      const r = Math.max(0, radius + flare);
+      const px = ux + Math.cos(theta) * r;
+      const py = uy + Math.sin(theta) * r;
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineWidth;
+    ctx.shadowColor = '#4ade80';
+    ctx.shadowBlur = Math.min(14, 6 + flareAmp * 1.5);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  let curWaveRadius = 0;       // js:1156-1157 (reset each frame)
+  let isEchoWave = false;
+
+  function drawScene(cycle, now) {
+    ctx.setTransform(K, 0, 0, K, 0, 0);
+    ctx.clearRect(0, 0, w, h);                                // js:1033
+
+    /* ================= 1. Crystal boundary, grid, compass (js:1035-1150) ========= */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.15)';            // js:1037
+    ctx.lineWidth = 1;
+    ctx.strokeRect(pad, pad, w - pad * 2, h - pad * 2);      // js:1039
+
+    const bLen = 14;                                         // js:1042
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.50)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(pad, pad + bLen); ctx.lineTo(pad, pad); ctx.lineTo(pad + bLen, pad);
+    ctx.moveTo(w - pad - bLen, pad); ctx.lineTo(w - pad, pad); ctx.lineTo(w - pad, pad + bLen);
+    ctx.moveTo(pad, h - pad - bLen); ctx.lineTo(pad, h - pad); ctx.lineTo(pad + bLen, h - pad);
+    ctx.moveTo(w - pad - bLen, h - pad); ctx.lineTo(w - pad, h - pad); ctx.lineTo(w - pad, h - pad - bLen);
+    ctx.stroke();                                            // js:1046-1050
+
+    [45, 95, 145].forEach((radius) => {                      // js:1053-1058
+      ctx.beginPath();
+      ctx.arc(ux, uy, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.06)';
+      ctx.stroke();
+    });
+
+    ctx.beginPath();                                         // js:1082-1086
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.08)';
+    ctx.moveTo(ux - 16, uy); ctx.lineTo(ux + 16, uy);
+    ctx.moveTo(ux, uy - 16); ctx.lineTo(ux, uy + 16);
+    ctx.stroke();
+
+    // Compass ring — cardinals + ticks + heading readout (js:1088-1149)
+    const cardinals = [
+      { label: 'N', az: 0, isNorth: true },
+      { label: 'E', az: Math.PI / 2 },
+      { label: 'S', az: Math.PI },
+      { label: 'W', az: -Math.PI / 2 }
+    ];
+    cardinals.forEach(({ label, az, isNorth }) => {
+      const relAz = az - headingRad;
+      const cx = ux + compRadius * Math.sin(relAz);
+      const cy = uy - compRadius * Math.cos(relAz);
+      if (isNorth) {
+        ctx.fillStyle = '#38bdf8';                           // js:1104-1113
+        ctx.shadowColor = '#38bdf8';
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - 6); ctx.lineTo(cx + 4, cy);
+        ctx.lineTo(cx, cy + 6); ctx.lineTo(cx - 4, cy);
+        ctx.closePath();
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.font = "800 11px 'Space Mono', ui-monospace, Menlo, monospace";   // js:1115
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('N', cx, cy - 13);                      // js:1118
+      } else {
+        ctx.fillStyle = 'rgba(148, 163, 184, 0.70)';         // js:1120-1124
+        ctx.font = "700 9.5px 'Space Mono', ui-monospace, Menlo, monospace";
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(label, cx, cy);
+      }
+    });
+
+    for (let deg = 0; deg < 360; deg += 30) {                // js:1129-1140
+      if (deg % 90 === 0) continue;
+      const rad = (deg * Math.PI) / 180;
+      const relAz = rad - headingRad;
+      const tLen = 4;
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.18)';
+      ctx.lineWidth = 1;
+      ctx.moveTo(ux + (compRadius + 2) * Math.sin(relAz), uy - (compRadius + 2) * Math.cos(relAz));
+      ctx.lineTo(ux + (compRadius - tLen) * Math.sin(relAz), uy - (compRadius - tLen) * Math.cos(relAz));
+      ctx.stroke();
+    }
+
+    const curDegNorm = ((Math.round(headingRad * (180 / Math.PI)) % 360) + 360) % 360;
+    const cardDirs = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+    const cardStr = cardDirs[Math.round(curDegNorm / 22.5) % 16];
+    ctx.font = "700 9px 'Space Mono', ui-monospace, Menlo, monospace";        // js:1146-1149
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = 'rgba(56, 189, 248, 0.75)';
+    ctx.fillText('HDG ' + String(curDegNorm).padStart(3, '0') + '\u00B0 \u00B7 ' + cardStr,
+                 pad + 10, h - pad - 10);
+    ctx.restore();
+
+    /* ================= 2. The ping — plasma wave (js:1152-1317) ================= */
+    curWaveRadius = 0;
+    isEchoWave = false;
+
+    if (cycle != null) {
+      if (cycle < 0.48) {
+        // Outward wave from the user, out to the crystal border (js:1163-1204)
+        const pProg = cycle / 0.48;
+        curWaveRadius = pProg * maxRadius;
+        const alpha = Math.max(0, 0.92 * (1.0 - pProg * 0.85));
+
+        drawPlasmaRing(curWaveRadius, alpha, 2.8, 'rgba(74, 222, 128, ' + alpha + ')', 4.2, 0, now);
+        drawPlasmaRing(curWaveRadius - 1.5, alpha * 0.95, 1.5, 'rgba(220, 252, 231, ' + (alpha * 0.95) + ')', 3.5, 0.5, now);
+        if (curWaveRadius > 18) {
+          drawPlasmaRing(curWaveRadius - 18, alpha * 0.55, 1.8, 'rgba(74, 222, 128, ' + (alpha * 0.55) + ')', 2.8, 1.2, now);
+        }
+        if (curWaveRadius > 34) {
+          drawPlasmaRing(curWaveRadius - 34, alpha * 0.30, 1.2, 'rgba(74, 222, 128, ' + (alpha * 0.30) + ')', 2.0, 2.4, now);
+        }
+
+        const grad = ctx.createRadialGradient(ux, uy, Math.max(0, curWaveRadius - 26), ux, uy, curWaveRadius);
+        grad.addColorStop(0, 'rgba(74, 222, 128, 0)');
+        grad.addColorStop(0.65, 'rgba(74, 222, 128, ' + (alpha * 0.12) + ')');
+        grad.addColorStop(1, 'rgba(134, 239, 172, ' + (alpha * 0.26) + ')');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(ux, uy, curWaveRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        for (let s = 0; s < 7; s++) {                        // js:1193-1204
+          const sAngle = (s / 7) * Math.PI * 2 + now * 0.0035;
+          const sDist = curWaveRadius + (Math.sin(s * 2.3 + now * 0.009) * 5);
+          const sx = ux + Math.cos(sAngle) * sDist;
+          const sy = uy + Math.sin(sAngle) * sDist;
+          ctx.beginPath();
+          ctx.arc(sx, sy, 1.6, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(240, 253, 244, ' + (alpha * 0.85) + ')';
+          ctx.shadowColor = '#86efac';
+          ctx.shadowBlur = 6;
+          ctx.fill();
+        }
+        ctx.shadowBlur = 0;
+      } else {
+        // Returning echo: the wavefront bounces off all four crystal bars and ripples
+        // back to the user (js:1205-1316)
+        isEchoWave = true;
+        const inProg = (cycle - 0.48) / 0.52;
+        const curTopY   = pad + inProg * (uy - pad);
+        const curBotY   = (h - pad) - inProg * ((h - pad) - uy);
+        const curLeftX  = pad + inProg * (ux - pad);
+        const curRightX = (w - pad) - inProg * ((w - pad) - ux);
+
+        const inAlpha = Math.max(0, 0.85 * (1.0 - inProg * 0.75));
+        const coreAlpha = Math.min(1.0, inAlpha * 1.2);
+
+        ctx.save();
+        ctx.shadowColor = '#4ade80';
+        ctx.shadowBlur = Math.min(18, 6 + (1 - inProg) * 12);
+
+        const drawPlasmaBar = (x1, y1, x2, y2, isVert, toward) => {   // js:1222-1248
+          ctx.beginPath();
+          const segments = 32;
+          for (let i = 0; i <= segments; i++) {
+            const t = i / segments;
+            let px = x1 + t * (x2 - x1);
+            let py = y1 + t * (y2 - y1);
+            const bow = Math.sin(t * Math.PI) * (6 * (1.0 - inProg * 0.5));
+            const ripple = Math.sin(t * 12 + now * 0.008) * 1.8;
+            if (isVert) px += (bow + ripple) * toward;
+            else        py += (bow + ripple) * toward;
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          }
+          ctx.strokeStyle = 'rgba(74, 222, 128, ' + inAlpha + ')';
+          ctx.lineWidth = 2.4;
+          ctx.stroke();
+          ctx.strokeStyle = 'rgba(240, 253, 244, ' + coreAlpha + ')';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+        };
+
+        drawPlasmaBar(curLeftX, curTopY, curRightX, curTopY, false, 1);   // js:1251-1257
+        drawPlasmaBar(curLeftX, curBotY, curRightX, curBotY, false, -1);
+        drawPlasmaBar(curLeftX, curTopY, curLeftX, curBotY, true, 1);
+        drawPlasmaBar(curRightX, curTopY, curRightX, curBotY, true, -1);
+
+        [c1, c2, c3, c4].forEach(([cx, cy]) => {                          // js:1260-1269
+          const cpx = cx + inProg * (ux - cx);
+          const cpy = cy + inProg * (uy - cy);
+          ctx.beginPath();
+          ctx.arc(cpx, cpy, Math.max(2, 6 * (1 - inProg)), 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(134, 239, 172, ' + (inAlpha * 0.7) + ')';
+          ctx.fill();
+        });
+
+        const fillW = Math.max(0, curRightX - curLeftX);                 // js:1274-1277
+        const fillH = Math.max(0, curBotY - curTopY);
+        if (fillW > 0 && fillH > 0) {
+          ctx.fillStyle = 'rgba(74, 222, 128, ' + (inAlpha * 0.08) + ')';
+          ctx.fillRect(curLeftX, curTopY, fillW, fillH);
+        }
+        ctx.restore();
+
+        if (cycle >= 0.42 && cycle <= 0.54) {                            // js:1282-1315
+          const cornerFlash = Math.sin(((cycle - 0.42) / 0.12) * Math.PI);
+          const cAlpha = cornerFlash * 0.95;
+          ctx.save();
+          ctx.strokeStyle = 'rgba(74, 222, 128, ' + cAlpha + ')';
+          ctx.lineWidth = 3.2;
+          ctx.shadowColor = '#4ade80';
+          ctx.shadowBlur = 18;
+          ctx.strokeRect(pad, pad, w - pad * 2, h - pad * 2);
+
+          const sqSize = 8;
+          [[pad, pad], [w - pad - sqSize, pad], [w - pad - sqSize, h - pad - sqSize], [pad, h - pad - sqSize]]
+            .forEach(([sx, sy]) => {
+              ctx.fillStyle = 'rgba(220, 252, 231, ' + (cAlpha * 0.85) + ')';
+              ctx.fillRect(sx, sy, sqSize, sqSize);
+              ctx.strokeRect(sx, sy, sqSize, sqSize);
+            });
+
+          [c1, c2, c3, c4].forEach(([cx, cy]) => {
+            ctx.beginPath();
+            ctx.arc(cx, cy, 16 * cornerFlash, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(134, 239, 172, ' + (cAlpha * 0.40) + ')';
+            ctx.fill();
+            ctx.stroke();
+          });
+          ctx.restore();
+        }
+      }
+    }
+
+    /* ================= 3. The beacon — the user blip (js:1490-1535) ============= */
+    ctx.save();
+    const fovAngle = 30 * (Math.PI / 180);                   // js:1493-1494
+    const fovRadius = Math.min(w, h) * 0.30;
+    const fovGrad = ctx.createRadialGradient(ux, uy, 4, ux, uy, fovRadius);
+    fovGrad.addColorStop(0, 'rgba(74, 222, 128, 0.16)');
+    fovGrad.addColorStop(0.7, 'rgba(74, 222, 128, 0.04)');
+    fovGrad.addColorStop(1, 'rgba(74, 222, 128, 0)');
+    ctx.beginPath();
+    ctx.moveTo(ux, uy);
+    ctx.arc(ux, uy, fovRadius, -Math.PI / 2 - fovAngle, -Math.PI / 2 + fovAngle);
+    ctx.closePath();
+    ctx.fillStyle = fovGrad;
+    ctx.fill();
+
+    ctx.beginPath();                                         // js:1506-1515
+    ctx.moveTo(ux, uy - 12);
+    ctx.lineTo(ux - 4, uy - 6);
+    ctx.lineTo(ux + 4, uy - 6);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(240, 253, 244, 0.95)';
+    ctx.shadowColor = '#4ade80';
+    ctx.shadowBlur = 6;
+    ctx.fill();
+
+    const isConvergingAtUser = isEchoWave && curWaveRadius < 24;   // js:1517-1518
+    const userFlash = isConvergingAtUser ? Math.max(0, 1.0 - curWaveRadius / 24) : 0;
+
+    const auraGrad = ctx.createRadialGradient(ux, uy, 2, ux, uy, 12 + userFlash * 8);   // js:1520-1527
+    auraGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+    auraGrad.addColorStop(0.35, 'rgba(74, 222, 128, ' + (0.45 + userFlash * 0.4) + ')');
+    auraGrad.addColorStop(1, 'rgba(74, 222, 128, 0)');
+    ctx.beginPath();
+    ctx.arc(ux, uy, 12 + userFlash * 8, 0, Math.PI * 2);
+    ctx.fillStyle = auraGrad;
+    ctx.fill();
+
+    ctx.shadowColor = '#ffffff';                             // js:1529-1534
+    ctx.shadowBlur = 10 + userFlash * 12;
+    ctx.beginPath();
+    ctx.arc(ux, uy, 3.5 + userFlash * 1.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+    ctx.restore();
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+  }
+
+  /* ---- timeline: the ping loops on the source cadence (pulseDurationMs 3800) ---- */
+  const BEATS = ['idle', 'ping'];
+  const PING_CYCLE = 0.18;          // a still frame mid-outward: one small ping, ~46% of max radius
+  /* start the loop already mid-outward (r eases open from the beacon); the first
+     frame — what a headless/carousel snapshot catches — is then a clean ping ring
+     rather than the tight sub-centre blob at cycle ~0. */
+  const newStart = () => performance.now() - PING_CYCLE * pulseDurationMs;
+  let startTime = newStart();
+  let frozen = null;                // {cycle, t} while a beat is pinned
+  let raf = 0;
+
+  function frame(t) {
+    if (frozen) {
+      drawScene(frozen.cycle, frozen.t);
+    } else {
+      const elapsed = t - startTime;
+      const cycle = (elapsed % pulseDurationMs) / pulseDurationMs;   // js:1030-1031
+      drawScene(cycle, t);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  /* ---- scale the 900x560 design box to whatever the pane gives us ---- */
+  const fit = () => {
+    const s = Math.min(innerWidth / 900, innerHeight / 560);
+    stage.style.setProperty('--s', s);
+  };
+  addEventListener('resize', fit); fit();
+
+  /* ---- QA hook: window.__hud ---- */
+  window.__hud = {
+    beats: BEATS,
+    pin(name){
+      frozen = (name === 'ping') ? { cycle: PING_CYCLE, t: 1000 } : { cycle: null, t: 0 };
+      drawScene(frozen.cycle, frozen.t);
+      return name;
+    },
+    resume(){
+      frozen = null;
+      startTime = newStart();
+      if (!raf) raf = requestAnimationFrame(frame);
+      return 'live';
+    },
+    state(){
+      return { beat: frozen ? (frozen.cycle == null ? 'idle' : 'ping') : 'live',
+               running: !!raf, frozen: !!frozen, reduced: reduce };
+    }
+  };
+
+  /* ---- start: honour ?beat= and prefers-reduced-motion ---- */
+  const want = new URLSearchParams(location.search).get('beat');
+  if (reduce) {
+    frozen = { cycle: null, t: 0 };
+    drawScene(null, 0);                       // settled, still radar — no rAF loop
+  } else if (want && BEATS.indexOf(want) !== -1) {
+    frozen = (want === 'ping') ? { cycle: PING_CYCLE, t: 1000 } : { cycle: null, t: 0 };
+    drawScene(frozen.cycle, frozen.t);
+    if (want !== 'ping') raf = requestAnimationFrame(frame);   // idle holds still
+  } else {
+    raf = requestAnimationFrame(frame);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Combo Card — Black Myth: Wukong</title>
+<!--
+  Marketing animation: Overlord's COMBO CARD carrying its real researched stack of
+  Black Myth: Wukong strings, stepping through them the way the shipping app does.
+
+  Grounded entirely in the repo — every combo name, step string and button comes
+  verbatim from the data; nothing here is invented.
+
+  SOURCE OF TRUTH
+    · guides/controls/black_myth_wukong_combos.json — combos[]: 7 researched
+      strings with name + inputs (PC keyboard/mouse + gamepad wording), step_count,
+      beats (boss slugs), requires.unlocks. game_title = "Black Myth: Wukong".
+      Verbatim lines: c1 124-143, c2 144-164, c3 165-184, c4 185-204,
+      c5 205-223, c6 224-243, c7 244-262. Boss names 79-122.
+    · combo_coach.py — "the brain behind the COMBO CARD":
+        - combo STACK NAVIGATION (lines 156-201): "The card carries a stack of
+          learned combos … a spoken 'next combo' / F4 sext-tap must switch the open
+          combo"  -> the rail + the F4 x6 / "next combo" cue.
+        - ASSUMED_STEP_MS = 1000 (line 446) and combo_timing() (472+) -> the
+          presumed pace note ("no timing documented") the card prints.
+        - SCHEME_LABELS['keyboard_mouse'] (89-92) -> the measured device chip.
+        - combo_payload() (898+): title "Combo Card", tips become the step pills,
+          combos[] fold into the stack, the card carries inputs + provenance only.
+    · OverlordApp/tactical-interface.css
+        - .oc[data-config="combo"] (427-455): width 253, hairline/glass iconography.
+        - LIVE COMBO STEPPING (544-571): input_watcher sees the button he ACTUALLY
+          pressed; the step lights with the SAME sweep the mouse uses on hover/click
+          — .oc-step-pill.lit (violet #6d5cff ::after scaleX 0->1, 0.6s) + the
+          ocStepLit glow; .done keeps the fill, settles. Reproduced here.
+        - THE EXECUTION FILL (573-601) -> the 2px bottom hairline .step-fill.
+        - ASSUMED PACE (603-622) -> .oc-pace-note.
+    · tactical_interface.html (32-113) + tactical_interface.js (280-321): the real
+      card shell — oc-step-pill > oc-step-badge + oc-step-text; the pill is the row.
+
+  TRANSPARENCY: no panel fill is painted (html/body transparent; the card is hairlines
+  + corner ticks + the violet step sweep only). A purple gradient sits behind it.
+  Canvas 900x560, scaled by --s so the same layout holds in a carousel and a lightbox.
+-->
+<style>
+  :root{
+    --accent:#6d5cff; --accent-soft:#b9a8ff; --accent-bright:#dcd6ff;
+    --hair:rgba(255,255,255,.12); --hair-2:rgba(255,255,255,.22);
+    --ink:rgba(255,255,255,.92); --ink-70:rgba(255,255,255,.7); --ink-45:rgba(255,255,255,.45);
+    --edge:rgba(205,209,216,.35);
+    --mono:'Space Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{margin:0;height:100%;background:transparent;overflow:hidden;
+    font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  body{display:block}
+
+  /* ---------- stage: fixed 900x560 (16:10) canvas, scaled to fit ---------- */
+  #stage{position:absolute;top:0;left:0;width:900px;height:560px;transform-origin:top left;
+    transform:scale(var(--s,1));overflow:hidden}
+
+  /* legibility over the page's own gradient, without painting a panel */
+  .tx{text-shadow:0 1px 14px rgba(0,0,0,.55)}
+
+  /* ---------- the card frame: hairlines + corner ticks, NO fill ---------- */
+  .frame{position:absolute;inset:24px;border:1px solid var(--hair);border-radius:16px}
+  .corner{position:absolute;width:16px;height:16px;pointer-events:none}
+  .corner.tl{top:-1px;left:-1px;border-top:2px solid var(--hair-2);border-left:2px solid var(--hair-2);border-top-left-radius:16px}
+  .corner.tr{top:-1px;right:-1px;border-top:2px solid var(--hair-2);border-right:2px solid var(--hair-2);border-top-right-radius:16px}
+  .corner.bl{bottom:-1px;left:-1px;border-bottom:2px solid var(--hair-2);border-left:2px solid var(--hair-2);border-bottom-left-radius:16px}
+  .corner.br{bottom:-1px;right:-1px;border-bottom:2px solid var(--hair-2);border-right:2px solid var(--hair-2);border-bottom-right-radius:16px}
+
+  .card{position:absolute;inset:0;display:flex;flex-direction:column;padding:22px 28px 18px}
+
+  /* ---------- header ---------- */
+  .cc-head{display:flex;align-items:center;gap:16px;padding-bottom:15px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .mark{color:var(--accent-soft);font-size:17px;filter:drop-shadow(0 0 8px rgba(185,168,255,.75))}
+  .wm{font-family:'Anton',Impact,sans-serif;font-size:18px;letter-spacing:.06em;color:#fff;text-transform:uppercase;white-space:nowrap}
+  .wm em{font-style:normal;color:var(--accent-soft)}
+  .cc-title{font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent-soft);white-space:nowrap}
+  .cc-meta{margin-left:auto;display:flex;align-items:center;gap:9px}
+  .chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-70);
+    border:1px solid var(--hair);border-radius:100px;padding:5px 12px;white-space:nowrap;background:transparent}
+  .chip.scheme{color:var(--accent-soft);border-color:rgba(185,168,255,.42);display:flex;align-items:center;gap:7px}
+  .chip .live{width:6px;height:6px;border-radius:50%;background:#43e08a;box-shadow:0 0 8px #43e08a;animation:pulse 2s ease-in-out infinite}
+
+  .cc-hair{height:1px;flex:0 0 auto;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.2) 10%,rgba(255,255,255,.2) 90%,transparent)}
+
+  /* ---------- body: name + stack rail + steps (slides between combos) ---------- */
+  .cc-body{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;
+    transition:opacity .22s ease,transform .22s cubic-bezier(.19,1,.22,1)}
+  .cc-body.out{opacity:0;transform:translateX(-16px)}
+
+  .cc-name{margin-top:15px}
+  .cc-idx{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-45)}
+  .cc-idx b{color:var(--accent-soft);font-weight:700}
+  #comboName{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:29px;line-height:1.07;letter-spacing:.014em;
+    text-transform:uppercase;color:#fff;margin-top:7px;max-width:760px}
+  .cc-vs{margin-top:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;color:var(--ink-45);text-transform:uppercase}
+  .cc-vs b{color:rgba(185,168,255,.92);font-weight:400}
+
+  /* stack rail — the combos folded onto the card (combo_coach combo_stack) */
+  .cc-rail{margin-top:15px;display:flex;gap:6px}
+  .rail-chip{flex:1 1 0;min-width:0;position:relative;overflow:hidden;display:flex;align-items:center;gap:7px;
+    border:1px solid var(--hair);border-radius:6px;padding:7px 9px;background:transparent;
+    font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-45);
+    transition:color .45s,border-color .45s,background .45s}
+  .rail-num{flex:0 0 auto;font-weight:700;color:var(--accent-soft);transition:color .45s}
+  .rail-name{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rail-chip::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--accent);
+    transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.19,1,.22,1);box-shadow:0 0 8px rgba(109,92,255,.7)}
+  .rail-chip.active{border-color:rgba(109,92,255,.62);color:#fff;background:rgba(109,92,255,.10)}
+  .rail-chip.active .rail-num,.rail-chip.active .rail-name{color:#fff}
+  .rail-chip.active::after{transform:scaleX(1)}
+
+  /* steps — the real oc-step-pill rows */
+  .cc-steps{margin-top:14px;flex:1 1 auto;display:flex;flex-direction:column;gap:7px;min-height:0;justify-content:center}
+  .step{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;gap:14px;
+    padding:9px 15px;border:1px solid transparent;border-radius:4px;color:rgba(255,255,255,.86);flex:0 0 auto;
+    box-shadow:0 0 0 0 rgba(109,92,255,0);
+    opacity:0;transform:translateY(8px);
+    transition:border-color .4s,box-shadow .5s;
+    animation:cascade .42s cubic-bezier(.19,1,.22,1) forwards}
+  /* the ROYAL FILL: hover/lit sweeps violet left -> right (tactical-interface.css 958) */
+  .step::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--accent);transform:scaleX(0);
+    transform-origin:left;transition:transform .6s cubic-bezier(.19,1,.22,1),opacity .5s}
+  .step-badge{flex:0 0 auto;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent-soft);border:1px solid var(--edge);border-radius:3px;padding:3px 7px;transition:color .4s,border-color .4s}
+  .step-text{flex:1 1 auto;min-width:0;font-size:13.5px;font-weight:500;line-height:1.3;overflow-wrap:anywhere;transition:color .4s}
+  .step-btn{flex:0 0 auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--accent-soft);border:1px solid rgba(185,168,255,.4);border-radius:100px;padding:5px 13px;white-space:nowrap;
+    transition:color .4s,border-color .4s}
+  .step-fill{position:absolute;left:0;bottom:0;height:2px;width:0;z-index:2;border-radius:0 2px 2px 0;
+    background:linear-gradient(90deg,rgba(109,92,255,.75),rgba(220,214,255,.95));box-shadow:0 0 6px rgba(139,122,255,.6)}
+
+  .step.done{border-color:rgba(109,92,255,.45)}
+  .step.done::after{transform:scaleX(1);opacity:.2}
+  .step.done .step-text{color:rgba(255,255,255,.92)}
+  .step.done .step-badge{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.4)}
+  .step.lit{border-color:var(--accent);box-shadow:0 0 15px 2px rgba(109,92,255,.8)}
+  .step.lit::after{transform:scaleX(1)}
+  .step.lit .step-text{color:#fff}
+  .step.lit .step-badge{color:rgba(255,255,255,.92);border-color:rgba(255,255,255,.55)}
+  .step.lit .step-btn{color:#fff;border-color:rgba(255,255,255,.55)}
+
+  /* footer: the presumed pace note + the stack-nav cue */
+  .cc-foot{margin-top:12px;flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding-top:12px;border-top:1px solid var(--hair)}
+  .pace{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-45)}
+  .pace b{color:var(--accent-soft);font-weight:700}
+  .navcue{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-45);white-space:nowrap}
+  .navcue kbd{font-family:var(--mono);font-size:10px;color:#fff;padding:3px 9px;border-radius:6px;
+    border:1px solid rgba(255,255,255,.34);background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.04))}
+  .navcue kbd.press{animation:tap .3s ease}
+  .navcue i{font-style:normal;color:var(--accent-soft)}
+
+  /* ocStepLit (tactical-interface.css 558) is reproduced as the .step.lit box-shadow
+     transition — a keyframe animation here would replace the cascade entrance and
+     drop the row's opacity back to 0. */
+  @keyframes cascade{to{opacity:1;transform:none}}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
+  @keyframes tap{50%{transform:translateY(2px);border-color:rgba(185,168,255,.95)}}
+
+  /* the grain the panel family carries */
+  .grain{position:absolute;inset:0;opacity:.045;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.9) .5px,transparent .5px);background-size:3px 3px}
+
+  /* reduced motion: land on a completed combo, no timeline */
+  @media (prefers-reduced-motion: reduce){
+    .cc-body,.step,.chip .live{transition:none;animation:none}
+    .cc-body{opacity:1;transform:none}
+    .step{opacity:1;transform:none;animation:none}
+    .step::after{transition:none}
+    .rail-chip::after{transition:none}
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="frame">
+    <span class="corner tl"></span><span class="corner tr"></span>
+    <span class="corner bl"></span><span class="corner br"></span>
+    <div class="card">
+      <header class="cc-head">
+        <div class="brand">
+          <span class="mark">&#10022;</span>
+          <span class="wm tx">OVERLORD <em>Ai</em></span>
+        </div>
+        <span class="cc-title">Combo Card</span>
+        <div class="cc-meta">
+          <span class="chip game" id="chipGame">Black Myth: Wukong</span>
+          <span class="chip scheme"><span class="live"></span><span id="chipScheme">Keyboard and Mouse</span></span>
+        </div>
+      </header>
+      <div class="cc-hair"></div>
+
+      <div class="cc-body" id="body">
+        <div class="cc-name">
+          <div class="cc-idx">Combo <b id="stackIndex">01</b> / <span id="stackTotal">07</span> &nbsp;&middot;&nbsp; Destined One</div>
+          <h1 id="comboName">&#8230;</h1>
+          <div class="cc-vs" id="comboBeats"></div>
+        </div>
+        <div class="cc-rail" id="rail"></div>
+        <div class="cc-steps" id="steps"></div>
+      </div>
+
+      <footer class="cc-foot">
+        <span class="pace" id="pace">Presumed pace &middot; <b>1.0 s</b> per input &mdash; no timing documented</span>
+        <span class="navcue">Next combo <kbd id="f4">F4</kbd><i>&times;6</i> &middot; &ldquo;next combo&rdquo;</span>
+      </footer>
+    </div>
+  </div>
+  <div class="grain"></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ── REAL DATA — verbatim from guides/controls/black_myth_wukong_combos.json ──
+   Each `inputs[]` string is copied character-for-character from the file (lines in
+   `line`); `name` likewise. Nothing is paraphrased or invented. */
+var GAME = "Black Myth: Wukong";                 // game_title, combos.json:5
+var SCHEME = "Keyboard and Mouse";               // combo_coach.py SCHEME_LABELS['keyboard_mouse']:90
+var ASSUMED_STEP_MS = 1000;                      // combo_coach.py ASSUMED_STEP_MS:446 (the presumed pace the card prints)
+
+/* boss slug -> display name, from combos.json bosses[] (lines 79-122) */
+var BOSS = {
+  wandering_wight:"Wandering Wight", guangzhi:"Guangzhi", lingxuzi:"Lingxuzi",
+  whiteclad_noble:"Whiteclad Noble", black_bear_guai:"Black Bear Guai", tiger_vanguard:"Tiger Vanguard"
+};
+
+var COMBOS = [
+  { id:"resolute_see_through", line:124, name:"Resolute Strike See-Through Counter (Smash Stance)",
+    unlocks:["Resolute Strike"], beats:["wandering_wight","guangzhi","tiger_vanguard"],
+    inputs:[
+      "Light Attack staff sweep \u2014 Left Mouse Button",
+      "Light Attack follow-up \u2014 Left Mouse Button",
+      "Resolute Strike (See Through into attack) \u2014 Right Mouse Button",
+      "Skyfall Strike (overhead slam finisher) \u2014 Right Mouse Button"
+    ] },
+  { id:"five_hit_ground_flurry", line:144, name:"5-Hit Ground Flurry Finisher",
+    unlocks:[], beats:["wandering_wight","lingxuzi"],
+    inputs:[
+      "Light Attack opening strike \u2014 Left Mouse Button",
+      "Light Attack staff spin \u2014 Left Mouse Button",
+      "Light Attack thrust \u2014 Left Mouse Button",
+      "Light Attack acrobatic flurry \u2014 Left Mouse Button",
+      "Light Attack overhead staff smash \u2014 Left Mouse Button"
+    ] },
+  { id:"cloud_step_assassinate", line:165, name:"Cloud Step Decoy & Heavy Strike",
+    unlocks:["Cloud Step"], beats:["whiteclad_noble","tiger_vanguard","black_bear_guai"],
+    inputs:[
+      "Cast Cloud Step (leave decoy & enter stealth) \u2014 2",
+      "Charge Focus while stealthed \u2014 Hold Right Mouse Button",
+      "Unseen Strike (shattering ambush from stealth) \u2014 Release Right Mouse Button",
+      "Light Attack chain follow-up \u2014 Left Mouse Button"
+    ] },
+  { id:"immobilize_focus_burst", line:185, name:"Immobilize Heavy Stagger Burst",
+    unlocks:["Immobilize"], beats:["wandering_wight","guangzhi","lingxuzi"],
+    inputs:[
+      "Cast Immobilize (freeze enemy in place) \u2014 1",
+      "Light Attack combo (build focus points rapidly) \u2014 Left Mouse Button",
+      "Light Attack continuation \u2014 Left Mouse Button",
+      "Charged Heavy Attack smash \u2014 Right Mouse Button"
+    ] },
+  { id:"staff_spin_battery", line:205, name:"Staff Spin Deflect & Heavy Finisher",
+    unlocks:[], beats:["whiteclad_noble"],
+    inputs:[
+      "Staff Spin (deflect projectiles & build focus) \u2014 V",
+      "Hold Staff Spin to charge focus meter \u2014 V",
+      "Heavy Attack varied smash finisher \u2014 Right Mouse Button"
+    ] },
+  { id:"pillar_stance_perch_slam", line:224, name:"Pillar Stance Elevated Havoc",
+    unlocks:["Pillar Stance"], beats:["black_bear_guai","tiger_vanguard"],
+    inputs:[
+      "Switch to Pillar Stance \u2014 X",
+      "Perch on staff & charge focus above ground attacks \u2014 Hold Right Mouse Button",
+      "Sweeping staff crash finisher \u2014 Release Right Mouse Button",
+      "Light Attack follow-up sweep \u2014 Left Mouse Button"
+    ] },
+  { id:"rock_solid_parry_riposte", line:244, name:"Rock Solid Iron Deflection & Counter",
+    unlocks:["Rock Solid"], beats:["tiger_vanguard","whiteclad_noble"],
+    inputs:[
+      "Cast Rock Solid (deflect incoming boss hit) \u2014 2",
+      "Heavy Attack counter riposte \u2014 Right Mouse Button",
+      "Light Attack staff sweep \u2014 Left Mouse Button"
+    ] }
+];
+
+/* ── DOM ── */
+var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var stage = document.getElementById('stage');
+var body = document.getElementById('body');
+var rail = document.getElementById('rail');
+var stepsEl = document.getElementById('steps');
+var nameEl = document.getElementById('comboName');
+var idxEl = document.getElementById('stackIndex');
+var totalEl = document.getElementById('stackTotal');
+var beatsEl = document.getElementById('comboBeats');
+var paceEl = document.getElementById('pace');
+var f4El = document.getElementById('f4');
+document.getElementById('chipGame').textContent = GAME;
+document.getElementById('chipScheme').textContent = SCHEME;
+
+/* scale the 900x560 canvas to whatever box the panel is given */
+function fit(){ stage.style.setProperty('--s', Math.min(innerWidth/900, innerHeight/560)); }
+addEventListener('resize', fit); fit();
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function pad2(n){ return (n<10?'0':'')+n; }
+
+/* ── the stack rail: every learned combo folded onto one card (combo_coach combo_stack) ── */
+totalEl.textContent = pad2(COMBOS.length);
+rail.innerHTML = COMBOS.map(function(c,i){
+  return '<div class="rail-chip" data-i="'+i+'"><span class="rail-num">'+pad2(i+1)+'</span>'+
+         '<span class="rail-name">'+esc(c.name)+'</span></div>';
+}).join('');
+var chips = [].slice.call(rail.children);
+
+/* ── render one combo's rows. A step string "Action — Binding" is split on the em
+   dash so the BUTTON name reads as a chip; both halves stay verbatim. ── */
+function buildRows(combo){
+  stepsEl.innerHTML = combo.inputs.map(function(input, i){
+    var k = input.indexOf(' \u2014 ');
+    var action = k >= 0 ? input.slice(0, k) : input;
+    var bind   = k >= 0 ? input.slice(k + 3) : '';
+    return '<div class="step" data-s="'+i+'" style="animation-delay:'+(i*0.06)+'s">'+
+             '<span class="step-badge">Step '+(i+1)+'</span>'+
+             '<span class="step-text">'+esc(action)+'</span>'+
+             (bind ? '<span class="step-btn">'+esc(bind)+'</span>' : '')+
+             '<span class="step-fill"></span>'+
+           '</div>';
+  }).join('');
+  return [].slice.call(stepsEl.children);
+}
+
+function setCombo(i, instant){
+  state.cur = i;
+  var c = COMBOS[i];
+  chips.forEach(function(ch, j){ ch.classList.toggle('active', j === i); });
+  idxEl.textContent = pad2(i + 1);
+  nameEl.textContent = c.name;
+  var vs = c.beats.map(function(b){ return BOSS[b] || b; }).join('  \u00b7  ');
+  var unl = c.unlocks.length ? '  \u2014  unlocks ' + c.unlocks.join(', ') : '';
+  beatsEl.innerHTML = 'vs <b>' + esc(vs) + '</b>' + esc(unl);
+  paceEl.innerHTML = 'Presumed pace &middot; <b>1.0 s</b> per input &mdash; no timing documented';
+  state.rows = buildRows(c);
+  if (instant){
+    body.classList.remove('out');
+    body.style.transition = 'none'; body.style.transform = 'none'; body.style.opacity = '1';
+    void body.offsetWidth; body.style.transition = '';
+  }
+}
+
+/* the card "moves" between combos: slide the old string out, the next in */
+function advance(i){
+  state.cur = i;
+  chips.forEach(function(ch, j){ ch.classList.toggle('active', j === i); });
+  body.classList.add('out');
+  setTimeout(function(){
+    setCombo(i, true);
+    body.style.transition = 'none'; body.style.transform = 'translateX(18px)'; body.style.opacity = '0';
+    void body.offsetWidth;
+    body.style.transition = ''; body.style.transform = ''; body.style.opacity = '1';
+    body.classList.remove('out');
+    if (!state.pinned) ignite(i);
+  }, reduce ? 0 : 210);
+}
+
+/* ── ignition: light each step as if input_watcher saw the button (LIVE COMBO STEPPING) ── */
+var STEP_MS = 900;     // per-input pace the fill sweeps against (near the presumed 1 s)
+var HOLD_MS = 1150;    // how long a finished combo is held before the card steps on
+
+function lightStep(rows, s){
+  rows.forEach(function(r, j){
+    r.classList.toggle('done', j < s);
+    r.classList.toggle('lit', j === s);
+    var f = r.querySelector('.step-fill');
+    if (j < s){ f.style.transition = 'none'; f.style.width = '100%'; f.style.opacity = '1'; }
+    else if (j === s){
+      f.style.transition = 'none'; f.style.width = '0'; f.style.opacity = '1';
+      void f.offsetWidth;
+      f.style.transition = 'width ' + STEP_MS + 'ms linear'; f.style.width = '100%';
+    } else { f.style.transition = 'none'; f.style.width = '0'; f.style.opacity = '0'; }
+  });
+}
+
+function ignite(i){
+  var rows = state.rows, n = rows.length;
+  var t0 = 260;
+  for (var s = 0; s < n; s++){
+    (function(s){
+      later(t0 + s * STEP_MS, function(){ lightStep(rows, s); tapF4(); });
+    })(s);
+  }
+  later(t0 + n * STEP_MS + 240, function(){ lightStep(rows, n); });   // all settled "done"
+  later(t0 + n * STEP_MS + 240 + HOLD_MS, function(){ advance((i + 1) % COMBOS.length); });
+}
+
+function tapF4(){ f4El.classList.remove('press'); void f4El.offsetWidth; f4El.classList.add('press'); }
+
+/* ── timeline plumbing (cancellable, so pin() can hold a beat) ── */
+var timers = [];
+function later(ms, fn){ timers.push(setTimeout(fn, ms)); }
+function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+
+var state = { cur:0, rows:[], pinned:false, playing:false, beat:null };
+
+function play(){
+  clearTimers();
+  state.pinned = false; state.playing = true;
+  if (reduce){ pin('combo-1'); return; }
+  setCombo(0, false);
+  later(220, function(){ ignite(0); });
+}
+
+/* ── beats: one per combo + one per step ("combo-2", "step-2-3") ── */
+var BEATS = [];
+COMBOS.forEach(function(c, i){
+  BEATS.push('combo-' + (i + 1));
+  c.inputs.forEach(function(_, s){ BEATS.push('step-' + (i + 1) + '-' + (s + 1)); });
+});
+
+function parseBeat(name){
+  var m = /^combo-(\d+)$/.exec(name);
+  if (m) return { combo:+m[1] - 1, upto:null };
+  m = /^step-(\d+)-(\d+)$/.exec(name);
+  if (m) return { combo:+m[1] - 1, upto:+m[2] - 1 };
+  return null;
+}
+
+/* pin holds a beat for a screenshot; resume() restarts the timeline */
+function pin(name){
+  var b = parseBeat(name);
+  if (!b || !COMBOS[b.combo]) return false;
+  clearTimers();
+  state.pinned = true; state.playing = false; state.beat = name;
+  setCombo(b.combo, true);
+  var rows = state.rows, n = rows.length;
+  var upto = (b.upto == null) ? n : b.upto;          // combo-N => all settled done
+  for (var s = 0; s < n; s++){
+    var r = rows[s];
+    r.classList.remove('lit','done');
+    r.style.animation = 'none'; r.style.opacity = '1'; r.style.transform = 'none';
+    var f = r.querySelector('.step-fill');
+    f.style.transition = 'none';
+    if (s < upto){ r.classList.add('done'); f.style.width = '100%'; f.style.opacity = '1'; }
+    else if (s === upto && b.upto != null){ r.classList.add('lit'); f.style.width = '62%'; f.style.opacity = '1'; }
+    else { f.style.width = '0'; f.style.opacity = '0'; }
+  }
+  return true;
+}
+
+function resume(){ play(); }
+
+/* QA hook — beats + a pin/resume/state contract for the carousel & lightbox */
+window.__hud = {
+  beats: BEATS.slice(),
+  pin: function(name){ return pin(name); },
+  resume: resume,
+  state: function(){
+    return { beat: state.beat, pinned: state.pinned, playing: state.playing,
+             combo: state.cur + 1, comboName: COMBOS[state.cur] ? COMBOS[state.cur].name : null,
+             steps: state.rows.length };
+  }
+};
+
+/* ?beat=<name> starts pinned */
+var q = new URLSearchParams(location.search).get('beat');
+if (q && parseBeat(q)){
+  pin(q);
+} else {
+  play();
+}
+
+/* run only while visible — a carousel pane must not burn CPU off-screen */
+var visible = true;
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if (e.isIntersecting){ if (!visible){ visible = true; if (!state.pinned) play(); } }
+    else { visible = false; if (!state.pinned){ clearTimers(); state.playing = false; } }
+  });
+}, {threshold:.12});
+io.observe(stage);
+})();
+</script>
+</body>
+</html>

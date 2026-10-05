@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Overlord — NPC Interaction · Dialogue Card</title>
+<!--
+  Marketing animation: the COMPACT NPC dialogue card (Overlord config 1) opening
+  over the page's purple gradient. Faithful to the shipping card surface:
+
+   · tactical_interface.html — "This surface renders exactly ONE card component in
+     TWO configurations: [data-config="npc"] — the compact dialogue card;
+     [data-config="prayer"] — the large prayer / loot card". The intel body it
+     renders is the "variant: loot / tactical intel body (also the compact NPC
+     body)" (`oc-intel-wrap`, `oc-intel-tag`, `oc-intel-body`) — tactical_interface.html:89-95.
+   · tactical_interface.js renderNpcCard() — config 'npc', symbol ◈, eyebrow tag
+     'Dialogue', title = speaker, intel tag 'Dialogue', intel body = the dialogue
+     line (no steps / action tip in this payload). tactical_interface.js:391-429.
+   · loot-card.html renderNpcCard() — the ?state=npc SAMPLE PAYLOAD, used verbatim
+     as the dialogue content. loot-card.html:706-716 (render) + :768-771 (payload).
+   · The action box advances the node (preload.js advanceDialogueNode(), bound at
+     tactical_interface.js:1869-1874); loot-card's demo stamps state
+     'node advanced · demo' on that click (loot-card.html:743).
+   · Geometry/copy: compact NPC card 280px wide, radius 14, header 44px, symbol
+     #c084fc, body max-height 118px — tactical-interface.css:338-365, :680, :715,
+     :740-746, :1051-1056. Window 320x320 — shell/main.js:912.
+
+  NO dialogue is invented. Every spoken word comes from loot-card.html:769-770.
+  Design canvas 900x560, scaled by --s so the same layout holds at 200px and 900px.
+  TRANSPARENT: html/body paint nothing; only the card's own glass, hairlines,
+  speaker labels and violet accents are drawn. The purple gradient is the host's.
+-->
+<style>
+  :root{
+    --accent:#6d5cff;
+    --accent-soft:#b9a8ff;
+    --violet:#c084fc;
+    --curve:cubic-bezier(0.19,1,0.22,1);          /* the site's one easing */
+    --hair:rgba(255,255,255,.14);
+    --hair-soft:rgba(255,255,255,.07);
+    /* the card's OWN glass — the white-frost pass of the milky-frost family,
+       no dark / violet base layer (the page provides the purple behind). */
+    --frost:linear-gradient(168deg,rgba(255,255,255,.085) 0%,rgba(255,255,255,.042) 45%,rgba(255,255,255,.06) 78%,rgba(255,255,255,.034) 100%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  /* THE PAGE PAINTS NOTHING — the purple gradient sits behind the panel. */
+  html,body{margin:0;height:100%;background:transparent;overflow:hidden;
+    font-family:'Space Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased;color:#fff}
+  .mono{font-family:'Space Mono',ui-monospace,Menlo,Consolas,monospace}
+
+  /* ---------- stage: fixed 900x560 canvas, scaled to fit ---------- */
+  #stage{position:absolute;top:0;left:0;width:900px;height:560px;transform-origin:top left;
+    transform:scale(var(--s,1));overflow:hidden}
+
+  /* ---------- the card ---------- */
+  .card{position:absolute;top:76px;left:50%;width:560px;
+    transform-origin:top center;
+    transform:translate(-50%,-16px) scale(.92) skewX(-7deg);
+    opacity:0;pointer-events:none;
+    background:var(--frost);
+    backdrop-filter:blur(18px) saturate(115%);-webkit-backdrop-filter:blur(18px) saturate(115%);
+    border:1px solid var(--hair);border-radius:14px;
+    box-shadow:0 30px 70px rgba(18,8,48,.45),0 0 0 1px rgba(185,168,255,.06);
+    transition:opacity .38s var(--curve),transform .38s var(--curve),box-shadow .5s var(--curve)}
+  .card.is-open{opacity:1;transform:translate(-50%,0) scale(1) skewX(0);pointer-events:auto}
+  .card.is-answered{box-shadow:0 30px 70px rgba(18,8,48,.45),0 0 0 1px rgba(109,92,255,.35),0 0 44px rgba(109,92,255,.28)}
+  /* crystal bore: a static specular hairline, violet at the top edge */
+  .tube{position:absolute;inset:0;border-radius:14px;pointer-events:none;z-index:6}
+  .tube::before{content:'';position:absolute;inset:0;padding:1px;border-radius:14px;
+    background:conic-gradient(at 50% 50%,
+      rgba(185,168,255,.34) 0deg, rgba(255,255,255,.10) 80deg, rgba(255,255,255,.05) 150deg,
+      rgba(185,168,255,.16) 220deg, rgba(255,255,255,.06) 300deg, rgba(185,168,255,.34) 360deg);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+            mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude}
+
+  /* ---------- nav-bar base (the card's top strip) ---------- */
+  .pc-bar{display:flex;align-items:center;gap:10px;height:56px;padding:0 15px 0 17px;
+    border-bottom:1px solid var(--hair-soft);position:relative;z-index:2}
+  .pc-bar__mark{width:22px;height:22px;flex:0 0 auto;display:grid;place-items:center;
+    color:#fff;font-size:15px;line-height:1;
+    filter:drop-shadow(0 0 7px rgba(185,168,255,.55))}
+  .pc-bar__text{display:flex;flex-direction:column;min-width:0;gap:1px}
+  .pc-bar__name{font-family:'Anton',Impact,'Arial Narrow',system-ui,sans-serif;font-size:1.02rem;
+    line-height:1.05;letter-spacing:.06em;white-space:nowrap;color:#fff}
+  .pc-bar__name em{font-style:normal;color:var(--accent)}
+  .pc-bar__state{font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;
+    color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    transition:color .4s var(--curve)}
+  .card.is-answered .pc-bar__state{color:var(--accent-soft)}
+  .pc-bar__right{margin-left:auto;display:flex;align-items:center;gap:6px}
+  .oc-btn{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;padding:0 10px;
+    border:1px solid rgba(255,255,255,.2);border-radius:4px;background:transparent;
+    font-family:'Space Mono',ui-monospace,Menlo,monospace;font-size:.56rem;letter-spacing:.18em;
+    text-transform:uppercase;color:rgba(255,255,255,.72);cursor:pointer}
+  .oc-btn.dismiss{padding:0 9px;font-size:.72rem;letter-spacing:0;color:rgba(255,255,255,.6)}
+
+  /* ---------- body: eyebrow + dialogue intel ---------- */
+  .pc-body{padding:19px 26px 21px;position:relative;z-index:2}
+  .pc-eyebrow{display:flex;flex-direction:column;gap:9px}
+  .pc-eyebrow__row{display:flex;align-items:center;gap:10px}
+  .pc-eyebrow__label{display:flex;align-items:center;gap:8px;min-width:0;
+    font-size:.58rem;font-weight:600;letter-spacing:.4em;text-transform:uppercase;
+    color:rgba(255,255,255,.58);white-space:nowrap}
+  .pc-eyebrow i{display:block;width:26px;height:1px;background:rgba(255,255,255,.26);flex:none}
+  .pc-symbol{color:var(--violet);font-size:.9rem;text-shadow:0 0 10px rgba(192,132,252,.75)}
+  .pc-title{font-family:'Anton',Impact,'Arial Narrow',system-ui,sans-serif;font-size:1.55rem;
+    letter-spacing:.04em;line-height:1.12;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .pc-section{display:flex;flex-direction:column;gap:8px;margin-top:17px}
+  .pc-tag{font-size:.56rem;font-weight:600;letter-spacing:.4em;text-transform:uppercase;
+    color:rgba(255,255,255,.58)}
+  .pc-intel{padding:2px 1px 0}
+  .pc-intel .line{font-size:1.12rem;line-height:1.5;color:#f3e8ff;letter-spacing:.005em;
+    white-space:pre-wrap;word-break:break-word}
+  .caret{display:inline-block;width:.5ch;height:1em;margin-left:.16em;vertical-align:-.12em;
+    background:var(--accent-soft);box-shadow:0 0 8px rgba(185,168,255,.8);
+    animation:blink 1.05s steps(1,end) infinite;opacity:0;transition:opacity .2s}
+  .caret.on{opacity:1}
+
+  .opts{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+  .opt{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;gap:9px;
+    width:100%;padding:9px 13px;border:1px solid var(--hair);border-radius:3px;
+    font-size:.92rem;color:rgba(255,255,255,.88);
+    transition:all .4s var(--curve),opacity .4s var(--curve)}
+  .opt::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--accent);
+    transform:scaleX(0);transform-origin:left;transition:transform .55s var(--curve)}
+  .opt .lead{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+    color:rgba(255,255,255,.45);transition:color .4s var(--curve)}
+  .opt kbd{font-family:'Space Mono',ui-monospace,Menlo,monospace;font-size:.78rem;
+    padding:2px 7px;border:1px solid rgba(255,255,255,.28);border-radius:4px;
+    color:var(--accent-soft);line-height:1;transition:all .4s var(--curve)}
+  .opt .tick{margin-left:auto;color:#fff;font-size:.8rem;opacity:0;transform:translateX(-5px);
+    transition:all .4s var(--curve)}
+  .opt.is-picked{border-color:var(--accent);color:#fff}
+  .opt.is-picked::after{transform:scaleX(1)}
+  .opt.is-picked .lead{color:rgba(255,255,255,.85)}
+  .opt.is-picked kbd{border-color:rgba(255,255,255,.65);color:#fff}
+  .opt.is-picked .tick{opacity:1;transform:none}
+  .opt.is-muted{opacity:.36}
+
+  /* card foot hairline + brand tick */
+  .pc-foot{margin-top:18px;padding-top:12px;border-top:1px solid var(--hair-soft);
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:.54rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+  .pc-foot b{color:var(--accent-soft);font-weight:400}
+
+  /* drawer stagger — the card's own items rise in */
+  .pc-anim{opacity:0;transform:translateY(10px);transition:all .38s var(--curve)}
+  .card.is-open .pc-anim{opacity:1;transform:translateY(0)}
+
+  @keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+
+  @media (prefers-reduced-motion: reduce){
+    .card{transition:none}
+    .pc-anim{transition:none;opacity:1;transform:none}
+    .caret{animation:none}
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <section class="card" id="card" data-config="npc" aria-live="polite">
+    <span class="tube" aria-hidden="true"></span>
+
+    <!-- nav-bar base -->
+    <div class="pc-bar">
+      <span class="pc-bar__mark" aria-hidden="true">&#10070;</span>
+      <span class="pc-bar__text">
+        <span class="pc-bar__name">OVERLORD&nbsp;<em>Ai</em></span>
+        <span class="pc-bar__state mono" id="pc-state">npc chain &middot; live</span>
+      </span>
+      <span class="pc-bar__right">
+        <button class="oc-btn pc-anim" type="button" tabindex="-1">Copy</button>
+        <button class="oc-btn dismiss pc-anim" type="button" tabindex="-1" aria-label="Dismiss card">&#10005;</button>
+      </span>
+    </div>
+
+    <div class="pc-body">
+      <!-- eyebrow: symbol ◈ + 'Dialogue', title = speaker -->
+      <div class="pc-eyebrow">
+        <div class="pc-eyebrow__row pc-anim">
+          <span class="pc-eyebrow__label"><span class="pc-symbol">&#9672;</span><span>Dialogue</span></span>
+          <i></i>
+        </div>
+        <div class="pc-title pc-anim" id="pc-title">Helen Rosenberg</div>
+      </div>
+
+      <!-- variant: intel body (loot / guidance / dialogue) — the compact NPC body -->
+      <div class="pc-section pc-anim" id="pc-intel-wrap">
+        <div class="pc-section__head"><span class="pc-tag" id="pc-intel-tag">Dialogue Context</span></div>
+        <div class="pc-intel" id="pc-intel-body">
+          <p class="line" id="pc-line">&ldquo;The Board won&rsquo;t hold. None of us will.&rdquo;<span class="caret" id="caret"></span></p>
+          <div class="opts" id="opts">
+            <span class="opt" data-opt="1"><span class="lead">press</span><kbd>1</kbd> promise her safety<span class="tick">&#10004;</span></span>
+            <span class="opt" data-opt="3"><span class="lead">press</span><kbd>3</kbd> ask about the Hot Line<span class="tick">&#10004;</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc-foot pc-anim"><span>OVERLORD&nbsp;Ai</span><b id="pc-foot-state">npc dialogue chain</b></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stage = document.getElementById('stage');
+  const el = {
+    card: document.getElementById('card'),
+    state: document.getElementById('pc-state'),
+    foot: document.getElementById('pc-foot-state'),
+    caret: document.getElementById('caret'),
+    opts: document.getElementById('opts'),
+  };
+  const opt1 = el.opts.querySelector('[data-opt="1"]');
+  const opt3 = el.opts.querySelector('[data-opt="3"]');
+
+  /* scale the 900x560 canvas to whatever box the panel is given */
+  const fit = () => {
+    const s = Math.min(innerWidth / 900, innerHeight / 560);
+    stage.style.setProperty('--s', s);
+  };
+  addEventListener('resize', fit); fit();
+
+  /* ---- the card's real copy (loot-card.html:769-770) ---- */
+  const STATE = { live: 'npc chain \u00b7 live', done: 'node advanced \u00b7 live' };
+
+  /* stagger the card's items in the drawer's own recipe */
+  const animItems = () => [...el.card.querySelectorAll('.pc-anim')];
+  function stagger(){
+    animItems().forEach((node, i) => { node.style.transitionDelay = (0.05 + i * 0.06) + 's'; });
+  }
+
+  let current = null;
+  function phase(name){
+    current = name;
+    if (name === 'closed'){
+      el.card.classList.remove('is-open', 'is-answered');
+      el.state.textContent = STATE.live;
+      el.foot.textContent = 'npc dialogue chain';
+      el.caret.classList.remove('on');
+      opt1.classList.remove('is-picked'); opt3.classList.remove('is-muted');
+      return;
+    }
+    if (name === 'dialogue'){
+      stagger();
+      el.card.classList.add('is-open');
+      el.card.classList.remove('is-answered');
+      el.state.textContent = STATE.live;
+      el.foot.textContent = 'awaiting input';
+      opt1.classList.remove('is-picked'); opt3.classList.remove('is-muted');
+      el.caret.classList.add('on');
+      return;
+    }
+    if (name === 'answer'){
+      stagger();
+      el.card.classList.add('is-open', 'is-answered');
+      el.state.textContent = STATE.done;          // the action box advanced the node
+      el.foot.textContent = 'node advanced';
+      el.caret.classList.remove('on');
+      opt1.classList.add('is-picked');            // press [1] — promise her safety
+      opt3.classList.add('is-muted');
+      return;
+    }
+  }
+
+  const BEATS = ['closed', 'dialogue', 'answer'];
+  const LOOP = [
+    ['closed',   1100],
+    ['dialogue', 4400],
+    ['answer',   5400],
+  ];
+
+  let alive = true, pending = null;
+  function run(i = 0){
+    if (!alive) return;
+    if (reduce){ phase('answer'); return; }
+    const [name, ms] = LOOP[i];
+    phase(name);
+    pending = setTimeout(() => run((i + 1) % LOOP.length), ms);
+  }
+
+  /* ?beat=answer (or closed|dialogue) starts pinned on that beat */
+  const want = new URLSearchParams(location.search).get('beat');
+  const pinned = want && BEATS.indexOf(want) !== -1;
+
+  /* run only while visible — an off-screen carousel pane must not burn CPU */
+  let timer = null;
+  if (pinned || reduce){
+    phase(pinned ? want : 'answer');
+  } else if (typeof IntersectionObserver === 'function'){
+    phase('closed');
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting){ if (!timer){ alive = true; phase('closed'); run(); timer = 1; } }
+      else { alive = false; clearTimeout(pending); pending = null; timer = null; }
+    }), { threshold: .12 });
+    io.observe(stage);
+  } else {
+    run();
+  }
+
+  /* QA hook: window.__hud.pin('answer') holds a beat for screenshots */
+  window.__hud = {
+    beats: BEATS.slice(),
+    pin(name){
+      if (BEATS.indexOf(name) === -1) return false;
+      alive = false; clearTimeout(pending); pending = null;
+      phase(name);
+      return true;
+    },
+    resume(){ alive = true; clearTimeout(pending); run(); },
+    state(){ return current; },
+  };
+})();
+</script>
+</body>
+</html>

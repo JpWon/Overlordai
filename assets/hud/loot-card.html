@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Overlord — Loot Card</title>
+<!--
+  Overlord — LOOT CARD (standalone marketing panel)
+  =================================================
+  The shipping player card, LOOT configuration, isolated as one transparent
+  pane for the homepage "Work '26" ring carousel (index.html -> c.embed).
+
+  Faithful to:
+    psyche/OverlordApp/loot-card.html          (the card prototype: drawer glass,
+                                                fold-in unfold, section set, the
+                                                ?state=loot sample payload)
+    psyche/OverlordApp/tactical_interface.html (the live overlay DOM: oc-head,
+                                                oc-tag, oc-no-img, oc-steps-list,
+                                                oc-action-box, oc-intel-body)
+    psyche/OverlordApp/tactical-interface.css  (real class geometry: loot card
+                                                295px/42px head/115px image box,
+                                                violet hairline + royal fill)
+    psyche/OverlordApp/tactical_interface.js   (renderTactical: loot variant,
+                                                stepsTag 'Objective Directives',
+                                                intelTag 'Tactical Intel')
+
+  Transparency: the page paints NO background. The carousel's own purple
+  gradient (.card__face --art) shows straight through; only hairlines, violet
+  accents and the card's own content are drawn. `?bg=plasma` paints the
+  carousel's gradient for QA stills only — off by default.
+
+  URL knobs:  ?beat=loot|closed   start pinned on a beat
+              ?bg=plasma          QA backdrop only (default: transparent)
+
+  Sandbox-safe: no external files, no fonts, no network, no storage, no parent
+  DOM. Honors prefers-reduced-motion by settling on the open card.
+-->
+<style>
+  :root{
+    --accent:#6d5cff;
+    --accent-soft:#b9a8ff;
+    --edge:rgba(109,92,255,.55);
+    --hair:rgba(255,255,255,.16);
+    --hair-soft:rgba(255,255,255,.10);
+    --curve:cubic-bezier(0.19,1,0.22,1);
+    --ink:rgba(255,255,255,.86);
+    --weak:rgba(230,234,244,.5);
+    --f-display:'Anton',Impact,'Haettenschweiler','Arial Narrow Bold',system-ui,sans-serif;
+    --f-ui:'Space Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    --f-mono:'Space Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{margin:0;height:100%;background:transparent;overflow:hidden}
+  body{font-family:var(--f-ui);-webkit-font-smoothing:antialiased}
+
+  /* ---------- stage: fixed 900x560 canvas (16:10), scaled to fit ---------- */
+  #stage{position:absolute;top:0;left:0;width:900px;height:560px;transform-origin:top left;
+    transform:scale(var(--s,1));overflow:hidden}
+
+  /* QA-only backdrop. Off unless ?bg=plasma: the page itself stays transparent
+     so the carousel's gradient (index.html .card__face --art) shows through. */
+  .qa-bg{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .3s}
+  .qa-bg.on{opacity:1;background:linear-gradient(135deg,#1b1240 0%,#5a2bd8 55%,#c7b8ff 100%)}
+
+  /* =====================================================================
+     THE LOOT CARD — drawer glass shell (no dark/violet fill), the shipping
+     loot geometry. Opens on the drawer's own fold-in.
+     ===================================================================== */
+  .loot-card{
+    position:absolute;left:50%;top:24px;width:360px;
+    transform:translateX(-50%) scale(.92) skewX(-6deg);
+    transform-origin:top center;
+    opacity:0;pointer-events:none;
+    /* MILKY FROST, minus the dark base: a faint white sheen under a real
+       backdrop blur. Deliberately no dark or violet panel fill. */
+    background:linear-gradient(168deg,
+      rgba(255,255,255,.09) 0%,rgba(255,255,255,.03) 45%,
+      rgba(255,255,255,.06) 78%,rgba(255,255,255,.02) 100%);
+    backdrop-filter:blur(14px) saturate(115%);
+    -webkit-backdrop-filter:blur(14px) saturate(115%);
+    border:1px solid var(--hair);
+    border-radius:14px;
+    padding:0 12px 12px;
+    display:flex;flex-direction:column;gap:6px;
+    overflow:hidden;
+    box-shadow:0 20px 40px rgba(0,0,0,.28), 0 0 34px rgba(109,92,255,.26);
+    transition:opacity .38s var(--curve), transform .38s var(--curve);
+  }
+  .loot-card.is-open{opacity:1;transform:translateX(-50%) scale(1) skewX(0);pointer-events:auto}
+
+  /* PLASMA RING — violet + white hairline wrapping the full card, breathing 9s
+     (tactical-interface.css .oc::after, re-skinned off cyan to the violet accent). */
+  .ring{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:7;
+    box-shadow:
+      inset 0 0 0 1px rgba(236,244,255,.85),
+      inset 0 0 0 3px rgba(109,92,255,.32);
+    animation:ringBreath 9s ease-in-out infinite}
+  @keyframes ringBreath{0%,100%{opacity:.7}50%{opacity:1}}
+
+  /* ---------- header — the drawer bar (prototype .pc-bar / overlay .oc-head) ---------- */
+  .lc-head{
+    position:relative;z-index:6;display:flex;align-items:center;gap:10px;height:42px;
+    margin:0 -12px;padding:0 14px;
+    border-bottom:1px solid var(--hair-soft);
+    flex:0 0 auto;
+  }
+  .lc-mark{width:26px;height:26px;flex:0 0 auto;background-color:#f2f3f7;
+    -webkit-mask:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iT3ZlcmxvcmQgQUkiPgogIDxkZWZzPjxtYXNrIGlkPSJob2xlIiBtYXNrVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4PSIwIiB5PSIwIiB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0Ij48cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iNDUxLjgwIiBjeT0iNDI3LjIzIiByPSIyNy4zMSIgZmlsbD0iIzAwMCIvPjwvbWFzaz48L2RlZnM+CiAgPHBhdGggZD0iTTU3NS42LDEwNC44IEw1ODQuMSwxMTEuMSBMNTg4LjQsMTIxLjcgTDU5MS4zLDEzMi43IEw1OTMuMSwxNDMuOSBMNTkzLjQsMTU1LjIgTDU5MS40LDE2Ni41IEw1ODguNCwxNzcuNCBMNTg0LjUsMTg4LjEgTDU4Ni4xLDE5OC41IEw1OTYuMywxOTYuMCBMNjA1LjEsMTg4LjggTDYxMy40LDE4MC45IEw2MjEuNCwxNzIuOSBMNjI5LjcsMTY1LjEgTDYzNy45LDE1Ny4yIEw2NDYuNCwxNDkuNiBMNjU1LjUsMTQyLjkgTDY2Ni4wLDE0NC4xIEw2NzAuNiwxNTQuMiBMNjY5LjgsMTY1LjUgTDY2NS41LDE3Ni4wIEw2NTkuOSwxODUuOSBMNjU0LjAsMTk1LjYgTDY0OC41LDIwNS42IEw2NDQuMiwyMTYuMiBMNjQyLjksMjI3LjQgTDY0Ny4xLDIzNy44IEw2NTUuOSwyNDQuOCBMNjY2LjcsMjQ4LjMgTDY3Ny44LDI0Ni44IEw2ODcuMCwyNDAuMSBMNjk0LjksMjMyLjAgTDcwMy43LDIyNC44IEw3MTQuNSwyMjIuNiBMNzIyLjEsMjMwLjYgTDcyNS43LDI0MS4zIEw3MjcuMiwyNTIuNiBMNzI2LjksMjY0LjAgTDcyNS40LDI3NS4zIEw3MjMuMCwyODYuNCBMNzIwLjIsMjk3LjQgTDcxNy43LDMwOC41IEw3MTQuOSwzMTkuNiBMNzExLjMsMzMwLjQgTDcwNi4wLDM0MC40IEw2OTcuOSwzNDguMyBMNjg3LjYsMzUzLjAgTDY3Ni40LDM1NC43IEw2NjUuMCwzNTQuNSBMNjUzLjgsMzUyLjcgTDY0Mi45LDM0OS41IEw2MzIuMSwzNDUuNyBMNjIxLjMsMzQyLjMgTDYxMC4xLDMzOS45IEw1OTguOCwzMzkuMiBMNTg3LjYsMzQxLjAgTDU3Ni43LDM0NC40IEw1NjYuMywzNDguOSBMNTU4LjYsMzU3LjAgTDU2MS4yLDM2Ny4zIEw1NzEuMiwzNzIuMyBMNTgyLjQsMzc0LjQgTDU5My4yLDM3Ny43IEw2MDMuNiwzODIuMyBMNjEzLjYsMzg3LjggTDYyMy4zLDM5My43IEw2MzIuNSw0MDAuNCBMNjQxLjMsNDA3LjcgTDY0OS41LDQxNS42IEw2NTcuMyw0MjMuOSBMNjY0LjcsNDMyLjYgTDY3MS43LDQ0MS41IEw2NzguMyw0NTAuOCBMNjg0LjgsNDYwLjIgTDY5MS4zLDQ2OS41IEw2OTcuNyw0NzguOSBMNzA0LjEsNDg4LjMgTDcxMC4yLDQ5Ny45IEw3MTYuMyw1MDcuNiBMNzIyLjAsNTE3LjQgTDcyNy41LDUyNy40IEw3MzIuNyw1MzcuNSBMNzM3LjYsNTQ3LjggTDc0Mi4wLDU1OC4zIEw3NDYuMiw1NjguOSBMNzUwLjAsNTc5LjYgTDc1My40LDU5MC41IEw3NTYuNiw2MDEuNCBMNzU5LjUsNjEyLjQgTDc2Mi4zLDYyMy40IEw3NjQuOSw2MzQuNSBMNzY3LjMsNjQ1LjYgTDc2OS41LDY1Ni44IEw3NzEuNCw2NjguMCBMNzczLjIsNjc5LjMgTDc3NC45LDY5MC41IEw3NzYuNCw3MDEuOCBMNzc3LjksNzEzLjEgTDc3OS41LDcyNC40IEw3ODEuMSw3MzUuNiBMNzgzLjAsNzQ2LjkgTDc4NS41LDc1OC4wIEw3ODguNSw3NjkuMCBMNzkyLjEsNzc5LjcgTDc5Ni4zLDc5MC4zIEw4MDEuMCw4MDAuNyBMODA3LjAsODEwLjMgTDgxMy4zLDgxOS44IEw4MTcuMiw4MzAuNSBMODE2LjgsODQxLjYgTDgwNy45LDg0Ny41IEw3OTcuMSw4NDQuNSBMNzg3LjEsODQwLjUgTDc4OC4xLDg1MS4wIEw3ODkuMyw4NjIuMSBMNzgyLjUsODcwLjcgTDc3MS41LDg3Mi42IEw3NjEuMyw4NjcuOCBMNzUxLjksODYxLjggTDc1MC4yLDg3MS4wIEw3NDguNSw4ODIuMiBMNzQxLjMsODkwLjcgTDczMC41LDg5My41IEw3MjAuMyw4ODguNyBMNzEyLjMsODgwLjcgTDcwNi4zLDg4My43IEw3MDUuOCw4OTUuMCBMNjk5LjgsOTA0LjQgTDY4OS41LDkwOC44IEw2NzguNCw5MDcuMCBMNjY5LjEsOTAwLjUgTDY2MS44LDg5MS45IEw2NTUuNiw4OTYuNyBMNjQ5LjksOTA2LjMgTDY0MC4xLDkxMS45IEw2MjguOCw5MTEuNiBMNjE5LjAsOTA2LjEgTDYxMi4xLDg5Ny4yIEw2MDQuOSw4OTguNCBMNTk5LjksOTA4LjYgTDU5MS41LDkxNi4xIEw1ODAuNSw5MTguMCBMNTcwLjQsOTEzLjIgTDU2NC4xLDkwMy45IEw1NTguMSw4OTguMyBMNTUyLjUsOTA4LjIgTDU0NC43LDkxNi4zIEw1MzMuOSw5MTkuMCBMNTIzLjYsOTE0LjUgTDUxNi43LDkwNS42IEw1MTIuMCw4OTUuNSBMNTA1LjgsOTAyLjIgTDUwMC4yLDkxMi4wIEw0OTEuMyw5MTguOSBMNDgwLjIsOTE5LjUgTDQ3MC45LDkxMy4yIEw0NjUuMCw5MDMuNiBMNDU4LjAsODk3LjUgTDQ1Mi4wLDkwNy4yIEw0NDMuOCw5MTQuOSBMNDMyLjgsOTE3LjAgTDQyMi43LDkxMi4yIEw0MTcuMCw5MDIuNSBMNDE0LjIsODkxLjUgTDQwNi4yLDg5Ni43IEwzOTcuOCw5MDQuMiBMMzg3LjAsOTA3LjEgTDM3Ni4zLDkwMy42IEwzNjkuMiw4OTQuOSBMMzY2LjYsODgzLjkgTDM1OC4zLDg4Ni4zIEwzNTAuMCw4OTQuMCBMMzM5LjgsODk4LjkgTDMyOC43LDg5Ny45IEwzMjAuNyw4OTAuNCBMMzE5LjksODc5LjEgTDMxNC42LDg3NS45IEwzMDUuNyw4ODIuOCBMMjk0LjgsODg1LjkgTDI4NC4wLDg4My4xIEwyNzcuOCw4NzQuMSBMMjc4LjcsODYyLjggTDI3Mi43LDg2MS4wIEwyNjMuMSw4NjYuOSBMMjUyLjMsODY1LjUgTDI0NS45LDg1Ni41IEwyNDYuNCw4NDUuMiBMMjM5LjAsODQxLjggTDIyNy44LDg0My4xIEwyMjAuNSw4MzUuNyBMMjI0LjMsODI1LjIgTDIzMC44LDgxNS44IEwyMzguMCw4MDcuMCBMMjQ1LjgsNzk4LjcgTDI1NC4zLDc5MS4xIEwyNjMuMSw3ODMuOSBMMjcyLjEsNzc2LjkgTDI4MS42LDc3MC43IEwyOTEuNSw3NjUuMSBMMzAxLjgsNzYwLjIgTDMxMi4zLDc1NS43IEwzMjIuOSw3NTEuNiBMMzMzLjYsNzQ3LjYgTDM0NC4yLDc0My43IEwzNTQuNyw3MzkuMiBMMzY0LjUsNzMzLjUgTDM3My42LDcyNi42IEwzODEuOCw3MTguNyBMMzg4LjgsNzA5LjggTDM5NC41LDY5OS45IEwzOTguOSw2ODkuNCBMNDAzLjAsNjc4LjggTDQwNC41LDY2Ny42IEw0MDAuOCw2NTcuMiBMMzkwLjgsNjUyLjIgTDM3OS42LDY1Mi43IEwzNzEuMyw2NjAuMSBMMzY4LjUsNjcxLjEgTDM2Ny40LDY4Mi40IEwzNjQuMiw2OTMuMyBMMzU2LjQsNzAxLjQgTDM0Ni40LDcwNi44IEwzMzUuNCw3MDkuNCBMMzI0LjAsNzA5LjggTDMxMi43LDcwOC4yIEwzMDEuOCw3MDUuMyBMMjkxLjIsNzAxLjAgTDI4MS40LDY5NS4yIEwyNzMuNSw2ODcuMSBMMjY4LjIsNjc3LjEgTDI2NS41LDY2Ni4xIEwyNjQuNCw2NTQuNyBMMjYzLjgsNjQzLjQgTDI2NC42LDYzMi4wIEwyNjcuMSw2MjAuOSBMMjcxLjQsNjEwLjQgTDI3Ny4yLDYwMC42IEwyODMuOCw1OTEuNCBMMjkwLjMsNTgyLjAgTDI5NS44LDU3Mi4xIEwzMDAuMCw1NjEuNSBMMzAyLjUsNTUwLjQgTDMwMy4wLDUzOS4wIEwzMDEuNCw1MjcuOCBMMjk2LjYsNTE3LjUgTDI4OC43LDUwOS40IEwyNzguOCw1MDMuOSBMMjY4LjAsNTAwLjMgTDI1Ni44LDQ5OC4zIEwyNDUuNSw0OTcuNyBMMjM0LjEsNDk3LjggTDIyMi43LDQ5OC42IEwyMTEuNCw0OTguOSBMMjA3LjUsNDg5LjggTDIxMi41LDQ3OS42IEwyMTkuMiw0NzAuNCBMMjI3LjIsNDYyLjMgTDIzNi4zLDQ1NS40IEwyNDYuMCw0NDkuNSBMMjU2LjQsNDQ0LjkgTDI2Ny4yLDQ0MS4yIEwyNzguMSw0MzguMCBMMjg4LjksNDM0LjQgTDI5OS4zLDQyOS44IEwzMDguNyw0MjMuNSBMMzE1LjIsNDE0LjMgTDMxNC43LDQwMy4yIEwzMDcuNiwzOTQuNSBMMjk3LjQsMzg5LjcgTDI4Ni40LDM4Ni44IEwyNzUuNiwzODMuMSBMMjY2LjcsMzc2LjMgTDI2Mi4wLDM2Ni4wIEwyNjAuOCwzNTQuNyBMMjYyLjUsMzQzLjUgTDI2NS4zLDMzMi41IEwyNjkuMiwzMjEuNyBMMjczLjksMzExLjQgTDI3OS4xLDMwMS4zIEwyODUuMCwyOTEuNSBMMjkwLjcsMjgxLjcgTDI5NS4wLDI3MS4xIEwyOTcuOCwyNjAuMSBMMjk5LjEsMjQ4LjggTDMwMC40LDIzNy41IEwzMDguNiwyMzIuNyBMMzE2LjYsMjQwLjYgTDMyMC41LDI1MS4yIEwzMjMuNCwyNjIuMiBMMzMxLjgsMjU3LjkgTDMzOC4wLDI0OC4zIEwzNDUuMiwyMzkuNiBMMzUzLjgsMjMyLjEgTDM2Mi4zLDIyNC41IEwzNjkuOSwyMTYuMCBMMzc1LjYsMjA2LjIgTDM3OS44LDE5NS42IEwzODIuNSwxODQuNiBMMzg0LjUsMTczLjQgTDM4Ny44LDE2Mi41IEwzOTYuOSwxNTkuOCBMNDAzLjEsMTY5LjIgTDQwNi44LDE3OS45IEw0MDguNCwxOTEuMiBMNDA4LjQsMjAyLjYgTDQwNy40LDIxMy45IEw0MDUuNiwyMjUuMSBMNDA1LjIsMjM2LjMgTDQxNC4yLDIzNi41IEw0MjEuOSwyMjguMSBMNDI4LjIsMjE4LjYgTDQzNC4xLDIwOC45IEw0NDEuMiwyMDAuMCBMNDUwLjAsMjAwLjIgTDQ1MC4zLDIxMS42IEw0NDguMSwyMjIuNyBMNDQ5LjMsMjMzLjUgTDQ2MC4wLDIzNC4zIEw0NjkuMCwyMjcuNSBMNDc2LjEsMjE4LjYgTDQ4Mi44LDIwOS40IEw0OTAuNywyMDEuMiBMNDk5LjEsMTkzLjUgTDUwOC44LDE4Ny43IEw1MTMuNiwxOTQuNyBMNTA4LjcsMjA0LjkgTDUwNi41LDIxNS44IEw1MTQuOCwyMjEuNSBMNTI0LjcsMjE2LjIgTDUzMi40LDIwNy45IEw1MzkuMSwxOTguNyBMNTQ1LjcsMTg5LjQgTDU1Mi4wLDE3OS45IEw1NTcuMSwxNjkuOCBMNTYxLjAsMTU5LjAgTDU2My43LDE0OC4wIEw1NjUuOCwxMzYuOCBMNTY3LjksMTI1LjYgTDU3MC4xLDExNC41IFoiIGZpbGw9IiMxYzFhMTciIGZpbGwtcnVsZT0ibm9uemVybyIgbWFzaz0idXJsKCNob2xlKSIvPgo8L3N2Zz4K") center/contain no-repeat;
+            mask:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iT3ZlcmxvcmQgQUkiPgogIDxkZWZzPjxtYXNrIGlkPSJob2xlIiBtYXNrVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4PSIwIiB5PSIwIiB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0Ij48cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iNDUxLjgwIiBjeT0iNDI3LjIzIiByPSIyNy4zMSIgZmlsbD0iIzAwMCIvPjwvbWFzaz48L2RlZnM+CiAgPHBhdGggZD0iTTU3NS42LDEwNC44IEw1ODQuMSwxMTEuMSBMNTg4LjQsMTIxLjcgTDU5MS4zLDEzMi43IEw1OTMuMSwxNDMuOSBMNTkzLjQsMTU1LjIgTDU5MS40LDE2Ni41IEw1ODguNCwxNzcuNCBMNTg0LjUsMTg4LjEgTDU4Ni4xLDE5OC41IEw1OTYuMywxOTYuMCBMNjA1LjEsMTg4LjggTDYxMy40LDE4MC45IEw2MjEuNCwxNzIuOSBMNjI5LjcsMTY1LjEgTDYzNy45LDE1Ny4yIEw2NDYuNCwxNDkuNiBMNjU1LjUsMTQyLjkgTDY2Ni4wLDE0NC4xIEw2NzAuNiwxNTQuMiBMNjY5LjgsMTY1LjUgTDY2NS41LDE3Ni4wIEw2NTkuOSwxODUuOSBMNjU0LjAsMTk1LjYgTDY0OC41LDIwNS42IEw2NDQuMiwyMTYuMiBMNjQyLjksMjI3LjQgTDY0Ny4xLDIzNy44IEw2NTUuOSwyNDQuOCBMNjY2LjcsMjQ4LjMgTDY3Ny44LDI0Ni44IEw2ODcuMCwyNDAuMSBMNjk0LjksMjMyLjAgTDcwMy43LDIyNC44IEw3MTQuNSwyMjIuNiBMNzIyLjEsMjMwLjYgTDcyNS43LDI0MS4zIEw3MjcuMiwyNTIuNiBMNzI2LjksMjY0LjAgTDcyNS40LDI3NS4zIEw3MjMuMCwyODYuNCBMNzIwLjIsMjk3LjQgTDcxNy43LDMwOC41IEw3MTQuOSwzMTkuNiBMNzExLjMsMzMwLjQgTDcwNi4wLDM0MC40IEw2OTcuOSwzNDguMyBMNjg3LjYsMzUzLjAgTDY3Ni40LDM1NC43IEw2NjUuMCwzNTQuNSBMNjUzLjgsMzUyLjcgTDY0Mi45LDM0OS41IEw2MzIuMSwzNDUuNyBMNjIxLjMsMzQyLjMgTDYxMC4xLDMzOS45IEw1OTguOCwzMzkuMiBMNTg3LjYsMzQxLjAgTDU3Ni43LDM0NC40IEw1NjYuMywzNDguOSBMNTU4LjYsMzU3LjAgTDU2MS4yLDM2Ny4zIEw1NzEuMiwzNzIuMyBMNTgyLjQsMzc0LjQgTDU5My4yLDM3Ny43IEw2MDMuNiwzODIuMyBMNjEzLjYsMzg3LjggTDYyMy4zLDM5My43IEw2MzIuNSw0MDAuNCBMNjQxLjMsNDA3LjcgTDY0OS41LDQxNS42IEw2NTcuMyw0MjMuOSBMNjY0LjcsNDMyLjYgTDY3MS43LDQ0MS41IEw2NzguMyw0NTAuOCBMNjg0LjgsNDYwLjIgTDY5MS4zLDQ2OS41IEw2OTcuNyw0NzguOSBMNzA0LjEsNDg4LjMgTDcxMC4yLDQ5Ny45IEw3MTYuMyw1MDcuNiBMNzIyLjAsNTE3LjQgTDcyNy41LDUyNy40IEw3MzIuNyw1MzcuNSBMNzM3LjYsNTQ3LjggTDc0Mi4wLDU1OC4zIEw3NDYuMiw1NjguOSBMNzUwLjAsNTc5LjYgTDc1My40LDU5MC41IEw3NTYuNiw2MDEuNCBMNzU5LjUsNjEyLjQgTDc2Mi4zLDYyMy40IEw3NjQuOSw2MzQuNSBMNzY3LjMsNjQ1LjYgTDc2OS41LDY1Ni44IEw3NzEuNCw2NjguMCBMNzczLjIsNjc5LjMgTDc3NC45LDY5MC41IEw3NzYuNCw3MDEuOCBMNzc3LjksNzEzLjEgTDc3OS41LDcyNC40IEw3ODEuMSw3MzUuNiBMNzgzLjAsNzQ2LjkgTDc4NS41LDc1OC4wIEw3ODguNSw3NjkuMCBMNzkyLjEsNzc5LjcgTDc5Ni4zLDc5MC4zIEw4MDEuMCw4MDAuNyBMODA3LjAsODEwLjMgTDgxMy4zLDgxOS44IEw4MTcuMiw4MzAuNSBMODE2LjgsODQxLjYgTDgwNy45LDg0Ny41IEw3OTcuMSw4NDQuNSBMNzg3LjEsODQwLjUgTDc4OC4xLDg1MS4wIEw3ODkuMyw4NjIuMSBMNzgyLjUsODcwLjcgTDc3MS41LDg3Mi42IEw3NjEuMyw4NjcuOCBMNzUxLjksODYxLjggTDc1MC4yLDg3MS4wIEw3NDguNSw4ODIuMiBMNzQxLjMsODkwLjcgTDczMC41LDg5My41IEw3MjAuMyw4ODguNyBMNzEyLjMsODgwLjcgTDcwNi4zLDg4My43IEw3MDUuOCw4OTUuMCBMNjk5LjgsOTA0LjQgTDY4OS41LDkwOC44IEw2NzguNCw5MDcuMCBMNjY5LjEsOTAwLjUgTDY2MS44LDg5MS45IEw2NTUuNiw4OTYuNyBMNjQ5LjksOTA2LjMgTDY0MC4xLDkxMS45IEw2MjguOCw5MTEuNiBMNjE5LjAsOTA2LjEgTDYxMi4xLDg5Ny4yIEw2MDQuOSw4OTguNCBMNTk5LjksOTA4LjYgTDU5MS41LDkxNi4xIEw1ODAuNSw5MTguMCBMNTcwLjQsOTEzLjIgTDU2NC4xLDkwMy45IEw1NTguMSw4OTguMyBMNTUyLjUsOTA4LjIgTDU0NC43LDkxNi4zIEw1MzMuOSw5MTkuMCBMNTIzLjYsOTE0LjUgTDUxNi43LDkwNS42IEw1MTIuMCw4OTUuNSBMNTA1LjgsOTAyLjIgTDUwMC4yLDkxMi4wIEw0OTEuMyw5MTguOSBMNDgwLjIsOTE5LjUgTDQ3MC45LDkxMy4yIEw0NjUuMCw5MDMuNiBMNDU4LjAsODk3LjUgTDQ1Mi4wLDkwNy4yIEw0NDMuOCw5MTQuOSBMNDMyLjgsOTE3LjAgTDQyMi43LDkxMi4yIEw0MTcuMCw5MDIuNSBMNDE0LjIsODkxLjUgTDQwNi4yLDg5Ni43IEwzOTcuOCw5MDQuMiBMMzg3LjAsOTA3LjEgTDM3Ni4zLDkwMy42IEwzNjkuMiw4OTQuOSBMMzY2LjYsODgzLjkgTDM1OC4zLDg4Ni4zIEwzNTAuMCw4OTQuMCBMMzM5LjgsODk4LjkgTDMyOC43LDg5Ny45IEwzMjAuNyw4OTAuNCBMMzE5LjksODc5LjEgTDMxNC42LDg3NS45IEwzMDUuNyw4ODIuOCBMMjk0LjgsODg1LjkgTDI4NC4wLDg4My4xIEwyNzcuOCw4NzQuMSBMMjc4LjcsODYyLjggTDI3Mi43LDg2MS4wIEwyNjMuMSw4NjYuOSBMMjUyLjMsODY1LjUgTDI0NS45LDg1Ni41IEwyNDYuNCw4NDUuMiBMMjM5LjAsODQxLjggTDIyNy44LDg0My4xIEwyMjAuNSw4MzUuNyBMMjI0LjMsODI1LjIgTDIzMC44LDgxNS44IEwyMzguMCw4MDcuMCBMMjQ1LjgsNzk4LjcgTDI1NC4zLDc5MS4xIEwyNjMuMSw3ODMuOSBMMjcyLjEsNzc2LjkgTDI4MS42LDc3MC43IEwyOTEuNSw3NjUuMSBMMzAxLjgsNzYwLjIgTDMxMi4zLDc1NS43IEwzMjIuOSw3NTEuNiBMMzMzLjYsNzQ3LjYgTDM0NC4yLDc0My43IEwzNTQuNyw3MzkuMiBMMzY0LjUsNzMzLjUgTDM3My42LDcyNi42IEwzODEuOCw3MTguNyBMMzg4LjgsNzA5LjggTDM5NC41LDY5OS45IEwzOTguOSw2ODkuNCBMNDAzLjAsNjc4LjggTDQwNC41LDY2Ny42IEw0MDAuOCw2NTcuMiBMMzkwLjgsNjUyLjIgTDM3OS42LDY1Mi43IEwzNzEuMyw2NjAuMSBMMzY4LjUsNjcxLjEgTDM2Ny40LDY4Mi40IEwzNjQuMiw2OTMuMyBMMzU2LjQsNzAxLjQgTDM0Ni40LDcwNi44IEwzMzUuNCw3MDkuNCBMMzI0LjAsNzA5LjggTDMxMi43LDcwOC4yIEwzMDEuOCw3MDUuMyBMMjkxLjIsNzAxLjAgTDI4MS40LDY5NS4yIEwyNzMuNSw2ODcuMSBMMjY4LjIsNjc3LjEgTDI2NS41LDY2Ni4xIEwyNjQuNCw2NTQuNyBMMjYzLjgsNjQzLjQgTDI2NC42LDYzMi4wIEwyNjcuMSw2MjAuOSBMMjcxLjQsNjEwLjQgTDI3Ny4yLDYwMC42IEwyODMuOCw1OTEuNCBMMjkwLjMsNTgyLjAgTDI5NS44LDU3Mi4xIEwzMDAuMCw1NjEuNSBMMzAyLjUsNTUwLjQgTDMwMy4wLDUzOS4wIEwzMDEuNCw1MjcuOCBMMjk2LjYsNTE3LjUgTDI4OC43LDUwOS40IEwyNzguOCw1MDMuOSBMMjY4LjAsNTAwLjMgTDI1Ni44LDQ5OC4zIEwyNDUuNSw0OTcuNyBMMjM0LjEsNDk3LjggTDIyMi43LDQ5OC42IEwyMTEuNCw0OTguOSBMMjA3LjUsNDg5LjggTDIxMi41LDQ3OS42IEwyMTkuMiw0NzAuNCBMMjI3LjIsNDYyLjMgTDIzNi4zLDQ1NS40IEwyNDYuMCw0NDkuNSBMMjU2LjQsNDQ0LjkgTDI2Ny4yLDQ0MS4yIEwyNzguMSw0MzguMCBMMjg4LjksNDM0LjQgTDI5OS4zLDQyOS44IEwzMDguNyw0MjMuNSBMMzE1LjIsNDE0LjMgTDMxNC43LDQwMy4yIEwzMDcuNiwzOTQuNSBMMjk3LjQsMzg5LjcgTDI4Ni40LDM4Ni44IEwyNzUuNiwzODMuMSBMMjY2LjcsMzc2LjMgTDI2Mi4wLDM2Ni4wIEwyNjAuOCwzNTQuNyBMMjYyLjUsMzQzLjUgTDI2NS4zLDMzMi41IEwyNjkuMiwzMjEuNyBMMjczLjksMzExLjQgTDI3OS4xLDMwMS4zIEwyODUuMCwyOTEuNSBMMjkwLjcsMjgxLjcgTDI5NS4wLDI3MS4xIEwyOTcuOCwyNjAuMSBMMjk5LjEsMjQ4LjggTDMwMC40LDIzNy41IEwzMDguNiwyMzIuNyBMMzE2LjYsMjQwLjYgTDMyMC41LDI1MS4yIEwzMjMuNCwyNjIuMiBMMzMxLjgsMjU3LjkgTDMzOC4wLDI0OC4zIEwzNDUuMiwyMzkuNiBMMzUzLjgsMjMyLjEgTDM2Mi4zLDIyNC41IEwzNjkuOSwyMTYuMCBMMzc1LjYsMjA2LjIgTDM3OS44LDE5NS42IEwzODIuNSwxODQuNiBMMzg0LjUsMTczLjQgTDM4Ny44LDE2Mi41IEwzOTYuOSwxNTkuOCBMNDAzLjEsMTY5LjIgTDQwNi44LDE3OS45IEw0MDguNCwxOTEuMiBMNDA4LjQsMjAyLjYgTDQwNy40LDIxMy45IEw0MDUuNiwyMjUuMSBMNDA1LjIsMjM2LjMgTDQxNC4yLDIzNi41IEw0MjEuOSwyMjguMSBMNDI4LjIsMjE4LjYgTDQzNC4xLDIwOC45IEw0NDEuMiwyMDAuMCBMNDUwLjAsMjAwLjIgTDQ1MC4zLDIxMS42IEw0NDguMSwyMjIuNyBMNDQ5LjMsMjMzLjUgTDQ2MC4wLDIzNC4zIEw0NjkuMCwyMjcuNSBMNDc2LjEsMjE4LjYgTDQ4Mi44LDIwOS40IEw0OTAuNywyMDEuMiBMNDk5LjEsMTkzLjUgTDUwOC44LDE4Ny43IEw1MTMuNiwxOTQuNyBMNTA4LjcsMjA0LjkgTDUwNi41LDIxNS44IEw1MTQuOCwyMjEuNSBMNTI0LjcsMjE2LjIgTDUzMi40LDIwNy45IEw1MzkuMSwxOTguNyBMNTQ1LjcsMTg5LjQgTDU1Mi4wLDE3OS45IEw1NTcuMSwxNjkuOCBMNTYxLjAsMTU5LjAgTDU2My43LDE0OC4wIEw1NjUuOCwxMzYuOCBMNTY3LjksMTI1LjYgTDU3MC4xLDExNC41IFoiIGZpbGw9IiMxYzFhMTciIGZpbGwtcnVsZT0ibm9uemVybyIgbWFzaz0idXJsKCNob2xlKSIvPgo8L3N2Zz4K") center/contain no-repeat}
+  .lc-bar-text{display:flex;flex-direction:column;min-width:0}
+  .lc-bar-name{font-family:var(--f-display);font-size:.95rem;line-height:1.1;letter-spacing:.06em;
+    white-space:nowrap;color:#f2f3f7}
+  .lc-bar-name em{font-style:normal;color:var(--accent)}
+  .lc-head-line{display:flex;align-items:center;gap:5px;min-width:0}
+  .lc-symbol{font-size:11px;color:var(--accent-soft);text-shadow:0 0 8px rgba(139,122,255,.7);flex:0 0 auto}
+  /* loot variant heads up with the small engine tag, not the mission-target name */
+  .lc-title{font-family:var(--f-mono);font-weight:700;font-size:10px;line-height:1.2;
+    letter-spacing:.14em;text-transform:uppercase;color:#b9a8ff;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px}
+  .lc-head-actions{margin-left:auto;display:flex;align-items:center;gap:5px;flex:0 0 auto}
+  .lc-btn{background:transparent;border:1px solid rgba(255,255,255,.2);color:#ddd;
+    font-family:var(--f-mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;
+    padding:2px 7px;border-radius:6px;cursor:pointer;line-height:1.3;
+    display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .lc-btn:hover{color:#fff;border-color:var(--accent-soft)}
+  .lc-btn#lcClose{padding:0;width:18px;height:18px;min-width:18px;font-size:10px;line-height:1}
+
+  /* ---------- sections (one per variant) ---------- */
+  .lc-section{display:flex;flex-direction:column;overflow:hidden;gap:3px}
+  .lc-section-head{display:flex;align-items:center;justify-content:space-between;padding:0 3px;flex:0 0 auto}
+  .lc-head-left{display:flex;align-items:center;gap:5px;min-width:0}
+  .lc-tag{font-family:var(--f-ui);font-size:9.5px;font-weight:600;color:var(--weak);
+    letter-spacing:4px;text-transform:uppercase}
+  .lc-tag.action-tag{color:#00d2d3}
+  .lc-min{background:transparent;border:none;color:rgba(230,234,244,.55);font-size:13px;font-weight:800;
+    cursor:pointer;padding:0 4px;min-width:18px;min-height:18px;line-height:1;
+    display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .lc-min:hover{color:#fff;transform:scale(1.25)}
+
+  /* variant: target visual intel (no image -> slim titled row, hairline only) */
+  .lc-image-box{width:100%;height:42px;border-radius:12px;overflow:hidden;
+    border:1px solid rgba(145,125,255,.25);position:relative;flex:0 0 auto}
+  .lc-no-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+    color:#b9a8ff;font-size:11px;letter-spacing:.04em}
+
+  /* variant: objective directives — step pills, plain text lines, royal fill */
+  .lc-steps{display:flex;flex-direction:column;gap:6px;overflow-y:auto;padding-right:2px}
+  .step-pill{position:relative;overflow:hidden;isolation:isolate;
+    background:transparent;border:1px solid transparent;border-radius:2px;
+    padding:7px 10px;color:rgba(255,255,255,.86);font-size:11.5px;font-weight:500;line-height:1.4;
+    display:flex;align-items:flex-start;gap:8px;flex-shrink:0;
+    transition:border-color .4s var(--curve)}
+  .step-pill::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--accent);
+    transform:scaleX(0);transform-origin:left;transition:transform .6s var(--curve)}
+  .step-pill:hover{border-color:var(--accent)}
+  .step-pill:hover::after{transform:scaleX(1)}
+  .step-pill:hover .step-text{color:#fff}
+  .step-pill:hover .step-badge{color:rgba(255,255,255,.85);border-color:rgba(255,255,255,.5)}
+  .step-badge{background:transparent;border:1px solid rgba(205,209,216,.35);border-radius:2px;
+    color:#b9a8ff;font-family:var(--f-mono);font-size:8.5px;font-weight:700;padding:2px 6px;
+    margin-top:1px;letter-spacing:.14em;white-space:nowrap;flex:0 0 auto;
+    transition:color .4s,border-color .4s}
+  .step-text{flex:1;min-width:0;word-break:break-word;overflow-wrap:anywhere;transition:color .4s}
+
+  /* variant: action tip — violet wash accent floating on the glass */
+  .lc-action{background:linear-gradient(90deg,rgba(109,92,255,.14),rgba(109,92,255,.02));
+    border:1px solid var(--edge);border-radius:10px;padding:6px 9px;
+    box-shadow:0 0 10px rgba(109,92,255,.2);flex:0 0 auto}
+  .lc-action-text{font-size:11px;font-weight:600;color:#f3e8ff;line-height:1.35}
+  .lc-action-text kbd{font-family:var(--f-mono);font-size:9.5px;padding:1px 5px;margin:0 1px;
+    border:1px solid rgba(255,255,255,.26);border-radius:3px}
+  .lc-ico{font-size:13px;display:inline-block}
+  .lc-ico.glowing{animation:lcBulb 1.1s ease-in-out 3}
+  @keyframes lcBulb{
+    0%{transform:scale(1);filter:drop-shadow(0 0 2px rgba(139,122,255,.35))}
+    50%{transform:scale(1.18);filter:drop-shadow(0 0 6px #b9a8ff) drop-shadow(0 0 10px rgba(109,92,255,.4))}
+    100%{transform:scale(1);filter:drop-shadow(0 0 2px rgba(139,122,255,.35))}
+  }
+
+  /* variant: loot / tactical intel body */
+  .lc-intel{padding:4px 3px 2px;overflow-y:auto;color:#e2e8f0;font-size:11.5px;line-height:1.45;
+    font-family:var(--f-mono);white-space:pre-wrap;word-break:break-word;user-select:text;max-height:100px}
+  .lc-intel::-webkit-scrollbar{width:4px}
+  .lc-intel::-webkit-scrollbar-thumb{background:rgba(139,122,255,.35);border-radius:4px}
+
+  /* ---------- motion: the drawer's item stagger ---------- */
+  .pc-anim{opacity:0;transform:translateY(10px);transition:opacity .38s var(--curve),transform .38s var(--curve)}
+  .loot-card.is-open .pc-anim{opacity:1;transform:translateY(0)}
+  /* step pills cascade in once the card is open */
+  .loot-card.is-open .step-pill{animation:pillIn .5s var(--curve) both;animation-delay:var(--d,0s)}
+  @keyframes pillIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .step-pill{opacity:0}
+
+  /* reduced motion: no timeline, settle on the opened card */
+  @media (prefers-reduced-motion: reduce){
+    .loot-card{transition:none}
+    .pc-anim{opacity:1;transform:none;transition:none}
+    .step-pill{opacity:1;animation:none}
+    .ring{animation:none;opacity:1}
+    .lc-ico{animation:none}
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="qa-bg" id="qaBg" aria-hidden="true"></div>
+
+  <!-- ============ THE LOOT CARD (loot configuration) ============ -->
+  <section class="loot-card" id="card" data-config="loot" aria-live="polite" aria-hidden="true">
+    <span class="ring" aria-hidden="true"></span>
+
+    <header class="lc-head">
+      <span class="lc-mark" aria-hidden="true"></span>
+      <div class="lc-bar-text">
+        <span class="lc-bar-name">OVERLORD&nbsp;<em>Ai</em></span>
+        <div class="lc-head-line">
+          <span class="lc-symbol" aria-hidden="true">&#10022;</span>
+          <h1 class="lc-title" id="lcTitle">Ward 8 &#8212; Notice Board</h1>
+        </div>
+      </div>
+      <div class="lc-head-actions">
+        <button class="lc-btn" id="lcCopy" title="Copy to clipboard">Copy</button>
+        <button class="lc-btn" id="lcClose" title="Dismiss card">&#10005;</button>
+      </div>
+    </header>
+
+    <!-- variant: target visual intel -->
+    <div class="lc-section pc-anim" id="secVisual">
+      <div class="lc-section-head">
+        <span class="lc-tag">Target Visual Intel</span>
+        <button class="lc-min" title="Toggle visual intel">&#8212;</button>
+      </div>
+      <div class="lc-image-box" id="imageBox">
+        <div class="lc-no-img">&#10022;&nbsp; Objective Directives Mapped &nbsp;&#10022;</div>
+      </div>
+    </div>
+
+    <!-- variant: objective directives / mission steps -->
+    <div class="lc-section pc-anim" id="secSteps">
+      <div class="lc-section-head">
+        <span class="lc-tag">Objective Directives</span>
+        <button class="lc-min" title="Toggle directives">&#8212;</button>
+      </div>
+      <div class="lc-steps" id="steps"></div>
+    </div>
+
+    <!-- variant: action tip -->
+    <div class="lc-section pc-anim" id="secAction">
+      <div class="lc-section-head">
+        <div class="lc-head-left">
+          <span class="lc-ico" id="lcIco">&#128161;</span>
+          <span class="lc-tag action-tag">Action Tip</span>
+        </div>
+        <button class="lc-min" title="Toggle action tip">&#8212;</button>
+      </div>
+      <div class="lc-action" id="actionBox">
+        <span class="lc-action-text" id="actionText"></span>
+      </div>
+    </div>
+
+    <!-- variant: loot / tactical intel body -->
+    <div class="lc-section pc-anim" id="secIntel">
+      <div class="lc-section-head">
+        <span class="lc-tag">Tactical Intel</span>
+      </div>
+      <div class="lc-intel" id="intelBody"></div>
+    </div>
+
+  </section>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const params = new URLSearchParams(location.search);
+  const stage = document.getElementById('stage');
+  const card = document.getElementById('card');
+  const stepsList = document.getElementById('steps');
+  const actionText = document.getElementById('actionText');
+  const intelBody = document.getElementById('intelBody');
+  const ico = document.getElementById('lcIco');
+
+  /* scale the 900x560 canvas to whatever box the panel is given (down to 200px) */
+  const fit = () => {
+    const s = Math.min(innerWidth / 900, innerHeight / 560) || 1;
+    stage.style.setProperty('--s', s);
+  };
+  addEventListener('resize', fit); fit();
+
+  /* QA-only backdrop; default is nothing at all so the page stays transparent */
+  if (params.get('bg') === 'plasma') document.getElementById('qaBg').classList.add('on');
+
+  /* ------------------------------------------------------------------ *
+   * Content — every string is verbatim from the shipping samples.
+   * ------------------------------------------------------------------ */
+  const DIRECTIVES = [                                   // loot-card.html:758-761
+    'Fall back to the corridor you already cleared',
+    'Let the Hiss come up one at a time \u2014 no open-field trade',
+    'Charge the Pierce at close range, dodge off the lift door',
+    'Grab the Skifter cache before the floor resets'
+  ];
+  const INTEL = 'An Ability Point sits on the Notice Board by the service lift \u2014 ' +
+    'take it before the Ashtray Maze resets. The mod on the corpse fits the Pierce; ' +
+    'it only ever fits one weapon, and the Pierce is the one you levelled.';   // loot-card.html:753
+  const ACTION = 'press [E] beside the broken lift to call it early';          // loot-card.html:764
+
+  /* build the step pills (text nodes only) */
+  DIRECTIVES.forEach((raw, i) => {
+    const row = document.createElement('div');
+    row.className = 'step-pill';
+    row.style.setProperty('--d', (0.22 + i * 0.07).toFixed(2) + 's');
+    const n = document.createElement('span');
+    n.className = 'step-badge';
+    n.textContent = String(i + 1).padStart(2, '0');
+    const t = document.createElement('span');
+    t.className = 'step-text';
+    t.textContent = raw;
+    row.append(n, t);
+    stepsList.append(row);
+  });
+
+  /* action tip: the bracketed key becomes a <kbd> (tactical_interface.js setActionTip) */
+  (() => {
+    const m = ACTION.match(/\[([^\]]+)\]/);
+    if (m) {
+      actionText.append(document.createTextNode(ACTION.slice(0, m.index)));
+      const k = document.createElement('kbd');
+      k.textContent = m[1];
+      actionText.append(k, document.createTextNode(ACTION.slice(m.index + m[0].length)));
+    } else {
+      actionText.textContent = ACTION;
+    }
+  })();
+
+  intelBody.textContent = INTEL;
+
+  /* ------------------------------------------------------------------ *
+   * Beats — the drawer's item stagger (open 0.05 + i*0.06s, close reverse)
+   * ------------------------------------------------------------------ */
+  const animItems = () => [...card.querySelectorAll('.pc-anim')];
+  function stagger(open){
+    const items = animItems();
+    items.forEach((el, i) => {
+      const d = open ? 0.05 + i * 0.06 : (items.length - 1 - i) * 0.03;
+      el.style.transitionDelay = d + 's';
+    });
+  }
+
+  let pending = null;
+  let current = 'closed';
+
+  function phase(name){
+    current = (name === 'loot') ? 'loot' : 'closed';
+    if (current === 'loot'){
+      card.classList.add('is-open');
+      card.setAttribute('aria-hidden', 'false');
+      stagger(true);
+      ico.classList.remove('glowing'); void ico.offsetWidth; ico.classList.add('glowing');
+    } else {
+      card.classList.remove('is-open');
+      card.setAttribute('aria-hidden', 'true');
+      stagger(false);
+      ico.classList.remove('glowing');
+    }
+    dispatchEvent(new CustomEvent('hud:beat', { detail: current }));
+  }
+
+  /* timeline: collapse -> open the loot card -> hold -> loop */
+  const LOOP = [['closed', 1500], ['loot', 7000]];
+  function run(i = 0){
+    if (reduce){ phase('loot'); return; }
+    const [name, ms] = LOOP[i];
+    phase(name);
+    pending = setTimeout(() => run((i + 1) % LOOP.length), ms);
+  }
+
+  /* QA / reviewer hook */
+  window.__hud = {
+    beats: ['closed', 'loot'],
+    pin(name){ clearTimeout(pending); pending = null; phase(name); },
+    resume(){ clearTimeout(pending); run(0); },
+    state(){ return current; }
+  };
+
+  if (reduce){ phase('loot'); return; }
+  const start = params.get('beat');
+  if (start && window.__hud.beats.includes(start)) phase(start);   // pinned still
+  else run(0);
+})();
+</script>
+</body>
+</html>
