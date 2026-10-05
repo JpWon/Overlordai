@@ -1,7 +1,7 @@
 # Legal decisions — status, and what is left
 
 Your answers are in the live documents. Seven of the eight facts are decided and applied, including
-your correction — the refund window is **seven days**, not fourteen. What remains is one postal
+your correction — the refund window is **three days**, not seven. What remains is one postal
 address and one product behaviour, plus one offer to build.
 
 ## Applied 29 September 2026
@@ -11,7 +11,7 @@ address and one product behaviour, plus one offer to build.
 | Minimum age | **13** | EULA §1 · Privacy §14 · Terms §2 |
 | Effective date | **29 September 2026** | the header of all three |
 | Privacy contact | **privacy@overlordai.co** (a mailto link) | Privacy §9, §14, §17 |
-| Refund window | **seven days on a first paid period**, renewals excluded | Terms §8 |
+| Refund window | **three days on a first paid period**, renewals excluded | Terms §8 |
 | Where the law gives longer | the longer statutory window governs | Terms §8 |
 | Renewal notice | **30 days** before a price or material change | Terms §5, §16 |
 | Tax | prices **exclusive of tax**, calculated at checkout, shown on the receipt | Terms §5 |
@@ -63,7 +63,7 @@ two items. Say so if you want it gone sooner.
   in Proton — a couple of minutes. The Privacy Policy now names `privacy@overlordai.co` as where rights
   requests go, so that inbox should exist before anyone relies on it. Worth mailing yourself a test to
   both.
-- **Billing is still not live**, which the Terms say plainly. The seven-day window and the tax wording
+- **Billing is still not live**, which the Terms say plainly. The three-day window and the tax wording
   only bite once Stripe checkout exists; nothing on the site can take a payment today.
 
 ## Where the words live

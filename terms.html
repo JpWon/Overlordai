@@ -106,7 +106,7 @@
           "name": "What platforms are supported?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Linux and Windows, native \u2014 built directly for your system. Distributed via native .deb package for Linux and standalone executable for Windows."
+            "text": "Linux and Steam Deck, native \u2014 not a Windows build in a wrapper. That is the build that exists. Windows is in beta and not shipped: there is a waitlist on the site, and no date until we have one we control."
           }
         },
         {
@@ -1019,7 +1019,7 @@
       <a class="nav-hover" href="index.html#top"><span class="nav-link-text">Home</span></a>
       <a class="nav-hover" href="index.html#work"><span class="nav-link-text">Preview</span></a>
       <a class="nav-hover" href="plans.html"><span class="nav-link-text">Plans</span></a>
-      <a class="nav-hover" href="login.html"><span class="nav-link-text">Sign Up</span></a>
+      <a class="nav-hover" href="login.html"><span class="nav-link-text">Log in</span></a>
     </div>
 
     <!-- Right — Celestial toggle + Cart -->
@@ -1061,18 +1061,32 @@
     <div class="drawer-login">
       <a class="royal-nav-item" href="login.html"><span class="royal-nav-btn-text">Member Login</span></a>
     </div>
-    <div class="drawer-foot"><a href="plans.html">Linux and Windows</a></div>
+    <div class="drawer-foot"><a href="plans.html">Linux / Steam Deck / Windows</a></div>
   </div>
 </div>
 
 <canvas id="ambient"></canvas>
 
 <main class="lg" id="legal">
+<!-- DECISIONS BEFORE PUBLICATION
+     DECIDED 2026-09-29 and applied: minimum age 13, effective date 29 September 2026, renewal notice 30 days,
+     prices exclusive of tax collected at checkout, refunds a three-day window on a first paid period
+     with renewals excluded. The contracting entity is De Primus Enterprises and Florida law governs.
+     FILLED 2026-09-29, on the owner's instruction: the contracting entity is De Primus Enterprises
+     and the governing law is the State of Florida, United States. The state of registration is taken
+     to follow the governing law (Florida) — confirm that separately. "Enterprises" is spelled as
+     corrected from his message; confirm it is the exact registered name.
+     - 29 September 2026 — set it to the day this page goes live, not the date of the draft.
+     - 13 — the age at which someone can hold an account and buy a plan in their own name; under it, a parent or guardian holds the account.
+     - [NOTICES ADDRESS] — a postal address we can be served at; info@overlordai.co is interim and is an email, not an address.
+     - 30 days — how much warning we give before a renewal, a price change or a material change to these Terms; 30 days is the common floor and matches what the plans page implies.
+     - DECISION: the refund commercial policy itself, still open (a voluntary window on a first period, or a case-by-case line).
+     No entity name, jurisdiction, address, refund window, tax scheme or certification may be filled in from this document alone. -->
 <span class="lg__label">OVR · legal · terms</span>
 <h1>Terms of<br><em>service.</em></h1>
-<div class="lg__meta"><span>Version 1.0</span><span>Effective 29 September 2026</span><span>Covers accounts, plans and billing</span></div>
+<div class="lg__meta"><span>Version 1.0</span><span>Draft for review</span><span>Effective 29 September 2026</span><span>Covers accounts, plans and billing</span></div>
 <p class="lg__lede">These Terms cover the account you hold with us, the plans you can buy and the licences those plans activate. They do not license the application itself, which the End-user licence agreement does, and they do not describe how we handle data, which the Privacy policy does.</p>
-<div class="lg__toc"><b>Contents</b> <a href="#s1">1 Overview</a> <span>·</span> <a href="#s2">2 Who we are</a> <span>·</span> <a href="#s3">3 Account and key</a> <span>·</span> <a href="#s4">4 Plans and prices</a> <span>·</span> <a href="#s5">5 Billing and renewals</a> <span>·</span> <a href="#s6">6 The free Demo</a> <span>·</span> <a href="#s7">7 Cancellation</a> <span>·</span> <a href="#s8">8 Refunds</a> <span>·</span> <a href="#s9">9 Acceptable use</a> <span>·</span> <a href="#s10">10 Supported platforms</a> <span>·</span> <a href="#s11">11 Support</a> <span>·</span> <a href="#s12">12 Availability</a> <span>·</span> <a href="#s13">13 Suspension</a> <span>·</span> <a href="#s14">14 Disclaimers</a> <span>·</span> <a href="#s15">15 Governing law</a> <span>·</span> <a href="#s16">16 Changes</a> <span>·</span> <a href="#s17">17 Contact and notices</a></div>
+<div class="lg__toc"><b>Contents</b> <a href="#s1">1 Overview</a> <span>·</span> <a href="#s2">2 Who we are</a> <span>·</span> <a href="#s3">3 Account and key</a> <span>·</span> <a href="#s4">4 Plans and prices</a> <span>·</span> <a href="#s5">5 Billing and renewals</a> <span>·</span> <a href="#s6">6 The free Demo</a> <span>·</span> <a href="#s7">7 Cancellation</a> <span>·</span> <a href="#s8">8 Refunds</a> <span>·</span> <a href="#s9">9 Acceptable use</a> <span>·</span> <a href="#s10">10 Windows beta</a> <span>·</span> <a href="#s11">11 Support</a> <span>·</span> <a href="#s12">12 Availability</a> <span>·</span> <a href="#s13">13 Suspension</a> <span>·</span> <a href="#s14">14 Disclaimers</a> <span>·</span> <a href="#s15">15 Governing law</a> <span>·</span> <a href="#s16">16 Changes</a> <span>·</span> <a href="#s17">17 Contact and notices</a></div>
 
 <section id="s1">
   <h2>1 Overview and acceptance</h2>
@@ -1174,11 +1188,11 @@
 
 <section id="s8">
   <h2>8 Refunds</h2>
-  <p><strong>The voluntary window is seven days.</strong> Cancel a first paid period — monthly or yearly, Subscription or Pro — within seven days of the charge and we refund that period in full: use the account page, or write to us under section 17. A renewal is not covered by the window, and after the first seven days a period is not refunded. Cancelling outside the window still stops the next charge, and your access runs to the end of the period you have already paid for.</p>
+  <p><strong>The voluntary window is three days.</strong> Cancel a first paid period — monthly or yearly, Subscription or Pro — within three days of the charge and we refund that period in full: use the account page, or write to us under section 17. A renewal is not covered by the window, and after the first three days a period is not refunded. Cancelling outside the window still stops the next charge, and your access runs to the end of the period you have already paid for.</p>
   <p>Two things stand beside that window:</p>
   <ul>
     <li><strong>Nothing in these Terms reduces your mandatory consumer rights.</strong> Where the law of your country of residence gives you a right you cannot sign away, including a statutory right of withdrawal from a distance purchase, that right stands; if anything here reads as narrower, the right wins.</li>
-    <li><strong>Where the law gives you longer than seven days, the law wins.</strong> If the country you live in gives you a longer withdrawal window on a distance purchase, that window governs, and nothing here shortens it.</li>
+    <li><strong>Where the law gives you longer than three days, the law wins.</strong> If the country you live in gives you a longer withdrawal window on a distance purchase, that window governs, and nothing here shortens it.</li>
   </ul>
   <p>A refund that is due goes back to the card it came from, in the currency you paid, through Stripe.</p>
 </section>
@@ -1196,12 +1210,14 @@
 </section>
 
 <section id="s10">
-  <h2>10 Supported platforms</h2>
-  <p>Overlord is provided natively for Linux and Windows.</p>
+  <h2>10 Windows beta and the waitlist</h2>
+  <p>Linux and Steam Deck are the builds that exist, and they are native. Windows is in beta and is not shipped, and it gets no date: the waitlist on the site promises no launch day.</p>
   <ul>
-    <li><strong>Native builds.</strong> Distributed via native .deb packages for Linux systems and standalone executable packages for Windows.</li>
-    <li><strong>Compatibility.</strong> Display server and hardware requirements are updated as graphics technologies evolve.</li>
+    <li><strong>A place on the waitlist is not a purchase and not a licence.</strong> It costs nothing, gives you no right to the beta, and reserves no price.</li>
+    <li><strong>No date is promised</strong>, because a date we do not control is a promise we cannot keep.</li>
+    <li><strong>Beta access can change or be withdrawn:</strong> features may be added, altered or removed, access may be limited by machine or account, and the beta may end.</li>
   </ul>
+  <p>Nothing you pay for depends on the Windows beta: a paid plan buys what section 4 describes.</p>
 </section>
 
 <section id="s11">
@@ -1286,7 +1302,7 @@
       </nav>
     </div>
     <div class="site-footer__bottom">
-      <span>Linux and Windows</span>
+      <span>Linux / Steam Deck / Windows</span>
       <span>© '26 Overlord AI</span>
       <div class="legal">
         <a href="eula.html">EULA</a>
