@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Reddit Ads pixel: retargeting + campaign measurement (see privacy.html) -->
+<script>
+  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+  rdt('init','a2_jsu6ejw28fu8');
+  rdt('track','PageVisit');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Overlord AI — Live Voice Co-Pilot for Single-Player Games</title>
@@ -2269,8 +2276,8 @@
   addEventListener('keydown', e => { if (e.key === 'Escape' && cs.classList.contains('is-open')) close(); });
 
   // waitlist: POST straight to Supabase (no backend needed)
-  const SUPABASE_URL = 'https://YOUR-PROJECT.supabase.co'; // TODO: paste your Supabase Project URL
-  const SUPABASE_ANON_KEY = 'YOUR-ANON-KEY';               // TODO: paste your anon (public) key
+  const SUPABASE_URL = 'https://bzxzhizvfzmldpkxxuqu.supabase.co'; // live project (public anon key, same one auth-config.js ships)
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ6eHpoaXp2ZnptbGRwa3h4dXF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NzUwNTYsImV4cCI6MjEwNjE1MTA1Nn0.2Yj_uJF7g_0BEp1ZbhwrgfbUOv52Ob6i0iRNdebXk9g';               // public by design: it is already client-side in assets/auth-config.js
   const form = document.getElementById('csForm');
   form.addEventListener('submit', async e => {
     e.preventDefault();
@@ -2292,6 +2299,7 @@
         body: JSON.stringify({ email })
       });
       if (!r.ok) throw new Error('HTTP ' + r.status);
+      if (window.rdt) rdt('track', 'Lead');   // real signup, not a page load
       form.innerHTML = '<p class="cs__done">You are on the list.</p>';
     } catch (err) {
       btn.disabled = false;

@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Reddit Ads pixel: retargeting + campaign measurement (see privacy.html) -->
+<script>
+  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+  rdt('init','a2_jsu6ejw28fu8');
+  rdt('track','PageVisit');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Support & FAQ — Overlord AI</title>
@@ -1169,11 +1176,15 @@
 <p>The Site is a website with no screen access and no knowledge of your play.</p>
 <h3>If you join the waitlist</h3>
 <p>The email you give is stored in a Supabase table, and a Resend mail confirms the signup into our own inbox. The service that receives it runs on Railway. That is the whole path: one address, kept so we can tell you when the Windows beta exists.</p>
+<h3>Advertising pixels</h3>
+<p>Since 5 October 2026 one third-party script runs on these pages: the Reddit Ads pixel (<code>redditstatic.com/ads/pixel.js</code>). We are running a small advertising test on Reddit, and that pixel is how the test is measured. It reports that a page was viewed, which page it was, and the click identifier from the advertisement that brought you here, then sends that to Reddit under a first-party cookie it sets in your browser. It is how we learn which advertisement is worth paying for, and it is what lets us stop showing advertisements to people who already use the App.</p>
+<p>What it does not do: it never sees your screen, your licence key, your account or anything the App reads (§3, §5). It does not run inside the App at all — only on these web pages — and the Site works normally without it. If you would rather not be measured, block it the way you would block any ad script, or write to privacy@overlordai.co and we will record the objection against your address.</p>
 <h3>What the Site does not do</h3>
 <ul>
-<li>No analytics and no tracking cookies. The storefront template arrived with a Google Tag Manager container belonging to its original author, which would have measured our visitors into somebody else's account; it is switched off. No analytics load unless we configure a container of our own.</li>
-<li>The Site is served by Vercel from a GitHub repository, and the only thing it writes to your browser is localStorage for the light or dark theme.</li>
+<li>No Google Tag Manager, no Google Analytics and no advertising identifiers of our own beyond the Reddit pixel described above. The storefront template arrived with a Google Tag Manager container belonging to its original author, which would have measured our visitors into somebody else's account; it is switched off, and we have not created one of our own.</li>
+<li>The Site is served by Vercel from a GitHub repository. What it writes to your browser is localStorage for the light or dark theme, plus the Reddit pixel's own cookie described above.</li>
 </ul>
+<p>Links that come from an advertisement are tagged with the campaign that paid for them (for example <code>wukong-traffic-3d</code>), so we can count how many visitors each advertisement brought.</p>
 <div class="lg__note"><b>No card data anywhere.</b> There is no checkout and no purchase record here. The catalogue is mock data until the licence store exists, so there is nothing to pay with.</div>
 </section>
 
