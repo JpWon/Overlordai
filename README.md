@@ -38,7 +38,8 @@ Instead of pausing to search wikis, scrolling through Reddit threads, or scrubbi
 * **👁️ Real-Time Screen Awareness**: Inspects gameplay visual state with sub-second responsiveness without degrading your framerate.
 * **🎙️ Natural Voice Co-Pilot**: Powered by ultra-low-latency local neural voice synthesis. Hear tactical callouts as naturally as talking to a co-op partner.
 * **🗺️ Built-in Secret & Ability Atlas**: Instant access to hidden loot, breakable walls, Ability Points (AP), secret rafters, and exclusive upgrades across supported titles.
-* **🛡️ Zero Performance Overhead**: Whisper-silent edge capture designed to preserve maximum GPU rendering budget and 144+ FPS refresh rates.
+* **🛡️ 100% Ban-Safe & Fair Play**: Unlike cheat trainers or memory injectors, Overlord AI never injects DLLs, never touches game memory, and never risks account bans. It operates purely via external screen vision—giving you legitimate tactical mastery.
+* **⚡ Zero Performance Overhead**: Whisper-silent edge capture designed to preserve maximum GPU rendering budget and 144+ FPS refresh rates.
 * **🚫 Zero Alt-Tab Distraction**: Stay focused on the fight. No intrusive full-screen overlays—just crisp, actionable audio guidance when you need it.
 
 ---
