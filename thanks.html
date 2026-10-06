@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18496558698"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18496558698');
+
+  // Purchase conversion measurement for paid plans
+  const params = new URLSearchParams(window.location.search);
+  gtag('event', 'purchase', {
+    transaction_id: params.get('session_id') || 'stripe_' + Date.now(),
+    value: 14.99,
+    currency: 'USD'
+  });
+</script>
+
+<!-- Reddit Ads pixel: retargeting + purchase measurement -->
+<script>
+  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+  rdt('init','a2_jsu6ejw28fu8');
+  rdt('track','PageVisit');
+  rdt('track','Purchase');
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Configure tag once your Tag ID is set
+  const GOOGLE_TAG_ID = 'TAG_ID_PLACEHOLDER';
+  if (GOOGLE_TAG_ID !== 'TAG_ID_PLACEHOLDER') {
+    gtag('config', GOOGLE_TAG_ID);
+    const params = new URLSearchParams(window.location.search);
+    gtag('event', 'purchase', {
+      transaction_id: params.get('session_id') || 'stripe_' + Date.now(),
+      value: 14.99,
+      currency: 'USD'
+    });
+    // Also fires Google Ads conversion if conversion label is configured:
+    // gtag('event', 'conversion', { 'send_to': GOOGLE_TAG_ID + '/LABEL_HERE', 'value': 14.99, 'currency': 'USD' });
+  }
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Confirmed — Overlord AI</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- Post-checkout conversion page: prevent search engine indexing -->
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Thank you for subscribing to Overlord AI. Your live co-pilot license is active.">
+<link rel="canonical" href="https://www.overlordai.co/thanks.html">
+<meta name="application-name" content="Overlord AI">
+<meta name="apple-mobile-web-app-title" content="Overlord">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Overlord AI">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Payment Confirmed — Overlord AI">
+<meta property="og:description" content="Thank you for subscribing to Overlord AI. Your live co-pilot license is active.">
+<meta property="og:url" content="https://www.overlordai.co/thanks.html">
+<meta property="og:image" content="https://www.overlordai.co/og-thumbnail.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Payment Confirmed — Overlord AI">
+<meta name="twitter:description" content="Thank you for subscribing to Overlord AI. Your live co-pilot license is active.">
+<meta name="twitter:image" content="https://www.overlordai.co/og-thumbnail.png">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
+<script>
+  /* theme init — matches localStorage "data-theme" */
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('data-theme') || 'dark');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --accent:#6d5cff;
+    --success:#10b981;
+    --naples-moss:#2A4A3E; --naples-terracotta:#C17F3A; --naples-gold:#D4A24E;
+    --brand-strong:var(--neutral-on-background-strong);
+  }
+  [data-theme="light"]{
+    --page-background:#ffffff;
+    --card-bg:#f8f8fa;
+    --neutral-on-background-strong:#0a0a0a;
+    --neutral-on-background-weak:#6b6b6b;
+    --neutral-alpha-weak:rgba(0,0,0,.08);
+    --neutral-alpha-medium:rgba(0,0,0,.20);
+    --card-glow:rgba(109,92,255,.08);
+  }
+  [data-theme="dark"]{
+    --page-background:#000000;
+    --card-bg:#0a0912;
+    --neutral-on-background-strong:#ffffff;
+    --neutral-on-background-weak:#a3a3a3;
+    --neutral-alpha-weak:rgba(255,255,255,.12);
+    --neutral-alpha-medium:rgba(255,255,255,.24);
+    --card-glow:rgba(109,92,255,.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--page-background);
+    color:var(--neutral-on-background-strong);
+    font-family:'Space Grotesk',sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  #ambient{
+    position:fixed;inset:0;pointer-events:none;z-index:0;
+  }
+
+  /* NAV */
+  .ovr-nav{
+    position:sticky;top:0;width:100%;display:flex;
+    z-index:1200;isolation:isolate;
+    background:color-mix(in srgb, var(--page-background) 82%, transparent);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--neutral-alpha-weak);
+  }
+  .ovr-nav__row{
+    display:flex;width:100%;justify-content:space-between;align-items:center;
+    padding:16px 24px;max-width:1400px;margin:0 auto;
+  }
+  .ovr-nav__side{display:flex;align-items:center;gap:1.4rem;}
+  .ovr-logo{
+    display:flex;align-items:center;gap:.9rem;text-decoration:none;
+    color:var(--neutral-on-background-strong);
+  }
+  .ovr-logo__icon{
+    width:32px;height:32px;
+    background-color:currentColor;
+    -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+            mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+  }
+  .ovr-logo__text{display:flex;flex-direction:column;line-height:1.05;}
+  .ovr-logo__mark{font-family:'Anton',sans-serif;font-size:1.15rem;letter-spacing:.06em;}
+  .ovr-logo__sub{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+
+  .navbar-desktop-links{display:flex;align-items:center;gap:2rem;}
+  @media(max-width:768px){.navbar-desktop-links{display:none;}}
+  .nav-hover{
+    text-decoration:none;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--neutral-on-background-weak);transition:color .3s ease;
+  }
+  .nav-hover:hover{color:var(--neutral-on-background-strong);}
+  .nav-live{
+    display:inline-flex;align-items:center;gap:.5rem;padding:6px 14px;
+    border-radius:999px;border:1px solid var(--neutral-alpha-weak);
+    text-decoration:none;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--neutral-on-background-strong);transition:border-color .3s ease;
+  }
+  .nav-live:hover{border-color:var(--accent);}
+  .nav-live__dot-wrap{position:relative;width:8px;height:8px;}
+  .nav-live__dot{position:absolute;inset:0;border-radius:50%;background:var(--success);}
+  .nav-live__ring{position:absolute;inset:-3px;border-radius:50%;border:1px solid var(--success);animation:ping 2s cubic-bezier(0,0,.2,1) infinite;}
+  @keyframes ping{75%,100%{transform:scale(2.2);opacity:0;}}
+
+  /* Celestial toggle */
+  .celestial-toggle{
+    position:relative;width:40px;height:40px;border-radius:50%;
+    border:1px solid var(--neutral-alpha-weak);background:transparent;
+    color:var(--neutral-on-background-strong);cursor:pointer;
+    display:grid;place-items:center;transition:border-color .3s ease;
+  }
+  .celestial-toggle:hover{border-color:var(--accent);}
+  .celestial-toggle__icon-wrapper{position:relative;width:20px;height:20px;}
+  .celestial-toggle__sun,.celestial-toggle__moon{
+    position:absolute;inset:0;transition:opacity .4s ease,transform .4s ease;
+  }
+  .celestial-toggle__icon--hidden{opacity:0;transform:rotate(90deg) scale(.5);pointer-events:none;}
+  .celestial-toggle__icon--visible{opacity:1;transform:rotate(0deg) scale(1);}
+
+  /* MAIN WRAPPER */
+  .thanks-wrap{
+    position:relative;z-index:10;
+    flex:1 0 auto;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:8vh 1.5rem 10vh;
+    max-width:880px;margin:0 auto;width:100%;
+  }
+
+  /* CONFIRMATION CARD */
+  .card{
+    position:relative;width:100%;
+    background:var(--card-bg);
+    border:1px solid var(--neutral-alpha-medium);
+    border-radius:12px;
+    padding:3.5rem 2.8rem 3rem;
+    box-shadow:0 30px 90px -20px var(--card-glow);
+    text-align:center;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  @media(max-width:640px){
+    .card{padding:2.4rem 1.4rem 2rem;}
+  }
+
+  .card::before{
+    content:'';position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(circle at 50% 0%, rgba(109,92,255,.16), transparent 70%);
+    pointer-events:none;
+  }
+
+  /* STATUS BADGE */
+  .status-badge{
+    display:inline-flex;align-items:center;gap:.6rem;
+    padding:7px 16px;border-radius:999px;
+    background:rgba(16,185,129,.12);
+    border:1px solid rgba(16,185,129,.35);
+    color:var(--success);
+    font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;
+    margin-bottom:1.8rem;
+  }
+  .status-badge i{
+    width:7px;height:7px;border-radius:50%;background:var(--success);
+    box-shadow:0 0 10px var(--success);
+  }
+
+  /* HEADINGS */
+  h1{
+    font-family:'Anton',sans-serif;
+    font-weight:400;text-transform:uppercase;
+    font-size:clamp(2.8rem,7vw,5.5rem);
+    line-height:.95;letter-spacing:-.01em;
+    margin-bottom:1rem;
+    color:var(--neutral-on-background-strong);
+  }
+  h1 span{color:var(--accent);}
+
+  .lead{
+    font-size:clamp(.95rem,1.8vw,1.18rem);
+    color:var(--neutral-on-background-weak);
+    line-height:1.55;
+    max-width:580px;
+    margin:0 auto 2.4rem;
+  }
+
+  /* SUMMARY LEDGER */
+  .ledger{
+    background:color-mix(in srgb, var(--page-background) 70%, transparent);
+    border:1px solid var(--neutral-alpha-weak);
+    border-radius:8px;
+    padding:1.4rem 1.6rem;
+    margin:0 auto 2.4rem;
+    max-width:600px;
+    text-align:left;
+    display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 1.6rem;
+    font-size:.82rem;
+  }
+  @media(max-width:540px){
+    .ledger{grid-template-columns:1fr;gap:.9rem;}
+  }
+  .ledger-item{display:flex;flex-direction:column;gap:.3rem;}
+  .ledger-label{
+    font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--neutral-on-background-weak);font-family:'Space Mono',monospace;
+  }
+  .ledger-val{
+    font-weight:500;color:var(--neutral-on-background-strong);
+    word-break:break-all;
+  }
+  .mono{font-family:'Space Mono',monospace;}
+
+  /* REDIRECT PROGRESS BOX */
+  .redirect-box{
+    background:color-mix(in srgb, var(--accent) 8%, transparent);
+    border:1px solid rgba(109,92,255,.3);
+    border-radius:8px;
+    padding:1.4rem 1.6rem;
+    margin:0 auto 2.4rem;
+    max-width:600px;
+    display:flex;flex-direction:column;gap:.9rem;
+  }
+  .redirect-text{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;
+  }
+  .redirect-text b{color:var(--accent);font-family:'Space Mono',monospace;font-size:.9rem;}
+  .progress-track{
+    width:100%;height:5px;
+    background:var(--neutral-alpha-weak);
+    border-radius:999px;overflow:hidden;position:relative;
+  }
+  .progress-bar{
+    height:100%;width:0%;
+    background:linear-gradient(90deg, var(--accent), #9b8eff);
+    border-radius:999px;
+    transition:width .1s linear;
+  }
+
+  /* BUTTONS & ACTIONS */
+  .actions{
+    display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;
+    max-width:600px;margin:0 auto;
+  }
+  .btn{
+    position:relative;overflow:hidden;isolation:isolate;
+    display:inline-flex;align-items:center;justify-content:center;gap:.9rem;
+    padding:1.1rem 2.2rem;border-radius:6px;text-decoration:none;cursor:pointer;
+    font:600 .74rem/1 'Space Grotesk',sans-serif;letter-spacing:.22em;text-transform:uppercase;
+    border:1px solid currentColor;color:inherit;background:transparent;
+    transition:color .35s ease,border-color .35s ease,transform .2s ease;
+    flex:1 1 260px;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn::after{
+    content:'';position:absolute;inset:0;z-index:-1;background:var(--accent);
+    transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(0.19,1,0.22,1);
+  }
+  .btn:hover{color:#fff !important;border-color:var(--accent);}
+  .btn:hover::after{transform:scaleX(1);}
+  .btn .arr{transition:transform .3s ease;}
+  .btn:hover .arr{transform:translateX(5px);}
+
+  .btn--primary{
+    background:var(--neutral-on-background-strong);
+    color:var(--page-background);
+    border-color:var(--neutral-on-background-strong);
+  }
+  .btn--primary:hover{
+    background:var(--accent);
+    border-color:var(--accent);
+  }
+
+  .btn--ghost{
+    color:var(--neutral-on-background-strong);
+    border-color:var(--neutral-alpha-medium);
+  }
+
+  /* EXTRA CARDS */
+  .quick-links{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;
+    width:100%;margin-top:2.5rem;
+  }
+  @media(max-width:768px){.quick-links{grid-template-columns:1fr;}}
+  .qcard{
+    background:var(--card-bg);border:1px solid var(--neutral-alpha-weak);
+    border-radius:8px;padding:1.4rem;text-align:left;text-decoration:none;
+    color:inherit;transition:border-color .3s ease,transform .2s ease;
+  }
+  .qcard:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .qcard-tag{
+    font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--neutral-on-background-weak);margin-bottom:.5rem;
+    display:block;
+  }
+  .qcard-title{
+    font-weight:600;font-size:.95rem;margin-bottom:.4rem;display:flex;align-items:center;justify-content:space-between;
+  }
+  .qcard-desc{
+    font-size:.78rem;line-height:1.5;color:var(--neutral-on-background-weak);
+  }
+
+  /* FOOTER */
+  .site-footer{
+    width:100%;margin-top:auto;
+    border-top:1px solid var(--neutral-alpha-weak);
+    background:var(--page-background);
+    padding:2.5rem 1.5rem;
+  }
+  .site-footer__inner{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:1.5rem;}
+  .site-footer__bottom{
+    display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;
+    font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--neutral-on-background-weak);
+  }
+  .site-footer__bottom a{color:inherit;text-decoration:none;transition:color .3s ease;}
+  .site-footer__bottom a:hover{color:var(--accent);}
+  .legal{display:flex;gap:1.4rem;}
+</style>
+</head>
+<body>
+
+<canvas id="ambient"></canvas>
+
+<!-- Top Nav -->
+<header class="ovr-nav">
+  <div class="ovr-nav__row">
+    <div class="ovr-nav__side">
+      <a class="ovr-logo" href="index.html#top">
+        <span class="ovr-logo__icon" aria-hidden="true"></span>
+        <span class="ovr-logo__text">
+          <span class="ovr-logo__mark">OVERLORD</span>
+          <span class="ovr-logo__sub">AI Co-Pilot</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="navbar-desktop-links">
+      <a class="nav-hover" href="index.html#top">Home</a>
+      <a class="nav-hover" href="index.html#work">Preview</a>
+      <a class="nav-hover" href="plans.html">Plans</a>
+      <a class="nav-live" href="dashboard.html" title="Access Control Deck">
+        <span class="nav-live__dot-wrap" aria-hidden="true">
+          <span class="nav-live__dot"></span>
+          <span class="nav-live__ring"></span>
+        </span>
+        <span>Control Deck</span>
+      </a>
+    </div>
+
+    <div class="ovr-nav__side">
+      <button id="celestial-toggle" class="celestial-toggle" aria-label="Toggle theme">
+        <div class="celestial-toggle__icon-wrapper">
+          <svg class="celestial-toggle__sun celestial-toggle__icon--visible" viewBox="0 0 24 24" fill="none" width="20" height="20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.4"/>
+            <path d="M12 2.7v2.1M12 19.2v2.1M2.7 12h2.1M19.2 12h2.1M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M18.6 5.4l-1.5 1.5M6.9 17.1l-1.5 1.5"/>
+          </svg>
+          <svg class="celestial-toggle__moon celestial-toggle__icon--hidden" viewBox="0 0 24 24" fill="none" width="20" height="20">
+            <path d="M20.6 13.4A8.6 8.6 0 1 1 10.6 3.4a7.1 7.1 0 0 0 10 10z" fill="currentColor"/>
+            <path d="M18.7 3.9l.5 1.2 1.2.5-1.2.5-.5 1.2-.5-1.2-1.2-.5 1.2-.5z" fill="currentColor"/>
+          </svg>
+        </div>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="thanks-wrap">
+  <div class="card">
+    <div class="status-badge">
+      <i></i>
+      <span>Payment Verified · Live Access Active</span>
+    </div>
+
+    <h1>Payment <span>Confirmed</span></h1>
+    <p class="lead">
+      Your subscription has been authorized via Stripe. Your license and access keys are unlocked on your Control Deck.
+    </p>
+
+    <div class="ledger">
+      <div class="ledger-item">
+        <span class="ledger-label">Account Status</span>
+        <span class="ledger-val" style="color:var(--success);">Active · Paid Plan</span>
+      </div>
+      <div class="ledger-item">
+        <span class="ledger-label">Billing Engine</span>
+        <span class="ledger-val">Stripe Secured (Receipt Emailed)</span>
+      </div>
+      <div class="ledger-item">
+        <span class="ledger-label">Transaction Reference</span>
+        <span class="ledger-val mono" id="sessionRef">Loading...</span>
+      </div>
+      <div class="ledger-item">
+        <span class="ledger-label">Platform Support</span>
+        <span class="ledger-val">Linux (.deb) &amp; Windows Native</span>
+      </div>
+    </div>
+
+    <div class="redirect-box">
+      <div class="redirect-text">
+        <span id="redirectLabel">Redirecting to Control Deck in</span>
+        <b id="countdownTimer">6s</b>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn--primary" id="goDeckBtn" href="dashboard.html">
+        Go to Control Deck <span class="arr">&rarr;</span>
+      </a>
+      <button class="btn btn--ghost" type="button" id="togglePauseBtn">
+        Pause Redirect
+      </button>
+    </div>
+  </div>
+
+  <div class="quick-links">
+    <a class="qcard" href="dashboard.html#downloads">
+      <span class="qcard-tag">Step 01 · Install</span>
+      <div class="qcard-title">Download Client <span>&rarr;</span></div>
+      <p class="qcard-desc">Grab the native Linux .deb or standalone Windows build with full zero-copy screen reflex.</p>
+    </a>
+
+    <a class="qcard" href="dashboard.html#keys">
+      <span class="qcard-tag">Step 02 · Auth</span>
+      <div class="qcard-title">Link License Key <span>&rarr;</span></div>
+      <p class="qcard-desc">Activate your gaming desktop with one-click licensing generated directly on your Control Deck.</p>
+    </a>
+
+    <a class="qcard" href="https://discord.gg/ZPZeJDAw9C" target="_blank" rel="noopener">
+      <span class="qcard-tag">Community &amp; Support</span>
+      <div class="qcard-title">Discord Guild <span>&rarr;</span></div>
+      <p class="qcard-desc">Connect with players, report game profile requests, and get instant technical assistance.</p>
+    </a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__bottom">
+      <span>Linux and Windows · Overlord AI</span>
+      <span>&copy; '26 Overlord AI</span>
+      <div class="legal">
+        <a href="https://discord.gg/ZPZeJDAw9C">Discord</a>
+        <a href="eula.html">EULA</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ---------- URL params & Session Ref ---------- */
+  (() => {
+    const params = new URLSearchParams(window.location.search);
+    const session = params.get('session_id');
+    const refEl = document.getElementById('sessionRef');
+    if (session) {
+      refEl.textContent = session.length > 24 ? (session.slice(0, 14) + '...' + session.slice(-6)) : session;
+      refEl.title = session;
+    } else {
+      refEl.textContent = 'STRIPE-DIRECT-SUCCESS';
+    }
+
+    // Flag local session as active subscriber
+    try {
+      localStorage.setItem('ovr_tier', 'subscription');
+      localStorage.setItem('ovr_paid_timestamp', Date.now().toString());
+    } catch(e) {}
+  })();
+
+  /* ---------- Countdown & Auto-Redirect ---------- */
+  (() => {
+    const TOTAL_MS = 6000;
+    const INTERVAL_MS = 50;
+    let elapsed = 0;
+    let isPaused = false;
+    let timerId = null;
+
+    const bar = document.getElementById('progressBar');
+    const timerLabel = document.getElementById('countdownTimer');
+    const pauseBtn = document.getElementById('togglePauseBtn');
+    const redirectLabel = document.getElementById('redirectLabel');
+
+    function update() {
+      if (isPaused) return;
+      elapsed += INTERVAL_MS;
+      const progress = Math.min((elapsed / TOTAL_MS) * 100, 100);
+      bar.style.width = progress + '%';
+
+      const remainingSec = Math.max(0, Math.ceil((TOTAL_MS - elapsed) / 1000));
+      timerLabel.textContent = remainingSec + 's';
+
+      if (elapsed >= TOTAL_MS) {
+        clearInterval(timerId);
+        window.location.assign('dashboard.html');
+      }
+    }
+
+    timerId = setInterval(update, INTERVAL_MS);
+
+    pauseBtn.addEventListener('click', () => {
+      isPaused = !isPaused;
+      if (isPaused) {
+        pauseBtn.textContent = 'Resume Redirect';
+        redirectLabel.textContent = 'Redirect paused';
+        bar.style.opacity = '0.5';
+      } else {
+        pauseBtn.textContent = 'Pause Redirect';
+        redirectLabel.textContent = 'Redirecting to Control Deck in';
+        bar.style.opacity = '1';
+      }
+    });
+  })();
+
+  /* ---------- Theme Switcher ---------- */
+  (() => {
+    const t = document.getElementById('celestial-toggle');
+    const sun = t.querySelector('.celestial-toggle__sun');
+    const moon = t.querySelector('.celestial-toggle__moon');
+    let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+    function render() {
+      sun.classList.toggle('celestial-toggle__icon--hidden', isDark);
+      sun.classList.toggle('celestial-toggle__icon--visible', !isDark);
+      moon.classList.toggle('celestial-toggle__icon--visible', isDark);
+      moon.classList.toggle('celestial-toggle__icon--hidden', !isDark);
+      t.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+
+    t.addEventListener('click', () => {
+      isDark = !isDark;
+      const theme = isDark ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('data-theme', theme);
+      render();
+    });
+    render();
+  })();
+
+  /* ---------- Ambient Canvas ---------- */
+  (() => {
+    const c = document.getElementById('ambient'), ctx = c.getContext('2d');
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const TAU = Math.PI*2, dpr = Math.min(devicePixelRatio || 1, 2);
+    let W, H;
+    const size = () => { W = innerWidth; H = innerHeight; c.width = W*dpr; c.height = H*dpr; c.style.width = W+'px'; c.style.height = H+'px'; ctx.setTransform(dpr,0,0,dpr,0,0); };
+    size(); addEventListener('resize', size);
+
+    let t = 0;
+    function draw() {
+      ctx.clearRect(0,0,W,H);
+      const cx = W * 0.5, cy = H * 0.35;
+      const R = Math.min(W,H) * 0.45;
+      const g0 = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+      g0.addColorStop(0, 'rgba(109, 92, 255, 0.18)');
+      g0.addColorStop(0.5, 'rgba(60, 40, 160, 0.06)');
+      g0.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = g0;
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, TAU);
+      ctx.fill();
+
+      if (!reduced) {
+        t += 0.01;
+        requestAnimationFrame(draw);
+      }
+    }
+    requestAnimationFrame(draw);
+  })();
+</script>
+</body>
+</html>
