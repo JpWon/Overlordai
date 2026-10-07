@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Rewardful affiliate tracking -->
+<script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
+<script async src="https://r.wdfl.co/rw.js" data-rewardful="f1219f"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18496558698"></script>
 <script>
@@ -17,6 +20,16 @@
     value: 14.99,
     currency: 'USD'
   });
+
+  // Rewardful affiliate conversion tracking
+  if (typeof rewardful === 'function') {
+    const customerEmail = params.get('customer_email') || params.get('email') || localStorage.getItem('user_email');
+    if (customerEmail) {
+      rewardful('convert', { email: customerEmail });
+    } else {
+      rewardful('convert');
+    }
+  }
 </script>
 
 <!-- Reddit Ads pixel: retargeting + purchase measurement -->
