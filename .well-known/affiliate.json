@@ -42,7 +42,9 @@
     },
     "verification_event": "stripe.checkout.session.completed",
     "recurring_event": "stripe.invoice.paid",
-    "hold_period_days": 7,
+    "hold_period_days": 5,
+    "cancellation_policy_days": 3,
+    "hold_rationale": "5-day hold period covering 3-day customer cancellation policy plus 2 safety buffer days before payout clearance",
     "chargeback_clawback": true
   },
   "tracking_architecture": {
