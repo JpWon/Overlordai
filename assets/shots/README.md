@@ -1,15 +1,16 @@
 # Carousel assets — section 3, the ring
 
-All six panes in `index.html`'s `CARDS` array are live as of 2026-10-05.
+All seven panes in `index.html`'s `CARDS` array are live as of 2026-10-07.
 
 | # | Pane | Kind | Source |
 |---|------|------|--------|
 | 1 | Dashboard demo | `video` + `poster` | `assets/reels/dashboard-demo.mp4` |
-| 2 | Divine Prayer | `embed` | `assets/hud/prayer-hud.html` |
-| 3 | GPS Radar | `embed` | `assets/hud/gps-card.html` |
-| 4 | Combo Card | `embed` | `assets/hud/combo-card.html` |
-| 5 | Loot Card | `embed` | `assets/hud/loot-card.html` |
-| 6 | NPC Interaction | `embed` | `assets/hud/npc-card.html` |
+| 2 | Gold Combo | `video` + `poster` | `assets/reels/gold-combo.mp4` |
+| 3 | Divine Prayer | `embed` | `assets/hud/prayer-hud.html` |
+| 4 | GPS Radar | `embed` | `assets/hud/gps-card.html` |
+| 5 | Combo Card | `embed` | `assets/hud/combo-card.html` |
+| 6 | Loot Card | `embed` | `assets/hud/loot-card.html` |
+| 7 | NPC Interaction | `embed` | `assets/hud/npc-card.html` |
 
 ## Swapping a pane for a real screenshot or clip
 
