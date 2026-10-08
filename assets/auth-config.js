@@ -9,7 +9,7 @@
  */
 window.OVERLORD_SUPABASE = {
   url: 'https://bzxzhizvfzmldpkxxuqu.supabase.co',
-  anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ6eHpoaXp2ZnptbGRwa3h4dXF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NzUwNTYsImV4cCI6MjEwNjE1MTA1Nn0.2Yj_uJF7g_0BEp1ZbhwrgfbUOv52Ob6i0iRNdebXk9g',
+  anonKey: 'sb_publishable_LEJ4On121RzEpDlCgiqm8w_cDc8BROJ',
   redirectTo: 'https://www.overlordai.co/dashboard.html',
 
   /* The one switch that turns the account page into a signed-in page:
