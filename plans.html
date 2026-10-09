@@ -1040,7 +1040,10 @@
 <main class="pricing" id="pricing">
 
   <div class="pricing__head"><b>Plans</b>
-    <div class="billing-toggle" role="group" aria-label="Billing period">
+    <!-- Hidden until yearly Stripe Payment Links exist: both buttons below lead to the MONTHLY
+         links, so "Yearly" would charge monthly (2026-10-08). Remove style="display:none" once
+         the plan buttons switch links with the period. -->
+    <div class="billing-toggle" role="group" aria-label="Billing period" style="display:none">
       <button type="button" class="billing-toggle__opt is-active" data-period="monthly" aria-pressed="true">Monthly</button>
       <button type="button" class="billing-toggle__opt" data-period="yearly" aria-pressed="false">Yearly <em>-17%</em></button>
     </div>
@@ -1259,6 +1262,18 @@
   };
   opts.forEach(b => b.addEventListener('click', () => apply(b.dataset.period)));
 })();
+</script>
+<script>
+// Rewardful -> Stripe Payment Links: carry the referral as client_reference_id so a referred
+// purchase is credited to the affiliate (Rewardful "Stripe Payment Links" guide, method B).
+rewardful('ready', function () {
+  if (!window.Rewardful || !Rewardful.referral) return;
+  document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function (a) {
+    var u = new URL(a.href);
+    u.searchParams.set('client_reference_id', Rewardful.referral);
+    a.href = u.toString();
+  });
+});
 </script>
 </body>
 </html>
