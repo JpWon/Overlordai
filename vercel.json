@@ -23,5 +23,11 @@
       "destination": "https://www.overlordai.co/:path*",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/featured",
+      "destination": "/featured.html"
+    }
   ]
 }
