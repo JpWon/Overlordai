@@ -845,6 +845,11 @@
   .featured__title{margin:0;font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(3rem,8vw,8rem);letter-spacing:-.01em;line-height:.9;text-transform:uppercase;}
   .featured__badges{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:1.5rem;margin-top:8vh;}
   .featured__badges img{display:block;max-width:100%;height:auto;}
+  .featured__also{margin:6vh auto 0;max-width:34rem;text-align:center;}
+  .featured__also h2{margin:0 0 .9rem;font:500 .66rem/1 'Space Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .featured__also ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 1.6rem;}
+  .featured__also a{color:var(--neutral-on-background-strong);text-decoration:none;border-bottom:1px solid var(--neutral-alpha-medium);padding-bottom:2px;transition:border-color .35s ease;}
+  .featured__also a:hover{border-color:var(--accent);}
   @media (max-width:600px){ .pricing{padding-left:16px;padding-right:16px;} }
 </style>
 <script>
@@ -949,6 +954,14 @@
     </a>
     <!-- PRODUCT HUNT BADGE: paste embed code from Product Hunt here -->
   </div>
+
+  <!-- Also listed on: one <li> per directory; add new listings below -->
+  <section class="featured__also" aria-labelledby="also-listed">
+    <h2 id="also-listed">Also listed on</h2>
+    <ul>
+      <li><a href="https://www.producthunt.com/products/overlord-ai?launch=overlord-ai" target="_blank" rel="noopener">Product Hunt</a></li>
+    </ul>
+  </section>
 
 </main>
 
