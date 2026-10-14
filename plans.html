@@ -1080,7 +1080,7 @@
         <li>Guided missions</li>
         <li>Local voice, on your PC</li>
       </ul>
-      <div class="plan__cta"><a class="btn btn--solid" href="checkout.html?plan=sub">Subscribe &mdash; $14.99/mo <span class="arr">&rarr;</span></a></div>
+      <div class="plan__cta"><a class="btn btn--solid" href="https://overlordai.lemonsqueezy.com/checkout/buy/8772e8e7-84b3-49d3-9105-ec887f28b738">Subscribe &mdash; $14.99/mo <span class="arr">&rarr;</span></a></div>
     </article>
 
     <article class="plan in" style="--d:.25s">
@@ -1095,7 +1095,7 @@
         <li>Move a seat any time</li>
         <li>Priority game profiles</li>
       </ul>
-      <div class="plan__cta"><a class="btn btn--solid" href="checkout.html?plan=pro">Go Pro &mdash; $39.99/mo <span class="arr">&rarr;</span></a></div>
+      <div class="plan__cta"><a class="btn btn--solid" href="https://overlordai.lemonsqueezy.com/checkout/buy/253380ba-c8c7-401c-92ec-c69661397577">Go Pro &mdash; $39.99/mo <span class="arr">&rarr;</span></a></div>
     </article>
   </div>
 
@@ -1266,10 +1266,14 @@
 })();
 </script>
 <script>
-// Rewardful -> Stripe Payment Links: carry the referral as client_reference_id so a referred
-// purchase is credited to the affiliate (Rewardful "Stripe Payment Links" guide, method B).
+// Rewardful -> Lemon Squeezy & Stripe: carry referral so affiliate purchase is credited
 rewardful('ready', function () {
   if (!window.Rewardful || !Rewardful.referral) return;
+  document.querySelectorAll('a[href*="lemonsqueezy.com/checkout/buy/"]').forEach(function (a) {
+    var u = new URL(a.href);
+    u.searchParams.set('checkout[custom][rewardful]', Rewardful.referral);
+    a.href = u.toString();
+  });
   document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function (a) {
     var u = new URL(a.href);
     u.searchParams.set('client_reference_id', Rewardful.referral);
