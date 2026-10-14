@@ -13,7 +13,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Support & FAQ — Overlord AI</title>
+<title>{{TITLE}}</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -23,24 +23,24 @@
 <!-- SEO + social: absolute URLs, factual only (no reviews exist, so no ratings) -->
 <!-- Search Console: paste your verification tag here as
      <meta name="google-site-verification" content=…> once you add the property -->
-<meta name="description" content="Overlord AI support: FAQ, contact, EULA, privacy and terms. How the pixel-read co-pilot works, and why it is built for single-player games only.">
+<meta name="description" content="{{DESCRIPTION}}">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
-<link rel="canonical" href="https://www.overlordai.co/support.html">
+<link rel="canonical" href="{{URL}}">
 <meta name="application-name" content="Overlord AI">
 <meta name="apple-mobile-web-app-title" content="Overlord">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Overlord AI">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Support & FAQ — Overlord AI">
-<meta property="og:description" content="Overlord AI support: FAQ, contact, EULA, privacy and terms. How the pixel-read co-pilot works, and why it is built for single-player games only.">
-<meta property="og:url" content="https://www.overlordai.co/support.html">
+<meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{DESCRIPTION}}">
+<meta property="og:url" content="{{URL}}">
 <meta property="og:image" content="https://www.overlordai.co/og-thumbnail.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Overlord AI rooster mark on paper">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Support & FAQ — Overlord AI">
-<meta name="twitter:description" content="Overlord AI support: FAQ, contact, EULA, privacy and terms. How the pixel-read co-pilot works, and why it is built for single-player games only.">
+<meta name="twitter:title" content="{{TITLE}}">
+<meta name="twitter:description" content="{{DESCRIPTION}}">
 <meta name="twitter:image" content="https://www.overlordai.co/og-thumbnail.png">
 <meta name="twitter:image:alt" content="Overlord AI rooster mark on paper">
 <script type="application/ld+json">
@@ -71,87 +71,13 @@
     },
     {
       "@type": "WebPage",
-      "@id": "https://www.overlordai.co/support.html#webpage",
-      "url": "https://www.overlordai.co/support.html",
-      "name": "Support & FAQ \u2014 Overlord AI",
-      "description": "Overlord AI support: FAQ, contact, EULA, privacy and terms. How the pixel-read co-pilot works, and why it is built for single-player games only.",
+      "@id": "{{URL}}#webpage",
+      "url": "{{URL}}",
+      "name": {{TITLE_JSON}},
+      "description": {{DESCRIPTION_JSON}},
       "isPartOf": {
         "@id": "https://www.overlordai.co/#website"
       }
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://www.overlordai.co/support.html#faq",
-      "url": "https://www.overlordai.co/support.html",
-      "isPartOf": {
-        "@id": "https://www.overlordai.co/#website"
-      },
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What does the free demo include?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Thirty minutes of runtime with the app open \u2014 the real product, not a cut-down one. It reads your screen, speaks out loud and covers the core guide. No card: it ends by stopping, not by charging. One trial per person."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do I need a credit card to start?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. The 30 minutes start without one, and they end by stopping rather than charging. A card is only ever taken when you choose the Subscription or Pro."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Which games does Overlord cover?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Control \u2014 five sectors mapped and shipped, with every new sector landing in the guide as it is finished. Guides are built one title at a time, so the next title is not decided yet: the games people ask for most come first. Everything published is included in the Subscription."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What platforms are supported?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Linux and Steam Deck, native \u2014 not a Windows build in a wrapper. That is the build that exists. Windows is in beta and not shipped: there is a waitlist on the site, and no date until we have one we control."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Will using Overlord get me banned?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. It reads pixels \u2014 the view a person sitting beside you would have \u2014 and nothing else: no game memory, no injection, no input automation. It is built for single-player games and refuses ranked or competitive multiplayer by design, which is where third-party tools get players banned."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is my game data read or sent anywhere?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Read, yes: a frame of your screen and the text of your question, which is how a question about a room it has never seen gets answered. That one call goes over HTTPS to the endpoint behind your own model key. Your audio, the transcript, your voice and your saves never leave the machine."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How many machines can I use it on?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Subscription is one machine. Pro is three, and you can move a seat any time \u2014 deactivate a machine, activate another. Licences are re-assignable, because hardware dies."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I cancel?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "From the account page, any time \u2014 monthly or yearly, no lock-in of either kind. Cancelling stops the next charge; access runs to the end of the period you have already paid for."
-          }
-        }
-      ]
     }
   ]
 }
