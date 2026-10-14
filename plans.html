@@ -3,9 +3,7 @@
 <head>
 <!-- Rewardful affiliate tracking -->
 <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
-
 <script async src="https://r.wdfl.co/rw.js" data-rewardful="f1219f"></script>
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18496558698"></script>
 <script>
@@ -663,72 +661,8 @@
   .pricing__lede{margin-top:1rem;max-width:34rem;font-size:.95rem;line-height:1.55;color:var(--neutral-on-background-weak);}
   .mono{font-family:'Space Mono',monospace;}
 
-  .pricing{
-    position:relative;z-index:5;
-    min-height:100vh;padding:10vh 2.5rem 10vh;max-width:1400px;margin:0 auto;
-  }
-  .pricing-split{
-    display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);
-    gap:3.5vw;margin-top:4vh;align-items:start;
-  }
-  @media (max-width:1024px){ .pricing-split{grid-template-columns:1fr;gap:6vh;} }
-
-  .plans-stack{display:flex;flex-direction:column;gap:1.25rem;margin-top:2.5vh;}
-  .plan-card{
-    position:relative;isolation:isolate;overflow:hidden;
-    display:flex;flex-direction:column;padding:1.8rem 2rem;
-    border:1px solid var(--neutral-alpha-medium);border-radius:8px;background:var(--page-background);
-    transition:border-color .4s ease,box-shadow .4s ease,background .4s ease,color .4s ease;
-    cursor:pointer;
-  }
-  .plan-card:hover{border-color:var(--accent);}
-  .plan-card.is-active{
-    border-color:var(--accent);
-    box-shadow:0 0 0 1px var(--accent),0 20px 60px -20px rgba(109,92,255,.35);
-  }
-  .plan-card__top{display:flex;justify-content:space-between;align-items:center;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
-  .badge-pop{color:var(--accent);font-weight:600;}
-  .plan-card__name{margin-top:1.2rem;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:2.4rem;line-height:1;}
-  .plan-card__tag{margin-top:.4rem;font-size:.84rem;color:var(--neutral-on-background-weak);line-height:1.45;}
-  .plan-card__price{margin-top:1.2rem;display:flex;align-items:baseline;gap:.6rem;}
-  .plan-card__price b{font-family:'Anton',sans-serif;font-weight:400;font-size:3.2rem;line-height:1;font-variant-numeric:tabular-nums;}
-  .plan-card__price span{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
-  .plan-card__list{list-style:none;margin:1.2rem 0 1.6rem;padding-top:1rem;border-top:1px solid var(--neutral-alpha-weak);display:flex;flex-direction:column;gap:.6rem;font-size:.82rem;}
-  .plan-card__list li{display:flex;gap:.7rem;align-items:baseline;}
-  .plan-card__list li::before{content:'+';font-family:'Space Mono',monospace;color:var(--accent);}
-  .plan-card__list li.off{opacity:.38;}
-  .plan-card__list li.off::before{content:'–';color:inherit;}
-  .plan-card__cta{margin-top:auto;}
-
-  /* Right Side: Embedded Checkout Console */
-  .checkout-console{
-    position:sticky;top:90px;width:100%;
-    border:1px solid var(--neutral-alpha-medium);border-radius:8px;overflow:hidden;
-    background:color-mix(in srgb,var(--page-background) 72%,transparent);
-    backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);
-    box-shadow:0 40px 100px -30px rgba(40,20,120,.35);
-  }
-  [data-theme="light"] .checkout-console{box-shadow:0 10px 22px -18px rgba(30,20,80,.16);}
-  .checkout-console .console__bar{
-    display:flex;justify-content:space-between;align-items:center;padding:.9rem 1.2rem;
-    border-bottom:1px solid var(--neutral-alpha-weak);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--neutral-on-background-weak);
-  }
-  .checkout-console .console__bar .dot{
-    display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);
-    margin-right:.55rem;box-shadow:0 0 10px var(--accent);animation:blink 2.4s ease-in-out infinite;
-  }
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-  .checkout-frame-wrap{
-    position:relative;width:100%;height:840px;background:transparent;
-  }
-  #checkoutFrame{
-    width:100%;height:100%;border:none;display:block;
-  }
-
   .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:7vh;}
   @media (max-width:980px){ .plans{grid-template-columns:1fr;} }
-
 
   .plan{
     position:relative;isolation:isolate;overflow:hidden;
@@ -1106,98 +1040,63 @@
 
 <main class="pricing" id="pricing">
 
-  <div class="pricing-split">
-    <!-- Left Half: Plans Overview & Selection -->
-    <div class="pricing-col pricing-col--plans">
-      <div class="pricing__head">
-        <h1>Plans</h1>
-      </div>
-      <p class="pricing__lede">30 minutes free, then a monthly subscription. Cancel any time.</p>
-
-      <div class="plans-stack">
-        <!-- 01 Free Demo -->
-        <article class="plan-card" data-plan="free">
-          <div class="plan-card__top">
-            <span>01 · Free</span>
-            <span>No credit card</span>
-          </div>
-          <div class="plan-card__name">Free demo</div>
-          <div class="plan-card__price"><b>$0</b><span>free forever</span></div>
-          <ul class="plan-card__list">
-            <li>30 minutes of live callouts</li>
-            <li>The core guide on screen</li>
-            <li>Local voice, on your PC</li>
-            <li class="off">Tactical overlay</li>
-            <li class="off">Guided missions</li>
-          </ul>
-          <div class="plan-card__cta">
-            <a class="btn btn--solid" href="login.html">Start the demo <span class="arr">&rarr;</span></a>
-          </div>
-        </article>
-
-        <!-- 02 Subscription $14.99/mo (Active Default) -->
-        <article class="plan-card is-active" data-plan="sub" id="cardSub" onclick="selectPlan('sub')">
-          <div class="orb"></div>
-          <div class="plan-card__top">
-            <span>02 · Monthly</span>
-            <span class="badge-pop">Most popular</span>
-          </div>
-          <div class="plan-card__name">Subscription</div>
-          <p class="plan-card__tag">The full guide, month to month. Cancel any time.</p>
-          <div class="plan-card__price"><b>$14.99</b><span>/ month</span></div>
-          <ul class="plan-card__list">
-            <li>Unlimited live play</li>
-            <li>Tactical overlay & guided missions</li>
-            <li>Secret rafter atlas & boss counter timing</li>
-            <li>Local neural voice on your PC</li>
-          </ul>
-          <div class="plan-card__cta">
-            <button type="button" class="btn btn--solid plan-select-btn" onclick="event.stopPropagation(); selectPlan('sub')">
-              <span>Selected for checkout</span> <span class="arr">&check;</span>
-            </button>
-          </div>
-        </article>
-
-        <!-- 03 Pro $39.99/mo -->
-        <article class="plan-card" data-plan="pro" id="cardPro" onclick="selectPlan('pro')">
-          <div class="orb"></div>
-          <div class="plan-card__top">
-            <span>03 · Monthly</span>
-            <span>3 PCs</span>
-          </div>
-          <div class="plan-card__name">Pro</div>
-          <p class="plan-card__tag">Everything in Subscription, across three PCs.</p>
-          <div class="plan-card__price"><b>$39.99</b><span>/ month</span></div>
-          <ul class="plan-card__list">
-            <li>Everything in Subscription</li>
-            <li>Three PCs, one account</li>
-            <li>Priority game profiles</li>
-          </ul>
-          <div class="plan-card__cta">
-            <button type="button" class="btn plan-select-btn" onclick="event.stopPropagation(); selectPlan('pro')">
-              <span>Switch to Pro — $39.99/mo</span> <span class="arr">&rarr;</span>
-            </button>
-          </div>
-        </article>
-      </div>
+  <div class="pricing__head"><h1>Plans</h1>
+    <!-- Hidden until yearly Stripe Payment Links exist: both buttons below lead to the MONTHLY
+         links, so "Yearly" would charge monthly (2026-10-08). Remove style="display:none" once
+         the plan buttons switch links with the period. -->
+    <div class="billing-toggle" role="group" aria-label="Billing period" style="display:none">
+      <button type="button" class="billing-toggle__opt is-active" data-period="monthly" aria-pressed="true">Monthly</button>
+      <button type="button" class="billing-toggle__opt" data-period="yearly" aria-pressed="false">Yearly <em>-17%</em></button>
     </div>
+  </div>
+  <p class="pricing__lede">30 minutes free, then a monthly subscription. Cancel any time.</p>
 
-    <!-- Right Half: Embedded Checkout Console -->
-    <div class="pricing-col pricing-col--checkout">
-      <div class="console checkout-console" aria-label="Checkout Console">
-        <div class="console__bar mono">
-          <span><span class="dot"></span>Secure Checkout &middot; 256-bit TLS</span>
-          <span id="clock">--:--:--</span>
-        </div>
-        <div class="checkout-frame-wrap">
-          <iframe id="checkoutFrame"
-                  src="https://overlordai.lemonsqueezy.com/checkout/buy/8772e8e7-84b3-49d3-9105-ec887f28b738?embed=1&dark=1"
-                  title="Overlord AI Checkout"
-                  scrolling="auto">
-          </iframe>
-        </div>
-      </div>
-    </div>
+  <div class="plans">
+    <article class="plan in" style="--d:.05s">
+      <div class="orb"></div>
+      <div class="plan__top"><span>01 · Free</span><span>No credit card</span></div>
+      <div class="plan__name">Free demo</div>
+      <p class="plan__tag">30 minutes of live play.</p>
+      <div class="plan__price"><b>$0</b><span>free forever</span></div>
+      <ul class="plan__list">
+        <li>30 minutes of live callouts</li>
+        <li>The core guide on screen</li>
+        <li>Local voice, on your PC</li>
+        <li class="off">Tactical overlay</li>
+        <li class="off">Guided missions</li>
+      </ul>
+      <div class="plan__cta"><a class="btn btn--solid" href="login.html">Start the demo <span class="arr">&rarr;</span></a></div>
+    </article>
+
+    <article class="plan in" style="--d:.15s">
+      <div class="orb"></div>
+      <div class="plan__top"><span>02 · Monthly</span><span>Most popular</span></div>
+      <div class="plan__name">Subscription</div>
+      <p class="plan__tag">The full guide, month to month. Cancel any time.</p>
+      <div class="plan__price" data-tier="sub"><b data-monthly="$14.99" data-yearly="$149.99">$14.99</b><span data-monthly="/ month" data-yearly="/ year">/ month</span></div>
+      <ul class="plan__list">
+        <li>Unlimited live play</li>
+        <li>Tactical overlay</li>
+        <li>Guided missions</li>
+        <li>Local voice, on your PC</li>
+      </ul>
+      <div class="plan__cta"><a class="btn btn--solid" href="checkout.html?plan=sub">Subscribe &mdash; $14.99/mo <span class="arr">&rarr;</span></a></div>
+    </article>
+
+    <article class="plan in" style="--d:.25s">
+      <div class="orb"></div>
+      <div class="plan__top"><span>03 · Monthly</span><span>3 PCs</span></div>
+      <div class="plan__name">Pro</div>
+      <p class="plan__tag">Everything in Subscription, across three PCs.</p>
+      <div class="plan__price" data-tier="pro"><b data-monthly="$39.99" data-yearly="$399.99">$39.99</b><span data-monthly="/ month" data-yearly="/ year">/ month</span></div>
+      <ul class="plan__list">
+        <li>Everything in Subscription</li>
+        <li>Three PCs, one account</li>
+        <li>Move a seat any time</li>
+        <li>Priority game profiles</li>
+      </ul>
+      <div class="plan__cta"><a class="btn btn--solid" href="checkout.html?plan=pro">Go Pro &mdash; $39.99/mo <span class="arr">&rarr;</span></a></div>
+    </article>
   </div>
 
 </main>
@@ -1367,80 +1266,16 @@
 })();
 </script>
 <script>
-// Split-Screen Checkout Sync & Controller
-(() => {
-  // Clock tick in console bar
-  const clock = document.getElementById('clock');
-  if (clock) {
-    const tick = () => { clock.textContent = new Date().toTimeString().slice(0, 8); };
-    tick();
-    setInterval(tick, 1000);
-  }
-
-  const CHECKOUT_URLS = {
-    sub: "https://overlordai.lemonsqueezy.com/checkout/buy/8772e8e7-84b3-49d3-9105-ec887f28b738",
-    pro: "https://overlordai.lemonsqueezy.com/checkout/buy/253380ba-c8c7-401c-92ec-c69661397577"
-  };
-
-  let currentTier = "sub";
-
-  function buildCheckoutSrc(tier) {
-    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-    const darkParam = isDark ? '1' : '0';
-    let url = `${CHECKOUT_URLS[tier]}?embed=1&dark=${darkParam}`;
-    if (window.Rewardful && Rewardful.referral) {
-      url += `&checkout[custom][rewardful]=${encodeURIComponent(Rewardful.referral)}&client_reference_id=${encodeURIComponent(Rewardful.referral)}`;
-    }
-    return url;
-  }
-
-  window.selectPlan = function(tier) {
-    if (!CHECKOUT_URLS[tier]) return;
-    currentTier = tier;
-    const frame = document.getElementById('checkoutFrame');
-    if (frame) {
-      frame.src = buildCheckoutSrc(tier);
-    }
-    const cardSub = document.getElementById('cardSub');
-    const cardPro = document.getElementById('cardPro');
-    if (cardSub) {
-      const isSub = tier === 'sub';
-      cardSub.classList.toggle('is-active', isSub);
-      const btn = cardSub.querySelector('.plan-select-btn');
-      if (btn) {
-        btn.innerHTML = isSub ? '<span>Selected for checkout</span> <span class="arr">&check;</span>' : '<span>Switch to Subscription — $14.99/mo</span> <span class="arr">&rarr;</span>';
-        btn.className = isSub ? 'btn btn--solid plan-select-btn' : 'btn plan-select-btn';
-      }
-    }
-    if (cardPro) {
-      const isPro = tier === 'pro';
-      cardPro.classList.toggle('is-active', isPro);
-      const btn = cardPro.querySelector('.plan-select-btn');
-      if (btn) {
-        btn.innerHTML = isPro ? '<span>Selected for checkout</span> <span class="arr">&check;</span>' : '<span>Switch to Pro — $39.99/mo</span> <span class="arr">&rarr;</span>';
-        btn.className = isPro ? 'btn btn--solid plan-select-btn' : 'btn plan-select-btn';
-      }
-    }
-  };
-
-  // Sync theme changes with iframe
-  window.addEventListener('ovr:theme', () => {
-    const frame = document.getElementById('checkoutFrame');
-    if (frame) {
-      frame.src = buildCheckoutSrc(currentTier);
-    }
+// Rewardful -> Stripe Payment Links: carry the referral as client_reference_id so a referred
+// purchase is credited to the affiliate (Rewardful "Stripe Payment Links" guide, method B).
+rewardful('ready', function () {
+  if (!window.Rewardful || !Rewardful.referral) return;
+  document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function (a) {
+    var u = new URL(a.href);
+    u.searchParams.set('client_reference_id', Rewardful.referral);
+    a.href = u.toString();
   });
-
-  // Rewardful referral sync
-  if (typeof rewardful === 'function') {
-    rewardful('ready', () => {
-      const frame = document.getElementById('checkoutFrame');
-      if (frame) {
-        frame.src = buildCheckoutSrc(currentTier);
-      }
-    });
-  }
-})();
+});
 </script>
 </body>
 </html>
