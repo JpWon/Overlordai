@@ -28,6 +28,18 @@
     {
       "source": "/featured",
       "destination": "/featured.html"
+    },
+    {
+      "source": "/plans",
+      "destination": "/plans.html"
+    },
+    {
+      "source": "/thanks",
+      "destination": "/thanks.html"
+    },
+    {
+      "source": "/thank-you",
+      "destination": "/thanks.html"
     }
   ]
 }

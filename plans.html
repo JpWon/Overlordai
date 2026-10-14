@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Lemon Squeezy embed checkout -->
+<script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
 <!-- Rewardful affiliate tracking -->
 <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
 <script async src="https://r.wdfl.co/rw.js" data-rewardful="f1219f"></script>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18496558698"></script>
 <script>
@@ -1080,7 +1083,7 @@
         <li>Guided missions</li>
         <li>Local voice, on your PC</li>
       </ul>
-      <div class="plan__cta"><a class="btn btn--solid" href="https://buy.stripe.com/aFa4gz99b8zRanKcCLaIM00">Subscribe &mdash; $14.99/mo <span class="arr">&rarr;</span></a></div>
+      <div class="plan__cta"><a class="btn btn--solid lemonsqueezy-button" href="https://overlordai.lemonsqueezy.com/checkout/buy/8772e8e7-84b3-49d3-9105-ec887f28b738?embed=1">Subscribe &mdash; $14.99/mo <span class="arr">&rarr;</span></a></div>
     </article>
 
     <article class="plan in" style="--d:.25s">
@@ -1095,7 +1098,7 @@
         <li>Move a seat any time</li>
         <li>Priority game profiles</li>
       </ul>
-      <div class="plan__cta"><a class="btn btn--solid" href="https://buy.stripe.com/9B6eVdcln4jB67ugT1aIM01">Go Pro &mdash; $39.99/mo <span class="arr">&rarr;</span></a></div>
+      <div class="plan__cta"><a class="btn btn--solid lemonsqueezy-button" href="https://overlordai.lemonsqueezy.com/checkout/buy/253380ba-c8c7-401c-92ec-c69661397577?embed=1">Go Pro &mdash; $39.99/mo <span class="arr">&rarr;</span></a></div>
     </article>
   </div>
 
@@ -1266,12 +1269,13 @@
 })();
 </script>
 <script>
-// Rewardful -> Stripe Payment Links: carry the referral as client_reference_id so a referred
-// purchase is credited to the affiliate (Rewardful "Stripe Payment Links" guide, method B).
+// Rewardful -> Lemon Squeezy / Stripe checkout referral tracking
 rewardful('ready', function () {
   if (!window.Rewardful || !Rewardful.referral) return;
-  document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function (a) {
+  document.querySelectorAll('a[href*="lemonsqueezy.com"], a[href^="https://buy.stripe.com/"]').forEach(function (a) {
     var u = new URL(a.href);
+    u.searchParams.set('checkout[custom][rewardful]', Rewardful.referral);
+    u.searchParams.set('checkout[custom][referral]', Rewardful.referral);
     u.searchParams.set('client_reference_id', Rewardful.referral);
     a.href = u.toString();
   });
