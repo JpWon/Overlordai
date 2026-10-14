@@ -10,11 +10,10 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'AW-18496558698');
 </script>
 
-<!-- Reddit Ads pixel: retargeting + campaign measurement -->
+<!-- Reddit Ads pixel -->
 <script>
   !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
   rdt('init','a2_jsu6ejw28fu8');
@@ -23,31 +22,16 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Checkout — Overlord AI</title>
+<title>Checkout — Overlord AI</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<meta name="description" content="Secure checkout for Overlord AI — sovereign tactical gaming co-pilot for Linux and Windows. 256-bit TLS encryption powered by Lemon Squeezy.">
+<meta name="description" content="Secure checkout for Overlord AI — sovereign tactical gaming co-pilot for Linux and Windows.">
 <meta name="robots" content="noindex,nofollow">
 <link rel="canonical" href="https://www.overlordai.co/checkout.html">
-<meta name="application-name" content="Overlord AI">
-<meta name="apple-mobile-web-app-title" content="Overlord">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Overlord AI">
-<meta property="og:locale" content="en_US">
-<meta property="og:title" content="Secure Checkout — Overlord AI">
-<meta property="og:description" content="Activate Overlord AI. Live tactical guidance, real-time overlay, and local neural voice.">
-<meta property="og:url" content="https://www.overlordai.co/checkout.html">
-<meta property="og:image" content="https://www.overlordai.co/og-thumbnail.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Secure Checkout — Overlord AI">
-<meta name="twitter:description" content="Activate Overlord AI. Live tactical guidance, real-time overlay, and local neural voice.">
-<meta name="twitter:image" content="https://www.overlordai.co/og-thumbnail.png">
 
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
@@ -57,429 +41,156 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
   :root{
     --accent:#6d5cff;
     --accent-glow:rgba(109,92,255,.35);
-    --naples-moss:#2A4A3E; --naples-terracotta:#C17F3A; --naples-gold:#D4A24E;
-    --brand-strong:var(--neutral-on-background-strong);
   }
   [data-theme="light"]{
     --page-background:#ffffff;
     --neutral-on-background-strong:#0a0a0a;
     --neutral-on-background-weak:#6b6b6b;
-    --neutral-alpha-weak:rgba(0,0,0,.08);
-    --neutral-alpha-medium:rgba(0,0,0,.18);
-    --card-surface:rgba(248,249,252,.92);
-    --pill-inactive-bg:rgba(0,0,0,.04);
+    --neutral-alpha-weak:rgba(0,0,0,.06);
+    --neutral-alpha-medium:rgba(0,0,0,.15);
+    --border-color:rgba(0,0,0,.1);
+    --sidebar-bg:rgba(247,248,250,.85);
   }
   [data-theme="dark"]{
     --page-background:#000000;
     --neutral-on-background-strong:#ffffff;
     --neutral-on-background-weak:#a3a3a3;
-    --neutral-alpha-weak:rgba(255,255,255,.12);
-    --neutral-alpha-medium:rgba(255,255,255,.24);
-    --card-surface:rgba(14,14,20,.78);
-    --pill-inactive-bg:rgba(255,255,255,.05);
+    --neutral-alpha-weak:rgba(255,255,255,.08);
+    --neutral-alpha-medium:rgba(255,255,255,.2);
+    --border-color:rgba(255,255,255,.12);
+    --sidebar-bg:rgba(10,10,14,.75);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{
+  html,body{
+    min-height:100vh;
     background:var(--page-background);
     color:var(--neutral-on-background-strong);
     font-family:'Space Grotesk',sans-serif;
-    cursor:default;
-    min-height:100vh;
-    overflow-x:hidden;
     -webkit-font-smoothing:antialiased;
-    transition:background-color .5s ease,color .5s ease;
+    transition:background-color .4s ease,color .4s ease;
   }
-
-  /* ambient plasma */
-  #ambient{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.9;}
-  [data-theme="light"] #ambient{display:none;}
+  .mono{font-family:'Space Mono',ui-monospace,monospace;}
 
   /* ================= NAV ================= */
   .navbar-backdrop{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .4s ease;}
   .navbar-backdrop.is-open{opacity:1;pointer-events:auto;}
-  .ovr-nav{position:sticky;top:0;left:0;right:0;z-index:100;background:color-mix(in srgb,var(--page-background) 82%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--neutral-alpha-weak);}
-  .ovr-nav__row{display:flex;align-items:center;justify-content:space-between;max-width:1360px;margin:0 auto;padding:.9rem 2rem;}
+  .ovr-nav{position:sticky;top:0;left:0;right:0;z-index:100;height:68px;background:color-mix(in srgb,var(--page-background) 88%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border-color);}
+  .ovr-nav__row{display:flex;align-items:center;justify-content:space-between;max-width:1360px;height:100%;margin:0 auto;padding:0 2rem;}
   .ovr-nav__side{display:flex;align-items:center;gap:1.4rem;}
   .ovr-nav__side--end{display:flex;align-items:center;gap:.9rem;}
-  .navbar-hamburger{display:flex;align-items:center;}
   .icon-btn{background:none;border:none;color:inherit;cursor:pointer;padding:6px;border-radius:4px;display:flex;align-items:center;justify-content:center;transition:color .3s,transform .2s;}
   .icon-btn:hover{color:var(--accent);transform:scale(1.08);}
   .royal-icon path{stroke:currentColor;stroke-width:1.8;stroke-linecap:round;transition:all .3s ease;}
   .ovr-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:inherit;}
-  .ovr-logo__icon{display:block;width:34px;height:34px;background-color:currentColor;-webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;mask:url('assets/rooster-nav.svg') center/contain no-repeat;}
+  .ovr-logo__icon{display:block;width:32px;height:32px;background-color:currentColor;-webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;mask:url('assets/rooster-nav.svg') center/contain no-repeat;}
   .ovr-logo__text{display:flex;flex-direction:column;line-height:1;}
-  .ovr-logo__mark{font-family:'Anton',sans-serif;font-size:1.25rem;letter-spacing:.04em;text-transform:uppercase;}
-  .ovr-logo__sub{font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neutral-on-background-weak);margin-top:2px;}
+  .ovr-logo__mark{font-family:'Anton',sans-serif;font-size:1.2rem;letter-spacing:.04em;text-transform:uppercase;}
+  .ovr-logo__sub{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neutral-on-background-weak);margin-top:2px;}
   .navbar-desktop-links{display:flex;align-items:center;gap:2rem;}
   @media (max-width:768px){.navbar-desktop-links{display:none;}}
   .nav-hover{text-decoration:none;color:var(--neutral-on-background-weak);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;transition:color .3s;padding:4px 0;}
-  .nav-hover:hover,.nav-hover[aria-current="page"]{color:var(--neutral-on-background-strong);}
-  .nav-hover[aria-current="page"]{border-bottom:1px solid currentColor;}
+  .nav-hover:hover{color:var(--neutral-on-background-strong);}
 
   /* Celestial Toggle */
-  .celestial-toggle{position:relative;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:none;border-radius:50%;background:transparent;cursor:pointer;color:var(--neutral-on-background-strong);transition:transform .3s ease;outline:none;}
+  .celestial-toggle{position:relative;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border:none;border-radius:50%;background:transparent;cursor:pointer;color:var(--neutral-on-background-strong);transition:transform .3s ease;outline:none;}
   .celestial-toggle:hover{transform:scale(1.1);}
-  .celestial-toggle__icon-wrapper{position:relative;width:20px;height:20px;}
+  .celestial-toggle__icon-wrapper{position:relative;width:18px;height:18px;}
   .celestial-toggle__sun,.celestial-toggle__moon{position:absolute;inset:0;transition:transform .5s cubic-bezier(0.23,1,0.32,1),opacity .4s ease;}
   .celestial-toggle__icon--visible{opacity:1;transform:scale(1) rotate(0deg);}
   .celestial-toggle__icon--hidden{opacity:0;transform:scale(.5) rotate(90deg);pointer-events:none;}
   .celestial-toggle--day .celestial-toggle__sun{color:var(--neutral-on-background-strong);}
   .celestial-toggle--night .celestial-toggle__moon{color:var(--neutral-on-background-strong);}
-  .celestial-toggle--animating .celestial-toggle__icon-wrapper{animation:celestial-spin .6s cubic-bezier(0.23,1,0.32,1);}
-  @keyframes celestial-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-  .celestial-toggle__glow{position:absolute;inset:-4px;border-radius:50%;opacity:0;pointer-events:none;transition:opacity .4s ease;}
-  .celestial-toggle--day .celestial-toggle__glow{background:radial-gradient(circle,rgba(0,0,0,.14) 0%,rgba(0,0,0,.04) 50%,transparent 70%);}
-  .celestial-toggle--night .celestial-toggle__glow{background:radial-gradient(circle,rgba(255,255,255,.16) 0%,rgba(255,255,255,.05) 50%,transparent 70%);}
 
   /* Drawer */
-  .navbar-drawer{position:fixed;top:0;left:0;bottom:0;width:min(320px,85vw);z-index:95;background:var(--page-background);border-right:1px solid var(--neutral-alpha-medium);transform:translateX(-100%);transition:transform .4s cubic-bezier(0.19,1,0.22,1);padding:2rem 1.8rem;display:flex;flex-direction:column;}
+  .navbar-drawer{position:fixed;top:0;left:0;bottom:0;width:min(320px,85vw);z-index:95;background:var(--page-background);border-right:1px solid var(--border-color);transform:translateX(-100%);transition:transform .4s cubic-bezier(0.19,1,0.22,1);padding:2rem 1.8rem;display:flex;flex-direction:column;}
   .navbar-drawer.is-open{transform:translateX(0);}
-  .drawer-head{display:flex;align-items:center;gap:.6rem;padding-bottom:1.5rem;border-bottom:1px solid var(--neutral-alpha-weak);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .drawer-head{display:flex;align-items:center;gap:.6rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border-color);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
   .drawer-head__mark{display:block;width:24px;height:24px;background-color:currentColor;-webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;mask:url('assets/rooster-nav.svg') center/contain no-repeat;}
   .drawer-links{display:flex;flex-direction:column;gap:1.2rem;margin-top:2rem;}
   .drawer-item a{text-decoration:none;color:var(--neutral-on-background-strong);font-size:.86rem;letter-spacing:.18em;text-transform:uppercase;transition:color .3s;}
   .drawer-item a:hover{color:var(--accent);}
-  .drawer-login{margin-top:auto;padding-top:1.5rem;border-top:1px solid var(--neutral-alpha-weak);}
-  .drawer-foot{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--neutral-on-background-weak);margin-top:1rem;}
-  .drawer-foot a{color:inherit;text-decoration:none;}
 
-  /* ================= CHECKOUT GRID ================= */
-  .checkout{
-    position:relative;
-    z-index:2;
+  /* ================= CHECKOUT MAIN LAYOUT ================= */
+  .checkout-main{
+    min-height:calc(100vh - 68px);
+    display:flex;
+    flex-direction:column;
+  }
+  .checkout-split{
+    flex:1;
     display:grid;
-    grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
-    gap:4vw;
-    padding:6vh 2.5rem 8vh;
-    max-width:1360px;
+    grid-template-columns:minmax(0, 1.15fr) minmax(0, 0.85fr);
+    max-width:1320px;
+    width:100%;
     margin:0 auto;
-    align-items:start;
+    border-left:1px solid var(--border-color);
+    border-right:1px solid var(--border-color);
   }
-  @media (max-width:980px){
-    .checkout{grid-template-columns:1fr;gap:2.5rem;padding:4vh 1.4rem 6vh;}
+  @media (max-width:960px){
+    .checkout-split{
+      grid-template-columns:1fr;
+      border-left:none;
+      border-right:none;
+      display:flex;
+      flex-direction:column-reverse; /* License summary on top on mobile, payment below */
+    }
   }
 
-  .mono{font-family:'Space Mono',ui-monospace,monospace;}
-
-  /* Left Side: Summary & Trust */
-  .checkout__summary{
+  /* LEFT: Payment Portal (Integrated Lemon Squeezy Embed) */
+  .checkout-portal{
     display:flex;
     flex-direction:column;
-    gap:1.6rem;
-  }
-  .checkout__kicker{
-    font-size:.66rem;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    color:var(--neutral-on-background-weak);
-    display:flex;
-    align-items:center;
-    gap:.6rem;
-  }
-  .checkout__kicker .pulse-tag{
-    display:inline-block;
-    padding:3px 7px;
-    border-radius:3px;
-    background:color-mix(in srgb,var(--accent) 18%,transparent);
-    border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);
-    color:var(--accent);
-    font-weight:700;
-  }
-  .checkout__summary h1{
-    font-family:'Anton',sans-serif;
-    font-weight:400;
-    text-transform:uppercase;
-    font-size:clamp(2.8rem,5.6vw,5.5rem);
-    line-height:.9;
-    letter-spacing:-.01em;
-  }
-  .checkout__summary h1 em{
-    font-style:normal;
-    color:var(--accent);
-  }
-  .checkout__sub{
-    font-size:.95rem;
-    line-height:1.6;
-    color:var(--neutral-on-background-weak);
-    max-width:32rem;
-  }
-
-  /* Plan Switcher Pills */
-  .tier-pills{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:.6rem;
-    background:var(--pill-inactive-bg);
-    padding:5px;
-    border-radius:8px;
-    border:1px solid var(--neutral-alpha-weak);
-    margin-top:.4rem;
-  }
-  .tier-pill{
     position:relative;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    padding:.85rem 1.1rem;
-    border-radius:6px;
-    border:1px solid transparent;
-    background:transparent;
-    color:var(--neutral-on-background-weak);
-    cursor:pointer;
-    text-align:left;
-    transition:all .3s ease;
-    font-family:'Space Grotesk',sans-serif;
+    background:var(--page-background);
   }
-  .tier-pill:hover{
-    color:var(--neutral-on-background-strong);
-    background:rgba(255,255,255,.04);
-  }
-  .tier-pill.active{
-    background:var(--card-surface);
-    color:var(--neutral-on-background-strong);
-    border-color:var(--accent);
-    box-shadow:0 6px 20px -8px var(--accent-glow);
-  }
-  .tier-pill__tag{
-    font-size:.56rem;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    color:var(--accent);
-    font-weight:700;
-    margin-bottom:.25rem;
-  }
-  .tier-pill__title{
-    font-size:.88rem;
-    font-weight:600;
-    letter-spacing:.02em;
-  }
-  .tier-pill__price{
-    font-size:.78rem;
-    color:var(--neutral-on-background-weak);
-    margin-top:2px;
-  }
-  .tier-pill.active .tier-pill__price{
-    color:var(--neutral-on-background-strong);
-    font-weight:500;
-  }
-
-  /* Plan Breakdown Card */
-  .order-card{
-    border:1px solid var(--neutral-alpha-medium);
-    border-radius:8px;
-    background:var(--card-surface);
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-    padding:1.6rem 1.8rem;
-    display:flex;
-    flex-direction:column;
-    gap:1.3rem;
-    box-shadow:0 20px 40px -20px rgba(0,0,0,.35);
-  }
-  .order-card__header{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    border-bottom:1px solid var(--neutral-alpha-weak);
-    padding-bottom:1.1rem;
-  }
-  .order-card__name{
-    font-family:'Anton',sans-serif;
-    font-size:1.8rem;
-    letter-spacing:.02em;
-    text-transform:uppercase;
-  }
-  .order-card__price-box{
-    text-align:right;
-  }
-  .order-card__price{
-    font-size:1.8rem;
-    font-weight:700;
-    letter-spacing:-.02em;
-    color:var(--neutral-on-background-strong);
-  }
-  .order-card__period{
-    font-size:.72rem;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:var(--neutral-on-background-weak);
-  }
-  .order-card__desc{
-    font-size:.84rem;
-    line-height:1.55;
-    color:var(--neutral-on-background-weak);
-  }
-  .order-card__features{
-    list-style:none;
-    display:flex;
-    flex-direction:column;
-    gap:.65rem;
-  }
-  .order-card__features li{
-    display:flex;
-    align-items:center;
-    gap:.65rem;
-    font-size:.82rem;
-    line-height:1.4;
-  }
-  .order-card__features li svg{
-    flex-shrink:0;
-    color:var(--accent);
-  }
-
-  /* Trust & Guarantee Blocks */
-  .trust-blocks{
-    display:flex;
-    flex-direction:column;
-    gap:.9rem;
-  }
-  .guarantee-box{
-    display:flex;
-    gap:1rem;
-    padding:1.1rem 1.3rem;
-    border-radius:6px;
-    border:1px dashed color-mix(in srgb,var(--accent) 55%,transparent);
-    background:color-mix(in srgb,var(--accent) 8%,transparent);
-    align-items:flex-start;
-  }
-  .guarantee-box svg{
-    flex-shrink:0;
-    color:var(--accent);
-    margin-top:2px;
-  }
-  .guarantee-box__title{
-    font-size:.76rem;
-    font-weight:700;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:var(--neutral-on-background-strong);
-    margin-bottom:.3rem;
-  }
-  .guarantee-box__text{
-    font-size:.74rem;
-    line-height:1.5;
-    color:var(--neutral-on-background-weak);
-  }
-
-  .badges-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:.7rem;
-    margin-top:.4rem;
-  }
-  @media (max-width:640px){.badges-grid{grid-template-columns:1fr;}}
-  .badge-item{
-    border:1px solid var(--neutral-alpha-weak);
-    border-radius:6px;
-    padding:.85rem .9rem;
-    font-size:.68rem;
-    display:flex;
-    flex-direction:column;
-    gap:.4rem;
-    background:color-mix(in srgb,var(--page-background) 50%,transparent);
-  }
-  .badge-item strong{
-    color:var(--neutral-on-background-strong);
-    font-size:.7rem;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-  }
-  .badge-item span{
-    color:var(--neutral-on-background-weak);
-    line-height:1.4;
-  }
-
-  /* Support Note */
-  .checkout-note{
-    font-size:.72rem;
-    letter-spacing:.05em;
-    color:var(--neutral-on-background-weak);
+  .portal-topbar{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding-top:.4rem;
-  }
-  .checkout-note a{
-    color:var(--neutral-on-background-strong);
-    text-decoration:none;
-    border-bottom:1px solid var(--neutral-alpha-medium);
-    transition:color .3s,border-color .3s;
-  }
-  .checkout-note a:hover{
-    color:var(--accent);
-    border-color:var(--accent);
-  }
-
-  /* ================= RIGHT SIDE: CONSOLE & IFRAME ================= */
-  .checkout__portal{
-    position:relative;
-  }
-  .console{
-    position:relative;
-    border:1px solid var(--neutral-alpha-medium);
-    border-radius:8px;
-    overflow:hidden;
-    background:color-mix(in srgb,var(--page-background) 82%,transparent);
-    backdrop-filter:blur(24px) saturate(160%);
-    -webkit-backdrop-filter:blur(24px) saturate(160%);
-    box-shadow:0 40px 100px -30px rgba(40,20,120,.45);
-    min-height:780px;
-    display:flex;
-    flex-direction:column;
-  }
-  [data-theme="light"] .console{
-    box-shadow:0 12px 28px -14px rgba(30,20,80,.18);
-  }
-  .console__bar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:.9rem 1.3rem;
-    border-bottom:1px solid var(--neutral-alpha-weak);
+    padding:.9rem 1.6rem;
+    border-bottom:1px solid var(--border-color);
     font-size:.62rem;
     letter-spacing:.16em;
     text-transform:uppercase;
     color:var(--neutral-on-background-weak);
-    background:color-mix(in srgb,var(--page-background) 90%,transparent);
-    flex-shrink:0;
+    background:color-mix(in srgb,var(--page-background) 94%,transparent);
   }
-  .console__bar .dot{
-    display:inline-block;
-    width:7px;
-    height:7px;
+  .portal-topbar .status{
+    display:flex;
+    align-items:center;
+    gap:.55rem;
+  }
+  .portal-topbar .dot{
+    width:6px;
+    height:6px;
     border-radius:50%;
     background:#10b981;
-    margin-right:.6rem;
-    box-shadow:0 0 10px #10b981;
-    animation:blink 2.4s ease-in-out infinite;
+    box-shadow:0 0 8px #10b981;
   }
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-
-  /* Iframe Container & Overlay Loader */
-  .iframe-container{
+  .iframe-wrap{
     position:relative;
     flex:1;
-    display:flex;
     width:100%;
-    min-height:740px;
-    background:transparent;
+    min-height:820px;
+    display:flex;
+    background:var(--page-background);
   }
   #checkoutFrame{
     width:100%;
     height:100%;
-    min-height:740px;
+    min-height:820px;
     border:none;
     display:block;
     background:transparent;
     z-index:2;
   }
-  .iframe-loader{
+  .portal-loader{
     position:absolute;
     inset:0;
     display:flex;
@@ -489,61 +200,218 @@
     gap:1rem;
     background:var(--page-background);
     z-index:1;
-    transition:opacity .4s ease;
+    transition:opacity .35s ease;
   }
-  .iframe-loader.hidden{
+  .portal-loader.hidden{
     opacity:0;
     pointer-events:none;
   }
   .loader-spinner{
-    width:42px;
-    height:42px;
-    border:2px solid var(--neutral-alpha-medium);
+    width:36px;
+    height:36px;
+    border:2px solid var(--border-color);
     border-top-color:var(--accent);
     border-radius:50%;
     animation:spin .8s linear infinite;
-    box-shadow:0 0 24px var(--accent-glow);
   }
   @keyframes spin{to{transform:rotate(360deg)}}
   .loader-text{
     font-size:.68rem;
-    letter-spacing:.18em;
+    letter-spacing:.16em;
     text-transform:uppercase;
     color:var(--neutral-on-background-weak);
+  }
+
+  /* RIGHT: License Details ("Here's your license on the right") */
+  .checkout-license{
+    background:var(--sidebar-bg);
+    border-left:1px solid var(--border-color);
+    padding:3.2rem 2.8rem;
+    display:flex;
+    flex-direction:column;
+    gap:1.8rem;
+  }
+  @media (max-width:960px){
+    .checkout-license{
+      border-left:none;
+      border-bottom:1px solid var(--border-color);
+      padding:2rem 1.6rem;
+    }
+  }
+
+  .back-nav a{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    color:var(--neutral-on-background-weak);
+    text-decoration:none;
+    font-size:.68rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    transition:color .2s;
+  }
+  .back-nav a:hover{
+    color:var(--neutral-on-background-strong);
+  }
+
+  .license-header{
+    display:flex;
+    flex-direction:column;
+    gap:.6rem;
+  }
+  .license-kicker{
+    font-size:.62rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+  }
+  .license-title{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(2.4rem,3.4vw,3.6rem);
+    line-height:.95;
+    letter-spacing:-.01em;
+    text-transform:uppercase;
+  }
+  .license-caption{
+    font-size:.85rem;
+    line-height:1.55;
+    color:var(--neutral-on-background-weak);
+  }
+
+  .license-price-row{
+    display:flex;
+    align-items:baseline;
+    gap:.6rem;
+    padding-top:.4rem;
+  }
+  .license-price{
+    font-size:2.4rem;
+    font-weight:700;
+    line-height:1;
+    letter-spacing:-.02em;
+  }
+  .license-period{
+    font-size:.82rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--neutral-on-background-weak);
+  }
+
+  .license-divider{
+    height:1px;
+    background:var(--border-color);
+    width:100%;
+  }
+
+  /* Line Item Breakdown */
+  .license-breakdown{
+    display:flex;
+    flex-direction:column;
+    gap:.8rem;
+  }
+  .breakdown-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:.85rem;
+    color:var(--neutral-on-background-weak);
+  }
+  .breakdown-row.total{
+    color:var(--neutral-on-background-strong);
+    font-weight:700;
+    font-size:1.05rem;
+    padding-top:.5rem;
+    border-top:1px dashed var(--border-color);
+  }
+
+  /* Included Feature List */
+  .license-features{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+  }
+  .features-kicker{
+    font-size:.62rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--neutral-on-background-weak);
+  }
+  .features-list{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:.75rem;
+  }
+  .features-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:.75rem;
+    font-size:.84rem;
+    line-height:1.45;
+  }
+  .features-list li svg{
+    flex-shrink:0;
+    margin-top:2px;
+    color:var(--accent);
+  }
+
+  /* Footer Note */
+  .license-security{
+    margin-top:auto;
+    padding-top:1.5rem;
+    display:flex;
+    flex-direction:column;
+    gap:.6rem;
+    font-size:.68rem;
+    line-height:1.5;
+    color:var(--neutral-on-background-weak);
+    border-top:1px solid var(--border-color);
+  }
+  .license-security a{
+    color:var(--neutral-on-background-strong);
+    text-decoration:none;
+    border-bottom:1px solid var(--border-color);
+  }
+  .license-security a:hover{
+    color:var(--accent);
+    border-color:var(--accent);
   }
 
   /* ================= FOOTER ================= */
   .site-footer{
     position:relative;
     z-index:5;
-    border-top:1px solid var(--neutral-alpha-weak);
-    padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem);
+    border-top:1px solid var(--border-color);
+    padding:2.2rem 2rem;
     background:var(--page-background);
-    margin-top:4vh;
   }
-  .site-footer__inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:2.2rem;}
-  .site-footer__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;}
-  .site-footer__brand{display:flex;align-items:center;gap:.1rem;color:var(--neutral-on-background-strong);}
-  .site-footer__text{display:flex;flex-direction:column;align-items:center;}
-  .site-footer__name{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;line-height:1.3;}
-  .site-footer__tag{margin-top:.35rem;font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500;color:var(--neutral-on-background-weak);white-space:nowrap;}
-  .site-footer__mark{
-    display:block;width:49px;height:49px;flex:0 0 auto;background-color:currentColor;
-    -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
-            mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+  .site-footer__inner{
+    max-width:1320px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    gap:1.5rem;
+    font-size:.64rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--neutral-on-background-weak);
   }
-  .site-footer__brand em{font-style:normal;color:var(--accent);}
-  .site-footer__nav{display:flex;flex-wrap:wrap;gap:1.6rem;}
-  .site-footer__nav a{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--neutral-on-background-weak);transition:color .35s ease;}
-  .site-footer__nav a:hover{color:var(--accent);}
-  .site-footer__bottom{
-    display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;
-    padding-top:1.8rem;border-top:1px solid var(--neutral-alpha-weak);
-    font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neutral-on-background-weak);
+  .site-footer__inner a{
+    color:inherit;
+    text-decoration:none;
+    transition:color .2s;
   }
-  .site-footer__bottom .legal{display:flex;flex-wrap:wrap;gap:1.4rem;}
-  .site-footer__bottom a{color:var(--neutral-on-background-weak);text-decoration:none;transition:color .35s ease;}
-  .site-footer__bottom a:hover{color:var(--accent);}
+  .site-footer__inner a:hover{
+    color:var(--accent);
+  }
+  .site-footer__links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1.5rem;
+  }
 </style>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -589,19 +457,18 @@
     <div class="ovr-nav__side ovr-nav__side--end">
       <button id="celestial-toggle" class="celestial-toggle celestial-toggle--day" aria-label="Switch to dark mode">
         <div class="celestial-toggle__icon-wrapper">
-          <svg class="celestial-toggle__sun celestial-toggle__icon--visible" viewBox="0 0 24 24" fill="none" width="20" height="20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <svg class="celestial-toggle__sun celestial-toggle__icon--visible" viewBox="0 0 24 24" fill="none" width="18" height="18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
             <circle cx="12" cy="12" r="4.4"/>
             <path d="M12 2.7v2.1M12 19.2v2.1M2.7 12h2.1M19.2 12h2.1M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M18.6 5.4l-1.5 1.5M6.9 17.1l-1.5 1.5"/>
           </svg>
-          <svg class="celestial-toggle__moon celestial-toggle__icon--hidden" viewBox="0 0 24 24" fill="none" width="20" height="20">
+          <svg class="celestial-toggle__moon celestial-toggle__icon--hidden" viewBox="0 0 24 24" fill="none" width="18" height="18">
             <path d="M20.6 13.4A8.6 8.6 0 1 1 10.6 3.4a7.1 7.1 0 0 0 10 10z" fill="currentColor"/>
             <path d="M18.7 3.9l.5 1.2 1.2.5-1.2.5-.5 1.2-.5-1.2-1.2-.5 1.2-.5z" fill="currentColor"/>
           </svg>
         </div>
-        <div class="celestial-toggle__glow"></div>
       </button>
       <a class="icon-btn" href="plans.html" aria-label="shoppingCart">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 4h2.2l1.9 9.2a2 2 0 0 0 2 1.6h8a2 2 0 0 0 1.9-1.4l1.8-6.4H6.4"/>
           <circle cx="9.3" cy="20.5" r="1.6"/>
           <circle cx="17.7" cy="20.5" r="1.6"/>
@@ -613,301 +480,203 @@
 
 <!-- Slide-out crystal drawer -->
 <div class="navbar-drawer" id="navDrawer" aria-hidden="true">
-  <div class="drawer-col">
-    <div class="drawer-head"><div class="drawer-head__row"><span class="drawer-head__mark" aria-hidden="true"></span><span class="drawer-head__label">Live Gaming Companion</span></div><i></i></div>
-    <div class="drawer-links">
-      <div class="drawer-item"><a class="royal-nav-item" href="index.html#top"><div class="row"><span class="royal-highlight">Home</span></div></a></div>
-      <div class="drawer-item"><a class="royal-nav-item" href="index.html#work"><div class="row"><span class="royal-highlight">Preview</span></div></a></div>
-      <div class="drawer-item"><a class="royal-nav-item" href="plans.html"><div class="row"><span class="royal-highlight">Plans</span></div></a></div>
-      <div class="drawer-item"><a class="royal-nav-item" href="support.html"><div class="row"><span class="royal-highlight">Support / FAQ</span></div></a></div>
-    </div>
-    <div class="drawer-login">
-      <a class="royal-nav-item" href="login.html"><span class="royal-nav-btn-text">Member Login</span></a>
-    </div>
-    <div class="drawer-foot"><a href="plans.html">Linux and Windows</a></div>
+  <div class="drawer-head">
+    <span class="drawer-head__mark" aria-hidden="true"></span>
+    <span>Live Gaming Companion</span>
+  </div>
+  <div class="drawer-links">
+    <div class="drawer-item"><a href="index.html#top">Home</a></div>
+    <div class="drawer-item"><a href="index.html#work">Preview</a></div>
+    <div class="drawer-item"><a href="plans.html">Plans</a></div>
+    <div class="drawer-item"><a href="support.html">Support / FAQ</a></div>
+    <div class="drawer-item"><a href="login.html">Member Login</a></div>
   </div>
 </div>
 
-<canvas id="ambient"></canvas>
+<!-- ================= MAIN CHECKOUT ================= -->
+<main class="checkout-main">
+  <div class="checkout-split">
 
-<!-- ================= MAIN SPLIT-SCREEN CHECKOUT ================= -->
-<main class="checkout">
-  <!-- LEFT HALF: Summary, Tier Switcher, Guarantees -->
-  <section class="checkout__summary" aria-label="Order Summary">
-    <div class="checkout__kicker mono">
-      <span class="pulse-tag">LIVE GATEWAY</span>
-      <span>OVR &middot; SECURE CHECKOUT</span>
-    </div>
-
-    <h1>Activate your<br><em>tactical co-pilot.</em></h1>
-    <p class="checkout__sub">Complete checkout to unlock zero-latency Wayland/Windows vision radar, secret rafter atlas, and live neural voice.</p>
-
-    <!-- Plan selector pills -->
-    <div class="tier-pills" role="tablist" aria-label="Select Plan">
-      <button class="tier-pill active" id="pillSub" role="tab" aria-selected="true" data-tier="sub">
-        <span class="tier-pill__tag">02 &middot; Monthly</span>
-        <span class="tier-pill__title">Subscription</span>
-        <span class="tier-pill__price mono">$14.99 / mo</span>
-      </button>
-      <button class="tier-pill" id="pillPro" role="tab" aria-selected="false" data-tier="pro">
-        <span class="tier-pill__tag">03 &middot; 3 PCs</span>
-        <span class="tier-pill__title">Pro Tier</span>
-        <span class="tier-pill__price mono">$39.99 / mo</span>
-      </button>
-    </div>
-
-    <!-- Active order breakdown card -->
-    <div class="order-card" id="orderCard">
-      <div class="order-card__header">
-        <div>
-          <div class="order-card__name" id="cardName">Subscription</div>
-          <div class="mono" id="cardTag" style="font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-top:3px;">Single Gaming PC</div>
+    <!-- LEFT: Payment Portal (Lemon Squeezy Seamless Form) -->
+    <section class="checkout-portal" aria-label="Payment Gateway">
+      <div class="portal-topbar mono">
+        <div class="status">
+          <span class="dot"></span>
+          <span>Lemon Squeezy &middot; 256-Bit Encrypted</span>
         </div>
-        <div class="order-card__price-box">
-          <div class="order-card__price mono" id="cardPrice">$14.99</div>
-          <div class="order-card__period mono" id="cardPeriod">per month</div>
-        </div>
+        <div id="clock">--:--:--</div>
       </div>
 
-      <p class="order-card__desc" id="cardDesc">The full tactical guide, month to month. Instant activation on Linux &amp; Windows. Cancel any time in 1 click.</p>
-
-      <ul class="order-card__features" id="cardFeatures">
-        <!-- Injected via JavaScript -->
-      </ul>
-    </div>
-
-    <!-- Trust & Guarantee blocks -->
-    <div class="trust-blocks">
-      <div class="guarantee-box">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          <path d="m9 12 2 2 4-4"/>
-        </svg>
-        <div>
-          <div class="guarantee-box__title">Anti-Ragequit Guarantee</div>
-          <p class="guarantee-box__text">Never get stuck again. If Overlord doesn't noticeably upgrade your tactical edge within 14 days, contact support for a prompt, 100% refund.</p>
-        </div>
-      </div>
-
-      <div class="badges-grid">
-        <div class="badge-item">
-          <strong>256-Bit TLS</strong>
-          <span>Bank-level encryption via Lemon Squeezy MoR.</span>
-        </div>
-        <div class="badge-item">
-          <strong>Instant Key</strong>
-          <span>Software credentials sent immediately via email.</span>
-        </div>
-        <div class="badge-item">
-          <strong>Zero Lock-in</strong>
-          <span>Cancel or pause your billing anytime with one click.</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="checkout-note mono">
-      <span>Questions? <a href="https://discord.com/invite/ZPZeJDAw9C" target="_blank" rel="noopener">Join Discord</a> or email <a href="mailto:support@overlordai.co">support@overlordai.co</a></span>
-    </div>
-  </section>
-
-  <!-- RIGHT HALF: Glass Console with embedded Lemon Squeezy portal -->
-  <section class="checkout__portal" aria-label="Payment Portal">
-    <div class="console">
-      <div class="console__bar mono">
-        <span><span class="dot"></span>Secure Checkout &middot; Lemon Squeezy</span>
-        <span id="clock">--:--:--</span>
-      </div>
-
-      <div class="iframe-container">
-        <div class="iframe-loader" id="iframeLoader">
+      <div class="iframe-wrap">
+        <div class="portal-loader" id="portalLoader">
           <div class="loader-spinner"></div>
-          <div class="loader-text mono">Connecting to secure gateway&hellip;</div>
+          <div class="loader-text mono">Connecting to payment gateway&hellip;</div>
         </div>
 
         <iframe
           id="checkoutFrame"
           src="about:blank"
-          title="Lemon Squeezy Secure Checkout"
+          title="Secure Payment Portal"
           allow="payment"
-          loading="eager"
+          scrolling="no"
         ></iframe>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- RIGHT: License Details ("Here's your license on the right") -->
+    <section class="checkout-license" aria-label="License Details">
+      <div class="back-nav mono">
+        <a href="plans.html">&larr; Back to plans</a>
+      </div>
+
+      <div class="license-header">
+        <div class="license-kicker mono" id="licenseKicker">02 &middot; MONTHLY SUBSCRIPTION</div>
+        <h1 class="license-title" id="licenseTitle">Pantocrator License</h1>
+        <p class="license-caption" id="licenseCaption">The sovereign live gaming co-pilot for your primary gaming PC. Cancel anytime in one click.</p>
+
+        <div class="license-price-row">
+          <span class="license-price mono" id="licensePrice">$14.99</span>
+          <span class="license-period mono" id="licensePeriod">/ month</span>
+        </div>
+      </div>
+
+      <div class="license-divider"></div>
+
+      <!-- Itemized calculation -->
+      <div class="license-breakdown">
+        <div class="breakdown-row">
+          <span id="lineItemName">Pantocrator License</span>
+          <span class="mono" id="lineItemPrice">$14.99 / mo</span>
+        </div>
+        <div class="breakdown-row total">
+          <span>Total due today</span>
+          <span class="mono" id="totalDuePrice">$14.99</span>
+        </div>
+      </div>
+
+      <div class="license-divider"></div>
+
+      <!-- Clean feature deliverables (No false guarantees) -->
+      <div class="license-features">
+        <div class="features-kicker mono">Included with your license</div>
+        <ul class="features-list" id="featuresList">
+          <!-- Injected via JS based on selected tier -->
+        </ul>
+      </div>
+
+      <div class="license-security mono">
+        <span>Payment safely processed by Lemon Squeezy (Merchant of Record). License key and download link sent instantly upon payment.</span>
+        <span>Questions? Email <a href="mailto:support@overlordai.co">support@overlordai.co</a> or join our <a href="https://discord.com/invite/ZPZeJDAw9C" target="_blank" rel="noopener">Discord</a>.</span>
+      </div>
+    </section>
+
+  </div>
 </main>
 
 <!-- ================= FOOTER ================= -->
-<footer class="site-footer" id="footer">
+<footer class="site-footer">
   <div class="site-footer__inner">
-    <div class="site-footer__top">
-      <div class="site-footer__brand">
-        <span class="site-footer__mark" aria-hidden="true"></span>
-        <span class="site-footer__text">
-          <span class="site-footer__name">Overlord <em>AI</em></span>
-          <span class="site-footer__tag">Live Gaming Companion</span>
-        </span>
-      </div>
-      <nav class="site-footer__nav">
-        <a href="index.html#top">Home</a>
-        <a href="index.html#work">Preview</a>
-        <a href="plans.html">Plans</a>
-        <a href="support.html">Support / FAQ</a>
-        <a href="login.html">Log in</a>
-      </nav>
-    </div>
-    <div class="site-footer__bottom">
-      <span>Linux and Windows</span>
-      <span>&copy; '26 Overlord AI</span>
-      <div class="legal">
-        <a href="https://discord.com/invite/ZPZeJDAw9C">Discord</a>
-        <a href="eula.html">EULA</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="/featured">Featured on</a>
-      </div>
+    <span>Overlord AI &middot; Linux &amp; Windows</span>
+    <div class="site-footer__links">
+      <a href="eula.html">EULA</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="https://discord.com/invite/ZPZeJDAw9C" target="_blank" rel="noopener">Discord</a>
     </div>
   </div>
 </footer>
 
 <script>
-/* ================= PRODUCT DATA ================= */
-const PLANS = {
+/* ================= PRODUCT CONFIG ================= */
+const PRODUCTS = {
   sub: {
-    key: 'sub',
     id: '8772e8e7-84b3-49d3-9105-ec887f28b738',
-    name: 'Subscription',
-    tag: 'Single PC · 02 Monthly · Most Popular',
+    kicker: '02 · MONTHLY SUBSCRIPTION',
+    title: 'Pantocrator License',
+    caption: 'The complete sovereign live gaming companion for your primary rig. Cancel anytime in one click.',
     price: '$14.99',
-    period: 'per month',
-    desc: 'The full live tactical guide, month to month. Instant activation on Linux & Windows. Cancel any time in 1 click.',
+    period: '/ month',
+    lineItem: 'Pantocrator License (Monthly)',
     features: [
-      'Unlimited live tactical play',
-      'Real-time overlay on Linux (Wayland) & Windows',
-      'Secret rafter & hidden Ability Point (AP) atlas',
-      'Local zero-latency neural voice (Isabella)',
-      '14-day anti-ragequit money-back guarantee'
+      'Unlimited real-time tactical overlay & mission guidance',
+      'Wayland (Linux) & Windows 10/11 native support',
+      'Complete rafter & hidden Ability Point (AP) atlas',
+      'Local zero-latency Isabella neural voice',
+      'Instant software download & license activation'
     ]
   },
   pro: {
-    key: 'pro',
     id: '253380ba-c8c7-401c-92ec-c69661397577',
-    name: 'Pro Tier',
-    tag: '3 PCs · 03 Monthly · Multi-Seat',
+    kicker: '03 · PRO 3-PC TIER',
+    title: 'Pro Pantocrator License',
+    caption: 'Everything in Subscription across three personal gaming rigs. Floating seat manager with instant reassignment.',
     price: '$39.99',
-    period: 'per month',
-    desc: 'Everything in Subscription across three personal gaming rigs. Floating seat manager with instant reassignment.',
+    period: '/ month',
+    lineItem: 'Pro Pantocrator License · 3 PCs (Monthly)',
     features: [
       'Everything in Monthly Subscription',
-      'Three PC concurrent licences under one account',
+      'Three concurrent PC licenses under one account',
       'Floating seat manager — reassign seats on demand',
       'Priority game profile releases & insider builds',
-      '14-day anti-ragequit money-back guarantee'
+      'Instant software download & license activation'
     ]
   }
 };
 
 /* ================= CONTROLLER ================= */
 (() => {
-  const params = new URLSearchParams(window.location.search);
-  let activeTier = params.get('plan') === 'pro' ? 'pro' : 'sub';
+  const urlParams = new URLSearchParams(window.location.search);
+  const planKey = urlParams.get('plan') === 'pro' ? 'pro' : 'sub';
+  const product = PRODUCTS[planKey];
 
-  const pillSub = document.getElementById('pillSub');
-  const pillPro = document.getElementById('pillPro');
-  const cardName = document.getElementById('cardName');
-  const cardTag = document.getElementById('cardTag');
-  const cardPrice = document.getElementById('cardPrice');
-  const cardPeriod = document.getElementById('cardPeriod');
-  const cardDesc = document.getElementById('cardDesc');
-  const cardFeatures = document.getElementById('cardFeatures');
+  // Populate Right Column: License Overview
+  document.getElementById('licenseKicker').textContent = product.kicker;
+  document.getElementById('licenseTitle').textContent = product.title;
+  document.getElementById('licenseCaption').textContent = product.caption;
+  document.getElementById('licensePrice').textContent = product.price;
+  document.getElementById('licensePeriod').textContent = product.period;
+  document.getElementById('lineItemName').textContent = product.lineItem;
+  document.getElementById('lineItemPrice').textContent = product.price + ' / mo';
+  document.getElementById('totalDuePrice').textContent = product.price;
+
+  // Features
+  const featuresList = document.getElementById('featuresList');
+  featuresList.innerHTML = product.features.map(f => `
+    <li>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span>${f}</span>
+    </li>
+  `).join('');
+
+  // Populate Left Column: Lemon Squeezy Embed
   const frame = document.getElementById('checkoutFrame');
-  const loader = document.getElementById('iframeLoader');
+  const loader = document.getElementById('portalLoader');
 
-  function getThemeParam() {
-    const theme = document.documentElement.getAttribute('data-theme') || localStorage.getItem('data-theme') || 'dark';
-    return theme === 'light' ? '0' : '1';
-  }
-
-  function buildCheckoutUrl(tierKey) {
-    const plan = PLANS[tierKey];
-    const darkVal = getThemeParam();
-    let url = `https://overlordai.lemonsqueezy.com/checkout/buy/${plan.id}?embed=1&dark=${darkVal}`;
+  function buildIframeUrl() {
+    // Strip redundant media, desc, and logo so iframe renders only clean payment fields
+    let url = `https://overlordai.lemonsqueezy.com/checkout/buy/${product.id}?embed=1&media=0&desc=0&logo=0`;
 
     // Pass Rewardful affiliate referral if available
     if (window.Rewardful && window.Rewardful.referral) {
       url += `&checkout[custom][rewardful]=${encodeURIComponent(window.Rewardful.referral)}`;
     }
-
-    // Pass through any ref or aff params from page
-    if (params.get('ref')) url += `&checkout[custom][ref]=${encodeURIComponent(params.get('ref'))}`;
-    if (params.get('aff')) url += `&checkout[custom][aff]=${encodeURIComponent(params.get('aff'))}`;
+    if (urlParams.get('ref')) url += `&checkout[custom][ref]=${encodeURIComponent(urlParams.get('ref'))}`;
+    if (urlParams.get('aff')) url += `&checkout[custom][aff]=${encodeURIComponent(urlParams.get('aff'))}`;
 
     return url;
   }
 
-  function renderTier(tierKey, updateIframe = true) {
-    activeTier = tierKey;
-    const plan = PLANS[tierKey];
+  frame.src = buildIframeUrl();
 
-    // Update Pills
-    pillSub.classList.toggle('active', tierKey === 'sub');
-    pillSub.setAttribute('aria-selected', tierKey === 'sub');
-    pillPro.classList.toggle('active', tierKey === 'pro');
-    pillPro.setAttribute('aria-selected', tierKey === 'pro');
-
-    // Update Summary Card
-    cardName.textContent = plan.name;
-    cardTag.textContent = plan.tag;
-    cardPrice.textContent = plan.price;
-    cardPeriod.textContent = plan.period;
-    cardDesc.textContent = plan.desc;
-
-    // Update Features
-    cardFeatures.innerHTML = plan.features.map(f => `
-      <li>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-        <span>${f}</span>
-      </li>
-    `).join('');
-
-    // Update Iframe URL
-    if (updateIframe) {
-      loader.classList.remove('hidden');
-      const targetUrl = buildCheckoutUrl(tierKey);
-      if (frame.src !== targetUrl) {
-        frame.src = targetUrl;
-      }
-    }
-
-    // Sync URL without reload
-    const newUrl = new URL(window.location);
-    newUrl.searchParams.set('plan', tierKey);
-    window.history.replaceState(null, '', newUrl.toString());
-  }
-
-  // Event: Frame loaded
   frame.addEventListener('load', () => {
     if (frame.src && frame.src !== 'about:blank') {
       loader.classList.add('hidden');
     }
   });
 
-  // Event: Pill Clicks
-  pillSub.addEventListener('click', () => renderTier('sub'));
-  pillPro.addEventListener('click', () => renderTier('pro'));
-
-  // Event: Theme Toggle
-  window.addEventListener('ovr:theme', () => {
-    // Reload iframe with new &dark= parameter
-    loader.classList.remove('hidden');
-    frame.src = buildCheckoutUrl(activeTier);
-  });
-
-  // Initial load
-  renderTier(activeTier, true);
-
-  // Live clock
+  // Live ticking clock
   const clock = document.getElementById('clock');
   if (clock) {
     const tick = () => { clock.textContent = new Date().toTimeString().slice(0,8); };
@@ -916,130 +685,43 @@ const PLANS = {
   }
 })();
 
-/* ---------- NAV — behaviour ported from S2S Navbar.tsx ---------- */
+/* ---------- NAV & CELESTIAL TOGGLE ---------- */
 (() => {
   const drawer    = document.getElementById('navDrawer');
   const backdrop  = document.getElementById('navBackdrop');
   const hamburger = document.getElementById('navHamburger');
   const btn       = document.getElementById('navToggleBtn');
-  const desktop   = document.getElementById('navDesktopLinks');
-  const items     = [...drawer.querySelectorAll('.drawer-item')];
-  let open = false, timer = null;
+  let open = false;
 
   function render(){
     drawer.classList.toggle('is-open', open);
     backdrop.classList.toggle('is-open', open);
     hamburger.classList.toggle('is-open', open);
     btn.setAttribute('aria-expanded', String(open));
-    drawer.setAttribute('aria-hidden', String(!open));
-    items.forEach((el, i) => {
-      const delay = open ? 0.1 + i * 0.08 : (items.length - 1 - i) * 0.05;
-      el.style.transitionDelay = delay + 's';
-    });
   }
-  const setOpen = v => { open = v; render(); };
-  const toggle  = () => setOpen(!open);
-  const close   = () => setOpen(false);
+  hamburger.addEventListener('click', () => { open = !open; render(); });
+  backdrop.addEventListener('click', () => { open = false; render(); });
 
-  const enter = () => { if (innerWidth >= 768){ clearTimeout(timer); setOpen(true); } };
-  const leave = () => { if (innerWidth >= 768){ timer = setTimeout(close, 400); } };
-
-  hamburger.addEventListener('click', toggle);
-  for (const el of [hamburger, desktop, drawer]){
-    el.addEventListener('mouseenter', enter);
-    el.addEventListener('mouseleave', leave);
-  }
-  backdrop.addEventListener('click', close);
-  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
-  render();
-})();
-
-/* ---------- Celestial toggle — ported from S2S CelestialToggle.tsx ---------- */
-(() => {
+  // Celestial Day/Night Toggle
   const t    = document.getElementById('celestial-toggle');
   const sun  = t.querySelector('.celestial-toggle__sun');
   const moon = t.querySelector('.celestial-toggle__moon');
-
   let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  let animating = false;
 
-  function render(){
-    t.classList.toggle('celestial-toggle--night', isDark);
-    t.classList.toggle('celestial-toggle--day', !isDark);
+  function renderTheme(){
     sun.classList.toggle('celestial-toggle__icon--hidden', isDark);
     sun.classList.toggle('celestial-toggle__icon--visible', !isDark);
     moon.classList.toggle('celestial-toggle__icon--visible', isDark);
     moon.classList.toggle('celestial-toggle__icon--hidden', !isDark);
-    t.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
   }
-
   t.addEventListener('click', () => {
-    if (animating) return;
-    animating = true;
-    t.classList.add('celestial-toggle--animating');
     isDark = !isDark;
     const theme = isDark ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('data-theme', theme);
-    render();
-    window.dispatchEvent(new Event('ovr:theme'));
-    setTimeout(() => { animating = false; t.classList.remove('celestial-toggle--animating'); }, 600);
+    renderTheme();
   });
-  render();
-})();
-
-/* ---------- ambient plasma ---------- */
-(() => {
-  const c = document.getElementById('ambient'), ctx = c.getContext('2d');
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const TAU = Math.PI*2, dpr = Math.min(devicePixelRatio || 1, 2);
-  const nz = (a,b) => (Math.sin(a*1.7+b*3.1)+Math.sin(a*2.9-b*1.3+1.7)+Math.sin(a*.7+b*5.3+4.1))/3;
-  const fbm = (a,b) => nz(a,b)*.55 + nz(a*2.13+3.7,b*2.31-1.1)*.28 + nz(a*4.37-6.2,b*4.11+2.9)*.17;
-  let W, H, px = null, py = null, hx, hy;
-  const size = () => { W = innerWidth; H = innerHeight; c.width = W*dpr; c.height = H*dpr; c.style.width = W+'px'; c.style.height = H+'px'; ctx.setTransform(dpr,0,0,dpr,0,0); hx ??= W*.28; hy ??= H*.62; };
-  size(); addEventListener('resize', size);
-  addEventListener('pointermove', e => { px = e.clientX; py = e.clientY; }, {passive:true});
-
-  let t = 0;
-  function draw(){
-    t += .006;
-    ctx.clearRect(0,0,W,H);
-    const tx = px ?? W*.35, ty = py ?? H*.55;
-    hx += (tx - hx)*.025; hy += (ty - hy)*.025;
-    const R = Math.hypot(W, H)*.42;
-
-    const g0 = ctx.createRadialGradient(hx,hy,R*.05,hx,hy,R);
-    g0.addColorStop(0,'rgba(109,92,255,.28)');
-    g0.addColorStop(.45,'rgba(80,50,220,.14)');
-    g0.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle = g0; ctx.fillRect(0,0,W,H);
-
-    ctx.save();
-    ctx.translate(hx, hy);
-    ctx.beginPath();
-    const steps = 64;
-    for (let i = 0; i <= steps; i++){
-      const a = (i/steps)*TAU;
-      const r = R*.65 + fbm(Math.cos(a)*1.8 + t*.8, Math.sin(a)*1.8 - t*.6)*R*.35;
-      const x = Math.cos(a)*r, y = Math.sin(a)*r;
-      if (i === 0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    }
-    ctx.closePath();
-    const gb = ctx.createRadialGradient(0,0,0,0,0,R*.9);
-    gb.addColorStop(0,'rgba(140,110,255,.32)');
-    gb.addColorStop(.55,'rgba(90,60,240,.18)');
-    gb.addColorStop(1,'rgba(20,10,60,0)');
-    ctx.fillStyle = gb; ctx.fill();
-    ctx.restore();
-
-    ctx.globalCompositeOperation = 'lighter';
-    const g1 = ctx.createRadialGradient(hx,hy,0,hx,hy,R*.4);
-    g1.addColorStop(0,'rgba(255,255,255,.6)'); g1.addColorStop(.3,'rgba(205,225,255,.3)'); g1.addColorStop(1,'rgba(80,60,255,0)');
-    ctx.fillStyle = g1; ctx.beginPath(); ctx.arc(hx,hy,R*.4,0,TAU); ctx.fill();
-    ctx.globalCompositeOperation = 'source-over';
-    if (!reduced) requestAnimationFrame(draw);
-  }
-  requestAnimationFrame(draw);
+  renderTheme();
 })();
 </script>
 </body>
