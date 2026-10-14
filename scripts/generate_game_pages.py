@@ -6,11 +6,19 @@ Generates programmatic SEO landing pages for top high-intent games identified in
 - Soulslikes Hub (soulslike.html)
 - Sekiro: Shadows Die Twice (sekiro.html)
 - Lies of P (liesofp.html)
+- Mortal Shell II (mortalshell2.html)
 Injects Schema.org JSON-LD structured data and updates sitemap.xml.
-"""
-import os, re, json
 
-BASE_DIR = "/home/eros/Pantocrator/website"
+  python3 scripts/generate_game_pages.py                          # every page
+  python3 scripts/generate_game_pages.py --only mortalshell2.html  # just one
+
+SITE_DIR picks the site folder (default: this repo). Regenerating a page rebuilds
+it from wukong.html, so --only keeps edits made to the other pages since.
+"""
+import os, re, json, sys
+
+BASE_DIR = os.environ.get("SITE_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ONLY = sys.argv[sys.argv.index("--only") + 1:] if "--only" in sys.argv else []
 WUKONG_FILE = os.path.join(BASE_DIR, "wukong.html")
 
 with open(WUKONG_FILE, "r", encoding="utf-8") as f:
@@ -133,6 +141,38 @@ GAMES = [
         "game_specific_desc": "Preloaded with King of Puppets, Laxasia the Complete, Simon Manus, and Nameless Puppet telegraph timings.",
         "step1_desc": "Launch Overlord on your desktop, then launch Lies of P on Steam or PC Game Pass.",
         "faq_game_answer": "Lies of P is fully researched and preloaded. Overlord knows all puppet and carcass boss mechanics, weapon assembly synergies, and quartz upgrade paths.",
+    },
+    {
+        # Numbers sourced 2026-10-13: Steam store review summary, Steam global
+        # achievement statistics, and Overlord's published Mortal Shell II atlas
+        # (atlas/2584270/v1791838994.json). Nothing estimated.
+        "filename": "mortalshell2.html",
+        "game_name": "Mortal Shell II",
+        "kicker": "Mortal Shell II · Voice Co-Pilot & Boss Guide",
+        "title": "Mortal Shell II Voice Co-Pilot — Overlord AI (Free Demo)",
+        "meta_desc": "70% of Mortal Shell II players never finished it. Overlord is a voice co-pilot that talks you past its bosses and to the loot you missed. Free demo.",
+        "canonical": "https://www.overlordai.co/mortalshell2.html",
+        "hero_h1": "70% of Mortal Shell II players never saw the ending.",
+        "hero_lede": "Mortal Shell II is one of the most underrated soulslikes out there, and one of the hardest to finish. Overlord runs beside it on <strong>your Windows or Linux PC</strong>, watches your screen, and <strong>tells you which area you are in, where the next Tarstone, Ova or weapon is, and how to beat the boss in front of you</strong>, out loud through your headset.",
+        "stat1_num": "79<small>%</small>",
+        "stat1_label": "Positive across 21,876 Steam reviews. Mostly Positive for Cold Symmetry's sequel.",
+        "stat1_src": "Source: Steam store review summary, October 2026.",
+        "stat2_num": "29.5<small>%</small>",
+        "stat2_label": "Of Steam players have completed Mortal Shell II. The rest put it down before the end.",
+        "stat2_src": "Source: Steam global achievement statistics.",
+        "stat3_num": "13.7<small>%</small>",
+        "stat3_label": "Have found every Tarstone. Only 37.5% have found all the map fragments.",
+        "stat3_src": "Source: Steam global achievement statistics.",
+        "stat4_num": "31<small>bosses</small>",
+        "stat4_label": "Mapped for Overlord, with 30 areas, 100 items and 19 characters, so it knows where things are.",
+        "stat4_src": "Source: Overlord's published Mortal Shell II atlas, October 2026.",
+        "stat5_num": "41.9<small>%</small>",
+        "stat5_label": "Have unlocked the Ballistazooka. Most players never find it.",
+        "stat5_src": "Source: Steam global achievement statistics.",
+        "game_specific_feat": "Knows Mortal Shell II's map",
+        "game_specific_desc": "Preloaded with 30 areas, 100 items and 31 bosses, from Magdalena, Lady of the Woods to Vellen, Lord of Mammon, so it can point you to the loot and the fight, not give generic advice.",
+        "step1_desc": "Launch Overlord on your Windows or Linux PC, then launch Mortal Shell II on Steam.",
+        "faq_game_answer": "Mortal Shell II is researched and preloaded. Overlord knows its areas, items and bosses, follows you from area to area, and talks you to the item you ask for. Online multiplayer is not supported.",
     }
 ]
 
@@ -180,7 +220,7 @@ def make_schema_json(title, desc, canonical, game_name):
 </script>"""
 
 # 1. Update wukong.html with Schema.org JSON-LD if not present
-if "application/ld+json" not in template:
+if "application/ld+json" not in template and not ONLY:
     schema_wukong = make_schema_json(
         "Overlord AI — Black Myth: Wukong voice co-pilot",
         "Overlord is a desktop voice co-pilot that reads your screen and talks you past Black Myth: Wukong bosses in real time.",
@@ -196,6 +236,8 @@ else:
 
 # 2. Generate the other game pages
 for g in GAMES:
+    if ONLY and g["filename"] not in ONLY:
+        continue
     page = template_with_schema
     # Meta replacements
     page = re.sub(r'<title>.*?</title>', f"<title>{g['title']}</title>", page)
