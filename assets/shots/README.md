@@ -4,7 +4,7 @@ All seven panes in `index.html`'s `CARDS` array are live as of 2026-10-07.
 
 | # | Pane | Kind | Source |
 |---|------|------|--------|
-| 1 | Dashboard demo | `video` + `poster` | `assets/reels/dashboard-demo.mp4` |
+| 1 | Overlord AI dashboard walkthrough | `video` + `poster` | `assets/reels/dashboard-walkthrough.mp4` |
 | 2 | Gold Combo | `video` + `poster` | `assets/reels/gold-combo.mp4` |
 | 3 | Divine Prayer | `embed` | `assets/hud/prayer-hud.html` |
 | 4 | GPS Radar | `embed` | `assets/hud/gps-card.html` |
