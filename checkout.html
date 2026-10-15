@@ -21,6 +21,8 @@
 </script>
 
 <script src="assets/founder-config.js"></script>
+<script src="assets/vendor/supabase-js.js"></script>
+<script src="assets/auth-config.js"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -272,6 +274,28 @@
     box-shadow:0 0 0 2px var(--accent-glow);
   }
   .portal-textarea{resize:vertical;min-height:72px;}
+  .oauth-wrap{display:flex;flex-direction:column;gap:.75rem;margin-top:.2rem;}
+  .oauth-grid{display:flex;flex-direction:column;gap:.6rem;}
+  .oauth__btn{
+    position:relative;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:.9rem;
+    width:100%;padding:.85rem 1.1rem;border-radius:4px;cursor:pointer;text-align:left;
+    border:1px solid var(--border-color);background:var(--sidebar-bg);color:var(--neutral-on-background-strong);
+    font:500 .82rem/1 'Space Grotesk',sans-serif;letter-spacing:.04em;
+    transition:border-color .3s ease,transform .2s ease,box-shadow .3s ease;
+  }
+  .oauth__btn:hover{
+    border-color:var(--accent);transform:translateX(3px);box-shadow:0 8px 24px -10px var(--accent-glow);
+  }
+  .oauth__btn .arr{transition:transform .3s ease;color:var(--neutral-on-background-weak);}
+  .oauth__btn:hover .arr{transform:translateX(3px);color:var(--accent);}
+  .portal-or-divider{
+    display:flex;align-items:center;text-align:center;margin:.4rem 0;
+    color:var(--neutral-on-background-weak);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  }
+  .portal-or-divider::before, .portal-or-divider::after{
+    content:'';flex:1;border-bottom:1px solid var(--border-color);
+  }
+  .portal-or-divider span{padding:0 .75rem;}
   .portal-btn{
     display:inline-flex;
     align-items:center;
@@ -708,19 +732,44 @@
           </p>
 
           <form id="founderForm" class="portal-form">
+            <div class="oauth-wrap">
+              <span class="mono field-label">1-Click Fast Track with OAuth:</span>
+              <div class="oauth-grid">
+                <button class="oauth__btn" type="button" data-oauth="google">
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                    <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.2-2.1 3.5-5.1 3.5-8.7z"/>
+                    <path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.9-3c-1.1.7-2.4 1.2-4 1.2-3.1 0-5.7-2.1-6.6-4.9H1.4v3.1A12 12 0 0 0 12 24z"/>
+                    <path fill="#FBBC05" d="M5.4 14.4a7.2 7.2 0 0 1 0-4.7V6.6H1.4a12 12 0 0 0 0 10.8l4-3z"/>
+                    <path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.4 6.6l4 3.1C6.3 6.9 8.9 4.8 12 4.8z"/>
+                  </svg>
+                  <span>Continue with Google</span>
+                  <span class="arr">&rarr;</span>
+                </button>
+                <button class="oauth__btn" type="button" data-oauth="apple">
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" class="apple">
+                    <path fill="currentColor" d="M16.4 12.7c0-2.6 2.1-3.8 2.2-3.9a4.8 4.8 0 0 0-3.8-2c-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9a5 5 0 0 0-4.2 2.6c-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5a11 11 0 0 0 1.4-2.9 4.5 4.5 0 0 1-2.6-4.1zM13.9 5.1c.7-.9 1.2-2 1.1-3.1-1 0-2.3.7-3 1.6-.7.8-1.2 1.9-1.1 3 1.1.1 2.3-.6 3-1.5z"/>
+                  </svg>
+                  <span>Continue with Apple</span>
+                  <span class="arr">&rarr;</span>
+                </button>
+              </div>
+              <div class="portal-or-divider mono"><span>or continue with email</span></div>
+            </div>
+
             <div class="field-wrap">
               <label for="feedbackInput" class="mono field-label">What plan were you looking to buy, or what game are you playing tonight? <span class="field-opt">(Optional)</span></label>
               <textarea id="feedbackInput" class="portal-textarea" rows="2" placeholder="e.g. Elden Ring, Black Myth: Wukong, wanted to test the tactical radar..."></textarea>
             </div>
 
             <div class="field-wrap">
-              <label for="emailInput" class="mono field-label">Your Email <span class="field-opt">(Optional &mdash; for key backup &amp; atlas updates)</span></label>
-              <input type="email" id="emailInput" class="portal-input" placeholder="player@example.com">
+              <label for="emailInput" class="mono field-label">Your Email <span style="color:var(--accent);font-weight:600;">* (Required for license key &amp; updates)</span></label>
+              <input type="email" id="emailInput" class="portal-input" placeholder="player@example.com" required>
             </div>
 
             <button type="submit" class="portal-btn" id="claimBtn">
               <span>Claim Free Access &amp; Download Overlord &rarr;</span>
             </button>
+            <p id="portalStatusMsg" class="mono" style="font-size:0.75rem; color:var(--neutral-on-background-weak); text-align:center; min-height:1.2em; margin-top:.4rem;"></p>
           </form>
         </div>
 
@@ -942,38 +991,166 @@ const PRODUCTS = {
     `).join('');
   }
 
+  // Supabase Client for Lead Recording & OAuth
+  const cfg = window.OVERLORD_SUPABASE || {};
+  const sbLib = window.supabase;
+  const sbClient = (sbLib && cfg.url && cfg.anonKey) ? sbLib.createClient(cfg.url, cfg.anonKey, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+  }) : null;
+
+  async function recordFounderLead(payload) {
+    // 1. Always guarantee local resilience
+    try {
+      localStorage.setItem('overlord_founder_lead', JSON.stringify(payload));
+    } catch (e) {}
+
+    if (!cfg.url || !cfg.anonKey) return false;
+
+    // 2. Write to dedicated founder_leads table
+    try {
+      const res = await fetch(`${cfg.url}/rest/v1/founder_leads`, {
+        method: 'POST',
+        headers: {
+          'apikey': cfg.anonKey,
+          'Authorization': `Bearer ${cfg.anonKey}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) return true;
+    } catch (err) {}
+
+    // 3. Fallback write to waitlist table
+    try {
+      await fetch(`${cfg.url}/rest/v1/waitlist`, {
+        method: 'POST',
+        headers: {
+          'apikey': cfg.anonKey,
+          'Authorization': `Bearer ${cfg.anonKey}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          email: payload.email,
+          feedback: payload.feedback || null,
+          plan: payload.plan || null,
+          license_key: payload.license_key || null
+        })
+      });
+    } catch (err) {}
+    return true;
+  }
+
   // Handle Form Submission & Claim Action
   const form = document.getElementById('founderForm');
   const preState = document.getElementById('portalPreState');
   const successState = document.getElementById('portalSuccessState');
   const displayKey = document.getElementById('displayKey');
   const copyBtn = document.getElementById('copyKeyBtn');
+  const statusMsg = document.getElementById('portalStatusMsg');
+
+  async function activateLicense(email, feedback, authProvider, userId) {
+    const randHex = Math.random().toString(36).substring(2, 6).toUpperCase();
+    const genKey = 'OVR-' + (planKey === 'pro' ? 'PRO' : 'FOUNDER') + '-' + randHex + '-2026';
+    if (displayKey) displayKey.textContent = genKey;
+
+    const payload = {
+      email,
+      feedback: feedback || null,
+      plan: planKey,
+      license_key: genKey,
+      auth_provider: authProvider || 'email',
+      user_id: userId || null,
+      ref: urlParams.get('ref') || null,
+      user_agent: navigator.userAgent || null,
+      created_at: new Date().toISOString()
+    };
+
+    await recordFounderLead(payload);
+
+    if (preState) preState.classList.add('hidden');
+    if (successState) successState.classList.remove('hidden');
+  }
+
+  // Fast-track OAuth Click Listeners
+  document.querySelectorAll('[data-oauth]').forEach(b => {
+    b.addEventListener('click', async () => {
+      const provider = b.dataset.oauth;
+      const feedbackVal = (document.getElementById('feedbackInput')?.value || '').trim();
+      if (feedbackVal) sessionStorage.setItem('ovr_pending_feedback', feedbackVal);
+      sessionStorage.setItem('ovr_pending_plan', planKey);
+
+      if (sbClient) {
+        const redirectUri = window.location.origin + window.location.pathname + '?plan=' + planKey + '&founder_oauth=1';
+        b.disabled = true;
+        b.style.opacity = '0.6';
+        if (statusMsg) {
+          statusMsg.textContent = 'Redirecting to ' + (provider === 'google' ? 'Google' : 'Apple') + '\u2026';
+          statusMsg.style.color = 'var(--accent)';
+        }
+        const { error } = await sbClient.auth.signInWithOAuth({
+          provider,
+          options: { redirectTo: redirectUri }
+        });
+        if (error) {
+          if (statusMsg) {
+            statusMsg.textContent = error.message || 'Could not connect to provider.';
+            statusMsg.style.color = '#ef4444';
+          }
+          b.disabled = false;
+          b.style.opacity = '1';
+        }
+      } else {
+        if (statusMsg) {
+          statusMsg.textContent = 'Auth service is unavailable. Please enter email below.';
+          statusMsg.style.color = '#ef4444';
+        }
+      }
+    });
+  });
+
+  // Check for active session or OAuth redirect return
+  if (sbClient) {
+    sbClient.auth.getSession().then(({ data }) => {
+      if (data && data.session && data.session.user) {
+        const user = data.session.user;
+        const email = user.email || '';
+        const emailInput = document.getElementById('emailInput');
+        if (emailInput && email) emailInput.value = email;
+
+        const isOauthReturn = urlParams.get('founder_oauth') === '1' || window.location.hash.includes('access_token');
+        if (isOauthReturn && email) {
+          const pendingFeedback = sessionStorage.getItem('ovr_pending_feedback') || '';
+          sessionStorage.removeItem('ovr_pending_feedback');
+          sessionStorage.removeItem('ovr_pending_plan');
+          activateLicense(email, pendingFeedback, user.app_metadata?.provider || 'oauth', user.id);
+        }
+      }
+    }).catch(() => {});
+  }
 
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = (document.getElementById('emailInput')?.value || '').trim();
       const feedback = (document.getElementById('feedbackInput')?.value || '').trim();
 
-      // Store lead for founder analytics
-      try {
-        const lead = {
-          email,
-          feedback,
-          plan: planKey,
-          timestamp: new Date().toISOString(),
-          ref: urlParams.get('ref') || null
-        };
-        localStorage.setItem('overlord_founder_lead', JSON.stringify(lead));
-      } catch (err) {}
+      if (!email) {
+        if (statusMsg) {
+          statusMsg.textContent = 'An email address is required to activate your license.';
+          statusMsg.style.color = '#ef4444';
+        }
+        return;
+      }
 
-      // Generate customized key
-      const randHex = Math.random().toString(36).substring(2, 6).toUpperCase();
-      const genKey = 'OVR-' + (planKey === 'pro' ? 'PRO' : 'FOUNDER') + '-' + randHex + '-2026';
-      if (displayKey) displayKey.textContent = genKey;
+      const claimBtn = document.getElementById('claimBtn');
+      if (claimBtn) {
+        claimBtn.disabled = true;
+        claimBtn.innerHTML = '<span>Activating License&hellip;</span>';
+      }
 
-      if (preState) preState.classList.add('hidden');
-      if (successState) successState.classList.remove('hidden');
+      await activateLicense(email, feedback, 'email', null);
     });
   }
 
