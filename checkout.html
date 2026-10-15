@@ -20,6 +20,8 @@
   rdt('track','PageVisit');
 </script>
 
+<script src="assets/founder-config.js"></script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Checkout — Overlord AI</title>
@@ -699,10 +701,10 @@
       <div class="portal-content">
         <!-- Initial Pre-Pay State -->
         <div id="portalPreState" class="portal-card">
-          <div class="surprise-badge mono">✦ SURPRISE &middot; IT'S ON US</div>
+          <div class="surprise-badge mono">✦ FOUNDER ACCESS &middot; FREE THROUGH <span class="founder-access-date">NOVEMBER 15</span></div>
           <h2 class="portal-title">Thank You For Trying Overlord!</h2>
           <p class="portal-desc">
-            We are currently in open founder preview, which means <strong>full access is 100% free today</strong>. No credit card required, zero charges, and no backend billing. Download the full software, unlock your license, and start playing right now.
+            We are currently in open founder preview, which means <strong>full access is free through <span class="founder-access-date">November 15</span></strong>. No credit card required, zero charges, and no backend billing. Download the full software, unlock your license, and start playing right now.
           </p>
 
           <form id="founderForm" class="portal-form">
@@ -796,7 +798,7 @@
           <span class="mono" id="lineItemPrice">$14.99 / mo</span>
         </div>
         <div class="breakdown-row" style="color:#10b981;">
-          <span>Founder Courtesy (100% Off)</span>
+          <span id="founderDiscountLabel">Founder Access: free through <span class="founder-access-date">November 15</span></span>
           <span class="mono" id="discountAmount">-$14.99</span>
         </div>
         <div class="breakdown-row total">
@@ -919,6 +921,13 @@ const PRODUCTS = {
   if (discountEl) discountEl.textContent = product.discount;
   const totalDueEl = document.getElementById('totalDuePrice');
   if (totalDueEl) totalDueEl.textContent = '$0.00';
+
+  // Sync date across founder access labels from constant
+  if (window.FOUNDER_ACCESS_END_LABEL) {
+    document.querySelectorAll('.founder-access-date').forEach(el => {
+      el.textContent = window.FOUNDER_ACCESS_END_LABEL;
+    });
+  }
 
   // Features
   const featuresList = document.getElementById('featuresList');

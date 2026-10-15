@@ -22,6 +22,8 @@
   rdt('track','ViewContent');
 </script>
 
+<script src="assets/founder-config.js"></script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Overlord AI — Plans & Pricing (Free 30-Minute Demo, $14.99/mo)</title>
@@ -772,6 +774,88 @@
   .signup-bar span{font-size:.92rem;color:var(--neutral-on-background-weak);}
   @media (max-width:760px){ .signup-bar{flex-direction:column;align-items:stretch;text-align:center;} .signup-bar .btn{width:100%;} }
 
+  /* ================= FOUNDER ACCESS BANNER ================= */
+  .founder-banner{
+    margin-top:2.5rem;
+    margin-bottom:2rem;
+    padding:1.6rem 2rem;
+    border:1px solid color-mix(in srgb, var(--accent) 36%, var(--neutral-alpha-medium));
+    border-radius:6px;
+    background:color-mix(in srgb, var(--accent) 5%, var(--page-background));
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:2rem;
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+    transition:border-color .3s ease, box-shadow .3s ease;
+  }
+  .founder-banner::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    background:radial-gradient(ellipse at 15% 50%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%);
+  }
+  .founder-banner__main{
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:.45rem;
+  }
+  .founder-banner__headline{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(1.15rem, 1.8vw, 1.45rem);
+    font-weight:700;
+    line-height:1.25;
+    letter-spacing:-.01em;
+    color:var(--neutral-on-background-strong);
+    margin:0;
+  }
+  .founder-banner__subline{
+    font-size:.92rem;
+    line-height:1.5;
+    color:var(--neutral-on-background-weak);
+    margin:0;
+    max-width:54rem;
+  }
+  .founder-banner__extra{
+    font-size:.82rem;
+    line-height:1.45;
+    color:var(--neutral-on-background-weak);
+    margin-top:.35rem;
+  }
+  .founder-banner__action{
+    flex-shrink:0;
+  }
+  .founder-banner__btn{
+    white-space:nowrap;
+    padding:.85rem 1.4rem;
+    font-size:.74rem;
+    letter-spacing:.2em;
+    border-color:var(--neutral-on-background-strong);
+  }
+  @media (max-width:860px){
+    .founder-banner{
+      flex-direction:column;
+      align-items:stretch;
+      gap:1.35rem;
+      padding:1.4rem 1.3rem;
+      margin-top:2rem;
+      margin-bottom:1.8rem;
+    }
+    .founder-banner__action{
+      width:100%;
+    }
+    .founder-banner__btn{
+      width:100%;
+      justify-content:center;
+    }
+  }
+
   /* ================= scroll reveals — one easing for the whole page ================= */
   .rv{
     opacity:0;transform:translateY(42px);
@@ -1051,6 +1135,18 @@
   </div>
   <p class="pricing__lede">30 minutes free, then a monthly subscription. Cancel any time.</p>
 
+  <!-- Founder Early Access Banner -->
+  <section class="founder-banner" id="founderBanner" aria-label="Founder Access Announcement">
+    <div class="founder-banner__main">
+      <h2 class="founder-banner__headline">Founder Access: Overlord AI is free through <span class="founder-access-date">November 15</span></h2>
+      <p class="founder-banner__subline">Every plan below is $0 during early access. Play, push it hard, and tell us what to fix. Your feedback shapes launch.</p>
+      <div class="founder-banner__extra" id="founderBannerExtra" style="display:none;"></div>
+    </div>
+    <div class="founder-banner__action">
+      <a class="btn btn--solid btn--inline founder-banner__btn" id="founderBannerBtn" href="checkout.html?plan=sub">Claim Founder Access <span class="arr">&rarr;</span></a>
+    </div>
+  </section>
+
   <div class="plans">
     <article class="plan in" style="--d:.05s">
       <div class="orb"></div>
@@ -1275,6 +1371,33 @@ rewardful('ready', function () {
     a.href = u.toString();
   });
 });
+</script>
+<script>
+/* ---------- founder access banner: date sync & click analytics ---------- */
+(() => {
+  if (window.FOUNDER_ACCESS_END_LABEL) {
+    document.querySelectorAll('.founder-access-date').forEach(el => {
+      el.textContent = window.FOUNDER_ACCESS_END_LABEL;
+    });
+  }
+  const bannerBtn = document.getElementById('founderBannerBtn');
+  if (bannerBtn) {
+    bannerBtn.addEventListener('click', () => {
+      if (typeof gtag === 'function') {
+        gtag('event', 'founder_banner_click', {
+          event_category: 'engagement',
+          event_label: 'Claim Founder Access'
+        });
+      }
+      if (typeof rdt === 'function') {
+        rdt('track', 'Custom', { customEventName: 'FounderBannerClick' });
+      }
+      if (window.va) {
+        window.va('event', { name: 'founder_banner_click' });
+      }
+    });
+  }
+})();
 </script>
 </body>
 </html>
