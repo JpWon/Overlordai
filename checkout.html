@@ -173,54 +173,243 @@
     background:#10b981;
     box-shadow:0 0 8px #10b981;
   }
-  .iframe-wrap{
-    position:relative;
+  .portal-content{
     flex:1;
-    width:100%;
-    min-height:820px;
-    display:flex;
-    background:var(--page-background);
-  }
-  #checkoutFrame{
-    width:100%;
-    height:100%;
-    min-height:820px;
-    border:none;
-    display:block;
-    background:transparent;
-    z-index:2;
-  }
-  .portal-loader{
-    position:absolute;
-    inset:0;
     display:flex;
     flex-direction:column;
-    align-items:center;
     justify-content:center;
-    gap:1rem;
+    align-items:center;
+    padding:3.5rem 2.5rem;
     background:var(--page-background);
-    z-index:1;
-    transition:opacity .35s ease;
   }
-  .portal-loader.hidden{
-    opacity:0;
-    pointer-events:none;
+  @media (max-width:768px){
+    .portal-content{padding:2rem 1.2rem;}
   }
-  .loader-spinner{
-    width:36px;
-    height:36px;
-    border:2px solid var(--border-color);
-    border-top-color:var(--accent);
-    border-radius:50%;
-    animation:spin .8s linear infinite;
+  .portal-card{
+    width:100%;
+    max-width:540px;
+    display:flex;
+    flex-direction:column;
+    gap:1.5rem;
+    animation:card-fade-in .5s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .loader-text{
-    font-size:.68rem;
+  @keyframes card-fade-in{
+    from{opacity:0;transform:translateY(12px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .surprise-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 14px;
+    border-radius:999px;
+    border:1px solid rgba(109,92,255,.4);
+    background:rgba(109,92,255,.08);
+    font-size:.65rem;
+    font-weight:600;
     letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    align-self:flex-start;
+  }
+  .surprise-badge--success{
+    border-color:rgba(16,185,129,.4);
+    background:rgba(16,185,129,.08);
+    color:#10b981;
+  }
+  .portal-title{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(2rem,3.2vw,2.8rem);
+    line-height:1.05;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+  }
+  .portal-desc{
+    font-size:.92rem;
+    line-height:1.6;
+    color:var(--neutral-on-background-weak);
+  }
+  .portal-desc strong{
+    color:var(--neutral-on-background-strong);
+  }
+  .portal-form{
+    display:flex;
+    flex-direction:column;
+    gap:1.2rem;
+    margin-top:.4rem;
+  }
+  .field-wrap{
+    display:flex;
+    flex-direction:column;
+    gap:.45rem;
+  }
+  .field-label{
+    font-size:.64rem;
+    letter-spacing:.14em;
     text-transform:uppercase;
     color:var(--neutral-on-background-weak);
   }
+  .field-opt{
+    opacity:.7;
+    font-size:.56rem;
+  }
+  .portal-input, .portal-textarea{
+    width:100%;
+    padding:.85rem 1rem;
+    background:var(--sidebar-bg);
+    border:1px solid var(--border-color);
+    border-radius:4px;
+    color:var(--neutral-on-background-strong);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:.88rem;
+    outline:none;
+    transition:border-color .3s,box-shadow .3s;
+  }
+  .portal-input:focus, .portal-textarea:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 2px var(--accent-glow);
+  }
+  .portal-textarea{resize:vertical;min-height:72px;}
+  .portal-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.6rem;
+    padding:1rem 1.6rem;
+    background:var(--accent);
+    color:#ffffff;
+    border:none;
+    border-radius:4px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:.85rem;
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:transform .2s,box-shadow .3s,background-color .3s;
+    margin-top:.4rem;
+  }
+  .portal-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px var(--accent-glow);
+    background:color-mix(in srgb,var(--accent) 90%,white);
+  }
+  .portal-btn:active{transform:translateY(0);}
+
+  /* Success & Download Console */
+  .key-box{
+    display:flex;
+    flex-direction:column;
+    gap:.5rem;
+    padding:1.1rem 1.3rem;
+    background:color-mix(in srgb,var(--page-background) 80%,var(--accent));
+    border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);
+    border-radius:4px;
+  }
+  .key-box__label{
+    font-size:.62rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--neutral-on-background-weak);
+  }
+  .key-box__code-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+  }
+  .key-box code{
+    font-size:1.05rem;
+    font-weight:700;
+    color:var(--neutral-on-background-strong);
+    letter-spacing:.08em;
+  }
+  .key-copy-btn{
+    background:transparent;
+    border:1px solid var(--border-color);
+    color:var(--neutral-on-background-strong);
+    padding:.35rem .75rem;
+    border-radius:3px;
+    font-family:'Space Mono',monospace;
+    font-size:.65rem;
+    letter-spacing:.14em;
+    cursor:pointer;
+    transition:all .2s;
+  }
+  .key-copy-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .download-grid{
+    display:flex;
+    flex-direction:column;
+    gap:.85rem;
+    margin-top:.5rem;
+  }
+  .dl-card{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    padding:1.1rem 1.3rem;
+    background:var(--sidebar-bg);
+    border:1px solid var(--border-color);
+    border-radius:4px;
+    text-decoration:none;
+    color:var(--neutral-on-background-strong);
+    transition:border-color .3s,transform .2s,background .3s;
+  }
+  .dl-card:hover{
+    border-color:var(--accent);
+    background:color-mix(in srgb,var(--sidebar-bg) 95%,var(--accent));
+    transform:translateX(4px);
+  }
+  .dl-card__icon{
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .dl-card__info{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:.2rem;
+  }
+  .dl-card__info strong{
+    font-size:.88rem;
+    font-weight:600;
+  }
+  .dl-card__info small{
+    font-size:.68rem;
+    color:var(--neutral-on-background-weak);
+  }
+  .dl-card__arrow{
+    font-size:1.1rem;
+    color:var(--accent);
+    transition:transform .2s;
+  }
+  .dl-card:hover .dl-card__arrow{
+    transform:translateX(3px);
+  }
+  .portal-extra-links{
+    margin-top:.8rem;
+    text-align:center;
+  }
+  .deck-link{
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--neutral-on-background-weak);
+    text-decoration:none;
+    border-bottom:1px dashed var(--border-color);
+    padding-bottom:2px;
+    transition:color .2s,border-color .2s;
+  }
+  .deck-link:hover{
+    color:var(--neutral-on-background-strong);
+    border-bottom-color:var(--neutral-on-background-strong);
+  }
+  .hidden{display:none !important;}
 
   /* RIGHT: License Details ("Here's your license on the right") */
   .checkout-license{
@@ -497,29 +686,86 @@
 <main class="checkout-main">
   <div class="checkout-split">
 
-    <!-- LEFT: Payment Portal (Lemon Squeezy Seamless Form) -->
-    <section class="checkout-portal" aria-label="Payment Gateway">
+    <!-- LEFT: Payment Portal (Founder Early Access Zero-Payment Console) -->
+    <section class="checkout-portal" aria-label="Founder Checkout Portal">
       <div class="portal-topbar mono">
         <div class="status">
           <span class="dot"></span>
-          <span>Lemon Squeezy &middot; 256-Bit Encrypted</span>
+          <span>Founder Early Access &middot; Zero Payment Required</span>
         </div>
         <div id="clock">--:--:--</div>
       </div>
 
-      <div class="iframe-wrap">
-        <div class="portal-loader" id="portalLoader">
-          <div class="loader-spinner"></div>
-          <div class="loader-text mono">Connecting to payment gateway&hellip;</div>
+      <div class="portal-content">
+        <!-- Initial Pre-Pay State -->
+        <div id="portalPreState" class="portal-card">
+          <div class="surprise-badge mono">✦ SURPRISE &middot; IT'S ON US</div>
+          <h2 class="portal-title">Thank You For Trying Overlord!</h2>
+          <p class="portal-desc">
+            We are currently in open founder preview, which means <strong>full access is 100% free today</strong>. No credit card required, zero charges, and no backend billing. Download the full software, unlock your license, and start playing right now.
+          </p>
+
+          <form id="founderForm" class="portal-form">
+            <div class="field-wrap">
+              <label for="feedbackInput" class="mono field-label">What plan were you looking to buy, or what game are you playing tonight? <span class="field-opt">(Optional)</span></label>
+              <textarea id="feedbackInput" class="portal-textarea" rows="2" placeholder="e.g. Elden Ring, Black Myth: Wukong, wanted to test the tactical radar..."></textarea>
+            </div>
+
+            <div class="field-wrap">
+              <label for="emailInput" class="mono field-label">Your Email <span class="field-opt">(Optional &mdash; for key backup &amp; atlas updates)</span></label>
+              <input type="email" id="emailInput" class="portal-input" placeholder="player@example.com">
+            </div>
+
+            <button type="submit" class="portal-btn" id="claimBtn">
+              <span>Claim Free Access &amp; Download Overlord &rarr;</span>
+            </button>
+          </form>
         </div>
 
-        <iframe
-          id="checkoutFrame"
-          src="about:blank"
-          title="Secure Payment Portal"
-          allow="payment"
-          scrolling="no"
-        ></iframe>
+        <!-- Success & Download State -->
+        <div id="portalSuccessState" class="portal-card hidden">
+          <div class="surprise-badge surprise-badge--success mono">✓ ACCESS GRANTED &middot; WELCOME ABOARD</div>
+          <h2 class="portal-title">You're All Set!</h2>
+          <p class="portal-desc">
+            Your complimentary Founder License has been activated. Grab the release package for your system below to get started.
+          </p>
+
+          <div class="key-box mono">
+            <div class="key-box__label">Founder License Key:</div>
+            <div class="key-box__code-row">
+              <code id="displayKey">OVR-FOUNDER-FREE-ACCESS-2026</code>
+              <button type="button" class="key-copy-btn" id="copyKeyBtn">COPY</button>
+            </div>
+          </div>
+
+          <div class="download-grid">
+            <a class="dl-card" href="https://github.com/JpWon/Overlordai/releases/download/v1.5.1/overlord_1.5.1_amd64.deb" download>
+              <div class="dl-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              </div>
+              <div class="dl-card__info">
+                <strong>Download for Linux (.deb)</strong>
+                <small class="mono">Ubuntu / Debian / Mint &middot; 87 MB &middot; Native 1-Click GUI install</small>
+              </div>
+              <span class="dl-card__arrow">&rarr;</span>
+            </a>
+
+            <a class="dl-card" href="https://github.com/JpWon/Overlordai/releases/download/v1.5.1/Overlord.Ai.Setup.1.5.1.exe" download>
+              <div class="dl-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg>
+              </div>
+              <div class="dl-card__info">
+                <strong>Download for Windows (.exe)</strong>
+                <small class="mono">Windows 10 / 11 Standalone &middot; 120 MB Setup</small>
+              </div>
+              <span class="dl-card__arrow">&rarr;</span>
+            </a>
+          </div>
+
+          <div class="portal-extra-links mono">
+            <a href="dashboard.html" class="deck-link">Open Web Control Deck &rarr;</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -535,8 +781,9 @@
         <p class="license-caption" id="licenseCaption">The sovereign live gaming co-pilot for your primary gaming PC. Cancel anytime in one click.</p>
 
         <div class="license-price-row">
-          <span class="license-price mono" id="licensePrice">$14.99</span>
-          <span class="license-period mono" id="licensePeriod">/ month</span>
+          <span class="license-price mono" id="licensePrice" style="text-decoration:line-through; opacity:0.4;">$14.99</span>
+          <span class="license-price mono" id="freePrice" style="color:#10b981; margin-left:8px;">$0.00</span>
+          <span class="license-period mono" id="licensePeriod">/ free founder access</span>
         </div>
       </div>
 
@@ -548,9 +795,13 @@
           <span id="lineItemName">Pantocrator License</span>
           <span class="mono" id="lineItemPrice">$14.99 / mo</span>
         </div>
+        <div class="breakdown-row" style="color:#10b981;">
+          <span>Founder Courtesy (100% Off)</span>
+          <span class="mono" id="discountAmount">-$14.99</span>
+        </div>
         <div class="breakdown-row total">
           <span>Total due today</span>
-          <span class="mono" id="totalDuePrice">$14.99</span>
+          <span class="mono" id="totalDuePrice" style="color:#10b981;">$0.00</span>
         </div>
       </div>
 
@@ -565,7 +816,7 @@
       </div>
 
       <div class="license-security mono">
-        <span>Payment safely processed by Lemon Squeezy (Merchant of Record). License key and download link sent instantly upon payment.</span>
+        <span>Founder Access Active &middot; No credit card required. License key and download link delivered instantly upon confirmation.</span>
         <span>Questions? Email <a href="mailto:support@overlordai.co">support@overlordai.co</a> or join our <a href="https://discord.com/invite/ZPZeJDAw9C" target="_blank" rel="noopener">Discord</a>.</span>
       </div>
     </section>
@@ -589,14 +840,32 @@
 <script>
 /* ================= PRODUCT CONFIG ================= */
 const PRODUCTS = {
+  demo: {
+    id: 'demo-trial',
+    kicker: '01 · UNLIMITED FREE TRIAL',
+    title: 'Trial & Founder Pass',
+    caption: 'Full access to the core strategy guidebook, live screen assistance, and Isabella voice.',
+    price: '$0.00',
+    period: 'free forever',
+    lineItem: 'Overlord AI Founder Trial',
+    discount: '$0.00',
+    features: [
+      'Unlimited live screen guidance & core guidebook',
+      'Wayland (Linux) & Windows 10/11 native support',
+      'Atlas companion for all 7+ mapped titles',
+      'Local zero-latency Isabella neural voice',
+      'Instant software download & execution'
+    ]
+  },
   sub: {
-    id: '8772e8e7-84b3-49d3-9105-ec887f28b738',
+    id: 'subscription-monthly',
     kicker: '02 · MONTHLY SUBSCRIPTION',
     title: 'Pantocrator License',
     caption: 'The complete sovereign live gaming companion for your primary rig. Cancel anytime in one click.',
     price: '$14.99',
     period: '/ month',
     lineItem: 'Pantocrator License (Monthly)',
+    discount: '-$14.99',
     features: [
       'Unlimited real-time tactical overlay & mission guidance',
       'Wayland (Linux) & Windows 10/11 native support',
@@ -606,13 +875,14 @@ const PRODUCTS = {
     ]
   },
   pro: {
-    id: '253380ba-c8c7-401c-92ec-c69661397577',
+    id: 'pro-monthly',
     kicker: '03 · PRO 3-PC TIER',
     title: 'Pro Pantocrator License',
     caption: 'Everything in Subscription across three personal gaming rigs. Floating seat manager with instant reassignment.',
     price: '$39.99',
     period: '/ month',
     lineItem: 'Pro Pantocrator License · 3 PCs (Monthly)',
+    discount: '-$39.99',
     features: [
       'Everything in Monthly Subscription',
       'Three concurrent PC licenses under one account',
@@ -626,55 +896,95 @@ const PRODUCTS = {
 /* ================= CONTROLLER ================= */
 (() => {
   const urlParams = new URLSearchParams(window.location.search);
-  const planKey = urlParams.get('plan') === 'pro' ? 'pro' : 'sub';
+  const pParam = (urlParams.get('plan') || '').toLowerCase();
+  const planKey = (pParam === 'pro') ? 'pro' : ((pParam === 'demo') ? 'demo' : 'sub');
   const product = PRODUCTS[planKey];
 
   // Populate Right Column: License Overview
-  document.getElementById('licenseKicker').textContent = product.kicker;
-  document.getElementById('licenseTitle').textContent = product.title;
-  document.getElementById('licenseCaption').textContent = product.caption;
-  document.getElementById('licensePrice').textContent = product.price;
-  document.getElementById('licensePeriod').textContent = product.period;
-  document.getElementById('lineItemName').textContent = product.lineItem;
-  document.getElementById('lineItemPrice').textContent = product.price + ' / mo';
-  document.getElementById('totalDuePrice').textContent = product.price;
+  const kickerEl = document.getElementById('licenseKicker');
+  if (kickerEl) kickerEl.textContent = product.kicker;
+  const titleEl = document.getElementById('licenseTitle');
+  if (titleEl) titleEl.textContent = product.title;
+  const captionEl = document.getElementById('licenseCaption');
+  if (captionEl) captionEl.textContent = product.caption;
+  const priceEl = document.getElementById('licensePrice');
+  if (priceEl) priceEl.textContent = product.price;
+  const periodEl = document.getElementById('licensePeriod');
+  if (periodEl) periodEl.textContent = (planKey === 'demo') ? '/ free forever' : '/ free founder access';
+  const nameEl = document.getElementById('lineItemName');
+  if (nameEl) nameEl.textContent = product.lineItem;
+  const itemPriceEl = document.getElementById('lineItemPrice');
+  if (itemPriceEl) itemPriceEl.textContent = (planKey === 'demo') ? '$0.00' : product.price + ' / mo';
+  const discountEl = document.getElementById('discountAmount');
+  if (discountEl) discountEl.textContent = product.discount;
+  const totalDueEl = document.getElementById('totalDuePrice');
+  if (totalDueEl) totalDueEl.textContent = '$0.00';
 
   // Features
   const featuresList = document.getElementById('featuresList');
-  featuresList.innerHTML = product.features.map(f => `
-    <li>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="20 6 9 17 4 12"></polyline>
-      </svg>
-      <span>${f}</span>
-    </li>
-  `).join('');
-
-  // Populate Left Column: Lemon Squeezy Embed
-  const frame = document.getElementById('checkoutFrame');
-  const loader = document.getElementById('portalLoader');
-
-  function buildIframeUrl() {
-    // Strip redundant media, desc, and logo so iframe renders only clean payment fields
-    let url = `https://overlordai.lemonsqueezy.com/checkout/buy/${product.id}?embed=1&media=0&desc=0&logo=0`;
-
-    // Pass Rewardful affiliate referral if available
-    if (window.Rewardful && window.Rewardful.referral) {
-      url += `&checkout[custom][rewardful]=${encodeURIComponent(window.Rewardful.referral)}`;
-    }
-    if (urlParams.get('ref')) url += `&checkout[custom][ref]=${encodeURIComponent(urlParams.get('ref'))}`;
-    if (urlParams.get('aff')) url += `&checkout[custom][aff]=${encodeURIComponent(urlParams.get('aff'))}`;
-
-    return url;
+  if (featuresList) {
+    featuresList.innerHTML = product.features.map(f => `
+      <li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>${f}</span>
+      </li>
+    `).join('');
   }
 
-  frame.src = buildIframeUrl();
+  // Handle Form Submission & Claim Action
+  const form = document.getElementById('founderForm');
+  const preState = document.getElementById('portalPreState');
+  const successState = document.getElementById('portalSuccessState');
+  const displayKey = document.getElementById('displayKey');
+  const copyBtn = document.getElementById('copyKeyBtn');
 
-  frame.addEventListener('load', () => {
-    if (frame.src && frame.src !== 'about:blank') {
-      loader.classList.add('hidden');
-    }
-  });
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = (document.getElementById('emailInput')?.value || '').trim();
+      const feedback = (document.getElementById('feedbackInput')?.value || '').trim();
+
+      // Store lead for founder analytics
+      try {
+        const lead = {
+          email,
+          feedback,
+          plan: planKey,
+          timestamp: new Date().toISOString(),
+          ref: urlParams.get('ref') || null
+        };
+        localStorage.setItem('overlord_founder_lead', JSON.stringify(lead));
+      } catch (err) {}
+
+      // Generate customized key
+      const randHex = Math.random().toString(36).substring(2, 6).toUpperCase();
+      const genKey = 'OVR-' + (planKey === 'pro' ? 'PRO' : 'FOUNDER') + '-' + randHex + '-2026';
+      if (displayKey) displayKey.textContent = genKey;
+
+      if (preState) preState.classList.add('hidden');
+      if (successState) successState.classList.remove('hidden');
+    });
+  }
+
+  // Copy Key Button
+  if (copyBtn && displayKey) {
+    copyBtn.addEventListener('click', () => {
+      const key = displayKey.textContent;
+      navigator.clipboard.writeText(key).then(() => {
+        const orig = copyBtn.textContent;
+        copyBtn.textContent = 'COPIED!';
+        copyBtn.style.borderColor = '#10b981';
+        copyBtn.style.color = '#10b981';
+        setTimeout(() => {
+          copyBtn.textContent = orig;
+          copyBtn.style.borderColor = '';
+          copyBtn.style.color = '';
+        }, 2200);
+      }).catch(() => {});
+    });
+  }
 
   // Live ticking clock
   const clock = document.getElementById('clock');
