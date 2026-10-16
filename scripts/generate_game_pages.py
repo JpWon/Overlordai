@@ -34,7 +34,7 @@ GAMES = [
         "meta_desc": "Over 61% of Elden Ring players never finished it. Overlord is a voice co-pilot that talks you past Malenia, Radahn and every wall boss. Free demo.",
         "canonical": "https://www.overlordai.co/eldenring.html",
         "hero_h1": "Over 61% of the people who bought Elden Ring never finished it.",
-        "hero_lede": "Overlord is a desktop voice co-pilot that gets you past the boss that made you quit. It runs beside the game on <strong>your own Windows or Linux PC</strong>, watches your screen the way a person sitting next to you would, and <strong>speaks the telegraph for Waterfowl Dance, the dodge window for Consort Radahn, and the talismans you missed</strong> — 100% ban-safe with zero memory injection.",
+        "hero_lede": "Overlord is a desktop voice co-pilot that gets you past the boss that made you quit. It runs beside the game on <strong>your own Windows or Linux PC</strong>, watches your screen the way a person sitting next to you would, and <strong>talks you through Malenia's Waterfowl Dance, Consort Radahn and the talismans you missed</strong>, without touching the game itself.",
         "stat1_num": "25<small>million</small>",
         "stat1_label": "Copies of Elden Ring sold globally.",
         "stat1_src": "Source: Bandai Namco & FromSoftware official disclosures.",
@@ -50,10 +50,10 @@ GAMES = [
         "stat5_num": "68.2<small>%</small>",
         "stat5_label": "Of players summon co-op partners or spirit ashes specifically because solo boss attack delays felt impossible.",
         "stat5_src": "Source: player surveys across r/Eldenring and Reddit gaming discussions.",
-        "game_specific_feat": "Knows The Lands Between & Shadow Realm",
-        "game_specific_desc": "Researched and preloaded with boss attack delay rhythms (Malenia, Radahn, Messmer, Mohg, Bayle the Dread) and hidden talisman locations.",
+        "game_specific_feat": "Knows The Lands Between",
+        "game_specific_desc": "Elden Ring is mapped and preloaded: its areas, items and bosses, from Margit to Malenia, so it can point you to the loot and the fight instead of giving generic advice.",
         "step1_desc": "Launch Overlord on your Windows or Linux desktop, then launch Elden Ring as usual via Steam.",
-        "faq_game_answer": "Elden Ring and the Shadow of the Erdtree DLC are fully researched and preloaded. Overlord knows boss attack windows, talisman builds, and route secrets with zero game-memory access.",
+        "faq_game_answer": "Elden Ring is mapped and preloaded. Overlord knows its areas, items and bosses, and it never touches the game's memory or files.",
     },
     {
         "filename": "soulslike.html",
@@ -76,13 +76,13 @@ GAMES = [
         "stat4_num": "45<small>min</small>",
         "stat4_label": "The average tilt window before a frustrated player alt-tabs or closes a Soulslike in frustration.",
         "stat4_src": "Source: gaming retention and friction studies.",
-        "stat5_num": "0<small>injection</small>",
-        "stat5_label": "Operates 100% externally via screen vision. Zero memory injection, zero DLL hooking, completely anti-cheat safe.",
-        "stat5_src": "Built specifically for single-player integrity without triggering bans.",
-        "game_specific_feat": "Trained on Soulslike Combat Telegraphs",
-        "game_specific_desc": "Preloaded with punish windows, delayed swing rhythms, hyper-armor tells, and secret wall mechanics across top Soulslikes.",
+        "stat5_num": "0<small>game changes</small>",
+        "stat5_label": "Nothing is installed into the game. Overlord watches your screen; it doesn't read or change game memory or files, and it never presses a key for you.",
+        "stat5_src": "Built for single-player play.",
+        "game_specific_feat": "Learns each Soulslike you play",
+        "game_specific_desc": "Games already mapped are preloaded. A new one is researched from public guides the first time you play it, and the map fills in as you go.",
         "step1_desc": "Launch Overlord on your desktop, then boot up your favorite Soulslike game as usual.",
-        "faq_game_answer": "Overlord is trained across major Soulslike titles including Dark Souls 1/2/3, Elden Ring, Lies of P, Lords of the Fallen, and Demon's Souls with continuous updates.",
+        "faq_game_answer": "Elden Ring, Mortal Shell, Mortal Shell II and Black Myth: Wukong are mapped today. Other Soulslikes, such as Dark Souls, Lies of P or Lords of the Fallen, are researched from public guides the first time you play them.",
     },
     {
         "filename": "sekiro.html",
@@ -92,7 +92,7 @@ GAMES = [
         "meta_desc": "Over 68% of Sekiro players never finished the game. Overlord is a voice co-pilot that calls deflects, sweeps and thrusts out loud. Free 30-minute demo.",
         "canonical": "https://www.overlordai.co/sekiro.html",
         "hero_h1": "Over 68% of Sekiro players never finished the journey.",
-        "hero_lede": "There are no spirit summons and no grinding levels in Ashina. When you hit a wall, you either learn the rhythm or quit. Overlord runs beside Sekiro on <strong>your Windows or Linux PC</strong>, watches your screen in real time, and <strong>calls the rhythm: the unblockable sweep jump, the Mikiri counter window, and the posture reset tell</strong> before Genichiro or Sword Saint Isshin ends your run.",
+        "hero_lede": "There are no spirit summons and no grinding levels in Ashina. When you hit a wall, you either learn the rhythm or quit. Overlord runs beside Sekiro on <strong>your Windows or Linux PC</strong>, watches your screen, and <strong>talks you through the rhythm: when to jump a sweep, when to Mikiri a thrust, and how to break a boss's posture</strong> before Genichiro or Sword Saint Isshin ends your run.",
         "stat1_num": "10<small>million</small>",
         "stat1_label": "Copies of Sekiro: Shadows Die Twice sold worldwide.",
         "stat1_src": "Source: FromSoftware and Activision sales milestones.",
@@ -106,12 +106,12 @@ GAMES = [
         "stat4_label": "Players who bought Sekiro at full price and put it down before reaching the true ending.",
         "stat4_src": "Source: calculated from lifetime sales and completion milestones.",
         "stat5_num": "100<small>%</small>",
-        "stat5_label": "Rhythm and telegraph driven. Overlord watches posture bars and kanji telegraphs in sub-200ms.",
-        "stat5_src": "Low-latency edge vision tuned for FromSoftware combat cadence.",
-        "game_specific_feat": "Mastery of Ashina Telegraphs & Perilous Attacks",
-        "game_specific_desc": "Trained to instantly differentiate between Sweep (Jump), Thrust (Mikiri Counter), and Grab kanji attacks in real time.",
+        "stat5_label": "Nothing is installed into the game. Overlord watches your screen; it doesn't read or change game memory or files, and it never presses a key for you.",
+        "stat5_src": "Built for single-player play.",
+        "game_specific_feat": "Researched the first time you play",
+        "game_specific_desc": "Sekiro isn't preloaded yet. The first time you play, Overlord researches it from public guides: its areas, items, bosses and how to beat them.",
         "step1_desc": "Launch Overlord on your Windows or Linux PC, then launch Sekiro: Shadows Die Twice on Steam.",
-        "faq_game_answer": "Sekiro is fully supported. Overlord knows every boss from Lady Butterfly and Genichiro to Guardian Ape, Demon of Hatred, and Sword Saint Isshin.",
+        "faq_game_answer": "Yes. Sekiro isn't preloaded yet: Overlord researches it from public guides the first time you play, and the map fills in as you go.",
     },
     {
         "filename": "liesofp.html",
@@ -121,7 +121,7 @@ GAMES = [
         "meta_desc": "Over 62% of Lies of P players never finished the final chapters. Overlord is a voice co-pilot that calls guard timings out loud. Free 30-minute demo.",
         "canonical": "https://www.overlordai.co/liesofp.html",
         "hero_h1": "Over 62% of Lies of P players never made it to the true ending.",
-        "hero_lede": "Krat is unforgiving. Between delayed puppet attacks and punishing Fury Attacks that can't be dodged, millions of players hit a brick wall. Overlord runs beside the game on <strong>your Windows or Linux PC</strong>, watches your screen, and <strong>calls the perfect guard timing, the legion arm opening, and the boss stagger window</strong> out loud through your headset.",
+        "hero_lede": "Krat is unforgiving. Between delayed puppet attacks and punishing Fury Attacks that can't be dodged, millions of players hit a brick wall. Overlord runs beside the game on <strong>your Windows or Linux PC</strong>, watches your screen, and <strong>talks you through perfect guards, Fury Attacks and when to use your Legion Arm</strong>, out loud through your headset.",
         "stat1_num": "3<small>million+</small>",
         "stat1_label": "Copies sold and players across PC and consoles.",
         "stat1_src": "Source: Neowiz / Round8 Studio sales figures.",
@@ -135,12 +135,12 @@ GAMES = [
         "stat4_label": "Players who bought Krat's dark journey and put it down due to tight parry windows.",
         "stat4_src": "Source: calculated from total community base and completion ratios.",
         "stat5_num": "100<small>%</small>",
-        "stat5_label": "Ban-safe. No memory editing, no save file corruption, purely external screen-reading audio guide.",
-        "stat5_src": "Engineered for single-player campaign progression.",
-        "game_specific_feat": "Trained on Puppet Frenzy & Fury Attack Frames",
-        "game_specific_desc": "Preloaded with King of Puppets, Laxasia the Complete, Simon Manus, and Nameless Puppet telegraph timings.",
+        "stat5_label": "Nothing is installed into the game. Overlord watches your screen; it doesn't read or change game memory or files, and it never presses a key for you.",
+        "stat5_src": "Built for single-player play.",
+        "game_specific_feat": "Researched the first time you play",
+        "game_specific_desc": "Lies of P isn't preloaded yet. The first time you play, Overlord researches it from public guides: its areas, items, bosses and how to beat them.",
         "step1_desc": "Launch Overlord on your desktop, then launch Lies of P on Steam or PC Game Pass.",
-        "faq_game_answer": "Lies of P is fully researched and preloaded. Overlord knows all puppet and carcass boss mechanics, weapon assembly synergies, and quartz upgrade paths.",
+        "faq_game_answer": "Yes. Lies of P isn't preloaded yet: Overlord researches it from public guides the first time you play, and the map fills in as you go.",
     },
     {
         # Numbers sourced 2026-10-13: Steam store review summary, Steam global
@@ -172,7 +172,7 @@ GAMES = [
         "game_specific_feat": "Knows Mortal Shell II's map",
         "game_specific_desc": "Preloaded with 30 areas, 100 items and 31 bosses, from Magdalena, Lady of the Woods to Vellen, Lord of Mammon, so it can point you to the loot and the fight, not give generic advice.",
         "step1_desc": "Launch Overlord on your Windows or Linux PC, then launch Mortal Shell II on Steam.",
-        "faq_game_answer": "Mortal Shell II is researched and preloaded. Overlord knows its areas, items and bosses, follows you from area to area, and talks you to the item you ask for. Online multiplayer is not supported.",
+        "faq_game_answer": "Mortal Shell II is researched and preloaded. Overlord knows its areas, items and bosses, follows you from area to area, and talks you to the item you ask for. It's built for single-player play.",
     }
 ]
 
@@ -199,10 +199,10 @@ def make_schema_json(title, desc, canonical, game_name):
       "mainEntity": [
         {{
           "@type": "Question",
-          "name": "Will using Overlord get me banned in {game_name}?",
+          "name": "Does Overlord change or control {game_name}?",
           "acceptedAnswer": {{
             "@type": "Answer",
-            "text": "No. Overlord reads only screen pixels—the exact view a person sitting next to you would have. It never injects DLLs, never touches game memory, and is 100% compliant with anti-cheat software."
+            "text": "No. Overlord watches your screen, with your permission, the way a person sitting next to you would. It doesn't read or change game memory, change game files, inject code or press keys for you. Each game sets its own rules about outside help, so check the terms of the games you play."
           }}
         }},
         {{
@@ -210,7 +210,7 @@ def make_schema_json(title, desc, canonical, game_name):
           "name": "What are the system requirements for Overlord AI?",
           "acceptedAnswer": {{
             "@type": "Answer",
-            "text": "Overlord runs natively on your Windows or Linux PC alongside your game with whisper-silent edge capture, preserving your 144+ FPS rendering budget."
+            "text": "A Windows or Linux PC that runs your game, an Overlord AI account, and an internet connection for answers and the voice."
           }}
         }}
       ]
@@ -281,8 +281,7 @@ for g in GAMES:
 
     # FAQ
     page = page.replace("Does it only work on Black Myth: Wukong?", f"Does it support {g['game_name']}?")
-    page = page.replace("Wukong is researched and preloaded, so it knows those bosses, loot and routes. Overlord runs on single-player games on Steam, and new titles are added over time. Online multiplayer is not supported, and the paid guides are included in the Subscription.", g["faq_game_answer"])
-    page = page.replace("Black Myth: Wukong is researched and preloaded.", f"{g['game_name']} is fully researched and preloaded.")
+    page = page.replace("Wukong is mapped and preloaded, so it knows those bosses, loot and routes. Overlord is built for single-player games, new titles are added over time, and the guides are included in the Subscription.", g["faq_game_answer"])
 
     # Inject specific schema for this game
     game_schema = make_schema_json(g["title"], g["meta_desc"], g["canonical"], g["game_name"])
