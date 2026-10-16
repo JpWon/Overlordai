@@ -34,7 +34,7 @@ GAMES = [
         "meta_desc": "Over 61% of Elden Ring players never finished it. Overlord is a voice co-pilot that talks you past Malenia, Radahn and every wall boss. Free demo.",
         "canonical": "https://www.overlordai.co/eldenring.html",
         "hero_h1": "Over 61% of the people who bought Elden Ring never finished it.",
-        "hero_lede": "Overlord is a desktop voice co-pilot that gets you past the boss that made you quit. It runs beside the game on <strong>your own Windows or Linux PC</strong>, watches your screen the way a person sitting next to you would, and <strong>talks you through Malenia's Waterfowl Dance, Consort Radahn and the talismans you missed</strong>, without touching the game itself.",
+        "hero_lede": "Overlord is a desktop voice co-pilot that gets you past the boss that made you quit. It runs beside the game on <strong>your own PC</strong>, watches your screen the way a person sitting next to you would, and <strong>talks you through Malenia's Waterfowl Dance, Consort Radahn and the talismans you missed</strong>, without touching the game itself.",
         "stat1_num": "25<small>million</small>",
         "stat1_label": "Copies of Elden Ring sold globally.",
         "stat1_src": "Source: Bandai Namco & FromSoftware official disclosures.",
@@ -52,7 +52,7 @@ GAMES = [
         "stat5_src": "Source: player surveys across r/Eldenring and Reddit gaming discussions.",
         "game_specific_feat": "Knows The Lands Between",
         "game_specific_desc": "Elden Ring is mapped and preloaded: its areas, items and bosses, from Margit to Malenia, so it can point you to the loot and the fight instead of giving generic advice.",
-        "step1_desc": "Launch Overlord on your Windows or Linux desktop, then launch Elden Ring as usual via Steam.",
+        "step1_desc": "Launch Overlord on your PC, then launch Elden Ring as usual via Steam.",
         "faq_game_answer": "Elden Ring is mapped and preloaded. Overlord knows its areas, items and bosses, and it never touches the game's memory or files.",
     },
     {
@@ -63,7 +63,7 @@ GAMES = [
         "meta_desc": "60–70% of players quit Soulslikes before the credits. Overlord is a voice co-pilot that calls boss delays and dodge windows out loud. Free demo.",
         "canonical": "https://www.overlordai.co/soulslike.html",
         "hero_h1": "Between 60% and 70% of players abandon Soulslikes before the credits.",
-        "hero_lede": "Overlord is a desktop voice co-pilot that gets you past the wall. It runs beside your game on <strong>your own Windows or Linux PC</strong>, watches your screen the way a veteran couch co-op partner would, and <strong>speaks the boss tell, the panic-roll trap, and the secret shortcut you walked right past</strong> — across Dark Souls, Elden Ring, and the toughest action RPGs.",
+        "hero_lede": "Overlord is a desktop voice co-pilot that gets you past the wall. It runs beside your game on <strong>your own PC</strong>, watches your screen the way a veteran couch co-op partner would, and <strong>speaks the boss tell, the panic-roll trap, and the secret shortcut you walked right past</strong> — across Dark Souls, Elden Ring, and the toughest action RPGs.",
         "stat1_num": "65<small>%</small>",
         "stat1_label": "Average abandonment rate across the entire Soulslike genre.",
         "stat1_src": "Source: aggregated Steam global achievements across FromSoftware and soulslike titles.",
@@ -92,7 +92,7 @@ GAMES = [
         "meta_desc": "Over 68% of Sekiro players never finished the game. Overlord is a voice co-pilot that calls deflects, sweeps and thrusts out loud. Free 30-minute demo.",
         "canonical": "https://www.overlordai.co/sekiro.html",
         "hero_h1": "Over 68% of Sekiro players never finished the journey.",
-        "hero_lede": "There are no spirit summons and no grinding levels in Ashina. When you hit a wall, you either learn the rhythm or quit. Overlord runs beside Sekiro on <strong>your Windows or Linux PC</strong>, watches your screen, and <strong>talks you through the rhythm: when to jump a sweep, when to Mikiri a thrust, and how to break a boss's posture</strong> before Genichiro or Sword Saint Isshin ends your run.",
+        "hero_lede": "There are no spirit summons and no grinding levels in Ashina. When you hit a wall, you either learn the rhythm or quit. Overlord runs beside Sekiro on <strong>your PC</strong>, watches your screen, and <strong>talks you through the rhythm: when to jump a sweep, when to Mikiri a thrust, and how to break a boss's posture</strong> before Genichiro or Sword Saint Isshin ends your run.",
         "stat1_num": "10<small>million</small>",
         "stat1_label": "Copies of Sekiro: Shadows Die Twice sold worldwide.",
         "stat1_src": "Source: FromSoftware and Activision sales milestones.",
@@ -110,7 +110,7 @@ GAMES = [
         "stat5_src": "Built for single-player play.",
         "game_specific_feat": "Researched the first time you play",
         "game_specific_desc": "Sekiro isn't preloaded yet. The first time you play, Overlord researches it from public guides: its areas, items, bosses and how to beat them.",
-        "step1_desc": "Launch Overlord on your Windows or Linux PC, then launch Sekiro: Shadows Die Twice on Steam.",
+        "step1_desc": "Launch Overlord on your PC, then launch Sekiro: Shadows Die Twice on Steam.",
         "faq_game_answer": "Yes. Sekiro isn't preloaded yet: Overlord researches it from public guides the first time you play, and the map fills in as you go.",
     },
     {
@@ -121,7 +121,7 @@ GAMES = [
         "meta_desc": "Over 62% of Lies of P players never finished the final chapters. Overlord is a voice co-pilot that calls guard timings out loud. Free 30-minute demo.",
         "canonical": "https://www.overlordai.co/liesofp.html",
         "hero_h1": "Over 62% of Lies of P players never made it to the true ending.",
-        "hero_lede": "Krat is unforgiving. Between delayed puppet attacks and punishing Fury Attacks that can't be dodged, millions of players hit a brick wall. Overlord runs beside the game on <strong>your Windows or Linux PC</strong>, watches your screen, and <strong>talks you through perfect guards, Fury Attacks and when to use your Legion Arm</strong>, out loud through your headset.",
+        "hero_lede": "Krat is unforgiving. Between delayed puppet attacks and punishing Fury Attacks that can't be dodged, millions of players hit a brick wall. Overlord runs beside the game on <strong>your PC</strong>, watches your screen, and <strong>talks you through perfect guards, Fury Attacks and when to use your Legion Arm</strong>, out loud through your headset.",
         "stat1_num": "3<small>million+</small>",
         "stat1_label": "Copies sold and players across PC and consoles.",
         "stat1_src": "Source: Neowiz / Round8 Studio sales figures.",
@@ -153,7 +153,7 @@ GAMES = [
         "meta_desc": "70% of Mortal Shell II players never finished it. Overlord is a voice co-pilot that talks you past its bosses and to the loot you missed. Free demo.",
         "canonical": "https://www.overlordai.co/mortalshell2.html",
         "hero_h1": "70% of Mortal Shell II players never saw the ending.",
-        "hero_lede": "Mortal Shell II is one of the most underrated soulslikes out there, and one of the hardest to finish. Overlord runs beside it on <strong>your Windows or Linux PC</strong>, watches your screen, and <strong>tells you which area you are in, where the next Tarstone, Ova or weapon is, and how to beat the boss in front of you</strong>, out loud through your headset.",
+        "hero_lede": "Mortal Shell II is one of the most underrated soulslikes out there, and one of the hardest to finish. Overlord runs beside it on <strong>your PC</strong>, watches your screen, and <strong>tells you which area you are in, where the next Tarstone, Ova or weapon is, and how to beat the boss in front of you</strong>, out loud through your headset.",
         "stat1_num": "79<small>%</small>",
         "stat1_label": "Positive across 21,876 Steam reviews. Mostly Positive for Cold Symmetry's sequel.",
         "stat1_src": "Source: Steam store review summary, October 2026.",
@@ -171,7 +171,7 @@ GAMES = [
         "stat5_src": "Source: Steam global achievement statistics.",
         "game_specific_feat": "Knows Mortal Shell II's map",
         "game_specific_desc": "Preloaded with 30 areas, 100 items and 31 bosses, from Magdalena, Lady of the Woods to Vellen, Lord of Mammon, so it can point you to the loot and the fight, not give generic advice.",
-        "step1_desc": "Launch Overlord on your Windows or Linux PC, then launch Mortal Shell II on Steam.",
+        "step1_desc": "Launch Overlord on your PC, then launch Mortal Shell II on Steam.",
         "faq_game_answer": "Mortal Shell II is researched and preloaded. Overlord knows its areas, items and bosses, follows you from area to area, and talks you to the item you ask for. It's built for single-player play.",
     }
 ]
@@ -210,7 +210,7 @@ def make_schema_json(title, desc, canonical, game_name):
           "name": "What are the system requirements for Overlord AI?",
           "acceptedAnswer": {{
             "@type": "Answer",
-            "text": "A Windows or Linux PC that runs your game, an Overlord AI account, and an internet connection for answers and the voice."
+            "text": "A Linux PC (Ubuntu/Debian) that runs your game, an Overlord AI account, and an internet connection for answers and the voice. On Windows 10/11, the launcher, Consult and voice run today; in-game coaching is Linux-only for now."
           }}
         }}
       ]
@@ -277,7 +277,7 @@ for g in GAMES:
     # Features
     page = page.replace("Knows this game", g["game_specific_feat"])
     page = page.replace("Black Myth: Wukong is researched and preloaded, so it knows the actual bosses, the loot and the routes — not generic advice.", g["game_specific_desc"])
-    page = page.replace("Launch Overlord on your Windows or Linux desktop, then launch Black Myth: Wukong as usual.", g["step1_desc"])
+    page = page.replace("Launch Overlord on your PC, then launch Black Myth: Wukong as usual.", g["step1_desc"])
 
     # FAQ
     page = page.replace("Does it only work on Black Myth: Wukong?", f"Does it support {g['game_name']}?")
