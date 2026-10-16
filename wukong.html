@@ -422,27 +422,6 @@
   .site-footer__bottom a{color:var(--neutral-on-background-weak);text-decoration:none;transition:color .35s ease;}
   .site-footer__bottom a:hover{color:var(--accent);}
 
-  /* Anti-Cheat Compliance & Fair Play Strip */
-  .compliance-strip{background:color-mix(in srgb,var(--neutral-on-background-strong) 3%,transparent);border:1px solid var(--neutral-alpha-weak);border-radius:12px;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;backdrop-filter:blur(12px);}
-  .compliance-badges{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,2vw,24px);}
-  .compliance-badge{display:flex;align-items:center;gap:10px;}
-  .badge-icon-box{width:34px;height:34px;border-radius:8px;background:rgba(0,255,170,.08);border:1px solid rgba(0,255,170,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#00ffaa;}
-  .badge-icon-box svg{width:17px;height:17px;fill:currentColor;}
-  .badge-icon-box.purple{background:rgba(109,92,255,.1);border-color:rgba(109,92,255,.3);color:#b9a8ff;}
-  .badge-icon-box.gold{background:rgba(255,190,59,.1);border-color:rgba(255,190,59,.3);color:#ffbe3b;}
-  .badge-text{display:flex;flex-direction:column;}
-  .badge-title{font-family:'Space Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.04em;color:var(--neutral-on-background-strong);text-transform:uppercase;}
-  .badge-sub{font-size:.66rem;color:var(--neutral-on-background-weak);margin-top:1px;}
-  .compliance-cta{display:inline-flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--neutral-on-background-strong) 5%,transparent);border:1px solid var(--neutral-alpha-weak);color:var(--neutral-on-background-strong);font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:6px;cursor:pointer;transition:all .2s ease;}
-  .compliance-cta:hover{background:rgba(0,255,170,.15);border-color:#00ffaa;color:#00ffaa;}
-  .security-drawer{display:none;background:#0f121a;border:1px solid rgba(0,255,170,.3);border-radius:12px;padding:22px;margin-top:-10px;animation:drawerFade .3s ease;}
-  @keyframes drawerFade{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
-  .sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08);}
-  .sec-head h3{font-family:'Anton',sans-serif;font-size:1.15rem;letter-spacing:.02em;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:8px;}
-  .drawer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
-  .drawer-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:12px 14px;}
-  .drawer-card h4{font-family:'Space Mono',monospace;font-size:.7rem;color:#00ffaa;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
-  .drawer-card p{font-size:.8rem;color:#a3a3a3;line-height:1.45;}
 </style>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -470,10 +449,10 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Will using Overlord get me banned in Black Myth: Wukong?",
+          "name": "Does Overlord change or control Black Myth: Wukong?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Overlord reads only screen pixels—the exact view a person sitting next to you would have. It never injects DLLs, never touches game memory, and is 100% compliant with anti-cheat software."
+            "text": "No. Overlord watches your screen, with your permission, the way a person sitting next to you would. It doesn't read or change game memory, change game files, inject code or press keys for you. Each game sets its own rules about outside help, so check the terms of the games you play."
           }
         },
         {
@@ -481,7 +460,7 @@
           "name": "What are the system requirements for Overlord AI?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Overlord runs natively on your Windows or Linux PC alongside your game with whisper-silent edge capture, preserving your 144+ FPS rendering budget."
+            "text": "A Windows or Linux PC that runs your game, an Overlord AI account, and an internet connection for answers and the voice."
           }
         }
       ]
@@ -661,7 +640,7 @@
   <section class="wk-sec" id="how">
     <div class="wk-wrap">
       <span class="wk-sec__label">What Overlord is</span>
-      <h2 class="wk-h2 rv">A co-pilot, not a cheat menu.</h2>
+      <h2 class="wk-h2 rv">A guide that talks you through, not a tool that plays for you.</h2>
       <p class="wk-sub rv" style="--d:.1s">
         Overlord runs on your computer, beside the game. It is built for single-player play and it is deliberately
         simple about what it touches and what it does not.
@@ -670,7 +649,7 @@
       <div class="wk-grid">
         <div class="wk-feat rv">
           <h3>Reads the screen</h3>
-          <p>It reads the screen pixels — the view a person sitting beside you would have. No game-memory reading. No injection. No input automation. It never presses a key for you.</p>
+          <p>With your permission, it watches your screen: the view a person sitting beside you would have. It doesn't read or change game memory, it doesn't inject code into the game, and it never presses a key for you.</p>
         </div>
         <div class="wk-feat rv" style="--d:.1s">
           <h3>Speaks in real time</h3>
@@ -682,21 +661,21 @@
         </div>
         <div class="wk-feat rv">
           <h3>Three in-character voices</h3>
-          <p>A celestial sovereign, a field general and a shadow guru — premium voices built on Google Cloud Chirp3-HD and Neural2.</p>
+          <p>A celestial goddess, a field commander and a shadow guru, each with its own voice from Google Cloud Text-to-Speech.</p>
         </div>
         <div class="wk-feat rv" style="--d:.1s">
           <h3>On your machine</h3>
-          <p>Runs natively on Windows and Linux, on your own desktop, beside the game you already own.</p>
+          <p>Runs on Windows and Linux, beside the game you already own. Answers and the voice come from our cloud service, so it needs an internet connection.</p>
         </div>
         <div class="wk-feat rv" style="--d:.2s">
-          <h3>Single-player only</h3>
-          <p>Online multiplayer is not supported, and ranked or competitive play is refused by design. That is the line where third-party tools get players banned.</p>
+          <h3>Built for single-player</h3>
+          <p>Overlord is made for single-player games. It isn't meant to give anyone an edge in competitive online play, and we don't make guides for competitive multiplayer games.</p>
         </div>
       </div>
 
       <div class="wk-steps">
         <div class="wk-step rv"><b>01</b><h3>Start it beside the game</h3><p>Launch Overlord on your Windows or Linux desktop, then launch Black Myth: Wukong as usual.</p></div>
-        <div class="wk-step rv" style="--d:.1s"><b>02</b><h3>It watches the screen</h3><p>It reads pixels only, so there is nothing to install into the game and nothing to configure.</p></div>
+        <div class="wk-step rv" style="--d:.1s"><b>02</b><h3>It watches the screen</h3><p>Nothing is installed into the game. You choose which screen it can see, the first time it asks.</p></div>
         <div class="wk-step rv" style="--d:.2s"><b>03</b><h3>It talks you through</h3><p>Voice callouts for the objective, the loot and the boss in front of you. Ask it a question any time.</p></div>
       </div>
     </div>
@@ -744,10 +723,10 @@
         <p class="faqsec__cta">Still unsure? <a href="signup.html">Start the free demo</a> or <a href="support.html">talk to us</a>.</p>
       </div>
       <div class="faqsec__list">
-        <details class="faqsec__item"><summary>Will using Overlord get me banned?</summary><p>No. It reads pixels — the view a person sitting beside you would have — and nothing else: no game memory, no injection, no input automation. It is built for single-player games on Steam. Online multiplayer is not supported at all, and ranked or competitive play is refused by design, which is where third-party tools get players banned.</p></details>
-        <details class="faqsec__item"><summary>What do I need to run it?</summary><p>A Windows or Linux desktop, sitting beside the game you already own. There is nothing to install into the game itself, so there is no game-memory access and no patch to manage. Black Myth: Wukong is researched and preloaded.</p></details>
+        <details class="faqsec__item"><summary>Does Overlord change or control the game?</summary><p>No. Overlord watches your screen, with your permission, the way a person sitting next to you would. It doesn't read or change game memory, change game files, inject code or press keys for you. Each game sets its own rules about outside help, so check the terms of the games you play.</p></details>
+        <details class="faqsec__item"><summary>What do I need to run it?</summary><p>A Windows or Linux desktop, sitting beside the game you already own. There is nothing to install into the game itself and no patch to manage. You also need an Overlord AI account and an internet connection for answers and the voice.</p></details>
         <details class="faqsec__item"><summary>How much does it cost?</summary><p>The demo is free: 30 minutes of live play with no credit card, one trial per person. After that, Subscription is $14.99 a month or $149.99 a year for one machine, and Pro is $39.99 a month or $399.99 a year for three PCs. You can cancel any time.</p></details>
-        <details class="faqsec__item"><summary>Does it only work on Black Myth: Wukong?</summary><p>Wukong is researched and preloaded, so it knows those bosses, loot and routes. Overlord runs on single-player games on Steam, and new titles are added over time. Online multiplayer is not supported, and the paid guides are included in the Subscription.</p></details>
+        <details class="faqsec__item"><summary>Does it only work on Black Myth: Wukong?</summary><p>Wukong is mapped and preloaded, so it knows those bosses, loot and routes. Overlord is built for single-player games, new titles are added over time, and the guides are included in the Subscription.</p></details>
       </div>
     </div>
   </section>
@@ -781,77 +760,17 @@
       </nav>
     </div>
 
-    <!-- Anti-Cheat & Fair Play Compliance Strip -->
-    <div class="compliance-strip">
-      <div class="compliance-badges">
-        <div class="compliance-badge">
-          <div class="badge-icon-box">
-            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-          </div>
-          <div class="badge-text">
-            <span class="badge-title">100% Anti-Cheat Safe</span>
-            <span class="badge-sub">EAC &bull; BattlEye &bull; VAC Compliant</span>
-          </div>
-        </div>
-        <div class="compliance-badge">
-          <div class="badge-icon-box purple">
-            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-          </div>
-          <div class="badge-text">
-            <span class="badge-title">Pure Pixel-Read Architecture</span>
-            <span class="badge-sub">Zero Memory Access &bull; Zero DLL Injection</span>
-          </div>
-        </div>
-        <div class="compliance-badge">
-          <div class="badge-icon-box gold">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-          </div>
-          <div class="badge-text">
-            <span class="badge-title">Fair Play &amp; TOS Certified</span>
-            <span class="badge-sub">Single-Player &bull; No Input Macros</span>
-          </div>
-        </div>
-      </div>
-      <button class="compliance-cta" id="toggleSecBtn" onclick="toggleSafetyDrawer()">Safety Specs &darr;</button>
-    </div>
-
-    <!-- Security Specs Expandable Drawer -->
-    <div class="security-drawer" id="secDrawer">
-      <div class="sec-head">
-        <h3>
-          <svg style="width:20px;height:20px;fill:#00ffaa;" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-          Anti-Cheat Technical Architecture &amp; Fair Play Policy
-        </h3>
-        <button class="compliance-cta" onclick="toggleSafetyDrawer()">&times; Close</button>
-      </div>
-      <div class="drawer-grid">
-        <div class="drawer-card">
-          <h4>&#10003; Zero Process Injection</h4>
-          <p>Overlord runs strictly as an external, isolated desktop companion. It never hooks into game memory or injects DLLs.</p>
-        </div>
-        <div class="drawer-card">
-          <h4>&#10003; Pure Visual Observation</h4>
-          <p>Operates identically to a friend sitting beside your desk looking at your monitor. Pixels are inspected via native desktop APIs.</p>
-        </div>
-        <div class="drawer-card">
-          <h4>&#10003; No Input Automation</h4>
-          <p>Overlord delivers guidance and tactical callouts. It never sends keystrokes or mouse movements to the game client.</p>
-        </div>
-        <div class="drawer-card">
-          <h4>&#10003; Single-Player Sandbox</h4>
-          <p>Strictly engineered for single-player campaign progression. Online competitive multiplayer is completely disabled.</p>
-        </div>
-      </div>
-    </div>
 
     <div class="site-footer__bottom">
       <span>Linux and Windows</span>
-      <span>© '26 Overlord AI</span>
-      <div class="legal">
-        <a href="https://discord.com/invite/ZPZeJDAw9C">Discord</a>
-        <a href="eula.html">EULA</a>
-        <a href="privacy.html">Privacy</a>
+      <p class="site-footer__credit" style="flex-basis:100%;margin:0;line-height:1.6;">&copy; 2026 Primus Enterprises LLC, dba Overlord AI &middot; 411 W 1st St, Unit #5073, Sanford, FL 32771 &middot; <a href="mailto:support@overlordai.co">support@overlordai.co</a></p>
+      <div class="legal" style="flex-wrap:wrap;">
         <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refunds.html">Refunds</a>
+        <a href="contact.html">Contact</a>
+        <a href="eula.html">EULA</a>
+        <a href="https://discord.com/invite/ZPZeJDAw9C">Discord</a>
         <a href="/featured">Featured on</a>
       </div>
     </div>
@@ -929,16 +848,6 @@
   });
   render();
 })();
-
-/* ---------- safety specs drawer ---------- */
-window.toggleSafetyDrawer = function () {
-  const d = document.getElementById('secDrawer');
-  const b = document.getElementById('toggleSecBtn');
-  if (!d) return;
-  const isShowing = d.style.display === 'block';
-  d.style.display = isShowing ? 'none' : 'block';
-  if (b) b.innerHTML = isShowing ? 'Safety Specs &darr;' : 'Safety Specs &uarr;';
-};
 
 /* ---------- scroll reveals ---------- */
 (() => {

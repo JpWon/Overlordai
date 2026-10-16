@@ -64,6 +64,16 @@
       "@type": "Organization",
       "@id": "https://www.overlordai.co/#organization",
       "name": "Overlord AI",
+      "legalName": "Primus Enterprises LLC",
+      "email": "support@overlordai.co",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "411 W 1st St, Unit #5073",
+        "addressLocality": "Sanford",
+        "addressRegion": "FL",
+        "postalCode": "32771",
+        "addressCountry": "US"
+      },
       "url": "https://www.overlordai.co/",
       "logo": {
         "@type": "ImageObject",
@@ -663,6 +673,13 @@
   .pricing__lede{margin-top:1rem;max-width:34rem;font-size:.95rem;line-height:1.55;color:var(--neutral-on-background-weak);}
   .mono{font-family:'Space Mono',monospace;}
 
+  .billing-facts{margin-top:4.5rem;border-top:1px solid var(--neutral-alpha-weak);padding-top:2rem;
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.6rem 2.4rem;}
+  .billing-facts h2{grid-column:1/-1;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neutral-on-background-weak);font-weight:500;}
+  .billing-facts h3{font-size:.95rem;color:var(--neutral-on-background-strong);margin-bottom:.4rem;font-weight:600;}
+  .billing-facts p{font-size:.9rem;line-height:1.6;color:var(--neutral-on-background-weak);}
+  .billing-facts a{color:var(--accent);}
+  @media (max-width:760px){.billing-facts{grid-template-columns:1fr;}}
   .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:7vh;}
   @media (max-width:980px){ .plans{grid-template-columns:1fr;} }
 
@@ -1133,12 +1150,12 @@
       <button type="button" class="billing-toggle__opt" data-period="yearly" aria-pressed="false">Yearly <em>-17%</em></button>
     </div>
   </div>
-  <p class="pricing__lede">30 minutes free, then a monthly subscription. Cancel any time.</p>
+  <p class="pricing__lede">Free for everyone with Founder Access until November 15, 2026. After that: 30 minutes free, then a monthly subscription. Cancel any time.</p>
 
   <!-- Founder Early Access Banner -->
   <section class="founder-banner" id="founderBanner" aria-label="Founder Access Announcement">
     <div class="founder-banner__main">
-      <h2 class="founder-banner__headline">Founder Access: Overlord AI is free through <span class="founder-access-date">November 15</span></h2>
+      <h2 class="founder-banner__headline">Founder Access: Overlord AI is free through <span class="founder-access-date">November 15</span>, 2026</h2>
       <p class="founder-banner__subline">Every plan below is $0 during early access. Play, push it hard, and tell us what to fix. Your feedback shapes launch.</p>
       <div class="founder-banner__extra" id="founderBannerExtra" style="display:none;"></div>
     </div>
@@ -1153,13 +1170,13 @@
       <div class="plan__top"><span>01 · Free</span><span>No credit card</span></div>
       <div class="plan__name">Free demo</div>
       <p class="plan__tag">30 minutes of live play.</p>
-      <div class="plan__price"><b>$0</b><span>free forever</span></div>
+      <div class="plan__price"><b>$0</b><span>one-time, 30 minutes</span></div>
       <ul class="plan__list">
-        <li>30 minutes of live callouts</li>
-        <li>The core guide on screen</li>
-        <li>Local voice, on your PC</li>
-        <li class="off">Tactical overlay</li>
-        <li class="off">Guided missions</li>
+        <li>30 minutes of use, app open</li>
+        <li>The full product, not a cut-down one</li>
+        <li>On-screen tip cards</li>
+        <li>Spoken answers in your co-pilot's voice</li>
+        <li>One trial per person</li>
       </ul>
       <div class="plan__cta"><a class="btn btn--solid" href="checkout.html?plan=demo">Start the demo <span class="arr">&rarr;</span></a></div>
     </article>
@@ -1172,9 +1189,9 @@
       <div class="plan__price" data-tier="sub"><b data-monthly="$14.99" data-yearly="$149.99">$14.99</b><span data-monthly="/ month" data-yearly="/ year">/ month</span></div>
       <ul class="plan__list">
         <li>Unlimited live play</li>
-        <li>Tactical overlay</li>
+        <li>On-screen tip cards</li>
         <li>Guided missions</li>
-        <li>Local voice, on your PC</li>
+        <li>Spoken answers in your co-pilot's voice</li>
       </ul>
       <div class="plan__cta"><a class="btn btn--solid" href="checkout.html?plan=sub">Subscribe &mdash; $14.99/mo <span class="arr">&rarr;</span></a></div>
     </article>
@@ -1195,6 +1212,16 @@
     </article>
   </div>
 
+  <section class="billing-facts" aria-label="Billing details">
+    <h2>Billing details</h2>
+    <div><h3>Prices and billing period</h3><p>Subscription is $14.99 a month for one PC. Pro is $39.99 a month for three PCs on one account. Prices are in US dollars, billed monthly, and renew automatically each month until you cancel. Yearly billing ($149.99 and $399.99 a year) isn't on sale yet.</p></div>
+    <div><h3>What every plan includes</h3><p>The desktop app for Windows and Linux, every published game guide, on-screen tip cards, spoken answers in your co-pilot's voice, and research for new games the first time you play them. Pro adds two more PCs and priority game profiles.</p></div>
+    <div><h3>The free trial</h3><p>30 minutes of use with the app open, counted only while it runs. It's the full product, it needs an account but no card, and it ends by stopping, not by charging. One trial per person, checked by account email and device.</p></div>
+    <div><h3>Founder Access</h3><p>Until <span class="founder-access-date">November 15</span>, 2026, every plan is $0 and no payment is taken. After that date, the prices above apply. Nobody is charged without choosing a plan at checkout, and we'll email Founder Access members before paid plans open.</p></div>
+    <div><h3>Payments, tax and receipts</h3><p>Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns. Sales tax or VAT is added at checkout where it applies.</p></div>
+    <div><h3>Cancelling and refunds</h3><p>Cancel any time through the link in your Paddle receipt or by emailing <a href="mailto:support@overlordai.co">support@overlordai.co</a>. You keep access until the end of the period you've paid for. A first payment can be refunded within 14 days: see the <a href="refunds.html">Refund Policy</a>.</p></div>
+  </section>
+
 </main>
 
 <footer class="site-footer" id="footer">
@@ -1211,12 +1238,14 @@
     </div>
     <div class="site-footer__bottom">
       <span>Linux and Windows</span>
-      <span>© '26 Overlord AI</span>
-      <div class="legal">
-        <a href="https://discord.com/invite/ZPZeJDAw9C">Discord</a>
-        <a href="eula.html">EULA</a>
-        <a href="privacy.html">Privacy</a>
+      <p class="site-footer__credit" style="flex-basis:100%;margin:0;line-height:1.6;">&copy; 2026 Primus Enterprises LLC, dba Overlord AI &middot; 411 W 1st St, Unit #5073, Sanford, FL 32771 &middot; <a href="mailto:support@overlordai.co">support@overlordai.co</a></p>
+      <div class="legal" style="flex-wrap:wrap;">
         <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refunds.html">Refunds</a>
+        <a href="contact.html">Contact</a>
+        <a href="eula.html">EULA</a>
+        <a href="https://discord.com/invite/ZPZeJDAw9C">Discord</a>
         <a href="/featured">Featured on</a>
       </div>
     </div>

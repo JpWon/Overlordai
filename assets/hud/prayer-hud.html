@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tactical HUD — Divine Prayer</title>
+<title>Overlord AI — Ask with F4</title>
 <!--
   Marketing animation: the crystal tactical pill (the "Pill Cart") running one Divine Prayer.
   Faithful to the shipping behaviour in psyche/:
@@ -189,10 +189,10 @@
     <div class="rec" id="rec"><b></b><span>REC</span></div>
     <div class="hud-bar" id="bar">
       <span class="tube" aria-hidden="true"></span>
-      <div class="hud-badge"><span class="hud-dot" id="dot"></span><span class="hud-title" id="title">Tactical HUD</span></div>
+      <div class="hud-badge"><span class="hud-dot" id="dot"></span><span class="hud-title" id="title">Overlord AI</span></div>
       <div class="hud-divider"></div>
       <div class="hud-ticker">
-        <div class="hud-line" id="line">Initializing tactical scanner…</div>
+        <div class="hud-line" id="line">Getting ready…</div>
         <span class="ears" id="ears"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
       </div>
       <div class="hud-divider"></div>
@@ -215,11 +215,11 @@
       <span class="card__sub">Guidance</span>
     </div>
     <div class="sec">
-      <span class="oc-tag">Target Visual Intel</span>
-      <div class="nointel">✦ Objective Directives Mapped ✦</div>
+      <span class="oc-tag">What it looks like</span>
+      <div class="nointel">✦ Steps mapped ✦</div>
     </div>
     <div class="sec">
-      <span class="oc-tag">Mission Directives</span>
+      <span class="oc-tag">Steps</span>
       <div class="steps" id="steps"></div>
     </div>
     <div class="sec">
@@ -256,7 +256,7 @@
 
   /* the real lines, in the real order (control_watcher.py fire_prayer) */
   const MSG = {
-    idle:         'Initializing tactical scanner…',
+    idle:         'Getting ready…',
     listening:    'Divine Prayer: Listening to your prayer...',
     assimilating: 'Divine Prayer: Assimilating prayer & surveying coordinates...',
   };
@@ -272,7 +272,7 @@
   function say(text, analyzing){
     el.line.textContent = text;
     el.line.classList.toggle('analyzing', !!analyzing);
-    el.title.textContent = analyzing ? 'Tactical Radar' : 'Tactical HUD';
+    el.title.textContent = analyzing ? 'Looking…' : 'Overlord AI';
   }
   function reset(){
     say(MSG.idle, false);

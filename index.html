@@ -68,6 +68,16 @@
       "@type": "Organization",
       "@id": "https://www.overlordai.co/#organization",
       "name": "Overlord AI",
+      "legalName": "Primus Enterprises LLC",
+      "email": "support@overlordai.co",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "411 W 1st St, Unit #5073",
+        "addressLocality": "Sanford",
+        "addressRegion": "FL",
+        "postalCode": "32771",
+        "addressCountry": "US"
+      },
       "url": "https://www.overlordai.co/",
       "logo": {
         "@type": "ImageObject",
@@ -176,7 +186,7 @@
           "name": "What does the free demo include?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Thirty minutes of runtime with the app open \u2014 the real product, not a cut-down one. It reads your screen, speaks out loud and covers the core guide. No card: it ends by stopping, not by charging. One trial per person."
+            "text": "Thirty minutes of use with the app open: the real product, not a cut-down one. It watches your screen, speaks out loud and covers the published guides. No card is needed, and it ends by stopping, not by charging. One trial per person."
           }
         },
         {
@@ -192,7 +202,7 @@
           "name": "Which games does Overlord cover?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "For now, we focus on the newest single-player soulslike games and hardcore action RPGs that aren't online, multiplayer, or competitive at all (such as Black Myth: Wukong, Elden Ring, Path of Exile 2, Lies of P, Mortal Shell II, and Control). We aim to help our users enjoy the best quality high-tier games in a fun way like classic strategy game books without cheating \u2014 more like a knowledgeable friend sitting on the couch next to you who knows his stuff. For titles that have been out for past 6 months, our Atlas engine can map and support them with maximum efficiency."
+            "text": "Mostly single-player soulslikes and action RPGs. Mapped and preloaded today: Black Myth: Wukong, Elden Ring, Mortal Shell, Mortal Shell II, Control, Path of Exile and Path of Exile 2. Any other game is researched from public guides the first time you play it, and its map fills in as you go. Overlord is a guidebook, like the strategy guides that used to sit next to the console. It isn't meant to give anyone an edge in competitive online play, and we don't make guides for competitive multiplayer games."
           }
         },
         {
@@ -200,23 +210,23 @@
           "name": "What platforms are supported?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Linux and Windows, native \u2014 built directly for your system. Distributed via native .deb package for Linux and standalone executable for Windows."
+            "text": "Windows (an installer) and Linux (a .deb package for Ubuntu and other Debian-based systems). You need an Overlord AI account and an internet connection: answers, game research and the voice come from our cloud service."
           }
         },
         {
           "@type": "Question",
-          "name": "Will using Overlord get me banned?",
+          "name": "Does Overlord touch the game or play for me?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. It reads pixels \u2014 the view a person sitting beside you would have \u2014 and nothing else: no game memory, no injection, no input automation. It is built for single-player games on Steam: online multiplayer is not supported at all, and ranked or competitive play is refused by design, which is where third-party tools get players banned."
+            "text": "No. Overlord doesn't read or change game memory, change game files, inject code into the game or press keys for you. It watches your screen, with your permission, the way a friend beside you would, and it reads your game's save and settings files without changing them. Each game sets its own rules about outside help, and you're responsible for following them, so check the terms of the games you play."
           }
         },
         {
           "@type": "Question",
-          "name": "Is my game data read or sent anywhere?",
+          "name": "Is my screen or voice sent anywhere?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "We only save small amounts of your game state on your local hard drive (such as active checkpoints and custom preferences). Actual video taken is processed strictly in volatile RAM and disappears completely at the end of the game \u2014 zero recordings accumulate on your hard drive. Our actual Atlas knowledge base lives securely in the cloud, streaming guidance on demand. All connections are highly secure, including your model credentials and keys, protected through multiple layers of encryption. Your microphone audio, voice transcripts, and local save files never leave your machine."
+            "text": "Yes, when Overlord needs them to help you. While screen sharing is on, frames of your screen go to our cloud service, which passes them to an AI model (DeepSeek or Google Gemini) to work out where you are and what is on screen. When you press F4 and speak, that recording goes to Google Gemini to be turned into text. Spoken answers are made by Google Cloud Text-to-Speech. Our service doesn't store your frames or recordings. On your PC, frames are deleted within about 30 seconds. Our Privacy Policy lists everything that is collected."
           }
         },
         {
@@ -232,7 +242,7 @@
           "name": "How do I cancel?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "From the account page, any time \u2014 monthly or yearly, no lock-in of either kind. Cancelling stops the next charge; access runs to the end of the period you have already paid for."
+            "text": "Any time, through the link in your Paddle receipt or by emailing support@overlordai.co. Cancelling stops the next charge, and you keep access until the end of the period you've paid for. Refunds are covered in our Refund Policy."
           }
         }
       ]
@@ -1086,6 +1096,24 @@
 
   /* theme transition — smooth */
   html,html body{transition:background-color .5s ease,color .5s ease,border-color .3s ease;}
+  /* ================= What Overlord AI is (plain description) ================= */
+  .plainsec{position:relative;z-index:5;padding:clamp(4rem,10vh,7rem) clamp(1.5rem,5vw,4rem);}
+  .plainsec__inner{max-width:1080px;margin:0 auto;width:100%;}
+  .plainsec__label{font-size:.64rem;letter-spacing:.25em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .plainsec h2{font-family:'Anton','Anton Fallback',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(2.2rem,4.6vw,4rem);line-height:.95;color:var(--neutral-on-background-strong);margin:1.2rem 0 1.6rem;}
+  .plainsec h2 em{font-style:normal;color:var(--accent);}
+  .plainsec__lede{font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.65;color:var(--neutral-on-background-strong);max-width:760px;}
+  .plainsec__facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.4rem;margin:2.4rem 0;
+    border-top:1px solid var(--neutral-alpha-weak);padding-top:1.6rem;}
+  .plainsec__facts h3,.plainsec__lists h3{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem;}
+  .plainsec__facts p{font-size:.92rem;line-height:1.6;color:var(--neutral-on-background-weak);}
+  .plainsec__lists{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem;}
+  .plainsec__lists ul{list-style:none;padding:0;margin:0;border-top:1px solid var(--neutral-alpha-weak);}
+  .plainsec__lists li{padding:.8rem 0;border-bottom:1px solid var(--neutral-alpha-weak);font-size:.92rem;line-height:1.55;color:var(--neutral-on-background-weak);}
+  .plainsec a{color:var(--accent);}
+  .plainsec__lists li strong{color:var(--neutral-on-background-strong);font-weight:600;}
+  @media (max-width:760px){.plainsec__facts,.plainsec__lists{grid-template-columns:1fr;}}
   /* ================= SECTION 4: FAQ ================= */
   .faqsec{position:relative;z-index:5;min-height:100vh;display:flex;align-items:center;
     padding:clamp(4rem,10vh,7rem) clamp(1.5rem,5vw,4rem);}
@@ -1135,27 +1163,6 @@
   .site-footer__bottom a{color:var(--neutral-on-background-weak);text-decoration:none;transition:color .35s ease;}
   .site-footer__bottom a:hover{color:var(--accent);}
 
-  /* Anti-Cheat Compliance & Fair Play Strip */
-  .compliance-strip{background:linear-gradient(168deg,rgba(255,255,255,.03) 0%,rgba(255,255,255,.01) 100%),rgba(14,17,24,.7);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;backdrop-filter:blur(12px);}
-  .compliance-badges{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,2vw,24px);}
-  .compliance-badge{display:flex;align-items:center;gap:10px;}
-  .badge-icon-box{width:34px;height:34px;border-radius:8px;background:rgba(0,255,170,.08);border:1px solid rgba(0,255,170,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--green-glow,#00ffaa);}
-  .badge-icon-box svg{width:17px;height:17px;fill:currentColor;}
-  .badge-icon-box.purple{background:rgba(109,92,255,.1);border-color:rgba(109,92,255,.3);color:var(--accent-soft);}
-  .badge-icon-box.gold{background:rgba(255,190,59,.1);border-color:rgba(255,190,59,.3);color:#ffbe3b;}
-  .badge-text{display:flex;flex-direction:column;}
-  .badge-title{font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.72rem;font-weight:700;letter-spacing:.04em;color:#fff;text-transform:uppercase;}
-  .badge-sub{font-size:.66rem;color:var(--neutral-on-background-weak);margin-top:1px;}
-  .compliance-cta{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:6px;cursor:pointer;transition:all .2s ease;}
-  .compliance-cta:hover{background:rgba(0,255,170,.15);border-color:#00ffaa;color:#00ffaa;}
-  .security-drawer{display:none;background:#0f121a;border:1px solid rgba(0,255,170,.3);border-radius:12px;padding:22px;margin-top:-10px;animation:drawerFade .3s ease;}
-  @keyframes drawerFade{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
-  .drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08);}
-  .drawer-head h3{font-family:'Anton','Anton Fallback',sans-serif;font-size:1.15rem;letter-spacing:.02em;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:8px;}
-  .drawer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
-  .drawer-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:12px 14px;}
-  .drawer-card h4{font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.7rem;color:#00ffaa;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
-  .drawer-card p{font-size:.8rem;color:var(--neutral-on-background-weak);line-height:1.45;}
 </style>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -1258,7 +1265,7 @@
   <canvas id="cover"></canvas>
 
   <div class="meta m-bl">Linux and Windows<br>Live Co-Pilot</div>
-  <div class="meta m-br">Pixel-read only<br>© '26</div>
+  <div class="meta m-br">Watches, never touches<br>© 2026</div>
   <div class="hint">move to reveal</div>
 </section>
 
@@ -1269,12 +1276,12 @@
   <header class="vp-head">
     <div class="brandline rv"><span>Overlord <em>AI</em></span><span class="brandline__sub">Live Gaming Guidebook Companion</span></div>
     <div class="hud rv" style="--d:.3s">
-      <div class="hud__badge"><span class="hud__dot"></span><span class="hud__title">Overlord · Tactical</span></div>
+      <div class="hud__badge"><span class="hud__dot"></span><span class="hud__title">Overlord · Live guide</span></div>
       <div class="hud__divider"></div>
       <div class="hud__ticker">
         <div class="hud__track">
-          <span class="hud__text">Remember the strategy guide that sat next to the console? This is that guide, rewritten as a live voice that plays alongside you — with tactical overviews and live tip cards that pop up while you play.</span>
-          <span class="hud__text" aria-hidden="true">Remember the strategy guide that sat next to the console? This is that guide, rewritten as a live voice that plays alongside you — with tactical overviews and live tip cards that pop up while you play.</span>
+          <span class="hud__text">Remember the strategy guide that sat next to the console? This is that guide, rewritten as a live voice that plays alongside you — with map overviews and live tip cards that pop up while you play.</span>
+          <span class="hud__text" aria-hidden="true">Remember the strategy guide that sat next to the console? This is that guide, rewritten as a live voice that plays alongside you — with map overviews and live tip cards that pop up while you play.</span>
         </div>
       </div>
     </div>
@@ -1294,8 +1301,8 @@
         <div class="vp-ph">
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__orb"></span>
-          <span class="vp-ph__label mono">Tactical Card · 01 · Combo Coach</span>
-          <span class="vp-ph__size mono">Live DOM · 60 FPS</span>
+          <span class="vp-ph__label mono">Tip card · 01 · Combo Coach</span>
+          <span class="vp-ph__size mono">On screen · While you play</span>
         </div>
         <!-- In-Game Floating Glass Card -->
         <div class="in-game-card" id="card-combo">
@@ -1309,7 +1316,7 @@
               <button class="card-btn">&times;</button>
             </div>
           </div>
-          <div class="card-eyebrow">✦ Combat Directives · Frame-Perfect Timing</div>
+          <div class="card-eyebrow">✦ Combo steps · In order</div>
           <div class="steps-list" id="comboStepsList">
             <div class="step-pill active" id="pill-0">
               <span class="step-badge">STEP 1</span>
@@ -1338,7 +1345,7 @@
           </div>
           <div class="combo-stack">
             <div class="combo-stack-header">
-              <span>Tactical Stances / Combos (Click to swap)</span>
+              <span>Stances / combos (click to swap)</span>
               <span style="color:var(--accent-soft);">3 AVAILABLE</span>
             </div>
             <div class="combo-tabs">
@@ -1381,14 +1388,14 @@
       </div>
     </div>
 
-    <!-- ROW 02: GPS TACTICAL RADAR -->
+    <!-- ROW 02: GPS DIRECTIONS -->
     <div class="vp-row rv vp-row--flip">
       <figure class="vp-media" data-slot="gps-radar">
         <div class="vp-ph">
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__orb"></span>
-          <span class="vp-ph__label mono">Tactical Card · 02 · GPS Radar</span>
-          <span class="vp-ph__size mono">60 FPS · Wayland Native</span>
+          <span class="vp-ph__label mono">Tip card · 02 · GPS directions</span>
+          <span class="vp-ph__size mono">Press F4 · Get directions</span>
         </div>
         <!-- In-Game Floating GPS Card -->
         <div class="in-game-card" id="card-gps">
@@ -1402,7 +1409,7 @@
               <button class="card-btn">&times;</button>
             </div>
           </div>
-          <div class="card-eyebrow">✦ Tactical Radar · Active Navigation Vector</div>
+          <div class="card-eyebrow">✦ GPS · Directions</div>
           <div class="radar-canvas-wrap">
             <canvas id="radarCanvas" width="200" height="200"></canvas>
           </div>
@@ -1425,39 +1432,39 @@
           <strong>The Quit Moment:</strong> You have 45 minutes to play tonight, but spend 35 of them wandering through identical corridors looking for the door.
         </div>
         <p>
-          When games ditch mini-maps to be "immersive," busy adults end up running in circles. Tap <strong>F4</strong>, and Overlord's <strong>GPS Tactical Radar</strong> pings your exact compass heading, vectors the right corridor, and highlights secret rafters and hidden breakable walls.
+          When games ditch mini-maps to be "immersive," busy adults end up running in circles. Tap <strong>F4</strong>, and Overlord's <strong>GPS card</strong> shows which way to face, points you down the right corridor, and marks secret rafters and hidden breakable walls.
         </p>
         <div class="vp-features">
           <div class="feat-item">
-            <div class="feat-title">&#9656; Vector Navigation</div>
+            <div class="feat-title">&#9656; Turn-by-turn directions</div>
             <div class="feat-desc">Shows exact heading and doorway pathways without spoiling exploration.</div>
           </div>
           <div class="feat-item">
-            <div class="feat-title">&#9656; God-Loot Sonar</div>
-            <div class="feat-desc">Pings hidden Ability Points (AP), secret chests, and eternal upgrades.</div>
+            <div class="feat-title">&#9656; Hidden loot markers</div>
+            <div class="feat-desc">Points out hidden Ability Points (AP), secret chests and permanent upgrades.</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ROW 03: LOOT RADAR & SECRET INTEL -->
+    <!-- ROW 03: LOOT TIPS -->
     <div class="vp-row rv">
       <figure class="vp-media" data-slot="loot-radar">
         <div class="vp-ph">
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__orb"></span>
-          <span class="vp-ph__label mono">Tactical Card · 03 · Loot Radar</span>
-          <span class="vp-ph__size mono">Proactive Intel</span>
+          <span class="vp-ph__label mono">Tip card · 03 · Loot finder</span>
+          <span class="vp-ph__size mono">Before you miss it</span>
         </div>
         <!-- In-Game Floating Loot Card -->
         <div class="in-game-card" id="card-loot">
           <div class="card-header">
             <div class="card-brand">
               <svg class="rooster-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-              <div class="card-title">OVERLORD <em>AI</em> <span class="tag-type" style="color:#ffbe3b;">· LOOT INTEL</span></div>
+              <div class="card-title">OVERLORD <em>AI</em> <span class="tag-type" style="color:#ffbe3b;">· LOOT TIPS</span></div>
             </div>
             <div class="card-actions">
-              <button class="card-btn">INTEL</button>
+              <button class="card-btn">TIPS</button>
               <button class="card-btn">&times;</button>
             </div>
           </div>
@@ -1493,7 +1500,7 @@
           <strong>The Quit Moment:</strong> Hitting a mid-game damage wall because you unknowingly walked past a hidden Ability Point or permanent weapon mod three zones ago.
         </div>
         <p>
-          You shouldn't need a 40-minute YouTube walkthrough on a second monitor just to avoid missing permanent upgrades. Overlord's <strong>Loot Radar</strong> proactively flags missable Ability Points, secret rafters, and weapon mods right before areas lock out.
+          You shouldn't need a 40-minute YouTube walkthrough on a second monitor just to avoid missing permanent upgrades. Overlord's <strong>loot finder</strong> flags missable Ability Points, secret rafters, and weapon mods right before areas lock out.
         </p>
         <div class="vp-features">
           <div class="feat-item">
@@ -1514,15 +1521,15 @@
         <div class="vp-ph">
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__orb"></span>
-          <span class="vp-ph__label mono">Tactical Card · 04 · Dialogue Engine</span>
-          <span class="vp-ph__size mono">Branch Intel</span>
+          <span class="vp-ph__label mono">Tip card · 04 · Dialogue guide</span>
+          <span class="vp-ph__size mono">Choice tips</span>
         </div>
         <!-- In-Game Floating NPC Card -->
         <div class="in-game-card" id="card-npc">
           <div class="card-header">
             <div class="card-brand">
               <svg class="rooster-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-              <div class="card-title">OVERLORD <em>AI</em> <span class="tag-type" style="color:#b9a8ff;">· DIALOGUE INTEL</span></div>
+              <div class="card-title">OVERLORD <em>AI</em> <span class="tag-type" style="color:#b9a8ff;">· DIALOGUE TIPS</span></div>
             </div>
             <div class="card-actions">
               <button class="card-btn">TREE</button>
@@ -1581,6 +1588,40 @@
   </div>
 </section>
 
+<!-- ============ 2b · what Overlord AI is, plainly (Paddle review, 2026-10-16) ============ -->
+<section class="plainsec" id="what">
+  <div class="plainsec__inner">
+    <span class="plainsec__label">In plain words</span>
+    <h2>What Overlord AI <em>is.</em></h2>
+    <p class="plainsec__lede">Overlord AI is an AI guide companion for PC games. It watches your game (with your permission) to show tips, directions and answers on screen and by voice. Think of the strategy guide that used to sit next to the console, rewritten as a voice that plays alongside you.</p>
+    <div class="plainsec__facts">
+      <div><h3>Who it's for</h3><p>Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
+      <div><h3>Platforms</h3><p>Windows (installer) and Linux (a .deb package for Ubuntu and other Debian-based systems).</p></div>
+      <div><h3>What you need</h3><p>An Overlord AI account and an internet connection: answers, game research and the voice come from our cloud service. A microphone is optional, for asking out loud.</p></div>
+    </div>
+    <div class="plainsec__lists">
+      <div>
+        <h3>What Overlord AI does</h3>
+        <ul>
+          <li><strong>Watches the screen you choose to share</strong>, to work out where you are and what's happening.</li>
+          <li><strong>Shows tip cards on screen:</strong> directions, loot, combos and conversation choices.</li>
+          <li><strong>Talks to you.</strong> It speaks answers out loud, and listens when you press F4 and ask.</li>
+          <li><strong>Reads your game's save and settings files</strong> without changing them, to follow your progress and your button layout.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>What it doesn't do</h3>
+        <ul>
+          <li><strong>It doesn't play for you.</strong> It never presses keys, moves the mouse or controls the game.</li>
+          <li><strong>It doesn't change the game.</strong> No changes to game memory or game files, and no code injected into the game.</li>
+          <li><strong>It isn't meant for competitive online play.</strong> It's built for single-player games, not to give anyone an edge over other players.</li>
+          <li><strong>It doesn't record your sessions.</strong> Screen frames are deleted within about 30 seconds, and our servers don't store them. See the <a href="privacy.html">Privacy Policy</a>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 3 · Work '26 — floating ring carousel ============ -->
 <section class="work" id="work">
   <div class="work__head">
@@ -1626,14 +1667,14 @@
       <p class="faqsec__cta">Still stuck? <a href="plans.html">Try the free demo</a> or <a href="support.html">talk to us</a>.</p>
     </div>
     <div class="faqsec__list">
-      <details class="faqsec__item"><summary>What does the free demo include?</summary><p>Thirty minutes of runtime with the app open — the real product, not a cut-down one. It reads your screen, speaks out loud and covers the core guide. No card: it ends by stopping, not by charging. One trial per person.</p></details>
+      <details class="faqsec__item"><summary>What does the free demo include?</summary><p>Thirty minutes of use with the app open: the real product, not a cut-down one. It watches your screen, speaks out loud and covers the published guides. No card is needed, and it ends by stopping, not by charging. One trial per person.</p></details>
       <details class="faqsec__item"><summary>Do I need a credit card to start?</summary><p>No. The 30 minutes start without one, and they end by stopping rather than charging. A card is only ever taken when you choose the Subscription or Pro.</p></details>
-      <details class="faqsec__item"><summary>Which games does Overlord cover?</summary><p>For now, we focus on the newest single-player soulslike games and hardcore action RPGs that aren't online, multiplayer, or competitive at all (such as <em>Black Myth: Wukong</em>, <em>Elden Ring</em>, <em>Path of Exile 2</em>, <em>Lies of P</em>, <em>Mortal Shell II</em>, and <em>Control</em>). We aim to help our users enjoy the best quality high-tier games in a fun way like classic strategy game books without cheating — more like a knowledgeable friend sitting on the couch next to you who knows his stuff. For titles that have been out for past 6 months, our Atlas engine can map and support them with maximum efficiency.</p></details>
-      <details class="faqsec__item"><summary>What platforms are supported?</summary><p>Linux and Windows natively. Overlord is built directly for your desktop with zero input automation, local neural processing, and native Wayland/X11 and Windows capture pipelines.</p></details>
-      <details class="faqsec__item"><summary>Will using Overlord get me banned?</summary><p>No. It reads pixels — the view a person sitting beside you would have — and nothing else: no game memory, no injection, no input automation. It is built for single-player games on Steam: online multiplayer is not supported at all, and ranked or competitive play is refused by design, which is where third-party tools get players banned.</p></details>
-      <details class="faqsec__item"><summary>Is my game data read or sent anywhere?</summary><p>We only save small amounts of your game state on your local hard drive (such as active checkpoints and custom preferences). Actual video taken is processed strictly in volatile RAM and disappears completely at the end of the game — zero recordings accumulate on your hard drive. Our actual Atlas knowledge base lives securely in the cloud, streaming guidance on demand. All connections are highly secure, including your model credentials and keys, protected through multiple layers of encryption. Your microphone audio, voice transcripts, and local save files never leave your machine.</p></details>
+      <details class="faqsec__item"><summary>Which games does Overlord cover?</summary><p>Mostly single-player soulslikes and action RPGs. Mapped and preloaded today: Black Myth: Wukong, Elden Ring, Mortal Shell, Mortal Shell II, Control, Path of Exile and Path of Exile 2. Any other game is researched from public guides the first time you play it, and its map fills in as you go. Overlord is a guidebook, like the strategy guides that used to sit next to the console. It isn't meant to give anyone an edge in competitive online play, and we don't make guides for competitive multiplayer games.</p></details>
+      <details class="faqsec__item"><summary>What platforms are supported?</summary><p>Windows (an installer) and Linux (a .deb package for Ubuntu and other Debian-based systems). You need an Overlord AI account and an internet connection: answers, game research and the voice come from our cloud service.</p></details>
+      <details class="faqsec__item"><summary>Does Overlord touch the game or play for me?</summary><p>No. Overlord doesn't read or change game memory, change game files, inject code into the game or press keys for you. It watches your screen, with your permission, the way a friend beside you would, and it reads your game's save and settings files without changing them. Each game sets its own rules about outside help, and you're responsible for following them, so check the terms of the games you play.</p></details>
+      <details class="faqsec__item"><summary>Is my screen or voice sent anywhere?</summary><p>Yes, when Overlord needs them to help you. While screen sharing is on, frames of your screen go to our cloud service, which passes them to an AI model (DeepSeek or Google Gemini) to work out where you are and what is on screen. When you press F4 and speak, that recording goes to Google Gemini to be turned into text. Spoken answers are made by Google Cloud Text-to-Speech. Our service doesn't store your frames or recordings. On your PC, frames are deleted within about 30 seconds. Our Privacy Policy lists everything that is collected.</p></details>
       <details class="faqsec__item"><summary>How many machines can I use it on?</summary><p>Subscription is one machine. Pro is three, and you can move a seat any time — deactivate a machine, activate another. Licences are re-assignable, because hardware dies.</p></details>
-      <details class="faqsec__item"><summary>How do I cancel?</summary><p>From the account page, any time — monthly or yearly, no lock-in of either kind. Cancelling stops the next charge; access runs to the end of the period you have already paid for.</p></details>
+      <details class="faqsec__item"><summary>How do I cancel?</summary><p>Any time, through the link in your Paddle receipt or by emailing support@overlordai.co. Cancelling stops the next charge, and you keep access until the end of the period you've paid for. Refunds are covered in our Refund Policy.</p></details>
     </div>
   </div>
 </section>
@@ -1695,77 +1736,17 @@
       </script>
     </div>
 
-    <!-- Anti-Cheat & Fair Play Compliance Strip -->
-    <div class="compliance-strip">
-      <div class="compliance-badges">
-        <div class="compliance-badge">
-          <div class="badge-icon-box">
-            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-          </div>
-          <div class="badge-text">
-            <span class="badge-title">100% Anti-Cheat Safe</span>
-            <span class="badge-sub">EAC &bull; BattlEye &bull; VAC Compliant</span>
-          </div>
-        </div>
-        <div class="compliance-badge">
-          <div class="badge-icon-box purple">
-            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-          </div>
-          <div class="badge-text">
-            <span class="badge-title">Pure Pixel-Read Architecture</span>
-            <span class="badge-sub">Zero Memory Access &bull; Zero DLL Injection</span>
-          </div>
-        </div>
-        <div class="compliance-badge">
-          <div class="badge-icon-box gold">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-          </div>
-          <div class="badge-text">
-            <span class="badge-title">Fair Play &amp; TOS Certified</span>
-            <span class="badge-sub">Single-Player &bull; No Input Macros</span>
-          </div>
-        </div>
-      </div>
-      <button class="compliance-cta" id="toggleSecBtn" onclick="toggleSafetyDrawer()">Safety Specs &darr;</button>
-    </div>
-
-    <!-- Security Specs Expandable Drawer -->
-    <div class="security-drawer" id="secDrawer">
-      <div class="drawer-head">
-        <h3>
-          <svg style="width:20px;height:20px;fill:#00ffaa;" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-          Anti-Cheat Technical Architecture &amp; Fair Play Policy
-        </h3>
-        <button class="compliance-cta" onclick="toggleSafetyDrawer()">&times; Close</button>
-      </div>
-      <div class="drawer-grid">
-        <div class="drawer-card">
-          <h4>&#10003; Zero Process Injection</h4>
-          <p>Overlord runs strictly as an external, isolated desktop companion. It never hooks into game memory or injects DLLs.</p>
-        </div>
-        <div class="drawer-card">
-          <h4>&#10003; Pure Visual Observation</h4>
-          <p>Operates identically to a friend sitting beside your desk looking at your monitor. Pixels are inspected via native desktop APIs.</p>
-        </div>
-        <div class="drawer-card">
-          <h4>&#10003; No Input Automation</h4>
-          <p>Overlord delivers guidance and tactical callouts. It never sends keystrokes or mouse movements to the game client.</p>
-        </div>
-        <div class="drawer-card">
-          <h4>&#10003; Single-Player Sandbox</h4>
-          <p>Strictly engineered for single-player campaign progression. Online competitive multiplayer is completely disabled.</p>
-        </div>
-      </div>
-    </div>
 
     <div class="site-footer__bottom">
       <span>Linux and Windows</span>
-      <span>© '26 Overlord AI</span>
-      <div class="legal">
-        <a href="https://discord.com/invite/ZPZeJDAw9C">Discord</a>
-        <a href="eula.html">EULA</a>
-        <a href="privacy.html">Privacy</a>
+      <p class="site-footer__credit" style="flex-basis:100%;margin:0;line-height:1.6;">&copy; 2026 Primus Enterprises LLC, dba Overlord AI &middot; 411 W 1st St, Unit #5073, Sanford, FL 32771 &middot; <a href="mailto:support@overlordai.co">support@overlordai.co</a></p>
+      <div class="legal" style="flex-wrap:wrap;">
         <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refunds.html">Refunds</a>
+        <a href="contact.html">Contact</a>
+        <a href="eula.html">EULA</a>
+        <a href="https://discord.com/invite/ZPZeJDAw9C">Discord</a>
         <a href="/featured">Featured on</a>
       </div>
     </div>
@@ -2090,7 +2071,7 @@
      art:'radial-gradient(110% 90% at 60% 30%,#ffe08a 0%,#c98a1c 40%,#1a1006 100%)'},
     {tag:'Animation',  title:'Divine Prayer', dur:'live', embed:'assets/hud/prayer-hud.html', ratio:'900/560',
      art:'linear-gradient(135deg,#1b1240 0%,#5a2bd8 55%,#c7b8ff 100%)'},
-    {tag:'Animation',  title:'GPS Radar', dur:'live',
+    {tag:'Animation',  title:'GPS directions', dur:'live',
      embed:'assets/hud/gps-card.html', ratio:'900/560',
      art:'radial-gradient(90% 90% at 70% 70%,#e1e8ff 0%,#6f7bff 30%,#0d0a26 80%)'},
     {tag:'Animation',  title:'Combo Card', dur:'live',
@@ -2484,16 +2465,6 @@
     if (el) el.classList.add('selected');
     const outcome = document.getElementById('dialogueOutcomeText');
     if (outcome) outcome.textContent = DIALOGUES[idx];
-  };
-
-  // 4. Safety Specs Drawer Toggle
-  window.toggleSafetyDrawer = function() {
-    const d = document.getElementById('secDrawer');
-    const b = document.getElementById('toggleSecBtn');
-    if (!d) return;
-    const isShowing = d.style.display === 'block';
-    d.style.display = isShowing ? 'none' : 'block';
-    if (b) b.innerHTML = isShowing ? 'Safety Specs &darr;' : 'Safety Specs &uarr;';
   };
 
   // Start initial combo loop
