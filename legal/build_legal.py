@@ -30,7 +30,7 @@ PAGE_META = {
     "eula": ("End-User Licence Agreement \u2014 Overlord AI",
              "End-user licence agreement for the Overlord AI desktop app on Windows and Linux."),
     "refunds": ("Refund Policy \u2014 Overlord AI",
-                "Full refund within 14 days of your first payment. How to cancel, how to ask for a refund "
+                "Full refund within 3 days of your first payment. How to cancel, how to ask for a refund "
                 "through Paddle, and your legal rights."),
     "contact": ("Contact \u2014 Overlord AI",
                 "Contact Overlord AI (Primus Enterprises LLC): support email, billing and refunds, privacy "

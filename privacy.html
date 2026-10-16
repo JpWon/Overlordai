@@ -1055,7 +1055,7 @@
 <h2>2 The short version</h2>
 <table class="lg-stack">
 <tr><th>What</th><th>When</th><th>Where it goes</th></tr>
-<tr><td><strong>Frames of your screen</strong></td><td data-label="When">Only while screen sharing is on: when you ask, and automatically from time to time during play (section 3)</td><td data-label="Where it goes">Our cloud service, then DeepSeek or Google Gemini to read them. Not stored by us.</td></tr>
+<tr><td><strong>Frames of your screen</strong></td><td data-label="When">Only while a game is running: when you ask, and automatically from time to time during play (section 3)</td><td data-label="Where it goes">Our cloud service, then DeepSeek or Google Gemini to read them. Not stored by us.</td></tr>
 <tr><td><strong>Your voice</strong></td><td data-label="When">Only after you press F4 to ask out loud</td><td data-label="Where it goes">Our cloud service, then Google Gemini to turn it into text. Not stored by us.</td></tr>
 <tr><td><strong>Questions and answers as text</strong></td><td data-label="When">When you ask, or the app needs an answer</td><td data-label="Where it goes">Google Gemini or DeepSeek through our service; spoken answers through Google Cloud Text-to-Speech</td></tr>
 <tr><td><strong>Account details</strong></td><td data-label="When">When you sign up</td><td data-label="Where it goes">Supabase (our database and sign-in provider)</td></tr>
@@ -1067,7 +1067,7 @@
 
 <section id="s3">
 <h2>3 Your screen</h2>
-<p><strong>You choose what Overlord AI can see.</strong> The first time, your operating system asks you to pick a screen to share. Overlord AI captures that whole screen (monitor), not just the game window, so close anything private on it or share a different screen. On Linux your choice is remembered so you aren't asked at every launch. Sharing runs while the app is watching a game, and you can stop it at any time from your system's screen-sharing controls or by closing the app.</p>
+<p><strong>You choose what Overlord AI can see.</strong> The first time, your operating system asks you to pick a screen to share. Overlord AI captures that whole screen (monitor), not just the game window, so close anything private on it or share a different screen. On Linux your choice is remembered so you aren't asked at every launch. Capture runs only while a game is running: it starts when Overlord AI detects your game and shuts off when it detects the game has closed. You can also stop it at any time from your system's screen-sharing controls or by closing the app.</p>
 <h3>When frames are sent</h3>
 <ul>
 <li><strong>When you ask.</strong> Pressing F4, or asking a question, sends the current frame with your question.</li>
@@ -1075,7 +1075,7 @@
 </ul>
 <h3>Where frames go</h3>
 <p>Frames go over an encrypted connection (HTTPS) to our cloud service on Google Cloud, which checks your sign-in and passes the frame to an AI model to read it: <strong>DeepSeek</strong> or <strong>Google Gemini</strong>. The answer comes back to your PC. Our service doesn't save frames. DeepSeek and Google handle the frames they receive under their own terms (section 9).</p>
-<p>On your PC, frames are short-lived: older ones are deleted within about 30 seconds while the app runs. On Linux they're held in memory (RAM) and never written to disk. On Windows they're kept briefly in the system's temporary folder. Overlord AI doesn't record video of your sessions.</p>
+<p>Screen capture starts only when Overlord AI detects that a game is running, and it shuts off when it detects that the game has closed. Frames are held in short-term memory (RAM), never written to disk: older ones are deleted within about 30 seconds, the rest are discarded when capture shuts off, and nothing survives a restart. On Windows, frames are kept briefly in the system's temporary folder instead and are deleted within about 30 seconds. Overlord AI doesn't record video of your sessions.</p>
 </section>
 
 <section id="s4">
@@ -1151,7 +1151,7 @@
 <h2>10 How long we keep it</h2>
 <table class="lg-stack">
 <tr><th>Data</th><th>How long</th></tr>
-<tr><td><strong>Screen frames</strong></td><td data-label="How long">Up to about 30 seconds on your PC. Not stored by our service. DeepSeek and Google keep what they receive according to their own terms.</td></tr>
+<tr><td><strong>Screen frames</strong></td><td data-label="How long">Up to about 30 seconds on your PC, held in RAM; discarded when the game closes and cleared by a restart. Not stored by our service. DeepSeek and Google keep what they receive according to their own terms.</td></tr>
 <tr><td><strong>Voice recordings</strong></td><td data-label="How long">One temporary file on your PC, overwritten by your next question. Not stored by our service.</td></tr>
 <tr><td><strong>Account, licence and progress records</strong></td><td data-label="How long">While your account is open. Deleted within 30 days after you ask us to delete your account.</td></tr>
 <tr><td><strong>Usage counts</strong></td><td data-label="How long">While your account is open, then deleted with it.</td></tr>

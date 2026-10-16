@@ -11,7 +11,7 @@ Last updated 2026-10-15, in the commit that rewrote the legal pages for the Padd
 | Business address | **411 W 1st St, Unit #5073, Sanford, FL 32771** (never a home address) | footer, Contact, every legal page |
 | Payments | **Paddle**, reseller and merchant of record (standard Paddle wording) | Terms §5, Plans, Refunds |
 | Founder Access | every plan **$0 until 15 November 2026** (`assets/founder-config.js`) | Plans, Terms §4, Refunds §3, EULA §4 |
-| Refund window | **14 days on a first payment**, renewals excluded (matches Paddle's window; was 3 days on 2026-09-29) | Refunds, Terms §6 |
+| Refund window | **3 days on a first payment**, renewals excluded (Eros, kept 2026-10-16); EU/UK statutory 14-day withdrawal via Paddle stands | Refunds, Terms §6, Plans |
 | Minimum age | 13 | Terms §3, EULA §1, Privacy §15 |
 | Price / material-change notice | 30 days | Terms §5, §15 |
 | Governing law | Florida; state or federal courts in Florida | Terms §14, EULA §14 |
