@@ -1032,6 +1032,15 @@
   /* .chip is display:inline-flex, so the UA's [hidden]{display:none} loses to it —
      without this guard the sign-out chip stays visible and focusable while signed out */
   .chip[hidden]{display:none;}
+  /* What you need: words left, measured specs right; one column on mobile */
+  .needs{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1.2rem 2rem;align-items:start;}
+  .needs__words p{margin:0;}
+  .needs__specs{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1.1rem;margin:0;padding:.9rem 1.1rem;border:1px solid var(--neutral-alpha-weak);border-radius:10px;font-size:.74rem;line-height:1.45;}
+  .needs__specs dt{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--neutral-on-background-weak);padding-top:.12rem;}
+  .needs__specs dd{margin:0;}
+  .needs__src{grid-column:1/-1;font-size:.7rem;color:var(--neutral-on-background-weak);margin:0;}
+  .needs--stack{grid-template-columns:1fr;max-width:34rem;}
+  @media (max-width:760px){.needs{grid-template-columns:1fr;}}
 </style>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -1326,7 +1335,14 @@
         <div class="sect">
           <div class="sect__head"><span class="mono">Before you install</span></div>
           <dl class="spec">
-            <dt>System</dt><dd>Overlord runs beside any game your machine already runs. It adds nothing measurable while idle and under 3% GPU while a card is on screen (measured on an AMD Radeon RX Vega 56/64, October 16, 2026), uses about 600 MB of RAM, and needs an internet connection. A microphone is optional. Linux (Ubuntu/Debian) or Windows 10/11, 64-bit.</dd>
+            <dt>System</dt><dd><div class="needs"><div class="needs__words"><p>Overlord runs beside any game your machine already runs and sips the GPU. It needs an internet connection, a microphone is optional, and it runs on Windows or Linux.</p></div><dl class="needs__specs">
+          <dt>GPU, idle</dt><dd>Nothing measurable</dd>
+          <dt>GPU, card up</dt><dd>Under 3%</dd>
+          <dt>RAM</dt><dd>About 600 MB</dd>
+          <dt>Platforms</dt><dd>Windows 10/11 (64-bit), Linux (Ubuntu/Debian)</dd>
+          <dt>Internet</dt><dd>Required</dd>
+          <dt>Microphone</dt><dd>Optional</dd>
+        </dl><p class="needs__src">Measured October 16, 2026 on an AMD Radeon RX Vega 56/64: Overlord 1.6.4, idle desktop, 30-second GPU-busy averages, three runs each.</p></div></dd>
             <dt>Supported Platforms</dt><dd>Linux (Ubuntu/Debian). Windows 10/11 (64-bit): launcher, Consult, voice and the F4 controls (prayer, combo card) run today; in-game maps, GPS homing, and loot and NPC cards are Linux-only for now.</dd>
             <dt>Voice Engine</dt><dd>Google Cloud Text-to-Speech, through our cloud service. When you press F4 and speak, the recording is sent to Google Gemini to be turned into text.</dd>
             <dt>Authentication</dt><dd>Sign in with your Google or verified email account to activate all assigned machine seats.</dd>

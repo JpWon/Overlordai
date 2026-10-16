@@ -66,12 +66,23 @@
     ".ovr-cc button{flex:1 1 140px;min-height:40px;border-radius:8px;border:1px solid rgba(255,255,255,.3);" +
     "background:transparent;color:inherit;font:600 13px/1 inherit;letter-spacing:.04em;cursor:pointer}" +
     ".ovr-cc button:hover{border-color:#b9a8ff}.ovr-cc button:focus-visible{outline:2px solid #b9a8ff;outline-offset:2px}" +
-    ".ovr-cc-link{background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;text-decoration:none}" +
+    ".ovr-cc-link{background:none;border:0;padding:0;margin:0;color:var(--neutral-on-background-weak,rgba(233,233,239,.6));" +
+    "font:inherit;letter-spacing:inherit;text-transform:inherit;line-height:inherit;cursor:pointer;text-decoration:none;" +
+    "transition:color .35s ease;-webkit-appearance:none;appearance:none}" +
+    ".ovr-cc-link:focus-visible{outline:2px solid var(--accent,#b9a8ff);outline-offset:2px;border-radius:2px}" +
     ".ovr-cc-link:hover{color:var(--accent,#b9a8ff)}";
+
+  // The styles serve the banner AND the footer's "Cookie settings" link, which is
+  // on every page whether or not the banner ever shows: inject them once, early.
+  function addCss() {
+    if (document.getElementById("ovr-cc-css")) return;
+    var st = document.createElement("style"); st.id = "ovr-cc-css"; st.textContent = CSS;
+    document.head.appendChild(st);
+  }
 
   function showBanner() {
     if (document.getElementById("ovrCookieBanner")) return;
-    var st = document.createElement("style"); st.textContent = CSS; document.head.appendChild(st);
+    addCss();
     var box = document.createElement("div");
     box.className = "ovr-cc"; box.id = "ovrCookieBanner";
     box.setAttribute("role", "dialog"); box.setAttribute("aria-live", "polite"); box.setAttribute("aria-label", "Cookie choices");
@@ -91,12 +102,25 @@
   }
 
   function addSettingsLink() {
+    addCss();
     var rows = document.querySelectorAll(".site-footer .legal, .site-footer__links");
     for (var i = 0; i < rows.length; i++) {
       if (rows[i].querySelector(".ovr-cc-link")) continue;
       var b = document.createElement("button");
       b.type = "button"; b.className = "ovr-cc-link"; b.textContent = "Cookie settings";
       b.addEventListener("click", showBanner);
+      // Look exactly like the footer links beside it (each page styles its footer
+      // a little differently): copy a sibling link's type, leave hover to the CSS.
+      var twin = rows[i].querySelector("a");
+      if (twin && window.getComputedStyle) {
+        var cs = window.getComputedStyle(twin);
+        ["fontFamily", "fontSize", "fontWeight", "letterSpacing", "textTransform", "lineHeight"].forEach(function (k) {
+          b.style[k] = cs[k];
+        });
+        b.style.color = cs.color;
+        b.addEventListener("mouseenter", function () { b.style.color = ""; });
+        b.addEventListener("mouseleave", function () { b.style.color = cs.color; });
+      }
       rows[i].appendChild(b);
     }
   }
