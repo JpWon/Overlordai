@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Cookie consent: loads Google Ads, Reddit Ads and Rewardful only when allowed -->
+<script src="assets/consent.js"></script>
 <!-- Rewardful affiliate tracking -->
 <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
-<script async src="https://r.wdfl.co/rw.js" data-rewardful="f1219f"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18496558698"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -16,7 +16,7 @@
 
 <!-- Reddit Ads pixel: retargeting + campaign measurement (see privacy.html) -->
 <script>
-  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];/* pixel.js is loaded by assets/consent.js once consent allows */}}(window,document);
   rdt('init','a2_jsu6ejw28fu8');
   rdt('track','PageVisit');
 </script>
@@ -242,7 +242,7 @@
           "name": "How do I cancel?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Any time, through the link in your Paddle receipt or by emailing support@overlordai.co. Cancelling stops the next charge, and you keep access until the end of the period you've paid for. Refunds are covered in our Refund Policy."
+            "text": "Any time, through the link in your receipt email or by emailing support@overlordai.co. Cancelling stops the next charge, and you keep access until the end of the period you've paid for. Refunds are covered in our Refund Policy."
           }
         }
       ]
@@ -1588,7 +1588,7 @@
   </div>
 </section>
 
-<!-- ============ 2b · what Overlord AI is, plainly (Paddle review, 2026-10-16) ============ -->
+<!-- ============ 2b · what Overlord AI is, plainly (payment-provider review, 2026-10-16) ============ -->
 <section class="plainsec" id="what">
   <div class="plainsec__inner">
     <span class="plainsec__label">In plain words</span>
@@ -1674,7 +1674,7 @@
       <details class="faqsec__item"><summary>Does Overlord touch the game or play for me?</summary><p>No. Overlord doesn't read or change game memory, change game files, inject code into the game or press keys for you. It watches your screen, with your permission, the way a friend beside you would, and it reads your game's save and settings files without changing them. Each game sets its own rules about outside help, and you're responsible for following them, so check the terms of the games you play.</p></details>
       <details class="faqsec__item"><summary>Is my screen or voice sent anywhere?</summary><p>Yes, when Overlord needs them to help you. While screen sharing is on, frames of your screen go to our cloud service, which passes them to an AI model (DeepSeek or Google Gemini) to work out where you are and what is on screen. When you press F4 and speak, that recording goes to Google Gemini to be turned into text. Spoken answers are made by Google Cloud Text-to-Speech. Screen capture only runs while your game is running and shuts off when the game closes. Our service doesn't store your frames or recordings, and on your PC frames are held in short-term memory and deleted within about 30 seconds. Our Privacy Policy lists everything that is collected.</p></details>
       <details class="faqsec__item"><summary>How many machines can I use it on?</summary><p>Subscription is one machine. Pro is three, and you can move a seat any time — deactivate a machine, activate another. Licences are re-assignable, because hardware dies.</p></details>
-      <details class="faqsec__item"><summary>How do I cancel?</summary><p>Any time, through the link in your Paddle receipt or by emailing support@overlordai.co. Cancelling stops the next charge, and you keep access until the end of the period you've paid for. Refunds are covered in our Refund Policy.</p></details>
+      <details class="faqsec__item"><summary>How do I cancel?</summary><p>Any time, through the link in your receipt email or by emailing support@overlordai.co. Cancelling stops the next charge, and you keep access until the end of the period you've paid for. Refunds are covered in our Refund Policy.</p></details>
     </div>
   </div>
 </section>

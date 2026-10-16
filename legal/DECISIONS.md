@@ -9,7 +9,7 @@ Last updated 2026-10-15, in the commit that rewrote the legal pages for the Padd
 |---|---|---|
 | Seller / licensor | **Primus Enterprises LLC, dba Overlord AI** (Florida) | every page, footer |
 | Business address | **411 W 1st St, Unit #5073, Sanford, FL 32771** (never a home address) | footer, Contact, every legal page |
-| Payments | **Paddle**, reseller and merchant of record (standard Paddle wording) | Terms §5, Plans, Refunds |
+| Payments | **"our payment provider"**, reseller and merchant of record, **not named** until checkout is live (Eros 2026-10-16). To name Paddle again, restore the wording from commit 1ff6ccf / cddd5f2. | Terms §5, Plans, Refunds, Privacy §7, Contact |
 | Founder Access | every plan **$0 until 15 November 2026** (`assets/founder-config.js`) | Plans, Terms §4, Refunds §3, EULA §4 |
 | Refund window | **3 days on a first payment**, renewals excluded (Eros, kept 2026-10-16); EU/UK statutory 14-day withdrawal via Paddle stands | Refunds, Terms §6, Plans |
 | Minimum age | 13 | Terms §3, EULA §1, Privacy §15 |

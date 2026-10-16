@@ -1,4 +1,4 @@
-<!-- Privacy Policy. Rewritten 2026-10-15 for the Paddle review (docs/WEBSITE_PADDLE_READY_HANDOFF.md in
+<!-- Privacy Policy. Rewritten 2026-10-15 for the payment-provider review (the website-readiness handoff in
      the psyche repo). Every data flow below was read from the code that day: native_capture.py (the
      monitor you pick), control_watcher.py (automatic conversation checks: 15 s base, 4 s floor, 300 s
      ceiling), abraxas_gateway.py + cloud/research_service.py (/vision relay to DeepSeek or Gemini, /consult,
@@ -44,7 +44,7 @@
 <tr><td><strong>Questions and answers as text</strong></td><td data-label="When">When you ask, or the app needs an answer</td><td data-label="Where it goes">Google Gemini or DeepSeek through our service; spoken answers through Google Cloud Text-to-Speech</td></tr>
 <tr><td><strong>Account details</strong></td><td data-label="When">When you sign up</td><td data-label="Where it goes">Supabase (our database and sign-in provider)</td></tr>
 <tr><td><strong>Licence, trial and usage records</strong></td><td data-label="When">While you use the app</td><td data-label="Where it goes">Supabase</td></tr>
-<tr><td><strong>Payment details</strong></td><td data-label="When">When you buy</td><td data-label="Where it goes">Paddle only. We never see your card.</td></tr>
+<tr><td><strong>Payment details</strong></td><td data-label="When">When you buy</td><td data-label="Where it goes">Our payment provider only, once paid plans open. We never see your card.</td></tr>
 <tr><td><strong>Key presses, saves, game files</strong></td><td data-label="When">While you play</td><td data-label="Where it goes">Nowhere. They stay on your PC (section 5).</td></tr>
 </table>
 </section>
@@ -95,19 +95,21 @@
 
 <section id="s7">
 <h2>7 Payments</h2>
-<p>Paddle.com is our reseller and the merchant of record for all orders. Paddle collects your payment details, billing address and tax information under its own <a href="https://www.paddle.com/legal/privacy" rel="noopener">privacy policy</a>. We receive what we need to run your plan: your name, email, country, what you bought, and the status of your subscription. We never see or store your full card number.</p>
+<p>Paid plans aren't on sale yet. When they open, orders will be processed by our payment provider, which acts as our reseller and merchant of record. It will collect your payment details, billing address and tax information under its own privacy policy, and we'll name it here before anyone is charged. We'll receive what we need to run your plan: your name, email, country, what you bought, and the status of your subscription. We never see or store your full card number. During Founder Access nothing is charged and no payment details are collected.</p>
 </section>
 
 <section id="s8">
 <h2>8 The website</h2>
-<p>The website is hosted by Vercel. When you visit, these tools run:</p>
+<p>The website is hosted by Vercel. When you visit, these tools can run:</p>
 <ul>
 <li><strong>Vercel Web Analytics</strong> counts page views and the pages people visit, without cookies.</li>
-<li><strong>Google Ads tag (gtag.js)</strong> measures whether our ads lead to visits and sign-ups. It sets cookies and sends Google information about your visit.</li>
+<li><strong>Google Ads tag (gtag.js)</strong> measures whether our Google ads lead to visits and sign-ups. It sets cookies and sends Google information about your visit.</li>
+<li><strong>Reddit Ads pixel</strong> measures whether our Reddit ads lead to visits and sign-ups, and lets us show our ads on Reddit to people who visited. It sets cookies and sends Reddit information about your visit.</li>
 <li><strong>Rewardful</strong> runs our partner (affiliate) program. If you arrive through a partner's link, it stores a referral code in a cookie so the partner can be credited.</li>
-<li><strong>Sign-in</strong> on the website uses Supabase, which keeps your session in your browser's storage. Your light or dark theme choice is saved there too.</li>
+<li><strong>Sign-in</strong> on the website uses Supabase, which keeps your session in your browser's storage. Your light or dark theme and your cookie choice are saved there too.</li>
 </ul>
-<p>You can block cookies in your browser or use a content blocker. The site still works without them.</p>
+<h3>Your choice</h3>
+<p>If you visit from the EU, EEA, UK or Switzerland, the Google Ads tag, the Reddit pixel and Rewardful don't load until you press <strong>Accept</strong> on our cookie banner. Everywhere else they load by default, and you can turn them off. Anyone can change their choice at any time with <strong>Cookie settings</strong> at the bottom of every page. If your browser sends a Global Privacy Control signal, we treat it as a Reject. The site works the same either way.</p>
 <p>The app's installers are downloaded from GitHub Releases, which logs downloads under GitHub's own policy.</p>
 </section>
 
@@ -120,9 +122,10 @@
 <tr><td><strong>DeepSeek</strong></td><td data-label="What it handles">Screen frames and question text</td><td data-label="Why">Reads frames and writes answers</td></tr>
 <tr><td><strong>Anthropic</strong> (Claude, hosted on Google Cloud)</td><td data-label="What it handles">Game names and area names</td><td data-label="Why">Backup for game research</td></tr>
 <tr><td><strong>Supabase</strong></td><td data-label="What it handles">Account, licence, usage and progress records</td><td data-label="Why">Database and sign-in</td></tr>
-<tr><td><strong>Paddle</strong></td><td data-label="What it handles">Orders, payments, tax, receipts, refunds</td><td data-label="Why">Reseller and merchant of record</td></tr>
+<tr><td><strong>Payment provider</strong> (named here when paid plans open)</td><td data-label="What it handles">Orders, payments, tax, receipts, refunds</td><td data-label="Why">Reseller and merchant of record</td></tr>
 <tr><td><strong>Vercel</strong></td><td data-label="What it handles">Website visits</td><td data-label="Why">Website hosting and analytics</td></tr>
-<tr><td><strong>Google Ads</strong></td><td data-label="What it handles">Website visits</td><td data-label="Why">Measuring our ads</td></tr>
+<tr><td><strong>Google Ads</strong></td><td data-label="What it handles">Website visits, with your consent where required</td><td data-label="Why">Measuring our ads</td></tr>
+<tr><td><strong>Reddit</strong></td><td data-label="What it handles">Website visits, with your consent where required</td><td data-label="Why">Measuring and showing our ads on Reddit</td></tr>
 <tr><td><strong>Rewardful</strong></td><td data-label="What it handles">Referral codes, sign-ups through partners</td><td data-label="Why">Partner program</td></tr>
 <tr><td><strong>Resend, Railway</strong></td><td data-label="What it handles">Waitlist emails</td><td data-label="Why">Sending and receiving sign-ups</td></tr>
 <tr><td><strong>Proton</strong></td><td data-label="What it handles">Emails you send us</td><td data-label="Why">Our email</td></tr>
@@ -139,7 +142,7 @@
 <tr><td><strong>Voice recordings</strong></td><td data-label="How long">One temporary file on your PC, overwritten by your next question. Not stored by our service.</td></tr>
 <tr><td><strong>Account, licence and progress records</strong></td><td data-label="How long">While your account is open. Deleted within 30 days after you ask us to delete your account.</td></tr>
 <tr><td><strong>Usage counts</strong></td><td data-label="How long">While your account is open, then deleted with it.</td></tr>
-<tr><td><strong>Order records</strong></td><td data-label="How long">As long as tax and accounting law requires (Paddle keeps its own records).</td></tr>
+<tr><td><strong>Order records</strong></td><td data-label="How long">As long as tax and accounting law requires (the payment provider keeps its own records).</td></tr>
 <tr><td><strong>Game research results</strong></td><td data-label="How long">Kept to serve the guide again. Unlinked from you when your account is deleted.</td></tr>
 <tr><td><strong>Service logs</strong></td><td data-label="How long">About 30 days. Logs record requests and errors, not your frames or recordings.</td></tr>
 <tr><td><strong>Founder Access, waitlist and support emails</strong></td><td data-label="How long">Until you ask us to remove them, and no longer than two years after your last contact.</td></tr>
@@ -155,7 +158,7 @@
 <li><strong>To talk to you</strong>: receipts, account notices and, with your permission, news about Overlord AI.</li>
 <li><strong>To measure our ads and partner program</strong> on the website.</li>
 </ul>
-<p><strong>We don't sell your personal information</strong>, and we don't use your screen frames or recordings to build a profile of you. The Google Ads tag on our website measures whether our ads work; under some US state laws that can count as "sharing" for advertising, and you can stop it by blocking cookies in your browser.</p>
+<p><strong>We don't sell your personal information</strong>, and we don't use your screen frames or recordings to build a profile of you. The Google Ads tag and the Reddit pixel on our website measure our ads, and the Reddit pixel lets us show our ads to past visitors; under some US state laws that can count as "sharing" for advertising. You can opt out with <strong>Cookie settings</strong> at the bottom of any page, or with a Global Privacy Control signal (section 8).</p>
 </section>
 
 <section id="s12">

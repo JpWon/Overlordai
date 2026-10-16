@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Cookie consent: loads Google Ads, Reddit Ads and Rewardful only when allowed -->
+<script src="assets/consent.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18496558698"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -13,7 +14,7 @@
 
 <!-- Reddit Ads pixel: retargeting + campaign measurement (see privacy.html) -->
 <script>
-  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];/* pixel.js is loaded by assets/consent.js once consent allows */}}(window,document);
   rdt('init','a2_jsu6ejw28fu8');
   rdt('track','PageVisit');
 </script>
@@ -1339,7 +1340,7 @@
       <!-- ============ 05 Billing ============ -->
       <div class="panel" id="panel-billing" data-panel="billing" role="tabpanel" aria-labelledby="tab-billing" tabindex="0">
         <h2>Billing</h2>
-        <p class="sub">Paddle, our reseller and merchant of record, processes the payment, the receipts, tax and the recurring charge. We hold the plan, the licences and the keys, never your card number.</p>
+        <p class="sub">Our payment provider, the reseller and merchant of record, will process the payment, the receipts, tax and the recurring charge when paid plans open. We hold the plan, the licences and the keys, never your card number.</p>
 
         <div class="price-row"><b>$14.99</b><span id="billWhen">Subscription · per month · renews automatically 01 Nov '26</span></div>
 
@@ -1347,7 +1348,7 @@
           <div class="krow">
             <div class="krow__main"><b>Subscription · monthly</b><span class="krow__sub">Started 01 Jul '26 · one licence · one machine</span></div>
             <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Card ···· 4242</span></div>
-            <div class="krow__act"><button class="mini" type="button" data-mock-link="Redirecting to the Paddle customer portal...">Manage</button></div>
+            <div class="krow__act"><button class="mini" type="button" data-mock-link="Redirecting to the billing portal...">Manage</button></div>
           </div>
           <div class="krow">
             <div class="krow__main"><b>Switch to yearly</b><span class="krow__sub">$149.99 / year · the same tier, billed once</span></div>

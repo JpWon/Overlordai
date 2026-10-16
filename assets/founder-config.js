@@ -2,7 +2,7 @@
    Founder Access Configuration
    Overlord AI (overlordai.co)
    
-   JP: Change the end date here when Paddle is live or when extending the window.
+   JP: Change the end date here when paid checkout is live or when extending the window.
    NOTE: As per campaign rules, the banner does NOT auto-hide when the date passes;
    JP will switch it off manually when paid tiers open.
    ========================================================================== */
