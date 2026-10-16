@@ -210,7 +210,7 @@ def make_schema_json(title, desc, canonical, game_name):
           "name": "What are the system requirements for Overlord AI?",
           "acceptedAnswer": {{
             "@type": "Answer",
-            "text": "A Linux PC (Ubuntu/Debian) that runs your game, an Overlord AI account, and an internet connection for answers and the voice. On Windows 10/11, the launcher, Consult and voice run today; in-game coaching is Linux-only for now."
+            "text": "A Linux PC (Ubuntu/Debian) that runs your game, an Overlord AI account, and an internet connection for answers and the voice. On Windows 10/11, the launcher, Consult, voice and the F4 controls (prayer, combo card) run today; in-game maps, GPS homing, and loot and NPC cards are Linux-only for now."
           }}
         }}
       ]
