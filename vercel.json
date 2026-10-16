@@ -64,6 +64,10 @@
     {
       "source": "/eula",
       "destination": "/eula.html"
+    },
+    {
+      "source": "/fair-play",
+      "destination": "/fair-play.html"
     }
   ]
 }
