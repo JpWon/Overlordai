@@ -1,200 +1,196 @@
-<!-- DECISIONS BEFORE PUBLICATION
-     DECIDED 2026-09-29 and applied: minimum age 13, effective date 29 September 2026, privacy contact
-     privacy@overlordai.co. The contracting entity is De Primus Enterprises and Florida law governs.
-     Every bracketed token below is deliberately unresolved. One line each, with the recommendation.
-     FILLED 2026-09-29, on the owner's instruction: the contracting entity is De Primus Enterprises
-     and the governing law is the State of Florida, United States. The state of registration is taken
-     to follow the governing law (Florida) — confirm that separately. "Enterprises" is spelled as
-     corrected from his message; confirm it is the exact registered name.
-     - [NOTICES ADDRESS] — no postal address exists; recommend a real address that accepts legal notices, plus a representative if EU or UK users are served.
-     - <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a> — rights requests need a role address; recommend privacy@overlordai.co (a real one) rather than the info@ fallback, and never a channel that does not exist.
-     - 13 — no age floor is decided; recommend 13 and stating the mismatch with 18-rated guides, or 16 if the EU is a target market.
-     - 29 September 2026 — the policy must take effect on the day it ships, not the draft day; recommend setting it when the licence backend and checkout exist.
-     - [RETENTION PERIOD] — the frame-retention limit is a requirement that is not built; recommend stating the current truth and nothing more.
--->
+<!-- Privacy Policy. Rewritten 2026-10-15 for the Paddle review (docs/WEBSITE_PADDLE_READY_HANDOFF.md in
+     the psyche repo). Every data flow below was read from the code that day: native_capture.py (the
+     monitor you pick), control_watcher.py (automatic conversation checks: 15 s base, 4 s floor, 300 s
+     ceiling), abraxas_gateway.py + cloud/research_service.py (/vision relay to DeepSeek or Gemini, /consult,
+     /speak, /research on Vertex), tactical_engine.transcribe_prayer_audio_cloud (F4 audio to Gemini),
+     value_ledger.py, trial_sync.js (sha256 of machine-id), the site's gtag / Vercel Analytics / Rewardful
+     tags. Retention periods marked "proposed" in the PR are Eros's to confirm. Pending: attorney review. -->
 <span class="lg__label">OVR · legal · privacy</span>
-<h1>What leaves<br><em>your machine.</em></h1>
-<div class="lg__meta"><span>Version 1.0</span><span>Draft for review</span><span>Effective 29 September 2026</span><span>Covers the App, the Site and the waitlist</span></div>
-<p class="lg__lede">Two things can leave your machine when you play: one frame of your screen with the text of your question, sent to the endpoint behind the model key you supplied, and, when the telemetry bridge is configured, a session record with no screen content in it. Everything else stays where it is, and this page says which parts of that promise are built and which are still requirements.</p>
+<h1>Privacy<br><em>policy.</em></h1>
+<div class="lg__meta"><span>Version 2.0</span><span>Last updated 15 October 2026</span><span>Covers the app, the website and our cloud service</span></div>
+<p class="lg__lede">Overlord AI watches your game to help you, so it handles your screen and, when you ask out loud, your voice. This policy says exactly what we collect, where it goes, how long it's kept and what you can do about it. We don't sell your personal information.</p>
 <div class="lg__toc"><b>Contents</b>
-<a href="#s1">1 Scope</a> <span>·</span>
+<a href="#s1">1 Who we are</a> <span>·</span>
 <a href="#s2">2 The short version</a> <span>·</span>
-<a href="#s3">3 What the App reads and sends</a> <span>·</span>
-<a href="#s4">4 The session record</a> <span>·</span>
-<a href="#s5">5 What never leaves your machine</a> <span>·</span>
-<a href="#s6">6 The Site and the waitlist</a> <span>·</span>
-<a href="#s7">7 The free Demo's licence</a> <span>·</span>
-<a href="#s8">8 Payments</a> <span>·</span>
-<a href="#s9">9 Your rights</a> <span>·</span>
-<a href="#s10">10 Retention</a> <span>·</span>
-<a href="#s11">11 Who processes what</a> <span>·</span>
-<a href="#s12">12 International transfers</a> <span>·</span>
-<a href="#s13">13 Security</a> <span>·</span>
-<a href="#s14">14 Children</a> <span>·</span>
-<a href="#s15">15 Your switches</a> <span>·</span>
-<a href="#s16">16 Changes to this policy</a> <span>·</span>
+<a href="#s3">3 Your screen</a> <span>·</span>
+<a href="#s4">4 Your voice and the co-pilot's voice</a> <span>·</span>
+<a href="#s5">5 What stays on your PC</a> <span>·</span>
+<a href="#s6">6 Your account, licence and usage</a> <span>·</span>
+<a href="#s7">7 Payments</a> <span>·</span>
+<a href="#s8">8 The website</a> <span>·</span>
+<a href="#s9">9 Who receives data</a> <span>·</span>
+<a href="#s10">10 How long we keep it</a> <span>·</span>
+<a href="#s11">11 How we use it</a> <span>·</span>
+<a href="#s12">12 Your rights</a> <span>·</span>
+<a href="#s13">13 International transfers</a> <span>·</span>
+<a href="#s14">14 Security</a> <span>·</span>
+<a href="#s15">15 Children</a> <span>·</span>
+<a href="#s16">16 Changes</a> <span>·</span>
 <a href="#s17">17 Contact</a>
 </div>
 
 <section id="s1">
-<h2>1 Scope</h2>
-<p>Overlord is a companion guide that reads your screen and talks to you while you play. This policy covers the App on Linux and Steam Deck, the Site at www.overlordai.co, and the waitlist for the Windows build, in beta and not shipped.</p>
-<p>The App is pixel-read only: one captured frame per question, and nothing else. It never reads game memory, never injects code or DLLs, never inspects network traffic and never sends input, and it refuses ranked or competitive multiplayer by design.</p>
-<h3>Not covered here</h3>
-<ul>
-<li>Your game platform or publisher; Steam and the game have their own policies.</li>
-<li>The model provider you point your key at, which is a controller in its own right for the frame it receives.</li>
-<li>Other sites we link to.</li>
-</ul>
+<h2>1 Who we are</h2>
+<p>Overlord AI is a dba of <strong>Primus Enterprises LLC</strong>, a Florida limited liability company, 411 W 1st St, Unit #5073, Sanford, FL 32771, United States. We are responsible for the personal data described here. Privacy questions and requests go to <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a>.</p>
+<p>This policy covers the Overlord AI desktop app for Windows and Linux, our cloud service that the app talks to, and our website at www.overlordai.co.</p>
 </section>
 
 <section id="s2">
 <h2>2 The short version</h2>
-<table>
-<tr><th>What</th><th>Leaves your machine?</th><th>Why</th></tr>
-<tr><td><strong>A frame of your screen and the text of your question</strong></td><td>Yes, to the endpoint behind your model key</td><td>It cannot answer about an unseen room.</td></tr>
-<tr><td><strong>The session record</strong> (app id, game title, engine, session length, latency, request counts, masked key labels)</td><td>Yes, when the telemetry bridge is configured</td><td>It measures latency and cost per hour.</td></tr>
-<tr><td><strong>Microphone audio, the transcript, the synthesised voice</strong></td><td>No</td><td>Nothing in the speech path is transmitted.</td></tr>
-<tr><td><strong>Guide content, saves, install paths, the Steam library</strong></td><td>No</td><td>Read from local files; not an inventory of what is installed.</td></tr>
-<tr><td><strong>Your model key</strong></td><td>No, except to the endpoint it belongs to</td><td>Only a masked label is ever written to a log line or a record.</td></tr>
-<tr><td><strong>Payment or card data</strong></td><td>No</td><td>There is no live checkout.</td></tr>
-<tr><td><strong>A profile of your play</strong></td><td>No</td><td>Nothing describes what happened in the game.</td></tr>
-<tr><td><strong>A waitlist email, if you join</strong></td><td>Yes, to our waitlist storage</td><td>It is how the list is kept.</td></tr>
+<table class="lg-stack">
+<tr><th>What</th><th>When</th><th>Where it goes</th></tr>
+<tr><td><strong>Frames of your screen</strong></td><td data-label="When">Only while screen sharing is on: when you ask, and automatically from time to time during play (section 3)</td><td data-label="Where it goes">Our cloud service, then DeepSeek or Google Gemini to read them. Not stored by us.</td></tr>
+<tr><td><strong>Your voice</strong></td><td data-label="When">Only after you press F4 to ask out loud</td><td data-label="Where it goes">Our cloud service, then Google Gemini to turn it into text. Not stored by us.</td></tr>
+<tr><td><strong>Questions and answers as text</strong></td><td data-label="When">When you ask, or the app needs an answer</td><td data-label="Where it goes">Google Gemini or DeepSeek through our service; spoken answers through Google Cloud Text-to-Speech</td></tr>
+<tr><td><strong>Account details</strong></td><td data-label="When">When you sign up</td><td data-label="Where it goes">Supabase (our database and sign-in provider)</td></tr>
+<tr><td><strong>Licence, trial and usage records</strong></td><td data-label="When">While you use the app</td><td data-label="Where it goes">Supabase</td></tr>
+<tr><td><strong>Payment details</strong></td><td data-label="When">When you buy</td><td data-label="Where it goes">Paddle only. We never see your card.</td></tr>
+<tr><td><strong>Key presses, saves, game files</strong></td><td data-label="When">While you play</td><td data-label="Where it goes">Nowhere. They stay on your PC (section 5).</td></tr>
 </table>
 </section>
 
 <section id="s3">
-<h2>3 What the App reads and sends</h2>
-<h3>The read path is a model call</h3>
-<p>The co-pilot cannot answer about a room it has never seen without looking, so the read path is a model call: one frame and the text of your question, sent over HTTPS to the endpoint behind the model key you supplied. HTTPS is the only protocol it speaks outward.</p>
-<p><strong>DeepSeek is the default provider; Google and Groq are the configured fallbacks, contacted only if a key for them is present.</strong> The provider you point your key at receives that frame and that question. That is the honest boundary: a frame and a question leave the machine every time you ask.</p>
-<p>Nothing else rides along: not your audio, not the transcript, not the synthesised voice, not your save file, not a device identifier.</p>
-<h3>Your key</h3>
-<p>Your key stays on your machine: only a masked label, the first three and last four characters, is ever written to a log line or a record. Getting keys into the OS keyring, rather than a file you edit by hand, is written down as a requirement and is not finished. No analytics SDK, crash reporter or third-party measurement runs inside the co-pilot. To remove the call entirely, point the key at an endpoint you control.</p>
+<h2>3 Your screen</h2>
+<p><strong>You choose what Overlord AI can see.</strong> The first time, your operating system asks you to pick a screen to share. Overlord AI captures that whole screen (monitor), not just the game window, so close anything private on it or share a different screen. On Linux your choice is remembered so you aren't asked at every launch. Sharing runs while the app is watching a game, and you can stop it at any time from your system's screen-sharing controls or by closing the app.</p>
+<h3>When frames are sent</h3>
+<ul>
+<li><strong>When you ask.</strong> Pressing F4, or asking a question, sends the current frame with your question.</li>
+<li><strong>Automatically, during play.</strong> To notice in-game conversations and keep its tip cards up to date, the app also checks the screen on its own: about every 15 seconds while you explore, slowing to once every 5 minutes when nothing turns up, and as often as every 4 seconds during an in-game conversation. A frame isn't sent if that part of the screen hasn't changed.</li>
+</ul>
+<h3>Where frames go</h3>
+<p>Frames go over an encrypted connection (HTTPS) to our cloud service on Google Cloud, which checks your sign-in and passes the frame to an AI model to read it: <strong>DeepSeek</strong> or <strong>Google Gemini</strong>. The answer comes back to your PC. Our service doesn't save frames. DeepSeek and Google handle the frames they receive under their own terms (section 9).</p>
+<p>On your PC, frames are short-lived: older ones are deleted within about 30 seconds while the app runs. On Linux they're held in memory (RAM) and never written to disk. On Windows they're kept briefly in the system's temporary folder. Overlord AI doesn't record video of your sessions.</p>
 </section>
 
 <section id="s4">
-<h2>4 The session record</h2>
-<p>When the telemetry bridge is configured, a session record is also written. Its fields are exactly these: app id; game title and slug; detected engine; session length; p95 latency; request counts; masked key labels in use.</p>
-<p>It cannot contain screen content and carries no free text. Every free-text field passes a redaction boundary before it can reach an HTTP body or a log line, so a key or file path in an exception message cannot reach the wire.</p>
-<p>It answers two questions: is latency inside the p95 4 s bar it is measured against, and is an hour of play cheaper than $0.10. Those are targets; this page publishes no live latency figure.</p>
-<div class="lg__note"><b>The gap, stated plainly.</b> An explicit opt-in toggle, with a visible list of every field, is on the roadmap and is not built. Until it ships, treat the session record as on whenever the bridge is configured.</div>
+<h2>4 Your voice and the co-pilot's voice</h2>
+<p><strong>The microphone is only used after you press F4</strong> to ask out loud, and recording stops when you stop talking. The recording goes through our cloud service to <strong>Google Gemini</strong>, which turns it into text, and the text is used to answer you. Our service doesn't save recordings. On your PC, the recording is kept in a single temporary file that your next question overwrites. On a PC that has on-device speech recognition installed, the recording is transcribed there instead and isn't sent.</p>
+<p><strong>The co-pilot's voice</strong> comes from <strong>Google Cloud Text-to-Speech</strong>: the text of each spoken answer goes through our service to Google, and the audio comes back. The startup and goodbye lines are recordings that ship with the app. Your personal greeting ("Welcome back, &hellip;") uses the display name from your account; it's made once and then saved on your PC.</p>
 </section>
 
 <section id="s5">
-<h2>5 What never leaves your machine</h2>
+<h2>5 What stays on your PC</h2>
 <ul>
-<li>Your microphone audio. Speech in stays on the machine; there is no ingest of it.</li>
-<li>The transcript of what you said while playing.</li>
-<li>The voice. Lines are synthesised on your machine, and pre-rendered lines are cached locally.</li>
-<li>The guide content you paid for: mapped rooms, loot tables, the objective order, read from local files.</li>
-<li>Your saves, your install directory and your Steam library as a list. The record names the title you are playing, not what else is installed.</li>
+<li><strong>Key presses.</strong> The app listens for the F4 key, and while a combo card is open it notices which buttons you press so it can tick off each step. Key presses never leave your PC. The app never sends key presses or mouse movements to a game.</li>
+<li><strong>Game files.</strong> To know which game you're playing and how far you've got, the app reads your Steam library files and some game save and settings files (for example, your button layout). It only reads them; it never changes them. Only the game's name and Steam ID are sent to our service, to fetch its guide.</li>
+<li><strong>Game memory.</strong> The app never reads or changes a game's memory, and never injects code into a game.</li>
+<li><strong>Settings and progress</strong> you make in the app, and a cache of guides and your personal greeting.</li>
 </ul>
-<h3>Where those things live</h3>
-<p>Session state and pre-computed cards live in RAM, in /dev/shm, not on disk, and do not survive a restart. Log lines are session-scoped and pass the same boundary, so a raw key never reaches one. Guide content is a file on disk, read locally.</p>
 </section>
 
 <section id="s6">
-<h2>6 The Site and the waitlist</h2>
-<p>The Site is a website with no screen access and no knowledge of your play.</p>
-<h3>If you join the waitlist</h3>
-<p>The email you give is stored in a Supabase table, and a Resend mail confirms the signup into our own inbox. The service that receives it runs on Railway. That is the whole path: one address, kept so we can tell you when the Windows beta exists.</p>
-<h3>What the Site does not do</h3>
+<h2>6 Your account, licence and usage</h2>
+<p>We keep these in Supabase, linked to your account:</p>
 <ul>
-<li>No analytics and no tracking cookies. The storefront template arrived with a Google Tag Manager container belonging to its original author, which would have measured our visitors into somebody else's account; it is switched off. No analytics load unless we configure a container of our own.</li>
-<li>The Site is served by Vercel from a GitHub repository, and the only thing it writes to your browser is localStorage for the light or dark theme.</li>
+<li><strong>Account:</strong> your email address, display name and password (stored by Supabase as a hash). If you sign in with Google or Apple, we receive the name, email and profile photo they share.</li>
+<li><strong>Licence and trial:</strong> your plan, licence key, how much trial time you've used, and a device identifier: a one-way scrambled (hashed) version of your computer's machine ID, with the device name and operating system. This is how the trial is one per person and how plans count PCs.</li>
+<li><strong>Usage:</strong> how many answers, voice lines and research requests your account used each day, and their estimated cost, so we can apply fair-use limits.</li>
+<li><strong>Progress:</strong> your game sessions (which game, when they started and ended, how long), milestones such as bosses beaten, items found and areas reached, and whether a tip card was used. These power the stats on your dashboard.</li>
+<li><strong>Game research:</strong> when you play a game we haven't mapped, the game's name and area names are researched from public sources (Google's Gemini with Google Search, with Anthropic's Claude on Google Cloud as a backup). The resulting guide is saved in our Google Cloud storage and linked to your account. It holds facts about the game, not about you.</li>
+<li><strong>Which games people want:</strong> when you play a game we haven't mapped, the app sends its Steam ID with an anonymous install code (not linked to your account) so we know which games to map next.</li>
+<li><strong>Founder Access and the waitlist:</strong> if you claim Founder Access we store your email, the plan you chose, any feedback you write, how you signed in, a referral code if you came from a partner link, and your browser type. Waitlist sign-ups store your email.</li>
+<li><strong>Support:</strong> emails you send us.</li>
 </ul>
-<div class="lg__note"><b>No card data anywhere.</b> There is no checkout and no purchase record here. The catalogue is mock data until the licence store exists, so there is nothing to pay with.</div>
 </section>
 
 <section id="s7">
-<h2>7 The free Demo's licence</h2>
-<p>The Demo is 30 minutes of runtime with the app open. It is the full product: it reads your screen, speaks out loud and covers the published guide. It ends by stopping rather than charging, and no card is taken.</p>
-<p>It does need an email, because the licence key is issued to an account. That address, with a machine fingerprint, enforces one trial per person: the trial is a licence issued to a machine and meant to be used once. The fingerprint is derived on your machine for that purpose, and is not a field on the model call in §3.</p>
+<h2>7 Payments</h2>
+<p>Paddle.com is our reseller and the merchant of record for all orders. Paddle collects your payment details, billing address and tax information under its own <a href="https://www.paddle.com/legal/privacy" rel="noopener">privacy policy</a>. We receive what we need to run your plan: your name, email, country, what you bought, and the status of your subscription. We never see or store your full card number.</p>
 </section>
 
 <section id="s8">
-<h2>8 Payments</h2>
-<p>Checkout is not live. Nothing on the Site can take a payment today, the catalogue is mock data, and the licence store does not exist. When it does, billing will be Stripe, which handles card data: no card number, no security code and no expiry date reaches our systems.</p>
-<p>A paid licence holds the email on the account and the licence assignment. Subscription is $14.99/month or $149.99/year, one machine, all published guides. Pro is $39.99/month or $399.99/year, three machines on one account, re-assignable by deactivating one and activating another, because hardware dies.</p>
-<p>Cancelling is from the account page, any time, monthly or yearly, with no lock-in. It stops the next charge; access runs to the end of the period you have paid for.</p>
+<h2>8 The website</h2>
+<p>The website is hosted by Vercel. When you visit, these tools run:</p>
+<ul>
+<li><strong>Vercel Web Analytics</strong> counts page views and the pages people visit, without cookies.</li>
+<li><strong>Google Ads tag (gtag.js)</strong> measures whether our ads lead to visits and sign-ups. It sets cookies and sends Google information about your visit.</li>
+<li><strong>Rewardful</strong> runs our partner (affiliate) program. If you arrive through a partner's link, it stores a referral code in a cookie so the partner can be credited.</li>
+<li><strong>Sign-in</strong> on the website uses Supabase, which keeps your session in your browser's storage. Your light or dark theme choice is saved there too.</li>
+</ul>
+<p>You can block cookies in your browser or use a content blocker. The site still works without them.</p>
+<p>The app's installers are downloaded from GitHub Releases, which logs downloads under GitHub's own policy.</p>
 </section>
 
 <section id="s9">
-<h2>9 Your rights</h2>
-<h3>EEA, UK and Switzerland</h3>
-<p>Under the GDPR and UK GDPR you may access, correct, erase, restrict, port and object to the processing of your personal data, and withdraw consent at any time.</p>
-<h3>California</h3>
-<p>Under the CCPA and CPRA you may know, delete, correct and port your personal information, and opt out of its sale or sharing. <strong>We do not sell personal information, and we do not share it for cross-context behavioural advertising.</strong> There is no analytics or advertising code on the Site to do either with.</p>
-<p>To exercise any of these, write to <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a>. We may need to verify your identity, and we will respond inside the timeframe the law allows.</p>
-<div class="lg__note"><b>What a request can actually reach today.</b> Most of what the App handles never reaches us: it is on your machine or at the endpoint behind your key. A request reaches your waitlist email and any licence record. It cannot recall a frame from a model provider.</div>
+<h2>9 Who receives data</h2>
+<p>These companies process data for us, each only for the job listed:</p>
+<table class="lg-stack">
+<tr><th>Company</th><th>What it handles</th><th>Why</th></tr>
+<tr><td><strong>Google Cloud</strong> (Cloud Run, Vertex AI, Cloud Storage, Text-to-Speech, Gemini API)</td><td data-label="What it handles">Our cloud service, screen frames and voice recordings sent for reading, text of spoken answers, game research</td><td data-label="Why">Runs our service, reads frames, transcribes speech, makes the voice</td></tr>
+<tr><td><strong>DeepSeek</strong></td><td data-label="What it handles">Screen frames and question text</td><td data-label="Why">Reads frames and writes answers</td></tr>
+<tr><td><strong>Anthropic</strong> (Claude, hosted on Google Cloud)</td><td data-label="What it handles">Game names and area names</td><td data-label="Why">Backup for game research</td></tr>
+<tr><td><strong>Supabase</strong></td><td data-label="What it handles">Account, licence, usage and progress records</td><td data-label="Why">Database and sign-in</td></tr>
+<tr><td><strong>Paddle</strong></td><td data-label="What it handles">Orders, payments, tax, receipts, refunds</td><td data-label="Why">Reseller and merchant of record</td></tr>
+<tr><td><strong>Vercel</strong></td><td data-label="What it handles">Website visits</td><td data-label="Why">Website hosting and analytics</td></tr>
+<tr><td><strong>Google Ads</strong></td><td data-label="What it handles">Website visits</td><td data-label="Why">Measuring our ads</td></tr>
+<tr><td><strong>Rewardful</strong></td><td data-label="What it handles">Referral codes, sign-ups through partners</td><td data-label="Why">Partner program</td></tr>
+<tr><td><strong>Resend, Railway</strong></td><td data-label="What it handles">Waitlist emails</td><td data-label="Why">Sending and receiving sign-ups</td></tr>
+<tr><td><strong>Proton</strong></td><td data-label="What it handles">Emails you send us</td><td data-label="Why">Our email</td></tr>
+<tr><td><strong>GitHub</strong></td><td data-label="What it handles">Installer downloads</td><td data-label="Why">Hosting the app's downloads</td></tr>
+</table>
+<p>We may also share data if the law requires it, to protect our users or our service from fraud or abuse, or as part of a sale or merger of our business, in which case this policy would still apply to it.</p>
 </section>
 
 <section id="s10">
-<h2>10 Retention</h2>
-<p>A captured frame lives as long as the process that took it. A retention limit, where older frames do not survive, is written down as a requirement and is not built. Until it is, that is the whole truth, and the limit we will commit to is <strong>[RETENTION PERIOD]</strong>, to be set when the limit exists — a number we cannot back is worse than the gap it hides.</p>
-<p>The session record lives as long as the telemetry it is written to.</p>
-<p>A waitlist email is kept until you ask for its removal. A licence record is kept while the licence is active, and afterwards only to honour it or meet a tax obligation.</p>
+<h2>10 How long we keep it</h2>
+<table class="lg-stack">
+<tr><th>Data</th><th>How long</th></tr>
+<tr><td><strong>Screen frames</strong></td><td data-label="How long">Up to about 30 seconds on your PC. Not stored by our service. DeepSeek and Google keep what they receive according to their own terms.</td></tr>
+<tr><td><strong>Voice recordings</strong></td><td data-label="How long">One temporary file on your PC, overwritten by your next question. Not stored by our service.</td></tr>
+<tr><td><strong>Account, licence and progress records</strong></td><td data-label="How long">While your account is open. Deleted within 30 days after you ask us to delete your account.</td></tr>
+<tr><td><strong>Usage counts</strong></td><td data-label="How long">While your account is open, then deleted with it.</td></tr>
+<tr><td><strong>Order records</strong></td><td data-label="How long">As long as tax and accounting law requires (Paddle keeps its own records).</td></tr>
+<tr><td><strong>Game research results</strong></td><td data-label="How long">Kept to serve the guide again. Unlinked from you when your account is deleted.</td></tr>
+<tr><td><strong>Service logs</strong></td><td data-label="How long">About 30 days. Logs record requests and errors, not your frames or recordings.</td></tr>
+<tr><td><strong>Founder Access, waitlist and support emails</strong></td><td data-label="How long">Until you ask us to remove them, and no longer than two years after your last contact.</td></tr>
+</table>
 </section>
 
 <section id="s11">
-<h2>11 Who processes what</h2>
-<p>These services handle data for us.</p>
-<table>
-<tr><th>Service</th><th>What it handles</th><th>Role</th></tr>
-<tr><td><strong>Supabase</strong></td><td>the waitlist email</td><td>database storage</td></tr>
-<tr><td><strong>Resend</strong></td><td>the mail confirming a signup, to our own address</td><td>email sending</td></tr>
-<tr><td><strong>Railway</strong></td><td>the service that receives a signup</td><td>application hosting</td></tr>
-<tr><td><strong>Vercel</strong></td><td>hosting and delivery of this website</td><td>static hosting</td></tr>
-<tr><td><strong>GitHub</strong></td><td>the repository this site is published from</td><td>source hosting</td></tr>
-<tr><td><strong>DeepSeek, Google, Groq</strong></td><td>the endpoint behind your own key, which receives the frame and the question</td><td>model providers; only the one you configure is contacted, and only with a key</td></tr>
-</table>
-<p>Stripe is not here yet because checkout is not live; it will be added, and it will be the only party that sees card data. There is no support inbox, chat server or advertising processor.</p>
+<h2>11 How we use it</h2>
+<ul>
+<li><strong>To provide Overlord AI</strong>: answer your questions, show tip cards, speak, research games, run your account and plan (needed to perform our contract with you).</li>
+<li><strong>To keep it fair and safe</strong>: one trial per person, device limits, fair-use limits, and preventing abuse (our legitimate interests).</li>
+<li><strong>To improve it</strong>: deciding which games to map next and fixing what goes wrong (our legitimate interests).</li>
+<li><strong>To talk to you</strong>: receipts, account notices and, with your permission, news about Overlord AI.</li>
+<li><strong>To measure our ads and partner program</strong> on the website.</li>
+</ul>
+<p><strong>We don't sell your personal information</strong>, and we don't use your screen frames or recordings to build a profile of you. The Google Ads tag on our website measures whether our ads work; under some US state laws that can count as "sharing" for advertising, and you can stop it by blocking cookies in your browser.</p>
 </section>
 
 <section id="s12">
-<h2>12 International transfers</h2>
-<p>The services in §11 are cloud services and may process data in a country other than yours, including the United States. The model endpoint you configure decides where a frame is processed, and that choice is yours.</p>
-<p>The transfer mechanism for each destination is an open decision, not a settled one. De Primus Enterprises is registered in the State of Florida, United States, and the safeguard that will apply to each transfer, whether standard contractual clauses or an adequacy route, is to be named here before launch. We will not claim a transfer ground we have not put in place.</p>
+<h2>12 Your rights</h2>
+<p>Wherever you live, you can ask us to show you, correct or delete the personal data we hold about you, or to delete your account.</p>
+<ul>
+<li><strong>EU, EEA, UK and Switzerland (GDPR):</strong> you also have the rights to restrict or object to processing, to data portability, and to withdraw consent at any time. You can complain to your local data protection authority.</li>
+<li><strong>California and other US states:</strong> you can ask what we collect and why, ask us to delete or correct it, and opt out of the sale or sharing of your information. We don't sell it. We won't treat you differently for using these rights.</li>
+</ul>
+<p>Email <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a> from the address on your account. We may need to confirm it's you. We answer within one month (45 days for requests under US state laws).</p>
 </section>
 
 <section id="s13">
-<h2>13 Security</h2>
-<p>What the design does: every outbound call is HTTPS, the only protocol the co-pilot speaks. Session state and pre-computed cards live in RAM, not on disk. Log lines pass a redaction boundary, and only a masked key label, the first three and last four characters, ever reaches one.</p>
-<h3>Not finished</h3>
-<p>Getting keys into the OS keyring, rather than a file you edit by hand, is a requirement that has not shipped; until it does, your key's safety depends partly on keeping that file out of a backup or a screenshot.</p>
-<div class="lg__note"><b>No certification claim is made here.</b> There is no SOC 2 report, no ISO 27001 certificate and no HIPAA claim in this policy or the product, and there will not be one until an audit says there is. A frame you send is protected by the transport and the provider you chose, and by nothing we have certified.</div>
+<h2>13 International transfers</h2>
+<p>We're based in the United States, and our service providers process data in the United States and other countries. DeepSeek processes the frames and text it receives in China. Where a provider offers standard contractual clauses or a similar safeguard for international transfers, we rely on it. By using the app's screen and voice features you understand that frames and recordings are processed in these countries.</p>
 </section>
 
 <section id="s14">
-<h2>14 Children</h2>
-<p>The App is for players old enough to buy and run the games it guides, and is not directed at children. It is not offered to anyone under 13. We do not knowingly collect personal data from anyone under that age; if you believe a child has sent us an address through the waitlist, write to <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a> and we will remove it.</p>
-<div class="lg__note"><b>The age floor is 13, and the games are not.</b> Single-player titles carry their own ratings, up to 18 in some territories. An account at 13 is not permission to play: the guide is sold for a game the player must already be old enough to buy, and the account age is not the play age.</div>
+<h2>14 Security</h2>
+<p>Everything the app sends travels over HTTPS. The app never holds AI provider keys: our cloud service adds them, after checking your sign-in. Your licence key is encrypted with your operating system's secure storage. No system is perfectly secure, and we'll tell you without undue delay if a breach affects your data.</p>
 </section>
 
 <section id="s15">
-<h2>15 Your switches</h2>
-<p>The switch that exists today is the process itself. Stopping it stops the screen reads, the model calls and the speech together, because there is no queue that outlives it.</p>
-<h3>Not built yet</h3>
-<ul>
-<li>A visible "what I just sent" panel, showing the last frame that went out.</li>
-<li>A single kill switch that stops polling, stops speech and blanks the card.</li>
-<li>The session-record opt-in toggle described in §4.</li>
-</ul>
-<p>All three are requirements with a written definition of done, and none has shipped.</p>
+<h2>15 Children</h2>
+<p>Overlord AI isn't for children under 13, and we don't knowingly collect data from them. If you believe a child under 13 has given us personal data, write to <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a> and we'll delete it.</p>
 </section>
 
 <section id="s16">
-<h2>16 Changes to this policy</h2>
-<p>This is Version 1.0, effective 29 September 2026. Two facts in it are still open — the postal notices address and the frame-retention limit — and each stays marked in place below rather than being filled with a guess. When either is settled the version number and the effective date move with it, and a material change to what leaves your machine gets notice on the Site rather than a silent edit.</p>
-<p>The data path is the thing to watch. If a feature ships that changes §3 or §4, the "what I just sent" panel, the frame-retention limit or the session-record toggle, this page is updated in the same change, not afterwards.</p>
+<h2>16 Changes</h2>
+<p>When what the app collects or sends changes, we update this policy in the same release and change the date at the top. For a material change, we'll email account holders before it takes effect.</p>
 </section>
 
 <section id="s17">
 <h2>17 Contact</h2>
-<p>Privacy questions and rights requests go to <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a>, and a request sent there is answered inside the timeframe the law allows. Waitlist mail is served by <a href="mailto:info@overlordai.co">info@overlordai.co</a>.</p>
-<p>Legal notices go to [NOTICES ADDRESS]. This policy is one of three documents: the <a href="eula.html">end-user licence</a> and the <a href="terms.html">terms of service</a> are the other two.</p>
-<div class="lg__note"><b>No channel is printed that does not exist.</b> There is no support inbox, chat server or community forum yet, and this policy will not list one to look complete.</div>
+<p>Primus Enterprises LLC, dba Overlord AI<br>411 W 1st St, Unit #5073, Sanford, FL 32771, United States<br>Privacy: <a href="mailto:privacy@overlordai.co">privacy@overlordai.co</a> · Support: <a href="mailto:support@overlordai.co">support@overlordai.co</a></p>
 </section>
 
-<p class="lg__end">Part of a set: <a href="eula.html">End-user licence</a> · <a href="terms.html">Terms of service</a></p>
+<p class="lg__end">Also see: <a href="terms.html">Terms of Service</a> · <a href="refunds.html">Refund Policy</a> · <a href="eula.html">End-user licence</a> · <a href="contact.html">Contact</a></p>

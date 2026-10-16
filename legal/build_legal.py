@@ -3,7 +3,7 @@
 the per-document content fragments. The chrome lives in ONE file: edit it in the skeleton, never
 in a generated page, or EULA / Privacy / Terms drift apart.
 
-  python3 legal/build_legal.py                 # rebuild eula.html, privacy.html, terms.html
+  python3 legal/build_legal.py                 # rebuild eula, privacy, terms, refunds, contact
   python3 legal/build_legal.py eula            # rebuild one
 """
 import html
@@ -13,7 +13,7 @@ from pathlib import Path
 
 S = Path(__file__).resolve().parent
 ROOT = S.parent
-DOCS = ("eula", "privacy", "terms")
+DOCS = ("eula", "privacy", "terms", "refunds", "contact")
 MARKER = "<!-- CONTENT -->"
 SITE = "https://www.overlordai.co"
 
@@ -29,6 +29,12 @@ PAGE_META = {
               "Windows and Linux."),
     "eula": ("End-User Licence Agreement \u2014 Overlord AI",
              "End-user licence agreement for the Overlord AI desktop app on Windows and Linux."),
+    "refunds": ("Refund Policy \u2014 Overlord AI",
+                "Full refund within 14 days of your first payment. How to cancel, how to ask for a refund "
+                "through Paddle, and your legal rights."),
+    "contact": ("Contact \u2014 Overlord AI",
+                "Contact Overlord AI (Primus Enterprises LLC): support email, billing and refunds, privacy "
+                "requests and our business address."),
 }
 
 
