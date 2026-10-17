@@ -16,6 +16,9 @@ ROOT = S.parent
 DOCS = ("eula", "privacy", "terms", "refunds", "contact", "fair-play")
 MARKER = "<!-- CONTENT -->"
 SITE = "https://www.overlordai.co"
+LEGAL_DOCS = ("eula", "privacy", "terms", "refunds")
+LEGAL_CREDIT = "&copy; 2026 Primus Enterprises LLC, dba Overlord AI"
+PLAIN_CREDIT = "&copy; 2026 Overlord AI"
 
 # Each page's OWN head (2026-10-13 SEO audit: the skeleton carried support.html's
 # title, description, canonical and FAQ, so all three canonicalized to support
@@ -36,7 +39,7 @@ PAGE_META = {
                   "Is Overlord AI cheating? No: it never touches the game, never plays for you and refuses online "
                   "multiplayer games. Exactly what it does and doesn't do."),
     "contact": ("Contact \u2014 Overlord AI",
-                "Contact Overlord AI (Primus Enterprises LLC): support email, billing and refunds, privacy "
+                "Contact Overlord AI: support email, billing and refunds, privacy "
                 "requests and our business address."),
 }
 
@@ -61,6 +64,11 @@ def build(name: str) -> tuple[Path, int]:
     assert skel.count(MARKER) == 1, "skeleton marker missing or duplicated"
     assert "<!-- CONTENT -->" not in frag, f"{name}.content.html must not contain the marker"
     out = fill_head(skel, name).replace(MARKER, frag.rstrip() + "\n")
+    # The legal name sits in the footer of the legal documents only (JP, 2026-10-17);
+    # every other page's footer just says Overlord AI.
+    credit = LEGAL_CREDIT if name in LEGAL_DOCS else PLAIN_CREDIT
+    assert out.count("{{FOOTER_CREDIT}}") == 1, f"{name}: footer credit token missing"
+    out = out.replace("{{FOOTER_CREDIT}}", credit)
     dst = ROOT / f"{name}.html"
     dst.write_text(out, encoding="utf-8")
     return dst, len(out)
