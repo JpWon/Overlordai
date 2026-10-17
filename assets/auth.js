@@ -33,6 +33,33 @@
 
   const provider = name => PROVIDERS[String(name || '').toLowerCase()] || null;
 
+  /* Lux's tracked door (overlordai.co/lux, lux.html): the visit leaves ref=lux in this browser for
+     30 days so the account it creates can be counted as "signup via Lux". */
+  const REF_DAYS = 30;
+  function luxRef() {
+    try {
+      const fromUrl = new URLSearchParams(location.search).get('ref');
+      if (fromUrl === 'lux') {
+        localStorage.setItem('ovl_ref', 'lux');
+        localStorage.setItem('ovl_ref_at', String(Date.now()));
+      }
+      const at = Number(localStorage.getItem('ovl_ref_at') || 0);
+      return localStorage.getItem('ovl_ref') === 'lux' && Date.now() - at < REF_DAYS * 864e5 ? 'lux' : null;
+    } catch (e) { return null; }
+  }
+
+  /* Google/Apple sign-ups carry no metadata, so a brand-new account (made in the last hour)
+     gets ref=lux once it is signed in. */
+  if (configured) {
+    client.auth.onAuthStateChange((_event, s) => {
+      const u = s && s.user;
+      if (!u || !luxRef() || (u.user_metadata || {}).ref) return;
+      if (Date.now() - Date.parse(u.created_at || 0) > 3600e3) return;
+      client.auth.updateUser({ data: { ref: 'lux' } }).catch(() => {});
+    });
+  }
+  luxRef();
+
   /* Hands the browser to the provider. On success this function never returns —
      the page navigates away. */
   async function signIn(name) {
@@ -79,6 +106,7 @@
     /* Apple's hand-off returns no name, so the create-account page collects one and
        we keep it on the user record here. */
     if (displayName) options.data = { display_name: String(displayName).trim() };
+    if (luxRef()) options.data = Object.assign(options.data || {}, { ref: 'lux' });
     const { data, error } = await client.auth.signUp({ email, password, options });
     if (error) throw error;
     return data;

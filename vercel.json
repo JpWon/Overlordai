@@ -26,6 +26,10 @@
   ],
   "rewrites": [
     {
+      "source": "/lux",
+      "destination": "/lux.html"
+    },
+    {
       "source": "/featured",
       "destination": "/featured.html"
     },

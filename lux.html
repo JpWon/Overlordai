@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Overlord AI</title>
+<link rel="canonical" href="https://www.overlordai.co/">
+<!-- overlordai.co/lux: the link Lux gives on YouTube (docs/lux-voice-mirroring-handoff.md §7).
+     Counts the visit (lux_visits, insert-only for the anon key), remembers ref=lux so a sign-up
+     can carry it (assets/auth.js), then goes to the home page with ?ref=lux. -->
+<script src="assets/auth-config.js"></script>
+<script>
+(function () {
+  var dest = '/?ref=lux';
+  var go = function () { location.replace(dest); };
+  try { localStorage.setItem('ovl_ref', 'lux'); localStorage.setItem('ovl_ref_at', String(Date.now())); } catch (e) {}
+  var cfg = window.OVERLORD_SUPABASE || {};
+  if (!cfg.url || !cfg.anonKey) { go(); return; }
+  var t = setTimeout(go, 600);
+  try {
+    fetch(cfg.url.replace(/\/$/, '') + '/rest/v1/lux_visits', {
+      method: 'POST', keepalive: true,
+      headers: { 'apikey': cfg.anonKey, 'Authorization': 'Bearer ' + cfg.anonKey,
+                 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ referrer: (document.referrer || '').slice(0, 300) })
+    }).then(function () { clearTimeout(t); go(); }, function () { clearTimeout(t); go(); });
+  } catch (e) { clearTimeout(t); go(); }
+})();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=/?ref=lux"></noscript>
+</head>
+<body style="background:#0b0b0f;color:#e8e8ee;font-family:system-ui,sans-serif">
+<p style="padding:24px"><a href="/?ref=lux" style="color:#c9a6ff">Continue to Overlord AI</a></p>
+</body>
+</html>
