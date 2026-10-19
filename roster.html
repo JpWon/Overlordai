@@ -61,18 +61,25 @@
 
 <p class="crumbs">Atlas</p><h1>The Roster</h1>
 <p class="byline"><span class="dot" aria-hidden="true"></span>Live from the Atlas &middot; new maps land as they are finished</p>
-<p class="totals" id="totals">Mapped so far: <strong>7 games</strong>.</p>
+<!-- roster-totals:start -->
+<p class="totals" id="totals">Mapped so far: <strong>10 games</strong> &middot; 554 areas &middot; 1,692 items &middot; 463 bosses.</p>
+<!-- roster-totals:end -->
 
 <input class="find" id="find" type="search" placeholder="Is your game here?" aria-label="Search the roster" autocomplete="off">
+<!-- roster-list:start -->
 <ul class="roster" id="roster">
-  <li><span class="name"><a href="/wukong.html">Black Myth: Wukong</a></span></li>
-  <li><span class="name">Control</span></li>
-  <li><span class="name"><a href="/eldenring.html">Elden Ring</a></span></li>
-  <li><span class="name">Mortal Shell</span></li>
-  <li><span class="name"><a href="/mortalshell2.html">Mortal Shell II</a></span></li>
-  <li><span class="name">Path of Exile</span></li>
-  <li><span class="name">Path of Exile 2</span></li>
+  <li><span class="name"><a href="/wukong.html">Black Myth: Wukong</a></span><span class="n">33 areas &middot; 230 items &middot; 35 bosses</span></li>
+  <li><span class="name">Control</span><span class="n">23 areas &middot; 10 items &middot; 6 bosses</span></li>
+  <li><span class="name">DARK SOULS III</span><span class="n">22 areas &middot; 263 items &middot; 55 bosses</span></li>
+  <li><span class="name"><a href="/eldenring.html">Elden Ring</a></span><span class="n">256 areas &middot; 584 items &middot; 143 bosses</span></li>
+  <li><span class="name">Grand Theft Auto V Enhanced</span><span class="n">20 areas &middot; 41 items &middot; 17 bosses</span></li>
+  <li><span class="name">Mortal Shell</span><span class="n">17 areas &middot; 81 items &middot; 16 bosses</span></li>
+  <li><span class="name"><a href="/mortalshell2.html">Mortal Shell II</a></span><span class="n">30 areas &middot; 100 items &middot; 31 bosses</span></li>
+  <li><span class="name">Path of Exile</span><span class="n">60 areas &middot; 131 items &middot; 76 bosses</span></li>
+  <li><span class="name">Path of Exile 2</span><span class="n">50 areas &middot; 82 items &middot; 50 bosses</span></li>
+  <li><span class="name">Red Dead Redemption 2</span><span class="n">43 areas &middot; 170 items &middot; 34 bosses</span></li>
 </ul>
+<!-- roster-list:end -->
 <p class="none" id="none">Not mapped yet. Overlord still researches any single-player game from public guides the first time you play it, and its map fills in as you go.</p>
 
 <p class="outro">Every game here has a finished Atlas: its areas, items and bosses are preloaded before you start. Anything else is researched the first time you play it.</p>
@@ -83,16 +90,10 @@
   <a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/contact.html">Contact</a>
   <a href="/guides/">Guides</a>
 </div></footer>
+<script src="/assets/atlas-catalog.js"></script>
 <script>
 (function() {
-  // Same live source as the homepage footer line (and scripts/atlas_stats.py): atlas_catalog rows marked ready.
-  var u = 'https://bzxzhizvfzmldpkxxuqu.supabase.co/rest/v1/atlas_catalog?status=eq.ready&select=game_title,counts';
-  var k = 'sb_publishable_LEJ4On121RzEpDlCgiqm8w_cDc8BROJ';
-  // Games with their own co-pilot page on the site.
-  var pages = {
-    'Black Myth: Wukong': '/wukong.html', 'Elden Ring': '/eldenring.html', 'Sekiro: Shadows Die Twice': '/sekiro.html',
-    'Sekiro': '/sekiro.html', 'Lies of P': '/liesofp.html', 'Mortal Shell II': '/mortalshell2.html'
-  };
+  // Same source as the homepage strip: assets/atlas-catalog.js (Supabase atlas_catalog + bundled maps).
   var list = document.getElementById('roster'), find = document.getElementById('find'), none = document.getElementById('none');
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function(c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -107,24 +108,12 @@
   }
   find.addEventListener('input', filter);
 
-  fetch(u, { headers: { 'apikey': k, 'Authorization': 'Bearer ' + k } })
-    .then(function(r) { return r.json(); })
-    .then(function(rows) {
-      if (!Array.isArray(rows) || rows.length === 0) return;
-      // Control's map ships with the app rather than the catalog (matches the homepage numbers).
-      var games = { 'Control': { rooms: 23, loot: 10, boss: 6 } };
-      var rooms = 23, loot = 10, bosses = 6;
-      rows.forEach(function(row) {
-        if (!row.game_title) return;
-        var c = row.counts || {}, g = games[row.game_title] || (games[row.game_title] = { rooms: 0, loot: 0, boss: 0 });
-        g.rooms += (c.rooms || 0); g.loot += (c.loot || 0); g.boss += (c.boss || 0);
-        rooms += (c.rooms || 0); loot += (c.loot || 0); bosses += (c.boss || 0);
-      });
-      var names = Object.keys(games).sort(function(a, b) { return a.localeCompare(b); });
-      document.getElementById('totals').innerHTML = 'Mapped so far: <strong>' + names.length + ' games</strong> &middot; ' +
-        rooms.toLocaleString() + ' areas &middot; ' + loot.toLocaleString() + ' items &middot; ' + bosses.toLocaleString() + ' bosses.';
-      list.innerHTML = names.map(function(n) {
-        var g = games[n], label = pages[n] ? '<a href="' + pages[n] + '">' + esc(n) + '</a>' : esc(n);
+  OverlordAtlas.load().then(function(a) {
+      var t = a.totals;
+      document.getElementById('totals').innerHTML = 'Mapped so far: <strong>' + t.games + ' games</strong> &middot; ' +
+        t.rooms.toLocaleString() + ' areas &middot; ' + t.loot.toLocaleString() + ' items &middot; ' + t.boss.toLocaleString() + ' bosses.';
+      list.innerHTML = a.titles.map(function(n) {
+        var g = a.games[n], label = a.pages[n] ? '<a href="' + a.pages[n] + '">' + esc(n) + '</a>' : esc(n);
         return '<li><span class="name">' + label + '</span><span class="n">' + g.rooms.toLocaleString() + ' areas &middot; ' +
           g.loot.toLocaleString() + ' items &middot; ' + g.boss.toLocaleString() + ' bosses</span></li>';
       }).join('');

@@ -1763,39 +1763,15 @@
         <a href="mortalshell2.html" style="color:inherit; text-decoration:underline;">Mortal Shell II</a>
       </div>
       <!-- atlas-stats:start -->
-      <p class="atlas-stats" style="margin:4px 0 12px; font-size:0.85rem; color:var(--neutral-on-background-weak);">Mapped so far: <strong>7 games</strong> &middot; 469 areas &middot; 1,219 items &middot; 357 bosses (Black Myth: Wukong, Control, Elden Ring, Mortal Shell, Mortal Shell II, Path of Exile, Path of Exile 2). New maps land as they are finished. <a href="/roster" class="atlas-roster-link" style="color:inherit; text-decoration:underline; white-space:nowrap;">See the full roster &rarr;</a></p>
+      <p class="atlas-stats" style="margin:4px 0 12px; font-size:0.85rem; color:var(--neutral-on-background-weak);">Mapped so far: <strong>10 games</strong> &middot; 554 areas &middot; 1,692 items &middot; 463 bosses, including GTA V, Red Dead Redemption 2, Elden Ring and Black Myth: Wukong. New maps land as they are finished. <a href="/roster" class="atlas-roster-link" style="color:inherit; text-decoration:underline; white-space:nowrap;">See the full roster &rarr;</a></p>
       <!-- atlas-stats:end -->
+      <script src="/assets/atlas-catalog.js"></script>
       <script>
-        (function() {
-          var u = 'https://bzxzhizvfzmldpkxxuqu.supabase.co/rest/v1/atlas_catalog?status=eq.ready&select=game_title,counts';
-          var k = 'sb_publishable_LEJ4On121RzEpDlCgiqm8w_cDc8BROJ';
-          fetch(u, { headers: { 'apikey': k, 'Authorization': 'Bearer ' + k } })
-            .then(function(r) { return r.json(); })
-            .then(function(rows) {
-              if (!Array.isArray(rows) || rows.length === 0) return;
-              var titles = { 'Control': true };
-              var rooms = 23, loot = 10, bosses = 6;
-              rows.forEach(function(row) {
-                if (row.game_title) titles[row.game_title] = true;
-                if (row.counts) {
-                  rooms += (row.counts.rooms || 0);
-                  loot += (row.counts.loot || 0);
-                  bosses += (row.counts.boss || 0);
-                }
-              });
-              var names = Object.keys(titles).sort();
-              var el = document.querySelector('.atlas-stats');
-              if (el) {
-                el.innerHTML = 'Mapped so far: <strong>' + names.length + ' games</strong> &middot; ' +
-                  rooms.toLocaleString() + ' areas &middot; ' +
-                  loot.toLocaleString() + ' items &middot; ' +
-                  bosses.toLocaleString() + ' bosses (' +
-                  names.join(', ') + '). New maps land as they are finished.' +
-                  ' <a href="/roster" class="atlas-roster-link" style="color:inherit; text-decoration:underline; white-space:nowrap;">See the full roster &rarr;</a>';
-              }
-            })
-            .catch(function() {});
-        })();
+        /* same source as /roster: assets/atlas-catalog.js */
+        OverlordAtlas.load().then(function(a) {
+          var el = document.querySelector('.atlas-stats');
+          if (el) el.innerHTML = OverlordAtlas.stripHTML(a);
+        }).catch(function() {});
       </script>
     </div>
 

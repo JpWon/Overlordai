@@ -1,0 +1,40 @@
+{
+  "_about": "One source for the homepage 'Mapped so far' strip, /roster and scripts/atlas_stats.py. Mapped games come from Supabase atlas_catalog (status=ready) plus 'bundled' (maps that ship with the app). 'popularity' ranks titles for the footer only (biggest, most recognizable first; publisher-reported lifetime sales/players). Games not listed still count and still show on /roster; they just never make the footer.",
+  "catalog_url": "https://bzxzhizvfzmldpkxxuqu.supabase.co/rest/v1/atlas_catalog?status=eq.ready&select=game_title,counts",
+  "bundled": {
+    "Control": {
+      "rooms": 23,
+      "loot": 10,
+      "boss": 6
+    }
+  },
+  "popularity": [
+    "Grand Theft Auto V Enhanced",
+    "Red Dead Redemption 2",
+    "Elden Ring",
+    "Black Myth: Wukong",
+    "DARK SOULS III",
+    "Path of Exile",
+    "Path of Exile 2",
+    "Sekiro: Shadows Die Twice",
+    "Lies of P",
+    "Mortal Shell",
+    "Mortal Shell II"
+  ],
+  "footer_top": 4,
+  "footer_never": [
+    "Control"
+  ],
+  "short": {
+    "Grand Theft Auto V Enhanced": "GTA V",
+    "DARK SOULS III": "Dark Souls III"
+  },
+  "pages": {
+    "Black Myth: Wukong": "/wukong.html",
+    "Elden Ring": "/eldenring.html",
+    "Sekiro: Shadows Die Twice": "/sekiro.html",
+    "Sekiro": "/sekiro.html",
+    "Lies of P": "/liesofp.html",
+    "Mortal Shell II": "/mortalshell2.html"
+  }
+}

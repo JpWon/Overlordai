@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
-"""Write the homepage "mapped so far" line from the atlases themselves.
+"""Write the static "mapped so far" text from the same source the live pages read.
 
-Atlas backlog #5 (2026-10-08). Every number on the line is counted from atlas
-files, never typed by hand, so marketing can't drift from what the app has:
+Atlas backlog #5 (2026-10-08). Every number is counted, never typed by hand, so marketing can't drift
+from what the app has. One source for everything: assets/atlas-catalog.json (bundled maps, the
+popularity ranking, footer rules, page links) + Supabase atlas_catalog, the same sums
+assets/atlas-catalog.js does in the browser. This script writes the no-JavaScript fallback:
 
-    python3 scripts/atlas_stats.py                       # ~/.cache/psyche/atlas
+    index.html   <!-- atlas-stats:start/end -->      the homepage strip (count + the biggest titles)
+    roster.html  <!-- roster-totals:start/end -->    the roster totals
+                 <!-- roster-list:start/end -->      every mapped game
+
+    python3 scripts/atlas_stats.py                        # live catalog; ~/.cache/psyche/atlas if offline
     python3 scripts/atlas_stats.py --atlas-dir DIR --dry-run
 
-Only atlases a customer actually gets are counted: anything marked
-source.redistribute = false (a map researched for one player's machine, such as
-pathfinder_full builds) is left out. The line is written between
-<!-- atlas-stats:start --> and <!-- atlas-stats:end --> in index.html.
+Offline, only atlases a customer actually gets are counted (source.redistribute = false is left out).
 Nothing is deployed: review the diff, then commit and push as usual.
 """
 from __future__ import annotations
@@ -24,82 +27,121 @@ import re
 import sys
 import urllib.request
 
+ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+CATALOG = os.path.join(ROOT, "assets", "atlas-catalog.json")
+KEY = "sb_publishable_LEJ4On121RzEpDlCgiqm8w_cDc8BROJ"
 START, END = "<!-- atlas-stats:start -->", "<!-- atlas-stats:end -->"
+LINK = ('<a href="/roster" class="atlas-roster-link" style="color:inherit; text-decoration:underline; '
+        'white-space:nowrap;">See the full roster &rarr;</a>')
 
 
-def tally(folder: str) -> dict:
-    # 1. Try live Supabase atlas_catalog (archive & cloud source)
-    try:
-        url = "https://bzxzhizvfzmldpkxxuqu.supabase.co/rest/v1/atlas_catalog?status=eq.ready&select=game_title,counts"
-        key = "sb_publishable_LEJ4On121RzEpDlCgiqm8w_cDc8BROJ"
-        req = urllib.request.Request(url, headers={"apikey": key, "Authorization": f"Bearer {key}"})
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode())
-        if isinstance(data, list) and data:
-            games = ["Control"]
-            rooms, loot, bosses = 23, 10, 6  # Base Control stats
-            for row in data:
-                t = row.get("game_title")
-                if t and t not in games:
-                    games.append(t)
-                c = row.get("counts") or {}
-                rooms += c.get("rooms", 0)
-                loot += c.get("loot", 0)
-                bosses += c.get("boss", 0)
-            return {"games": sorted(games), "areas": rooms, "items": loot, "bosses": bosses}
-    except Exception:
-        pass
+def rows_live(cfg: dict) -> list:
+    req = urllib.request.Request(cfg["catalog_url"], headers={"apikey": KEY, "Authorization": f"Bearer {KEY}"})
+    with urllib.request.urlopen(req, timeout=10) as resp:
+        data = json.loads(resp.read().decode())
+    if not isinstance(data, list) or not data:
+        raise ValueError("empty catalog")
+    return data
 
-    # 2. Fallback to local files
-    games, rooms, loot, bosses = [], 0, 0, 0
+
+def rows_local(folder: str) -> list:
+    out = []
     for path in sorted(glob.glob(os.path.join(folder, "*.json"))):
         try:
             with open(path, encoding="utf-8") as fh:
                 d = json.load(fh)
         except (OSError, ValueError):
             continue
-        if not isinstance(d, dict) or not d.get("rooms"):
+        if not isinstance(d, dict) or not d.get("rooms") or (d.get("source") or {}).get("redistribute") is False:
             continue
-        if (d.get("source") or {}).get("redistribute") is False:
-            continue
-        games.append(d.get("game") or ("Control" if os.path.basename(path) == "870780.json" else ""))
-        rooms += len(d.get("rooms") or {})
-        loot += len(d.get("loot") or [])
-        bosses += len(d.get("boss") or [])
-    return {"games": [g for g in games if g], "areas": rooms, "items": loot, "bosses": bosses}
+        title = d.get("game") or ("Control" if os.path.basename(path) == "870780.json" else "")
+        if title:
+            out.append({"game_title": title, "counts": {"rooms": len(d.get("rooms") or {}),
+                                                        "loot": len(d.get("loot") or []),
+                                                        "boss": len(d.get("boss") or [])}})
+    return out
 
 
-def line(t: dict) -> str:
-    n = len(t["games"])
-    names = ", ".join(sorted(t["games"]))
+def tally(cfg: dict, rows: list, local: bool = False) -> dict:
+    """Same sums as assets/atlas-catalog.js: bundled maps + catalog rows, per game and in total."""
+    games = {} if local else {t: dict(rooms=b.get("rooms", 0), loot=b.get("loot", 0), boss=b.get("boss", 0))
+                              for t, b in (cfg.get("bundled") or {}).items()}
+    for row in rows:
+        t = row.get("game_title")
+        if not t:
+            continue
+        c, g = row.get("counts") or {}, games.setdefault(t, {"rooms": 0, "loot": 0, "boss": 0})
+        for k in ("rooms", "loot", "boss"):
+            g[k] += c.get(k, 0)
+    titles = sorted(games, key=str.lower)
+    totals = {k: sum(games[t][k] for t in titles) for k in ("rooms", "loot", "boss")}
+    never = set(cfg.get("footer_never") or [])
+    footer = [t for t in cfg.get("popularity") or [] if t in games and t not in never][:cfg.get("footer_top", 4)]
+    return {"games": games, "titles": titles, "totals": totals, "footer": footer}
+
+
+def _and(names: list) -> str:
+    return names[0] if len(names) < 2 else ", ".join(names[:-1]) + " and " + names[-1]
+
+
+def strip(cfg: dict, t: dict) -> str:
+    n, s = len(t["titles"]), t["totals"]
+    short = cfg.get("short") or {}
+    names = html.escape(_and([short.get(x, x) for x in t["footer"]]))
     return (f'{START}\n      <p class="atlas-stats" style="margin:4px 0 12px; font-size:0.85rem; '
             f'color:var(--neutral-on-background-weak);">Mapped so far: <strong>{n} game{"s" if n != 1 else ""}</strong>'
-            f' &middot; {t["areas"]:,} areas &middot; {t["items"]:,} items &middot; {t["bosses"]:,} bosses'
-            f' ({html.escape(names)}). New maps land as they are finished.'
-            f' <a href="/roster" class="atlas-roster-link" style="color:inherit; text-decoration:underline; white-space:nowrap;">'
-            f'See the full roster &rarr;</a></p>\n      {END}')
+            f' &middot; {s["rooms"]:,} areas &middot; {s["loot"]:,} items &middot; {s["boss"]:,} bosses, including '
+            f'{names}. New maps land as they are finished. {LINK}</p>\n      {END}')
+
+
+def roster_totals(t: dict) -> str:
+    n, s = len(t["titles"]), t["totals"]
+    return (f'<p class="totals" id="totals">Mapped so far: <strong>{n} games</strong> &middot; {s["rooms"]:,} areas '
+            f'&middot; {s["loot"]:,} items &middot; {s["boss"]:,} bosses.</p>')
+
+
+def roster_list(cfg: dict, t: dict) -> str:
+    pages, out = cfg.get("pages") or {}, ['<ul class="roster" id="roster">']
+    for x in t["titles"]:
+        g, name = t["games"][x], html.escape(x)
+        label = f'<a href="{pages[x]}">{name}</a>' if x in pages else name
+        out.append(f'  <li><span class="name">{label}</span><span class="n">{g["rooms"]:,} areas &middot; '
+                   f'{g["loot"]:,} items &middot; {g["boss"]:,} bosses</span></li>')
+    return "\n".join(out + ["</ul>"])
+
+
+def put(page: str, start: str, end: str, body: str, keep_markers: bool = True) -> str:
+    if start not in page:
+        raise ValueError(f"no {start} marker")
+    new = body if not keep_markers else f"{start}\n{body}\n{end}"
+    return re.sub(re.escape(start) + r".*?" + re.escape(end), lambda _m: new, page, flags=re.S)
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--atlas-dir", default=os.path.expanduser("~/.cache/psyche/atlas"))
-    ap.add_argument("--page", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "index.html"))
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
-    t = tally(a.atlas_dir)
-    if not t["games"]:
-        print("no shareable atlases found; page left alone", file=sys.stderr)
+    cfg = json.load(open(CATALOG, encoding="utf-8"))
+    try:
+        t = tally(cfg, rows_live(cfg))
+    except Exception as e:
+        print(f"live catalog unreadable ({e}); counting local atlases", file=sys.stderr)
+        t = tally(cfg, rows_local(a.atlas_dir), local=True)
+    if not t["titles"]:
+        print("no shareable atlases found; pages left alone", file=sys.stderr)
         return 1
-    new = line(t)
-    page = open(a.page, encoding="utf-8").read()
-    if START not in page:
-        print(f"no {START} marker in {a.page}", file=sys.stderr)
-        return 1
-    page = re.sub(re.escape(START) + r".*?" + re.escape(END), lambda _m: new, page, flags=re.S)
-    print(re.sub(r"<[^>]+>", "", new).strip())
+    index_p, roster_p = os.path.join(ROOT, "index.html"), os.path.join(ROOT, "roster.html")
+    index = put(open(index_p, encoding="utf-8").read(), START, END, strip(cfg, t), keep_markers=False)
+    roster = open(roster_p, encoding="utf-8").read()
+    roster = put(roster, "<!-- roster-totals:start -->", "<!-- roster-totals:end -->", roster_totals(t))
+    roster = put(roster, "<!-- roster-list:start -->", "<!-- roster-list:end -->", roster_list(cfg, t))
+    print(re.sub(r"<[^>]+>", "", strip(cfg, t)).strip())
+    print(f"roster: {len(t['titles'])} games: {', '.join(t['titles'])}")
     if not a.dry_run:
-        with open(a.page, "w", encoding="utf-8") as fh:
-            fh.write(page)
+        for p, text in ((index_p, index), (roster_p, roster)):
+            with open(p, "w", encoding="utf-8", newline="\n") as fh:
+                fh.write(text)
     return 0
 
 
