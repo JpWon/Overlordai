@@ -30,6 +30,10 @@
       "destination": "/lux.html"
     },
     {
+      "source": "/roster",
+      "destination": "/roster.html"
+    },
+    {
       "source": "/featured",
       "destination": "/featured.html"
     },

@@ -75,7 +75,9 @@ def line(t: dict) -> str:
     return (f'{START}\n      <p class="atlas-stats" style="margin:4px 0 12px; font-size:0.85rem; '
             f'color:var(--neutral-on-background-weak);">Mapped so far: <strong>{n} game{"s" if n != 1 else ""}</strong>'
             f' &middot; {t["areas"]:,} areas &middot; {t["items"]:,} items &middot; {t["bosses"]:,} bosses'
-            f' ({html.escape(names)}). New maps land as they are finished.</p>\n      {END}')
+            f' ({html.escape(names)}). New maps land as they are finished.'
+            f' <a href="/roster" class="atlas-roster-link" style="color:inherit; text-decoration:underline; white-space:nowrap;">'
+            f'See the full roster &rarr;</a></p>\n      {END}')
 
 
 def main() -> int:

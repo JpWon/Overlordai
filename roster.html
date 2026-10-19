@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/assets/consent.js"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-18496558698');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roster | Overlord AI</title>
+<meta name="description" content="Every game Overlord's Atlas has mapped so far, live. New maps land as they are finished.">
+<meta name="robots" content="index,follow,max-snippet:-1">
+<link rel="canonical" href="https://www.overlordai.co/roster">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Overlord AI">
+<meta property="og:title" content="Roster | Overlord AI">
+<meta property="og:description" content="Every game Overlord's Atlas has mapped so far, live.">
+<meta property="og:url" content="https://www.overlordai.co/roster">
+<meta property="og:image" content="https://www.overlordai.co/og-thumbnail.png">
+<meta name="twitter:card" content="summary_large_image">
+<script>try{document.documentElement.setAttribute('data-theme', localStorage.getItem('data-theme') || 'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{--accent:#6d5cff;--faint:#6E6E7C;}
+  [data-theme="light"]{--bg:#ffffff;--text:#0a0a0a;--muted:#5f5f66;--line:rgba(0,0,0,.10);--panel:#f6f6f8;}
+  [data-theme="dark"]{--bg:#000000;--text:#ffffff;--muted:#a3a3a3;--line:rgba(255,255,255,.12);--panel:#101014;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.65;}
+  a{color:inherit;text-decoration-color:var(--accent);text-underline-offset:3px;}
+  .bar{display:flex;align-items:center;gap:10px;padding:16px 24px;border-bottom:1px solid var(--line);}
+  .bar a{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:'Anton',sans-serif;letter-spacing:.04em;text-transform:uppercase;font-size:18px;}
+  .bar__mark{width:32px;height:32px;background:currentColor;-webkit-mask:url('/assets/rooster-nav.svg') center/contain no-repeat;mask:url('/assets/rooster-nav.svg') center/contain no-repeat;}
+  main{max-width:720px;margin:0 auto;padding:40px 16px 72px;}
+  .crumbs{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+  .crumbs a{text-decoration:none;}
+  h1{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(34px,6vw,52px);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;margin:14px 0 14px;}
+  .byline{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:28px;display:flex;align-items:center;gap:8px;}
+  .dot{flex-shrink:0;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  @media (prefers-reduced-motion: reduce){ .dot{animation:none;} }
+  .totals{font-size:19px;margin-bottom:28px;}
+  .find{width:100%;padding:12px 14px;margin-bottom:8px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;}
+  .find:focus{outline:none;border-color:var(--accent);}
+  ul.roster{list-style:none;}
+  ul.roster li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;padding:14px 0;border-top:1px solid var(--line);}
+  ul.roster .name{font-size:18px;font-weight:500;}
+  ul.roster .n{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);}
+  .none{display:none;margin-top:20px;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:8px;font-size:16px;}
+  .outro{margin-top:40px;border-top:1px solid var(--line);padding-top:20px;font-size:15px;color:var(--muted);}
+  footer{border-top:1px solid var(--line);padding:24px 16px;font-size:13px;color:var(--muted);}
+  footer .in{max-width:720px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px 18px;}
+  footer a{text-decoration:none;}
+</style>
+</head>
+<body>
+<header class="bar"><a href="/"><span class="bar__mark" aria-hidden="true"></span>Overlord AI</a></header>
+<main>
+
+<p class="crumbs">Atlas</p><h1>The Roster</h1>
+<p class="byline"><span class="dot" aria-hidden="true"></span>Live from the Atlas &middot; new maps land as they are finished</p>
+<p class="totals" id="totals">Mapped so far: <strong>7 games</strong>.</p>
+
+<input class="find" id="find" type="search" placeholder="Is your game here?" aria-label="Search the roster" autocomplete="off">
+<ul class="roster" id="roster">
+  <li><span class="name"><a href="/wukong.html">Black Myth: Wukong</a></span></li>
+  <li><span class="name">Control</span></li>
+  <li><span class="name"><a href="/eldenring.html">Elden Ring</a></span></li>
+  <li><span class="name">Mortal Shell</span></li>
+  <li><span class="name"><a href="/mortalshell2.html">Mortal Shell II</a></span></li>
+  <li><span class="name">Path of Exile</span></li>
+  <li><span class="name">Path of Exile 2</span></li>
+</ul>
+<p class="none" id="none">Not mapped yet. Overlord still researches any single-player game from public guides the first time you play it, and its map fills in as you go.</p>
+
+<p class="outro">Every game here has a finished Atlas: its areas, items and bosses are preloaded before you start. Anything else is researched the first time you play it.</p>
+</main>
+<footer><div class="in">
+  <span>&copy; 2026 Overlord AI</span>
+  <a href="/">Home</a><a href="/plans.html">Plans</a><a href="/support.html">Support / FAQ</a>
+  <a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/contact.html">Contact</a>
+  <a href="/guides/">Guides</a>
+</div></footer>
+<script>
+(function() {
+  // Same live source as the homepage footer line (and scripts/atlas_stats.py): atlas_catalog rows marked ready.
+  var u = 'https://bzxzhizvfzmldpkxxuqu.supabase.co/rest/v1/atlas_catalog?status=eq.ready&select=game_title,counts';
+  var k = 'sb_publishable_LEJ4On121RzEpDlCgiqm8w_cDc8BROJ';
+  // Games with their own co-pilot page on the site.
+  var pages = {
+    'Black Myth: Wukong': '/wukong.html', 'Elden Ring': '/eldenring.html', 'Sekiro: Shadows Die Twice': '/sekiro.html',
+    'Sekiro': '/sekiro.html', 'Lies of P': '/liesofp.html', 'Mortal Shell II': '/mortalshell2.html'
+  };
+  var list = document.getElementById('roster'), find = document.getElementById('find'), none = document.getElementById('none');
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function(c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function filter() {
+    var q = find.value.trim().toLowerCase(), shown = 0;
+    Array.prototype.forEach.call(list.children, function(li) {
+      var hit = !q || li.textContent.toLowerCase().indexOf(q) !== -1;
+      li.style.display = hit ? '' : 'none';
+      if (hit) shown++;
+    });
+    none.style.display = shown ? 'none' : 'block';
+  }
+  find.addEventListener('input', filter);
+
+  fetch(u, { headers: { 'apikey': k, 'Authorization': 'Bearer ' + k } })
+    .then(function(r) { return r.json(); })
+    .then(function(rows) {
+      if (!Array.isArray(rows) || rows.length === 0) return;
+      // Control's map ships with the app rather than the catalog (matches the homepage numbers).
+      var games = { 'Control': { rooms: 23, loot: 10, boss: 6 } };
+      var rooms = 23, loot = 10, bosses = 6;
+      rows.forEach(function(row) {
+        if (!row.game_title) return;
+        var c = row.counts || {}, g = games[row.game_title] || (games[row.game_title] = { rooms: 0, loot: 0, boss: 0 });
+        g.rooms += (c.rooms || 0); g.loot += (c.loot || 0); g.boss += (c.boss || 0);
+        rooms += (c.rooms || 0); loot += (c.loot || 0); bosses += (c.boss || 0);
+      });
+      var names = Object.keys(games).sort(function(a, b) { return a.localeCompare(b); });
+      document.getElementById('totals').innerHTML = 'Mapped so far: <strong>' + names.length + ' games</strong> &middot; ' +
+        rooms.toLocaleString() + ' areas &middot; ' + loot.toLocaleString() + ' items &middot; ' + bosses.toLocaleString() + ' bosses.';
+      list.innerHTML = names.map(function(n) {
+        var g = games[n], label = pages[n] ? '<a href="' + pages[n] + '">' + esc(n) + '</a>' : esc(n);
+        return '<li><span class="name">' + label + '</span><span class="n">' + g.rooms.toLocaleString() + ' areas &middot; ' +
+          g.loot.toLocaleString() + ' items &middot; ' + g.boss.toLocaleString() + ' bosses</span></li>';
+      }).join('');
+      filter();
+    })
+    .catch(function() {});
+})();
+</script>
+</body>
+</html>
