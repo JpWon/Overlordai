@@ -44,7 +44,9 @@ def words(g):
     return len(re.findall(r"[\w'’-]+", text))
 
 
-def validate(g, atlas_dir=None):
+def validate(g, atlas_dir=None, known_refs=None):
+    """Problems with one guide ([] = ok). atlas_dir: check refs against local atlas copies; known_refs: the
+    set of refs the draft was given (Lux's fact pack), every ref must come from it."""
     bad = [f"missing {k}" for k in REQUIRED if not g.get(k)]
     if bad:
         return bad
@@ -79,7 +81,14 @@ def validate(g, atlas_dir=None):
         g["license"] = "CC BY-SA 4.0"
     if atlas_dir:
         bad += check_refs(g, atlas_dir)
+    if known_refs is not None:
+        bad += [f"ref {r} not in the fact pack" for r in all_refs(g) if r not in known_refs]
     return bad
+
+
+def all_refs(g):
+    return [x for s in g["steps"] for x in refs(s.get("atlas_ref"))] + refs(g.get("intro_ref")) + \
+        refs(g.get("outro_ref"))
 
 
 def check_refs(g, atlas_dir):
@@ -94,8 +103,7 @@ def check_refs(g, atlas_dir):
     yt_path = os.path.join(atlas_dir, f"{g['atlas']['app_id']}.youtube.json")
     yt = json.load(open(yt_path, encoding="utf-8"))["youtube"]["by_category"] if os.path.exists(yt_path) else {}
     out = []
-    for r in [x for s in g["steps"] for x in refs(s.get("atlas_ref"))] + refs(g.get("intro_ref")) + \
-            refs(g.get("outro_ref")):
+    for r in all_refs(g):
         if r.startswith("youtube:"):
             cat, i = r[8:].split("/")
             if int(i) >= len((yt.get(cat) or {}).get("tips", [])):
@@ -257,7 +265,12 @@ def index(guides):
 
 
 def sitemap(guides):
-    xml = open(SITEMAP, encoding="utf-8").read()
+    xml = apply_sitemap(open(SITEMAP, encoding="utf-8").read(), guides)
+    open(SITEMAP, "w", encoding="utf-8", newline="\n").write(xml)
+
+
+def apply_sitemap(xml, guides):
+    """sitemap.xml text with the managed guides block rebuilt."""
     xml = re.sub(re.escape(SM_START) + r"[\s\S]*?" + re.escape(SM_END) + r"\n?", "", xml)
     block = [SM_START, f"  <url>\n    <loc>{SITE}/guides/</loc>\n    <changefreq>weekly</changefreq>\n"
                        f"    <priority>0.5</priority>\n  </url>"]
@@ -265,8 +278,7 @@ def sitemap(guides):
         block.append(f"  <url>\n    <loc>{url(g)}</loc>\n    <lastmod>{g.get('updated_at') or g['published_at']}"
                      f"</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>")
     block.append(SM_END)
-    xml = xml.replace("</urlset>", "\n".join(block) + "\n</urlset>")
-    open(SITEMAP, "w", encoding="utf-8", newline="\n").write(xml)
+    return xml.replace("</urlset>", "\n".join(block) + "\n</urlset>")
 
 
 def load():
