@@ -834,7 +834,7 @@
         <div class="license-price-row">
           <span class="license-price mono" id="licensePrice" style="text-decoration:line-through; opacity:0.4;">$14.99</span>
           <span class="license-price mono" id="freePrice" style="color:#10b981; margin-left:8px;">$0.00</span>
-          <span class="license-period mono" id="licensePeriod">/ free founder access</span>
+          <span class="license-period mono" id="licensePeriod">/ free through <span class="founder-access-date">November 15</span></span>
         </div>
       </div>
 
@@ -902,15 +902,15 @@
 const PRODUCTS = {
   demo: {
     id: 'demo-trial',
-    kicker: '01 · UNLIMITED FREE TRIAL',
+    kicker: '01 · FREE TRIAL & FOUNDER ACCESS',
     title: 'Trial & Founder Pass',
     caption: 'Full access to the core strategy guidebook, live screen assistance, and Isabella voice.',
     price: '$0.00',
-    period: 'free forever',
+    period: 'free through November 15',
     lineItem: 'Overlord AI Founder Trial',
     discount: '$0.00',
     features: [
-      'Unlimited live screen guidance & core guidebook',
+      'Full live screen guidance & core guidebook',
       'Wayland (Linux) & Windows 10/11 native support',
       'Atlas companion for all 7+ mapped titles',
       'Local zero-latency Isabella neural voice',
@@ -970,7 +970,7 @@ const PRODUCTS = {
   const priceEl = document.getElementById('licensePrice');
   if (priceEl) priceEl.textContent = product.price;
   const periodEl = document.getElementById('licensePeriod');
-  if (periodEl) periodEl.textContent = (planKey === 'demo') ? '/ free forever' : '/ free founder access';
+  if (periodEl) periodEl.textContent = '/ free through ' + (window.FOUNDER_ACCESS_END_LABEL || 'November 15');
   const nameEl = document.getElementById('lineItemName');
   if (nameEl) nameEl.textContent = product.lineItem;
   const itemPriceEl = document.getElementById('lineItemPrice');

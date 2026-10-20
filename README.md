@@ -69,7 +69,7 @@ Instead of pausing to search wikis, scrolling through Reddit threads, or scrubbi
 This repository powers the official public web presence and documentation for **[Overlord AI](https://www.overlordai.co/)**:
 
 * `index.html` — Homepage featuring interactive live demos, value proposition, and feature breakdowns.
-* `plans.html` — Transparent tier selection (Free Demo, Subscription, and Pro lifetime options).
+* `plans.html` — Transparent tier selection (Free Demo, Subscription, and Pro).
 * `login.html` & `signup.html` — Client authentication portals.
 * `dashboard.html` — Member license management, client download portal, and telemetry options.
 * `support.html` — Help desk, FAQ, and technical requirements.
