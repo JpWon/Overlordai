@@ -1,0 +1,55 @@
+{
+  "slug": "how-to-beat-zhu-bajie",
+  "game": "black-myth-wukong",
+  "game_title": "Black Myth: Wukong",
+  "game_page": "/wukong.html",
+  "store_url": "https://store.steampowered.com/app/2358720/",
+  "query": "how to beat zhu bajie in black myth: wukong",
+  "title": "Black Myth: Wukong Zhu Bajie Boss Guide",
+  "meta_desc": "Learn the tactics to defeat Zhu Bajie in Black Myth: Wukong. This guide covers his Boar form attacks, charges, rake combos, and ranged abilities.",
+  "published_at": "2026-10-21",
+  "atlas": {
+    "app_id": "2358720",
+    "updated": "2026-10-15"
+  },
+  "intro": "Zhu Bajie is a character in the world of Black Myth: Wukong who can be encountered as a boss. Known as the \"Pig of the Eight Precepts,\" he utilizes different forms and a variety of attacks that are important to understand before facing him in combat. This guide will break down the known abilities and tactics used by Zhu Bajie to help you prepare for the encounter.",
+  "intro_ref": [
+    "boss/zhu_bajie"
+  ],
+  "steps": [
+    {
+      "heading": "Boar Form Charges",
+      "text": "When Zhu Bajie takes on his Boar form, his most prominent tactic is a series of fast charging attacks. The goal of these charges is to ram into the character and gore them with his tusks. It's a highly aggressive maneuver designed to close distance quickly and deal significant damage. In addition to the charges, he uses other close-range physical attacks while in this form, including tusk swipes, powerful back kicks, and ground stomps. These attacks complement his charging strategy, making him a threat at multiple ranges.",
+      "atlas_ref": [
+        "boss/zhu_bajie"
+      ]
+    },
+    {
+      "heading": "The Body Slam",
+      "text": "The charging sequence has a distinct and powerful conclusion. After a series of ramming attempts, Zhu Bajie will execute a final charge. This specific attack culminates in an attempt to land a heavy body slam on the character. Recognizing the pattern of his charges is key to anticipating this final, powerful move. Successfully handling this slam is a critical part of weathering his Boar form's assault.",
+      "atlas_ref": [
+        "boss/zhu_bajie"
+      ]
+    },
+    {
+      "heading": "Rake Combos",
+      "text": "Zhu Bajie is also known to wield his signature rake. He can perform a three-hit combo with this weapon. The final strike of this combination is particularly dangerous, as it is capable of staggering enemies it connects with. He may also use a charge attack with the rake, similar in principle to his Boar form charges, which allows him to quickly close the gap while readying an attack. These tactics are part of his moveset when he appears as an ally, but they demonstrate his proficiency with his iconic weapon.",
+      "atlas_ref": [
+        "boss/zhu_bajie"
+      ]
+    },
+    {
+      "heading": "Ranged Orb Strike",
+      "text": "Beyond his physical and weapon-based attacks, Zhu Bajie has a ranged option that can catch you off guard. He has the ability to summon a red star constellation. This celestial summoning is not just for show; it calls down red orbs from a distance to strike his enemies. This gives him a way to apply pressure and inflict damage from afar, forcing constant awareness of the entire battlefield, not just his immediate location.",
+      "atlas_ref": [
+        "boss/zhu_bajie"
+      ]
+    }
+  ],
+  "outro": "By learning to identify his Boar form charges, rake combos, and ranged orb attacks, you'll be better prepared to face the challenge that Zhu Bajie presents.",
+  "outro_ref": [
+    "boss/zhu_bajie"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": []
+}
