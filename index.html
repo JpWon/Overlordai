@@ -351,6 +351,7 @@
   .meta{
     position:absolute;z-index:4;pointer-events:none;
     font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    filter:opacity(calc(1 - var(--p, 0) * 3));   /* gone once you scroll past the hero, like the hint */
   }
   .m-tl{top:1.6rem;left:2rem;}
   .m-tr{top:1.6rem;right:2rem;text-align:right;}
@@ -390,41 +391,40 @@
     margin-bottom:4vh;
   }
 
-  .drip-line{position:relative;overflow:hidden;margin:.35em 0;}
+  .drip-line{position:relative;margin:.35em 0;}
   .drip-line .txt{
     display:block;
     font-family:'Anton','Anton Fallback',sans-serif;text-transform:uppercase;font-weight:400;
     font-size:clamp(1.5rem,6.5vw,7rem);line-height:1;letter-spacing:-.01em;
-    transform:translateY(12%);
-    opacity:0;filter:blur(6px);
-  }
-  .drip-line.in .txt{
-    transform:none;opacity:1;filter:none;
-    transition:transform .9s cubic-bezier(.22,1,.36,1) .25s,
-               opacity .7s ease .25s, filter .9s ease .25s;
   }
   .drip-line .txt .accent{color:var(--accent);}
 
-  /* the drips: cream columns with rounded bellies that sink downward */
-  .drips{position:absolute;inset:0;display:flex;align-items:flex-start;pointer-events:none;}
-  .drips i{
-    flex:1 1 auto;display:block;height:calc(100% + 1.2em);
-    background:var(--page-background);
-    border-radius:0 0 999px 999px;
-    transform:translateY(0);
-  }
-  .drips i::after{                      /* the droplet that runs ahead */
-    content:'';display:block;width:.55em;height:.55em;margin:0 auto;
-    background:var(--page-background);border-radius:50%;
-    transform:translateY(calc(100% + .2em));
-  }
-  .drip-line.in .drips i{transform:translateY(130%);}
-  .drip-line.in .drips i:nth-child(1){transition:transform 1.15s cubic-bezier(.55,0,.8,.4) .05s;}
-  .drip-line.in .drips i:nth-child(2){transition:transform 1.35s cubic-bezier(.55,0,.8,.4) .18s;}
-  .drip-line.in .drips i:nth-child(3){transition:transform 1.05s cubic-bezier(.55,0,.8,.4) .32s;}
-  .drip-line.in .drips i:nth-child(4){transition:transform 1.4s  cubic-bezier(.55,0,.8,.4) .12s;}
-  .drip-line.in .drips i:nth-child(5){transition:transform 1.2s  cubic-bezier(.55,0,.8,.4) .26s;}
-  .drip-line.in .drips i:nth-child(6){transition:transform 1.5s  cubic-bezier(.55,0,.8,.4) .02s;}
+  /* ---- plasma-matrix reveal (.mx): each letter falls in as a flickering plasma digit, then
+     locks into place while a plasma scan sweeps the line. The real letter keeps its width the
+     whole time (the digit is drawn over it), so nothing reflows. Script: "plasma-matrix reveal". */
+  :root{--plasma-a:#6d5cff;--plasma-b:#c86bff;--plasma-c:#4fd1ff;}
+  .mx{position:relative;overflow-x:clip;overflow-clip-margin:.4em;}  /* the scan never widens the page */
+  .mx.mx-ready .mx-ch{display:inline-block;position:relative;opacity:0;transform:translateY(-.35em) scaleY(.4);}
+  .mx .mx-ch.on{opacity:1;transform:none;color:transparent;
+    transition:opacity .18s ease, transform .35s cubic-bezier(.22,1,.36,1);}
+  .mx .mx-ch.on::after{content:attr(data-g);position:absolute;inset:0;text-align:center;
+    color:var(--g, var(--plasma-a));text-shadow:0 0 .25em var(--g, var(--plasma-a)), 0 0 .6em rgba(109,92,255,.55);}
+  .mx .mx-ch.set{color:inherit;transition:color .45s ease, text-shadow .9s ease;
+    text-shadow:0 0 .35em rgba(109,92,255,.0);}
+  .mx .mx-ch.set::after{content:none;}
+  .mx .mx-ch.flash{text-shadow:0 0 .4em rgba(200,107,255,.85);}
+  .mx.mx-ready::before{content:'';position:absolute;top:-8%;bottom:-8%;left:0;width:22%;pointer-events:none;
+    background:linear-gradient(90deg,transparent,rgba(109,92,255,.0) 10%,rgba(109,92,255,.35) 45%,rgba(79,209,255,.45) 55%,rgba(200,107,255,.0) 90%,transparent);
+    filter:blur(14px);mix-blend-mode:screen;opacity:0;transform:translateX(-120%);}
+  .mx.mx-run::before{animation:mx-scan var(--mx-dur,1.6s) cubic-bezier(.45,0,.25,1) forwards;}
+  @keyframes mx-scan{0%{opacity:0;transform:translateX(-60%)}15%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translateX(480%)}}
+
+  /* softer plasma fade for paragraphs: a soft-edged plasma wipe left to right */
+  .mxf{opacity:0;filter:blur(5px);
+    -webkit-mask-image:linear-gradient(90deg,#000 0 40%,transparent 60% 100%);mask-image:linear-gradient(90deg,#000 0 40%,transparent 60% 100%);
+    -webkit-mask-size:260% 100%;mask-size:260% 100%;-webkit-mask-position:100% 0;mask-position:100% 0;}
+  .mxf.in{opacity:1;filter:none;-webkit-mask-position:0 0;mask-position:0 0;
+    transition:opacity .6s ease var(--d,0s), filter 1s ease var(--d,0s), -webkit-mask-position 1.4s cubic-bezier(.45,0,.25,1) var(--d,0s), mask-position 1.4s cubic-bezier(.45,0,.25,1) var(--d,0s);}
 
 
 
@@ -582,8 +582,7 @@
 
   @media (prefers-reduced-motion: reduce){
     .hint{animation:none;}
-    .drip-line .txt,.drip-line.in .txt{transition:none;opacity:1;transform:none;filter:none;}
-    .drips{display:none;}
+    .mxf{opacity:1;filter:none;-webkit-mask-image:none;mask-image:none;}
   }
 
   /* ================= NAV — ported from S2S Navbar.tsx + globals.css ================= */
@@ -1127,7 +1126,7 @@
     font-size:clamp(2.2rem,4.6vw,4rem);line-height:.95;color:var(--neutral-on-background-strong);margin:1.2rem 0 1.6rem;}
   .plainsec h2 em{font-style:normal;color:var(--accent);}
   .plainsec__lede{font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.65;color:var(--neutral-on-background-strong);max-width:760px;}
-  .plainsec__facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.4rem;margin:2.4rem 0;
+  .plainsec__facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem 2rem;margin:2.4rem 0;
     border-top:1px solid var(--neutral-alpha-weak);padding-top:1.6rem;}
   .plainsec__facts h3,.plainsec__lists h3{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem;}
   .plainsec__facts p{font-size:.92rem;line-height:1.6;color:var(--neutral-on-background-weak);}
@@ -1137,6 +1136,38 @@
   .plainsec a{color:var(--accent);}
   .plainsec__lists li strong{color:var(--neutral-on-background-strong);font-weight:600;}
   @media (max-width:760px){.plainsec__facts,.plainsec__lists{grid-template-columns:1fr;}}
+
+  /* "hover a line to expand it": each does/doesn't line shows its lead; hover (mouse), tap or
+     keyboard focus unfolds the detail. Hover only where the device really hovers. */
+  .plainsec__hint{display:flex;align-items:center;gap:.6rem;margin:0 0 1.2rem;
+    font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .plainsec__hint-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 0 rgba(109,92,255,.6);animation:hint-ping 2.2s ease-out infinite;}
+  @keyframes hint-ping{0%{box-shadow:0 0 0 0 rgba(109,92,255,.6)}70%,100%{box-shadow:0 0 0 9px rgba(109,92,255,0)}}
+  .plainsec__hint .hint-tap{display:none;}
+  @media (hover:none){.plainsec__hint .hint-hover{display:none;}.plainsec__hint .hint-tap{display:inline;}}
+  .plainsec__lists li.xp{padding:0;}
+  .xp__lead{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:.8rem;width:100%;padding:.85rem 0;cursor:pointer;
+    font-size:.95rem;line-height:1.45;font-weight:600;color:var(--neutral-on-background-strong);}
+  .xp__lead::before{content:'';flex:0 0 auto;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.55;
+    transition:opacity .3s ease, box-shadow .3s ease;}
+  .xp__lead::after{content:'+';margin-left:auto;font-weight:400;font-size:1.1rem;line-height:1;color:var(--accent);
+    transition:transform .35s cubic-bezier(.22,1,.36,1);}
+  .xp__lead:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+  .xp__more{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .45s cubic-bezier(.22,1,.36,1), opacity .35s ease;}
+  .xp__more > p{overflow:hidden;min-height:0;margin:0;padding:0 1.8rem 0 calc(6px + .8rem);
+    font-size:.9rem;line-height:1.6;color:var(--neutral-on-background-weak);}
+  .xp.open .xp__more,.xp:focus-within .xp__more{grid-template-rows:1fr;opacity:1;}
+  .xp.open .xp__more > p,.xp:focus-within .xp__more > p{padding-bottom:.9rem;}
+  .xp.open .xp__lead::after,.xp:focus-within .xp__lead::after{transform:rotate(45deg);}
+  .xp.open .xp__lead::before,.xp:focus-within .xp__lead::before{opacity:1;box-shadow:0 0 10px var(--accent);}
+  @media (hover:hover){
+    .xp:hover .xp__more{grid-template-rows:1fr;opacity:1;}
+    .xp:hover .xp__more > p{padding-bottom:.9rem;}
+    .xp:hover .xp__lead::after{transform:rotate(45deg);}
+    .xp:hover .xp__lead::before{opacity:1;box-shadow:0 0 10px var(--accent);}
+  }
+  @media (prefers-reduced-motion: reduce){.xp__more,.xp__lead::after{transition:none;}.plainsec__hint-dot{animation:none;}}
   /* ================= SECTION 4: FAQ ================= */
   .faqsec{position:relative;z-index:5;min-height:100vh;display:flex;align-items:center;
     padding:clamp(4rem,10vh,7rem) clamp(1.5rem,5vw,4rem);}
@@ -1328,7 +1359,7 @@
 <!-- ============ 2 · intro: the value prop (S2S "The Process" layout) ============ -->
 <section class="intro intro--editorial" id="intro">
   <header class="vp-head">
-    <div class="brandline rv"><span>Overlord <em>AI</em></span><span class="brandline__sub">Live Gaming Guidebook Companion</span></div>
+    <div class="brandline"><span class="mx">Overlord <em>AI</em></span><span class="brandline__sub mx" data-mx-delay="300">Live Gaming Guidebook Companion</span></div>
     <div class="hud rv" style="--d:.3s">
       <div class="hud__badge"><span class="hud__dot"></span><span class="hud__title">Overlord · Live guide</span></div>
       <div class="hud__divider"></div>
@@ -1339,10 +1370,8 @@
         </div>
       </div>
     </div>
-    <div class="drip-line"><span class="txt">Stuck on level one?</span>
-      <div class="drips"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="drip-line"><span class="txt">Overlord has <span class="accent">your back.</span></span>
-      <div class="drips"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="drip-line"><span class="txt mx">Stuck on level one?</span></div>
+    <div class="drip-line"><span class="txt mx" data-mx-delay="420">Overlord has <span class="accent">your back.</span></span></div>
     <p class="vp-lede rv" style="--d:.45s; max-width:680px; margin:24px auto 0; font-size:1.15rem; line-height:1.7; color:var(--neutral-on-background-weak); text-align:center;">
       You bought the brutally hard <strong>$70 game</strong> everyone was raving about. You don't have 100 hours to "git-gud" between work and life. Overlord watches your screen in real time, calling out bosses, routing hidden loot, and timing your counters—<strong>before you hit the wall and quit.</strong>
     </p>
@@ -1645,38 +1674,31 @@
 <!-- ============ 2b · what Overlord AI is, plainly (payment-provider review, 2026-10-16) ============ -->
 <section class="plainsec" id="what">
   <div class="plainsec__inner">
-    <span class="plainsec__label">In plain words</span>
-    <h2>What Overlord AI <em>is.</em></h2>
-    <p class="plainsec__lede">Overlord AI is an AI guide companion for PC games. It watches your game (with your permission) to show tips, directions and answers on screen and by voice. Think of the strategy guide that used to sit next to the console, rewritten as a voice that plays alongside you.</p>
+    <span class="plainsec__label mx">In plain words</span>
+    <h2 class="mx" data-mx-delay="150">What Overlord AI <em>is.</em></h2>
+    <p class="plainsec__lede mxf" style="--d:.35s">Overlord AI is an AI guide companion for PC games. It watches your game (with your permission) to show tips, directions and answers on screen and by voice. Think of the strategy guide that used to sit next to the console, rewritten as a voice that plays alongside you.</p>
     <div class="plainsec__facts">
-      <div><h3>Who it's for</h3><p>Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
-      <div><h3>Platforms</h3><p>Windows 10/11 (64-bit), an installer, and Linux (Ubuntu/Debian, a .deb package). Every feature works on both.</p></div>
-      <div class="plainsec__need" style="grid-column:1/-1;"><h3>What you need</h3><div class="needs"><div class="needs__words"><p>An Overlord AI account (answers, game research and the voice come from our cloud service). Overlord runs beside any game your machine already runs and sips the GPU. It needs an internet connection, a microphone is optional, and it runs on Windows or Linux.</p></div><dl class="needs__specs">
-          <dt>GPU, idle</dt><dd>Nothing measurable</dd>
-          <dt>GPU, card up</dt><dd>Under 3%</dd>
-          <dt>RAM</dt><dd>About 600 MB</dd>
-          <dt>Platforms</dt><dd>Windows 10/11 (64-bit), Linux (Ubuntu/Debian)</dd>
-          <dt>Internet</dt><dd>Required</dd>
-          <dt>Microphone</dt><dd>Optional</dd>
-        </dl><p class="needs__src">Measured October 16, 2026 on an AMD Radeon RX Vega 56/64: Overlord 1.6.4, idle desktop, 30-second GPU-busy averages, three runs each.</p></div></div>
+      <div><h3 class="mx">Who it's for</h3><p class="mxf" style="--d:.25s">Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
+      <div><h3 class="mx" data-mx-delay="120">Platforms</h3><p class="mxf" style="--d:.35s">Windows 10/11 (64-bit), an installer, and Linux (Ubuntu/Debian, a .deb package). Every feature works on both.</p></div>
     </div>
+    <p class="plainsec__hint mxf"><span class="plainsec__hint-dot" aria-hidden="true"></span><span class="hint-hover">Hover a line to expand it</span><span class="hint-tap">Tap a line to expand it</span></p>
     <div class="plainsec__lists">
       <div>
-        <h3>What Overlord AI does</h3>
+        <h3 class="mx">What Overlord AI does</h3>
         <ul>
-          <li><strong>Watches the screen you choose to share</strong>, only while your game is running, to work out where you are and what's happening.</li>
-          <li><strong>Shows tip cards on screen:</strong> directions, loot, combos and conversation choices.</li>
-          <li><strong>Talks to you.</strong> It speaks answers out loud, and listens when you press F4 and ask.</li>
-          <li><strong>Reads your game's save and settings files</strong> without changing them, to follow your progress and your button layout.</li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Watches the screen you choose to share</button><div class="xp__more"><p>Only while your game is running, to work out where you are and what's happening.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Shows tip cards on screen</button><div class="xp__more"><p>Directions, loot, combos and conversation choices.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Talks to you</button><div class="xp__more"><p>It speaks answers out loud, and listens when you press F4 and ask.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Reads your game's save and settings files</button><div class="xp__more"><p>Without changing them, to follow your progress and your button layout.</p></div></li>
         </ul>
       </div>
       <div>
-        <h3>What it doesn't do</h3>
+        <h3 class="mx" data-mx-delay="120">What it doesn't do</h3>
         <ul>
-          <li><strong>It doesn't play for you.</strong> It never presses keys, moves the mouse or controls the game.</li>
-          <li><strong>It doesn't change the game.</strong> No changes to game memory or game files, and no code injected into the game.</li>
-          <li><strong>It doesn't run in online multiplayer games.</strong> It checks each game when it launches and refuses the online multiplayer ones; it's built for single-player games. See <a href="fair-play.html">Fair play</a>.</li>
-          <li><strong>It doesn't record your sessions.</strong> It only watches while your game is running and shuts off when the game closes. Frames are held in short-term memory and deleted within about 30 seconds, and our servers don't store them. See the <a href="privacy.html">Privacy Policy</a>.</li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't play for you</button><div class="xp__more"><p>It never presses keys, moves the mouse or controls the game.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't change the game</button><div class="xp__more"><p>No changes to game memory or game files, and no code injected into the game.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't run in online multiplayer games</button><div class="xp__more"><p>It checks each game when it launches and refuses the online multiplayer ones; it's built for single-player games. See <a href="fair-play.html">Fair play</a>.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't record your sessions</button><div class="xp__more"><p>It only watches while your game is running and shuts off when the game closes. Frames are held in short-term memory and deleted within about 30 seconds, and our servers don't store them. See the <a href="privacy.html">Privacy Policy</a>.</p></div></li>
         </ul>
       </div>
     </div>
@@ -1686,8 +1708,8 @@
 <!-- ============ 3 · Work '26 — floating ring carousel ============ -->
 <section class="work" id="work">
   <div class="work__head">
-    <b class="rv-mask"><span>Preview</span></b>
-    <span class="yr rv" style="--d:.15s">Gameplay footage</span>
+    <b class="mx">Preview</b>
+    <span class="yr mx" data-mx-delay="350">Gameplay footage</span>
   </div>
   <div class="ring-stage rv" id="ringStage" style="--d:.35s">
     <div class="ring" id="ring"></div>
@@ -1724,7 +1746,7 @@
   <div class="faqsec__inner">
     <div class="faqsec__head">
       <span class="faqsec__label">FAQ</span>
-      <h2>Questions,<br><em>answered.</em></h2>
+      <h2 class="mx">Questions,<br><em>answered.</em></h2>
       <p class="faqsec__cta">Still stuck? <a href="plans.html">Try the free demo</a> or <a href="support.html">talk to us</a>.</p>
     </div>
     <div class="faqsec__list">
@@ -2074,23 +2096,97 @@
   requestAnimationFrame(frame);
 })();
 
-/* ---------- intro: drip-fade on scroll into view ---------- */
+/* ---------- plasma-matrix reveal (.mx headings, .mxf paragraphs) ---------- */
 (() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fades = [...document.querySelectorAll('.mxf')];
+  const heads = [...document.querySelectorAll('.mx')];
+  if (reduced || !('IntersectionObserver' in window)){
+    fades.forEach(el => el.classList.add('in'));
+    return;
+  }
+  const GLYPHS = '0123456789#%&$+=<>/\\|*01';
+  const PLASMA = ['var(--plasma-a)', 'var(--plasma-b)', 'var(--plasma-c)'];
+  const pick = s => s[Math.floor(Math.random() * s.length)];
+
+  /* Wrap every visible character in its own span (spaces stay plain text so lines still wrap).
+     Screen readers get the whole phrase once, from aria-label. */
+  function split(el){
+    el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+    const chars = [];
+    const walk = node => {
+      for (const n of [...node.childNodes]){
+        if (n.nodeType === 3){
+          const frag = document.createDocumentFragment();
+          for (const c of n.textContent){
+            if (/\s/.test(c)){ frag.append(c); continue; }
+            const s = document.createElement('span');
+            s.className = 'mx-ch'; s.textContent = c; s.setAttribute('aria-hidden', 'true');
+            frag.append(s); chars.push(s);
+          }
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1){ walk(n); }
+      }
+    };
+    walk(el);
+    el.classList.add('mx-ready');
+    return chars;
+  }
+
+  function run(el, chars){
+    const n = chars.length;
+    const step = Math.max(18, Math.min(55, 900 / n));        // stagger between letters
+    const hold = 260;                                         // how long each letter flickers
+    const start = performance.now() + (+el.dataset.mxDelay || 0);
+    const total = (n - 1) * step + hold + 220;
+    el.style.setProperty('--mx-dur', (total / 1000).toFixed(2) + 's');
+    setTimeout(() => el.classList.add('mx-run'), +el.dataset.mxDelay || 0);
+    const plan = chars.map((c, i) => ({c, on: i * step + Math.random() * 60, set: i * step + hold + Math.random() * 180, last: 0}));
+    const tick = now => {
+      const t = now - start;
+      let busy = false;
+      for (const p of plan){
+        if (p.done) continue;
+        busy = true;
+        if (t < p.on) continue;
+        if (!p.c.classList.contains('on')) p.c.classList.add('on');
+        if (t >= p.set){
+          p.c.classList.add('set', 'flash'); p.done = true;
+          setTimeout(() => p.c.classList.remove('flash'), 160);
+        } else if (now - p.last > 55){
+          p.c.dataset.g = pick(GLYPHS); p.c.style.setProperty('--g', pick(PLASMA)); p.last = now;
+        }
+      }
+      if (busy) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  const prepared = new Map(heads.map(el => [el, split(el)]));
   const io = new IntersectionObserver(entries => {
     for (const e of entries){
-      if (e.isIntersecting){
-        const lines = [...document.querySelectorAll('.drip-line')];
-        lines.forEach((l, i) => setTimeout(() => l.classList.add('in'), i * 260));
-        io.disconnect();
-      }
+      if (!e.isIntersecting) continue;
+      io.unobserve(e.target);
+      if (prepared.has(e.target)) run(e.target, prepared.get(e.target));
+      else e.target.classList.add('in');
     }
-  }, {threshold:.35});
-  /* Observe the HEAD, never the section. #intro is ~3750px tall while the
-     viewport is 844px, so at most 22% of it can ever intersect: a .35
-     threshold on it can never fire, and the tagline stayed at
-     opacity:0/blur(6px) on every screen size. The head is 256-455px tall, so
-     .35 of it is reachable as soon as you scroll past the hero. */
-  io.observe(document.querySelector('.vp-head'));
+  }, {threshold:.6, rootMargin:'0px 0px -8% 0px'});
+  /* Each heading and paragraph is watched on its own (they're small), never a whole section:
+     #intro is far taller than the screen, so a threshold on it could never fire. */
+  heads.forEach(el => io.observe(el));
+  fades.forEach(el => io.observe(el));
+})();
+
+/* ---------- "hover a line to expand it": tap / click / keyboard toggle ---------- */
+(() => {
+  document.querySelectorAll('.xp').forEach(li => {
+    const btn = li.querySelector('.xp__lead');
+    btn.addEventListener('click', () => {
+      const open = li.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (!open) btn.blur();
+    });
+  });
 })();
 
 /* ---------- NAV — behaviour ported from S2S Navbar.tsx ---------- */
