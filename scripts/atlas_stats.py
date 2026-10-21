@@ -6,7 +6,7 @@ from what the app has. One source for everything: assets/atlas-catalog.json (bun
 popularity ranking, footer rules, page links) + Supabase atlas_catalog, the same sums
 assets/atlas-catalog.js does in the browser. This script writes the no-JavaScript fallback:
 
-    index.html   <!-- atlas-stats:start/end -->      the homepage strip (count + the biggest titles)
+    index.html   <!-- atlas-stats:start/end -->      the homepage footer stats (counts only)
     roster.html  <!-- roster-totals:start/end -->    the roster totals
                  <!-- roster-list:start/end -->      every mapped game
 
@@ -31,8 +31,6 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 CATALOG = os.path.join(ROOT, "assets", "atlas-catalog.json")
 KEY = "sb_publishable_LEJ4On121RzEpDlCgiqm8w_cDc8BROJ"
 START, END = "<!-- atlas-stats:start -->", "<!-- atlas-stats:end -->"
-LINK = ('<a href="/roster" class="atlas-roster-link" style="color:inherit; text-decoration:underline; '
-        'white-space:nowrap;">See the full roster &rarr;</a>')
 
 
 def rows_live(cfg: dict) -> list:
@@ -80,18 +78,11 @@ def tally(cfg: dict, rows: list, local: bool = False) -> dict:
     return {"games": games, "titles": titles, "totals": totals, "footer": footer}
 
 
-def _and(names: list) -> str:
-    return names[0] if len(names) < 2 else ", ".join(names[:-1]) + " and " + names[-1]
-
-
-def strip(cfg: dict, t: dict) -> str:
+def strip(t: dict) -> str:
+    """The stats span inside the footer's Game Co-Pilots line."""
     n, s = len(t["titles"]), t["totals"]
-    short = cfg.get("short") or {}
-    names = html.escape(_and([short.get(x, x) for x in t["footer"]]))
-    return (f'{START}\n      <p class="atlas-stats" style="margin:4px 0 12px; font-size:0.85rem; '
-            f'color:var(--neutral-on-background-weak);">Mapped so far: <strong>{n} game{"s" if n != 1 else ""}</strong>'
-            f' &middot; {s["rooms"]:,} areas &middot; {s["loot"]:,} items &middot; {s["boss"]:,} bosses, including '
-            f'{names}. New maps land as they are finished. {LINK}</p>\n      {END}')
+    return (f'{START}\n        <span class="atlas-stats">Mapped so far: <strong>{n} game{"s" if n != 1 else ""}</strong>'
+            f' &middot; {s["rooms"]:,} areas &middot; {s["loot"]:,} items &middot; {s["boss"]:,} bosses</span>\n        {END}')
 
 
 def roster_totals(t: dict) -> str:
@@ -132,11 +123,11 @@ def main() -> int:
         print("no shareable atlases found; pages left alone", file=sys.stderr)
         return 1
     index_p, roster_p = os.path.join(ROOT, "index.html"), os.path.join(ROOT, "roster.html")
-    index = put(open(index_p, encoding="utf-8").read(), START, END, strip(cfg, t), keep_markers=False)
+    index = put(open(index_p, encoding="utf-8").read(), START, END, strip(t), keep_markers=False)
     roster = open(roster_p, encoding="utf-8").read()
     roster = put(roster, "<!-- roster-totals:start -->", "<!-- roster-totals:end -->", roster_totals(t))
     roster = put(roster, "<!-- roster-list:start -->", "<!-- roster-list:end -->", roster_list(cfg, t))
-    print(re.sub(r"<[^>]+>", "", strip(cfg, t)).strip())
+    print(re.sub(r"<[^>]+>", "", strip(t)).strip())
     print(f"roster: {len(t['titles'])} games: {', '.join(t['titles'])}")
     if not a.dry_run:
         for p, text in ((index_p, index), (roster_p, roster)):

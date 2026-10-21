@@ -31,17 +31,10 @@
     });
   }
 
-  function joinAnd(names) {
-    return names.length < 2 ? names.join('') : names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
-  }
-
-  /* The homepage strip: total count from every mapped game, names from the biggest titles only. */
+  /* The homepage footer stats, inside the Game Co-Pilots line: totals from every mapped game. */
   function stripHTML(a) {
-    var esc = function(s) { return String(s).replace(/[&<>"]/g, function(c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
     return 'Mapped so far: <strong>' + a.totals.games + ' games</strong> &middot; ' + a.totals.rooms.toLocaleString() +
-      ' areas &middot; ' + a.totals.loot.toLocaleString() + ' items &middot; ' + a.totals.boss.toLocaleString() +
-      ' bosses, including ' + esc(joinAnd(a.footer.map(a.short))) + '. New maps land as they are finished.' +
-      ' <a href="/roster" class="atlas-roster-link" style="color:inherit; text-decoration:underline; white-space:nowrap;">See the full roster &rarr;</a>';
+      ' areas &middot; ' + a.totals.loot.toLocaleString() + ' items &middot; ' + a.totals.boss.toLocaleString() + ' bosses';
   }
 
   window.OverlordAtlas = { load: load, stripHTML: stripHTML };
