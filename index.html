@@ -365,6 +365,13 @@
     filter:opacity(calc(1 - var(--p, 0) * 3));
   }
   @keyframes pulse{0%,100%{opacity:.15}50%{opacity:.5}}
+  /* phones: keep each corner in its own half so the bottom pair can't overlap */
+  @media (max-width:520px){
+    .meta{font-size:.62rem;letter-spacing:.1em;max-width:calc(50% - 1.75rem);}
+    .m-tl,.m-bl{left:1.25rem;}
+    .m-tr,.m-br{right:1.25rem;}
+    .hint{bottom:5.2rem;}
+  }
 
   /* ================= SECTION 2: drip-fade verbiage ================= */
   .spacer{height:100vh;}                 /* lets the fixed hero fill the first screen */
