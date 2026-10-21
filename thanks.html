@@ -3,61 +3,13 @@
 <head>
 <!-- Cookie consent: loads Google Ads, Reddit Ads and Rewardful only when allowed -->
 <script src="assets/consent.js"></script>
-<!-- Rewardful affiliate tracking -->
-<script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
-<!-- Google tag (gtag.js) -->
+<!-- Ad tags: page visit only. No purchase or affiliate conversion fires here until a real
+     Paddle transaction can be confirmed (the old Stripe success code fired one on every visit). -->
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'AW-18496558698');
-
-  // Purchase conversion measurement for paid plans
-  const params = new URLSearchParams(window.location.search);
-  gtag('event', 'purchase', {
-    transaction_id: params.get('session_id') || 'stripe_' + Date.now(),
-    value: 14.99,
-    currency: 'USD'
-  });
-
-  // Rewardful affiliate conversion tracking
-  if (typeof rewardful === 'function') {
-    const customerEmail = params.get('customer_email') || params.get('email') || localStorage.getItem('user_email');
-    if (customerEmail) {
-      rewardful('convert', { email: customerEmail });
-    } else {
-      rewardful('convert');
-    }
-  }
-</script>
-
-<!-- Reddit Ads pixel: retargeting + purchase measurement -->
-<script>
-  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];/* pixel.js is loaded by assets/consent.js once consent allows */}}(window,document);
   rdt('init','a2_jsu6ejw28fu8');
   rdt('track','PageVisit');
-  rdt('track','Purchase');
-</script>
-
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  // Configure tag once your Tag ID is set
-  const GOOGLE_TAG_ID = 'TAG_ID_PLACEHOLDER';
-  if (GOOGLE_TAG_ID !== 'TAG_ID_PLACEHOLDER') {
-    gtag('config', GOOGLE_TAG_ID);
-    const params = new URLSearchParams(window.location.search);
-    gtag('event', 'purchase', {
-      transaction_id: params.get('session_id') || 'stripe_' + Date.now(),
-      value: 14.99,
-      currency: 'USD'
-    });
-    // Also fires Google Ads conversion if conversion label is configured:
-    // gtag('event', 'conversion', { 'send_to': GOOGLE_TAG_ID + '/LABEL_HERE', 'value': 14.99, 'currency': 'USD' });
-  }
 </script>
 
 <meta charset="UTF-8">
@@ -548,14 +500,8 @@
       refEl.textContent = session.length > 24 ? (session.slice(0, 14) + '...' + session.slice(-6)) : session;
       refEl.title = session;
     } else {
-      refEl.textContent = 'STRIPE-DIRECT-SUCCESS';
+      refEl.textContent = '—';
     }
-
-    // Flag local session as active subscriber
-    try {
-      localStorage.setItem('ovr_tier', 'subscription');
-      localStorage.setItem('ovr_paid_timestamp', Date.now().toString());
-    } catch(e) {}
   })();
 
   /* ---------- Countdown & Auto-Redirect ---------- */
