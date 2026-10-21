@@ -366,6 +366,18 @@
     filter:opacity(calc(1 - var(--p, 0) * 3));
   }
   @keyframes pulse{0%,100%{opacity:.15}50%{opacity:.5}}
+  /* the hint plays the plasma-matrix reveal on load (fully lit while it resolves), then pulses */
+  .hint{white-space:nowrap;}
+  .hint.hint--intro{animation:none;opacity:1;}
+  .hint .hint-touch{display:none;}
+  /* phones have no mouse to move: say "touch", a little bigger and brighter, so a black first
+     screen never looks broken */
+  @media (hover:none){
+    .hint .hint-move{display:none;}
+    .hint .hint-touch{display:inline-block;}
+    .hint{font-size:.8rem;animation-name:pulse-touch;}
+  }
+  @keyframes pulse-touch{0%,100%{opacity:.45}50%{opacity:.95}}
   /* phones: keep each corner in its own half so the bottom pair can't overlap */
   @media (max-width:520px){
     .meta{font-size:.62rem;letter-spacing:.1em;max-width:calc(50% - 1.75rem);}
@@ -1351,7 +1363,7 @@
 
   <div class="meta m-bl">Linux and Windows<br>Live Co-Pilot</div>
   <div class="meta m-br">Watches, never touches<br>© 2026</div>
-  <div class="hint">move to reveal</div>
+  <div class="hint"><span class="hint-move mx" data-mx-delay="600">move to reveal</span><span class="hint-touch mx" data-mx-delay="600">touch to reveal</span></div>
 </section>
 
 <div class="spacer" id="top"></div>
@@ -2142,6 +2154,8 @@
     el.style.setProperty('--mx-dur', (total / 1000).toFixed(2) + 's');
     setTimeout(() => el.classList.add('mx-run'), +el.dataset.mxDelay || 0);
     const plan = chars.map((c, i) => ({c, on: i * step + Math.random() * 60, set: i * step + hold + Math.random() * 180, last: 0}));
+    el.dispatchEvent(new Event('mxstart', {bubbles: true}));
+    setTimeout(() => el.dispatchEvent(new Event('mxdone', {bubbles: true})), (+el.dataset.mxDelay || 0) + total);
     const tick = now => {
       const t = now - start;
       let busy = false;
@@ -2160,6 +2174,13 @@
       if (busy) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
+  }
+
+  /* "move/touch to reveal": stay fully lit while the letters resolve, then go back to pulsing */
+  const hint = document.querySelector('.hint');
+  if (hint){
+    hint.addEventListener('mxstart', () => hint.classList.add('hint--intro'));
+    hint.addEventListener('mxdone', () => hint.classList.remove('hint--intro'));
   }
 
   const prepared = new Map(heads.map(el => [el, split(el)]));
