@@ -416,6 +416,7 @@
      whole time (the digit is drawn over it), so nothing reflows. Script: "plasma-matrix reveal". */
   :root{--plasma-a:#6d5cff;--plasma-b:#c86bff;--plasma-c:#4fd1ff;}
   .mx{position:relative;overflow-x:clip;overflow-clip-margin:.4em;}  /* the scan never widens the page */
+  .mx .mx-word{display:inline-block;white-space:nowrap;}
   .mx.mx-ready .mx-ch{display:inline-block;position:relative;opacity:0;transform:translateY(-.35em) scaleY(.4);}
   .mx .mx-ch.on{opacity:1;transform:none;color:transparent;
     transition:opacity .18s ease, transform .35s cubic-bezier(.22,1,.36,1);}
@@ -2132,12 +2133,19 @@
     const walk = node => {
       for (const n of [...node.childNodes]){
         if (n.nodeType === 3){
+          /* letters sit inside one unbreakable box per word, so a line never splits a word */
           const frag = document.createDocumentFragment();
-          for (const c of n.textContent){
-            if (/\s/.test(c)){ frag.append(c); continue; }
-            const s = document.createElement('span');
-            s.className = 'mx-ch'; s.textContent = c; s.setAttribute('aria-hidden', 'true');
-            frag.append(s); chars.push(s);
+          for (const part of n.textContent.split(/(\s+)/)){
+            if (!part) continue;
+            if (/^\s+$/.test(part)){ frag.append(part); continue; }
+            const word = document.createElement('span');
+            word.className = 'mx-word'; word.setAttribute('aria-hidden', 'true');
+            for (const c of part){
+              const s = document.createElement('span');
+              s.className = 'mx-ch'; s.textContent = c;
+              word.append(s); chars.push(s);
+            }
+            frag.append(word);
           }
           n.replaceWith(frag);
         } else if (n.nodeType === 1){ walk(n); }
