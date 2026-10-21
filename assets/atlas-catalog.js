@@ -33,7 +33,7 @@
 
   /* The homepage footer stats, inside the Game Co-Pilots line: totals from every mapped game. */
   function stripHTML(a) {
-    return 'Mapped so far: <strong>' + a.totals.games + ' games</strong> &middot; ' + a.totals.rooms.toLocaleString() +
+    return '<strong>' + a.totals.games + ' games</strong> &middot; ' + a.totals.rooms.toLocaleString() +
       ' areas &middot; ' + a.totals.loot.toLocaleString() + ' items &middot; ' + a.totals.boss.toLocaleString() + ' bosses';
   }
 

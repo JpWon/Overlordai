@@ -81,7 +81,7 @@ def tally(cfg: dict, rows: list, local: bool = False) -> dict:
 def strip(t: dict) -> str:
     """The stats span inside the footer's Game Co-Pilots line."""
     n, s = len(t["titles"]), t["totals"]
-    return (f'{START}\n        <span class="atlas-stats">Mapped so far: <strong>{n} game{"s" if n != 1 else ""}</strong>'
+    return (f'{START}\n        <span class="atlas-stats"><strong>{n} game{"s" if n != 1 else ""}</strong>'
             f' &middot; {s["rooms"]:,} areas &middot; {s["loot"]:,} items &middot; {s["boss"]:,} bosses</span>\n        {END}')
 
 
