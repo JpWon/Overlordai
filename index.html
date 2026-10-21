@@ -437,6 +437,8 @@
     -webkit-mask-size:260% 100%;mask-size:260% 100%;-webkit-mask-position:100% 0;mask-position:100% 0;}
   .mxf.in{opacity:1;filter:none;-webkit-mask-position:0 0;mask-position:0 0;
     transition:opacity .6s ease var(--d,0s), filter 1s ease var(--d,0s), -webkit-mask-position 1.4s cubic-bezier(.45,0,.25,1) var(--d,0s), mask-position 1.4s cubic-bezier(.45,0,.25,1) var(--d,0s);}
+  .mxf.mxf--slow.in{
+    transition:opacity 1.1s ease, filter 1.6s ease, -webkit-mask-position 2.2s cubic-bezier(.45,0,.25,1), mask-position 2.2s cubic-bezier(.45,0,.25,1);}
 
 
 
@@ -1149,15 +1151,8 @@
   .plainsec__lists li strong{color:var(--neutral-on-background-strong);font-weight:600;}
   @media (max-width:760px){.plainsec__facts,.plainsec__lists{grid-template-columns:1fr;}}
 
-  /* "hover a line to expand it": each does/doesn't line shows its lead; hover (mouse), tap or
-     keyboard focus unfolds the detail. Hover only where the device really hovers. */
-  .plainsec__hint{display:flex;align-items:center;gap:.6rem;margin:0 0 1.2rem;
-    font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
-  .plainsec__hint-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);
-    box-shadow:0 0 0 0 rgba(109,92,255,.6);animation:hint-ping 2.2s ease-out infinite;}
-  @keyframes hint-ping{0%{box-shadow:0 0 0 0 rgba(109,92,255,.6)}70%,100%{box-shadow:0 0 0 9px rgba(109,92,255,0)}}
-  .plainsec__hint .hint-tap{display:none;}
-  @media (hover:none){.plainsec__hint .hint-hover{display:none;}.plainsec__hint .hint-tap{display:inline;}}
+  /* each does/doesn't line shows its lead; hover (mouse), tap or keyboard focus unfolds the
+     detail. Hover only where the device really hovers. */
   .plainsec__lists li.xp{padding:0;}
   .xp__lead{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:.8rem;width:100%;padding:.85rem 0;cursor:pointer;
     font-size:.95rem;line-height:1.45;font-weight:600;color:var(--neutral-on-background-strong);}
@@ -1179,7 +1174,7 @@
     .xp:hover .xp__lead::after{transform:rotate(45deg);}
     .xp:hover .xp__lead::before{opacity:1;box-shadow:0 0 10px var(--accent);}
   }
-  @media (prefers-reduced-motion: reduce){.xp__more,.xp__lead::after{transition:none;}.plainsec__hint-dot{animation:none;}}
+  @media (prefers-reduced-motion: reduce){.xp__more,.xp__lead::after{transition:none;}}
   /* ================= SECTION 4: FAQ ================= */
   .faqsec{position:relative;z-index:5;min-height:100vh;display:flex;align-items:center;
     padding:clamp(4rem,10vh,7rem) clamp(1.5rem,5vw,4rem);}
@@ -1371,7 +1366,7 @@
 <!-- ============ 2 · intro: the value prop (S2S "The Process" layout) ============ -->
 <section class="intro intro--editorial" id="intro">
   <header class="vp-head">
-    <div class="brandline"><span class="mx">Overlord <em>AI</em></span><span class="brandline__sub mx" data-mx-delay="300">Live Gaming Guidebook Companion</span></div>
+    <div class="brandline"><span class="mx" data-mx-slow="1.5">Overlord <em>AI</em></span><span class="brandline__sub mx" data-mx-delay="500" data-mx-slow="1.5">Live Gaming Guidebook Companion</span></div>
     <div class="hud rv" style="--d:.3s">
       <div class="hud__badge"><span class="hud__dot"></span><span class="hud__title">Overlord · Live guide</span></div>
       <div class="hud__divider"></div>
@@ -1382,8 +1377,8 @@
         </div>
       </div>
     </div>
-    <div class="drip-line"><span class="txt mx">Stuck on level one?</span></div>
-    <div class="drip-line"><span class="txt mx" data-mx-delay="420">Overlord has <span class="accent">your back.</span></span></div>
+    <div class="drip-line"><span class="txt mx" data-mx-slow="1.5">Stuck on level one?</span></div>
+    <div class="drip-line"><span class="txt mx" data-mx-delay="900" data-mx-slow="1.5">Overlord has <span class="accent">your back.</span></span></div>
     <p class="vp-lede rv" style="--d:.45s; max-width:680px; margin:24px auto 0; font-size:1.15rem; line-height:1.7; color:var(--neutral-on-background-weak); text-align:center;">
       You bought the brutally hard <strong>$70 game</strong> everyone was raving about. You don't have 100 hours to "git-gud" between work and life. Overlord watches your screen in real time, calling out bosses, routing hidden loot, and timing your counters—<strong>before you hit the wall and quit.</strong>
     </p>
@@ -1686,18 +1681,19 @@
 <!-- ============ 2b · what Overlord AI is, plainly (payment-provider review, 2026-10-16) ============ -->
 <section class="plainsec" id="what">
   <div class="plainsec__inner">
-    <span class="plainsec__label mx">In plain words</span>
-    <h2 class="mx" data-mx-delay="150">What Overlord AI <em>is.</em></h2>
-    <p class="plainsec__lede mxf" style="--d:.35s">Overlord AI is an AI guide companion for PC games. It watches your game (with your permission) to show tips, directions and answers on screen and by voice. Think of the strategy guide that used to sit next to the console, rewritten as a voice that plays alongside you.</p>
+    <!-- One slow sequence, in reading order (data-mx-seq): each heading resolves, then its text
+         fades in, then the next starts. Slower on purpose so the "is it cheating?" answers get read. -->
+    <span class="plainsec__label mx" data-mx-seq="plain" data-mx-slow="1.6">In plain words</span>
+    <h2 class="mx" data-mx-seq="plain" data-mx-slow="2.4">What Overlord AI <em>is.</em></h2>
+    <p class="plainsec__lede mxf mxf--slow" data-mx-seq="plain">Overlord AI is an AI guide companion for PC games. It watches your game (with your permission) to show tips, directions and answers on screen and by voice. Think of the strategy guide that used to sit next to the console, rewritten as a voice that plays alongside you.</p>
     <div class="plainsec__facts">
-      <div><h3 class="mx">Who it's for</h3><p class="mxf" style="--d:.25s">Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
-      <div><h3 class="mx" data-mx-delay="120">Platforms</h3><p class="mxf" style="--d:.35s">Windows 10/11 (64-bit), an installer, and Linux (Ubuntu/Debian, a .deb package). Every feature works on both.</p></div>
+      <div><h3 class="mx" data-mx-seq="plain" data-mx-slow="2">Who it's for</h3><p class="mxf mxf--slow" data-mx-seq="plain">Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
+      <div><h3 class="mx" data-mx-seq="plain" data-mx-slow="2">Platforms</h3><p class="mxf mxf--slow" data-mx-seq="plain">Windows 10/11 (64-bit), an installer, and Linux (Ubuntu/Debian, a .deb package). Every feature works on both.</p></div>
     </div>
-    <p class="plainsec__hint mxf"><span class="plainsec__hint-dot" aria-hidden="true"></span><span class="hint-hover">Hover a line to expand it</span><span class="hint-tap">Tap a line to expand it</span></p>
     <div class="plainsec__lists">
       <div>
-        <h3 class="mx">What Overlord AI does</h3>
-        <ul>
+        <h3 class="mx" data-mx-seq="plain" data-mx-slow="2">What Overlord AI does</h3>
+        <ul class="mxf mxf--slow" data-mx-seq="plain">
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Watches the screen you choose to share</button><div class="xp__more"><p>Only while your game is running, to work out where you are and what's happening.</p></div></li>
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Shows tip cards on screen</button><div class="xp__more"><p>Directions, loot, combos and conversation choices.</p></div></li>
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Talks to you</button><div class="xp__more"><p>It speaks answers out loud, and listens when you press F4 and ask.</p></div></li>
@@ -1705,8 +1701,8 @@
         </ul>
       </div>
       <div>
-        <h3 class="mx" data-mx-delay="120">What it doesn't do</h3>
-        <ul>
+        <h3 class="mx" data-mx-seq="plain" data-mx-slow="2">What it doesn't do</h3>
+        <ul class="mxf mxf--slow" data-mx-seq="plain">
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't play for you</button><div class="xp__more"><p>It never presses keys, moves the mouse or controls the game.</p></div></li>
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't change the game</button><div class="xp__more"><p>No changes to game memory or game files, and no code injected into the game.</p></div></li>
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't run in online multiplayer games</button><div class="xp__more"><p>It checks each game when it launches and refuses the online multiplayer ones; it's built for single-player games. See <a href="fair-play.html">Fair play</a>.</p></div></li>
@@ -2175,6 +2171,7 @@
       if (busy) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
+    return (+el.dataset.mxDelay || 0) + total;                // ms until the last letter locks
   }
 
   /* "move/touch to reveal": stay fully lit while the letters resolve, then go back to pulsing */
@@ -2185,12 +2182,53 @@
   }
 
   const prepared = new Map(heads.map(el => [el, split(el)]));
+
+  /* Play one element; returns roughly how long it takes (ms). */
+  const play = el => {
+    if (prepared.has(el)) return run(el, prepared.get(el));
+    el.classList.add('in');
+    return el.classList.contains('mxf--slow') ? 2200 : 1400;
+  };
+
+  /* data-mx-seq groups play in reading order once their first element is in view: each one
+     starts when the one before is most of the way done, so the eye is led line by line. */
+  const seqs = new Map();
+  [...heads, ...fades].filter(el => el.dataset.mxSeq)
+    .sort((a, b) => a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1)
+    .forEach(el => { const k = el.dataset.mxSeq; seqs.has(k) ? seqs.get(k).push(el) : seqs.set(k, [el]); });
+  /* Someone who scrolls ahead never waits on lines they've already scrolled past: those play
+     quickly (catch-up). Lines still on screen keep the slow pace, even on a tall screen that
+     shows the whole sequence at once. */
+  const state = new Map();                                   // seq element -> its list
+  const runs = new Map();                                    // list -> {i, timer, next}
+  seqs.forEach(list => list.forEach(el => state.set(el, list)));
+  const scrolledPast = el => el.getBoundingClientRect().bottom < 80;
+  const playSeq = list => {
+    let r = runs.get(list);
+    if (r){                                                  // already playing: catch up if behind
+      if (r.i > 0 && r.i < list.length && scrolledPast(list[r.i])){ clearTimeout(r.timer); r.next(); }
+      return;
+    }
+    r = {i: 0, timer: 0};
+    r.next = () => {
+      if (r.i >= list.length) return;
+      const el = list[r.i++];
+      const ms = play(el);
+      const upcoming = list[r.i];
+      const pace = upcoming && scrolledPast(upcoming) ? .12 : (prepared.has(el) ? .8 : .55);
+      r.timer = setTimeout(r.next, ms * pace);
+    };
+    runs.set(list, r);
+    r.next();
+  };
+
   const io = new IntersectionObserver(entries => {
     for (const e of entries){
       if (!e.isIntersecting) continue;
       io.unobserve(e.target);
-      if (prepared.has(e.target)) run(e.target, prepared.get(e.target));
-      else e.target.classList.add('in');
+      const list = state.get(e.target);
+      if (list) playSeq(list);
+      else play(e.target);
     }
   }, {threshold:.6, rootMargin:'0px 0px -8% 0px'});
   /* Each heading and paragraph is watched on its own (they're small), never a whole section:
