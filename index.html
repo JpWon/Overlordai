@@ -1363,7 +1363,7 @@
 
   <div class="meta m-bl">Linux and Windows<br>Live Co-Pilot</div>
   <div class="meta m-br">Watches, never touches<br>© 2026</div>
-  <div class="hint"><span class="hint-move mx" data-mx-delay="600">move to reveal</span><span class="hint-touch mx" data-mx-delay="600">touch to reveal</span></div>
+  <div class="hint"><span class="hint-move mx" data-mx-delay="1100" data-mx-slow="2.5">move to reveal</span><span class="hint-touch mx" data-mx-delay="1100" data-mx-slow="2.5">touch to reveal</span></div>
 </section>
 
 <div class="spacer" id="top"></div>
@@ -2147,13 +2147,14 @@
 
   function run(el, chars){
     const n = chars.length;
-    const step = Math.max(18, Math.min(55, 900 / n));        // stagger between letters
-    const hold = 260;                                         // how long each letter flickers
+    const slow = +el.dataset.mxSlow || 1;                     // data-mx-slow="2.5" plays 2.5x slower
+    const step = Math.max(18, Math.min(55, 900 / n)) * slow;  // stagger between letters
+    const hold = 260 * slow;                                  // how long each letter flickers
     const start = performance.now() + (+el.dataset.mxDelay || 0);
     const total = (n - 1) * step + hold + 220;
     el.style.setProperty('--mx-dur', (total / 1000).toFixed(2) + 's');
     setTimeout(() => el.classList.add('mx-run'), +el.dataset.mxDelay || 0);
-    const plan = chars.map((c, i) => ({c, on: i * step + Math.random() * 60, set: i * step + hold + Math.random() * 180, last: 0}));
+    const plan = chars.map((c, i) => ({c, on: i * step + Math.random() * 60 * slow, set: i * step + hold + Math.random() * 180 * slow, last: 0}));
     el.dispatchEvent(new Event('mxstart', {bubbles: true}));
     setTimeout(() => el.dispatchEvent(new Event('mxdone', {bubbles: true})), (+el.dataset.mxDelay || 0) + total);
     const tick = now => {
