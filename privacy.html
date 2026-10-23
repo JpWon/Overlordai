@@ -1059,9 +1059,9 @@
 <h2>2 The short version</h2>
 <table class="lg-stack">
 <tr><th>What</th><th>When</th><th>Where it goes</th></tr>
-<tr><td><strong>Frames of your screen</strong></td><td data-label="When">Only while a game is running: when you ask, and automatically from time to time during play (section 3)</td><td data-label="Where it goes">Our cloud service, then DeepSeek or Google Gemini to read them. Not stored by us.</td></tr>
+<tr><td><strong>Frames of your screen</strong></td><td data-label="When">Only while a game is running: when you ask, and automatically from time to time during play (section 3)</td><td data-label="Where it goes">Our cloud service, then Google Gemini to read them. Not stored by us.</td></tr>
 <tr><td><strong>Your voice</strong></td><td data-label="When">Only after you press F4 to ask out loud</td><td data-label="Where it goes">Our cloud service, then Google Gemini to turn it into text. Not stored by us.</td></tr>
-<tr><td><strong>Questions and answers as text</strong></td><td data-label="When">When you ask, or the app needs an answer</td><td data-label="Where it goes">Google Gemini or DeepSeek through our service; spoken answers through Google Cloud Text-to-Speech</td></tr>
+<tr><td><strong>Questions and answers as text</strong></td><td data-label="When">When you ask, or the app needs an answer</td><td data-label="Where it goes">Google Gemini or DeepSeek through our service; some answers are checked by a second AI provider (Google Gemini or Anthropic's Claude). Spoken answers are made on your PC, or through Google Cloud Text-to-Speech on a PC too slow for that (section 4)</td></tr>
 <tr><td><strong>Account details</strong></td><td data-label="When">When you sign up</td><td data-label="Where it goes">Supabase (our database and sign-in provider)</td></tr>
 <tr><td><strong>Licence, trial and usage records</strong></td><td data-label="When">While you use the app</td><td data-label="Where it goes">Supabase</td></tr>
 <tr><td><strong>Payment details</strong></td><td data-label="When">When you buy</td><td data-label="Where it goes">Our payment provider only, once paid plans open. We never see your card.</td></tr>
@@ -1079,14 +1079,14 @@
 <li><strong>Automatically, during play.</strong> To notice in-game conversations and keep its tip cards up to date, the app also checks the screen on its own: about every 15 seconds while you explore, slowing to once every 5 minutes when nothing turns up, and as often as every 4 seconds during an in-game conversation. A frame isn't sent if that part of the screen hasn't changed.</li>
 </ul>
 <h3>Where frames go</h3>
-<p>Frames go over an encrypted connection (HTTPS) to our cloud service on Google Cloud, which checks your sign-in and passes the frame to an AI model to read it: <strong>DeepSeek</strong> or <strong>Google Gemini</strong>. The answer comes back to your PC. Our service doesn't save frames. DeepSeek and Google handle the frames they receive under their own terms (section 9).</p>
+<p>Frames go over an encrypted connection (HTTPS) to our cloud service on Google Cloud, which checks your sign-in and passes the frame to <strong>Google Gemini</strong> to read it. The answer comes back to your PC. Our service doesn't save frames. Google handles the frames it receives under its own terms (section 9). <strong>DeepSeek never receives frames:</strong> when Gemini can't answer, DeepSeek gets only the text read from your screen and facts about the game.</p>
 <p>Screen capture starts only when Overlord AI detects that a game is running, and it shuts off when it detects that the game has closed. Frames are held in short-term memory (RAM), never written to disk: older ones are deleted within about 30 seconds, the rest are discarded when capture shuts off, and nothing survives a restart. On Windows, frames are kept briefly in the system's temporary folder instead and are deleted within about 30 seconds. Overlord AI doesn't record video of your sessions.</p>
 </section>
 
 <section id="s4">
 <h2>4 Your voice and the co-pilot's voice</h2>
 <p><strong>The microphone is only used after you press F4</strong> to ask out loud, and recording stops when you stop talking. The recording goes through our cloud service to <strong>Google Gemini</strong>, which turns it into text, and the text is used to answer you. Our service doesn't save recordings. On your PC, the recording is kept in a single temporary file that your next question overwrites. On a PC that has on-device speech recognition installed, the recording is transcribed there instead and isn't sent.</p>
-<p><strong>The co-pilot's voice</strong> comes from <strong>Google Cloud Text-to-Speech</strong>: the text of each spoken answer goes through our service to Google, and the audio comes back. The startup and goodbye lines are recordings that ship with the app. Your personal greeting ("Welcome back, &hellip;") uses the display name from your account; it's made once and then saved on your PC.</p>
+<p><strong>The co-pilot's voice</strong> is made on your PC by a voice model that ships with the app, so the text of spoken answers stays on your PC. On a PC that is too slow for it, or if the voice on your PC fails, the text goes through our service to <strong>Google Cloud Text-to-Speech</strong> and the audio comes back. The startup and goodbye lines are recordings that ship with the app. Your personal greeting ("Welcome back, &hellip;") uses the display name from your account; it's made once and then saved on your PC.</p>
 </section>
 
 <section id="s5">
@@ -1143,8 +1143,8 @@
 <table class="lg-stack">
 <tr><th>Company</th><th>What it handles</th><th>Why</th></tr>
 <tr><td><strong>Google Cloud</strong> (Cloud Run, Vertex AI, Cloud Storage, Text-to-Speech, Gemini API)</td><td data-label="What it handles">Our cloud service, screen frames and voice recordings sent for reading, text of spoken answers, game research</td><td data-label="Why">Runs our service, reads frames, transcribes speech, makes the voice</td></tr>
-<tr><td><strong>DeepSeek</strong></td><td data-label="What it handles">Screen frames and question text</td><td data-label="Why">Reads frames and writes answers</td></tr>
-<tr><td><strong>Anthropic</strong> (Claude, hosted on Google Cloud)</td><td data-label="What it handles">Game names and area names</td><td data-label="Why">Backup for game research</td></tr>
+<tr><td><strong>DeepSeek</strong></td><td data-label="What it handles">Question text, facts about the game, and text read from your screen. Never frames or account details.</td><td data-label="Why">Writes answers</td></tr>
+<tr><td><strong>Anthropic</strong> (Claude, on Google Cloud and through Anthropic's own service)</td><td data-label="What it handles">Game names and area names; some questions and answers, never account details</td><td data-label="Why">Backup for game research; checks some answers</td></tr>
 <tr><td><strong>Supabase</strong></td><td data-label="What it handles">Account, licence, usage and progress records</td><td data-label="Why">Database and sign-in</td></tr>
 <tr><td><strong>Payment provider</strong> (named here when paid plans open)</td><td data-label="What it handles">Orders, payments, tax, receipts, refunds</td><td data-label="Why">Reseller and merchant of record</td></tr>
 <tr><td><strong>Vercel</strong></td><td data-label="What it handles">Website visits</td><td data-label="Why">Website hosting and analytics</td></tr>
@@ -1162,7 +1162,7 @@
 <h2>10 How long we keep it</h2>
 <table class="lg-stack">
 <tr><th>Data</th><th>How long</th></tr>
-<tr><td><strong>Screen frames</strong></td><td data-label="How long">Up to about 30 seconds on your PC, held in RAM; discarded when the game closes and cleared by a restart. Not stored by our service. DeepSeek and Google keep what they receive according to their own terms.</td></tr>
+<tr><td><strong>Screen frames</strong></td><td data-label="How long">Up to about 30 seconds on your PC, held in RAM; discarded when the game closes and cleared by a restart. Not stored by our service. Google keeps what it receives according to its own terms.</td></tr>
 <tr><td><strong>Voice recordings</strong></td><td data-label="How long">One temporary file on your PC, overwritten by your next question. Not stored by our service.</td></tr>
 <tr><td><strong>Account, licence and progress records</strong></td><td data-label="How long">While your account is open. Deleted within 30 days after you ask us to delete your account.</td></tr>
 <tr><td><strong>Usage counts</strong></td><td data-label="How long">While your account is open, then deleted with it.</td></tr>
@@ -1197,7 +1197,7 @@
 
 <section id="s13">
 <h2>13 International transfers</h2>
-<p>We're based in the United States, and our service providers process data in the United States and other countries. DeepSeek processes the frames and text it receives in China. Where a provider offers standard contractual clauses or a similar safeguard for international transfers, we rely on it. By using the app's screen and voice features you understand that frames and recordings are processed in these countries.</p>
+<p>We're based in the United States, and our service providers process data in the United States and other countries. DeepSeek processes the text it receives in China. Where a provider offers standard contractual clauses or a similar safeguard for international transfers, we rely on it. By using the app's screen and voice features you understand that frames and recordings are processed in these countries.</p>
 </section>
 
 <section id="s14">
