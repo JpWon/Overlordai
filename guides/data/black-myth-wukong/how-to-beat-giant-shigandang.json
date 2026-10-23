@@ -1,0 +1,49 @@
+{
+  "slug": "how-to-beat-giant-shigandang",
+  "game": "black-myth-wukong",
+  "game_title": "Black Myth: Wukong",
+  "game_page": "/wukong.html",
+  "store_url": "https://store.steampowered.com/app/2358720/",
+  "query": "how to beat giant shigandang in black myth: wukong",
+  "title": "Black Myth: Wukong - How to Beat Giant Shigandang",
+  "meta_desc": "Learn the tactics to defeat the Giant Shigandang boss in Black Myth: Wukong, including how to handle its Air Vortex and Last Resort abilities.",
+  "published_at": "2026-10-23",
+  "atlas": {
+    "app_id": "2358720",
+    "updated": "2026-10-15"
+  },
+  "intro": "The Giant Shigandang is a powerful Yaoguai King you will encounter in the Foothills area of Black Myth: Wukong. This boss, whose name translates to Great Stone Tablet, has a few key abilities to watch out for. Defeating it requires understanding its attack patterns and knowing how to position yourself during the fight. This guide breaks down the strategies needed to take down this formidable opponent based on its known moves.",
+  "intro_ref": [
+    "boss/giant_shigandang",
+    "rooms/foothills"
+  ],
+  "steps": [
+    {
+      "heading": "General Positioning",
+      "text": "Throughout the fight, managing your distance from the Giant Shigandang is crucial. A good general strategy is to remain near the edge of the boss's shadow. This specific positioning keeps you in range for its swings to connect, allowing you to anticipate and react to its attacks. Staying too far away might make it harder to find openings, so keeping this particular distance is recommended to effectively engage the boss.",
+      "atlas_ref": [
+        "boss/giant_shigandang"
+      ]
+    },
+    {
+      "heading": "Handling the Air Vortex",
+      "text": "One of the Giant Shigandang's signature moves is the Air Vortex. You'll know this attack is coming when the boss begins to suck in a large amount of air, creating a powerful pull toward it. The proper way to handle this ability is straightforward: simply run away from the boss. Creating as much distance as possible will help you avoid getting caught in the vortex, preventing unnecessary damage and letting you reset your position for the next phase of the fight.",
+      "atlas_ref": [
+        "boss/giant_shigandang"
+      ]
+    },
+    {
+      "heading": "The Last Resort Phase",
+      "text": "Even after you have depleted the Giant Shigandang's life bar, the fight isn't quite over. The boss will enter a final, desperate phase called Last Resort. During this sequence, it will slam the ground four times in a row very quickly, which sends out damaging shockwaves with each impact. Following these four slams, it will perform one final, powerful hand slam. The safest way to survive this final barrage is to maintain your distance. As soon as you see its life is gone, back away to avoid the shockwaves and the final attack.",
+      "atlas_ref": [
+        "boss/giant_shigandang"
+      ]
+    }
+  ],
+  "outro": "By paying close attention to these key attacks and managing your spacing, you can overcome the challenge presented by the Giant Shigandang.",
+  "outro_ref": [
+    "boss/giant_shigandang"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": []
+}
