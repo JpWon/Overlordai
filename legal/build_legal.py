@@ -36,8 +36,8 @@ PAGE_META = {
                 "Full refund within 3 days of your first payment. How to cancel, how to ask for a refund "
                 "and your legal rights."),
     "fair-play": ("Fair play \u2014 Overlord AI",
-                  "Is Overlord AI cheating? No: it never touches the game, never plays for you and refuses online "
-                  "multiplayer games. Exactly what it does and doesn't do."),
+                  "Is Overlord AI cheating? No: it never touches the game, never plays for you, and helps live "
+                  "in single-player games only. What it does and doesn't do."),
     "contact": ("Contact \u2014 Overlord AI",
                 "Contact Overlord AI: support email, billing and refunds, privacy "
                 "requests and our business address."),
