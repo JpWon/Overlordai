@@ -77,5 +77,25 @@
       "source": "/fair-play",
       "destination": "/fair-play.html"
     }
+  ],
+  "headers": [
+    {
+      "source": "/(login|reset-password)\\.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
+        }
+      ]
+    },
+    {
+      "source": "/assets/auth.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
+        }
+      ]
+    }
   ]
 }
