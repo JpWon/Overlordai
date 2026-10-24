@@ -1039,7 +1039,7 @@
      supabase_row). -->
 <span class="lg__label">OVR · legal · privacy</span>
 <h1>Privacy<br><em>policy.</em></h1>
-<div class="lg__meta"><span>Version 2.4</span><span>Last updated 24 October 2026</span><span>Covers the app, the website and our cloud service</span></div>
+<div class="lg__meta"><span>Version 2.5</span><span>Last updated RELEASE_DAY</span><span>Covers the app, the website and our cloud service</span></div>
 <p class="lg__lede">Overlord AI watches your game to help you, so it handles your screen and, when you ask out loud, your voice. This policy says exactly what we collect, where it goes, how long it's kept and what you can do about it. We don't sell your personal information.</p>
 <div class="lg__toc"><b>Contents</b>
 <a href="#s1">1 Who we are</a> <span>·</span>
@@ -1078,6 +1078,7 @@
 <tr><td><strong>Account details</strong></td><td data-label="When">When you sign up</td><td data-label="Where it goes">Supabase (our database and sign-in provider)</td></tr>
 <tr><td><strong>Licence, trial and usage records</strong></td><td data-label="When">While you use the app</td><td data-label="Where it goes">Supabase</td></tr>
 <tr><td><strong>Payment details</strong></td><td data-label="When">When you buy</td><td data-label="Where it goes">Our payment provider only, once paid plans open. We never see your card.</td></tr>
+<tr><td><strong>Error reports</strong></td><td data-label="When">When something in the app fails, after an update, and after each question you ask (how long each step took), while <strong>Send error reports</strong> is on in Settings (on unless you turn it off)</td><td data-label="Where it goes">Our cloud service, then Supabase; deleted after 90 days (section 6)</td></tr>
 <tr><td><strong>Key presses, saves, game files, Steam achievement files</strong></td><td data-label="When">While you play</td><td data-label="Where it goes">Nowhere. They stay on your PC (section 5).</td></tr>
 </table>
 <p>Some questions you ask Overlord are answered by third-party AI providers. They receive only your question and facts about the game, never your name, email or account details.</p>
@@ -1130,6 +1131,7 @@
 <li><strong>Game research:</strong> when you play a game we haven't mapped, the game's name and area names are researched from public sources (Google's Gemini with Google Search, with Anthropic's Claude on Google Cloud as a backup). The resulting guide is saved in our Google Cloud storage and linked to your account. It holds facts about the game, not about you.</li>
 <li><strong>Which games people want:</strong> when you play a game we haven't mapped, the app sends its Steam ID with an anonymous install code (not linked to your account) so we know which games to map next.</li>
 <li><strong>Founder Access and the waitlist:</strong> if you claim Founder Access we store your email, the plan you chose, any feedback you write, how you signed in, a referral code if you came from a partner link, and your browser type. Waitlist sign-ups store your email.</li>
+<li><strong>Error reports:</strong> while <strong>Send error reports</strong> is on (Settings; on unless you turn it off), the installed app sends a short report when something fails (for example the microphone, an update, or the app itself), after an update, the first time you install, sign in and ask a question, and after each question you ask. A report holds only: what kind of problem it was and where in the app, how often and when it happened, the app version, your operating system and its version, how long each step of an answer took and which steps were used (for example whether the answer was double-checked), an anonymous install code (a one-way scrambled code made on your PC, not your licence device ID), and, when a game ends, the names and ages of any of our own helper programs still running. It never holds what was on your screen, what you said or typed, your saves or game files, your name, email or computer name; folder paths and email addresses are removed before anything is sent. Reports are linked to your account, kept for 90 days and then deleted, and used only to find and fix problems. An automated nightly review, run with Anthropic's Claude, groups the day's reports to find bugs; reports from our own team's accounts and computers are left out of it. You can turn reports off at any time; nothing already sent is resent.</li>
 <li><strong>Support:</strong> emails you send us.</li>
 </ul>
 </section>
@@ -1161,7 +1163,7 @@
 <tr><th>Company</th><th>What it handles</th><th>Why</th></tr>
 <tr><td><strong>Google Cloud</strong> (Cloud Run, Vertex AI, Cloud Storage, Text-to-Speech, Gemini API)</td><td data-label="What it handles">Our cloud service, screen frames and voice recordings sent for reading, text of spoken answers, game research</td><td data-label="Why">Runs our service, reads frames, transcribes speech, makes the voice</td></tr>
 <tr><td><strong>DeepSeek</strong></td><td data-label="What it handles">Your Consult questions as text, with the game and our guide notes for it; when Gemini can't answer an F4 question, the question text, facts about the game and text read from your screen. Never frames or account details.</td><td data-label="Why">Writes Consult's answers; backup for F4 answers</td></tr>
-<tr><td><strong>Anthropic</strong> (Claude, on Google Cloud and through Anthropic's own service)</td><td data-label="What it handles">Game names and area names; some questions and answers, with the text read from your screen and sometimes one reduced-size picture of your screen; never account details</td><td data-label="Why">Backup for game research; double-checks answers</td></tr>
+<tr><td><strong>Anthropic</strong> (Claude, on Google Cloud and through Anthropic's own service)</td><td data-label="What it handles">Game names and area names; some questions and answers, with the text read from your screen and sometimes one reduced-size picture of your screen; error reports, for the nightly review; never account details</td><td data-label="Why">Backup for game research; double-checks answers; reviews error reports</td></tr>
 <tr><td><strong>Supabase</strong></td><td data-label="What it handles">Account, licence, usage and progress records</td><td data-label="Why">Database and sign-in</td></tr>
 <tr><td><strong>Payment provider</strong> (named here when paid plans open)</td><td data-label="What it handles">Orders, payments, tax, receipts, refunds</td><td data-label="Why">Reseller and merchant of record</td></tr>
 <tr><td><strong>Vercel</strong></td><td data-label="What it handles">Website visits</td><td data-label="Why">Website hosting and analytics</td></tr>
@@ -1186,6 +1188,7 @@
 <tr><td><strong>Usage counts</strong></td><td data-label="How long">While your account is open, then deleted with it.</td></tr>
 <tr><td><strong>Order records</strong></td><td data-label="How long">As long as tax and accounting law requires (the payment provider keeps its own records).</td></tr>
 <tr><td><strong>Game research results</strong></td><td data-label="How long">Kept to serve the guide again. Unlinked from you when your account is deleted.</td></tr>
+<tr><td><strong>Error reports</strong></td><td data-label="How long">90 days, then deleted automatically.</td></tr>
 <tr><td><strong>Service logs</strong></td><td data-label="How long">About 30 days. Logs record requests and errors, not your frames or recordings.</td></tr>
 <tr><td><strong>Founder Access, waitlist and support emails</strong></td><td data-label="How long">Until you ask us to remove them, and no longer than two years after your last contact.</td></tr>
 </table>
