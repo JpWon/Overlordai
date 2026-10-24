@@ -19,7 +19,7 @@
      supabase_row). -->
 <span class="lg__label">OVR · legal · privacy</span>
 <h1>Privacy<br><em>policy.</em></h1>
-<div class="lg__meta"><span>Version 2.6</span><span>Last updated 24 October 2026</span><span>Covers the app, the website and our cloud service</span></div>
+<div class="lg__meta"><span>Version 2.7</span><span>Last updated 24 October 2026</span><span>Covers the app, the website and our cloud service</span></div>
 <p class="lg__lede">Overlord AI watches your game to help you, so it handles your screen and, when you ask out loud, your voice. This policy says exactly what we collect, where it goes, how long it's kept and what you can do about it. We don't sell your personal information.</p>
 <div class="lg__toc"><b>Contents</b>
 <a href="#s1">1 Who we are</a> <span>·</span>
@@ -59,9 +59,11 @@
 <tr><td><strong>Licence, trial and usage records</strong></td><td data-label="When">While you use the app</td><td data-label="Where it goes">Supabase</td></tr>
 <tr><td><strong>Payment details</strong></td><td data-label="When">When you buy</td><td data-label="Where it goes">Our payment provider only, once paid plans open. We never see your card.</td></tr>
 <tr><td><strong>Error reports</strong></td><td data-label="When">When something in the app fails, after an update, and after each question you ask (how long each step took), while <strong>Send error reports</strong> is on in Settings (on unless you turn it off)</td><td data-label="Where it goes">Our cloud service, then Supabase; deleted after 90 days (section 6)</td></tr>
+<tr><td><strong>Support emails</strong></td><td data-label="When">When you email support@overlordai.co</td><td data-label="Where it goes">Read and answered with the help of Anthropic's Claude; replies may come from Claudia Prima, our AI support agent (see below)</td></tr>
 <tr><td><strong>Key presses, saves, game files, Steam achievement files</strong></td><td data-label="When">While you play</td><td data-label="Where it goes">Nowhere. They stay on your PC (section 5).</td></tr>
 </table>
 <p>Some questions you ask Overlord are answered by third-party AI providers. They receive only your question and facts about the game, never your name, email or account details.</p>
+<p><strong>Support emails are read and answered with the help of an AI provider</strong> (Anthropic). Replies may come from Claudia Prima, our AI support agent, and every email she writes is signed by her. Anything she can't solve, and anything about billing, refunds, your data or your account, goes to our team. Anthropic receives the emails you send to support@overlordai.co (your name, address and message) to read them and write or draft a reply; it never receives your password or payment details. Your conversation is kept on our cloud service and on our support team's work board (Trello) for as long as section 10 says.</p>
 <p><strong>Consult</strong> (the talking tab) is answered by <strong>DeepSeek</strong>. It gets your question as text (typed, or spoken and turned into text by Google Gemini), the game you're asking about, and our guide notes for that game. DeepSeek never receives pictures of your screen or your account details. If DeepSeek can't answer, Google Gemini answers instead, and a second AI may double-check the reply.</p>
 </section>
 
@@ -141,9 +143,9 @@
 <p>These companies process data for us, each only for the job listed:</p>
 <table class="lg-stack">
 <tr><th>Company</th><th>What it handles</th><th>Why</th></tr>
-<tr><td><strong>Google Cloud</strong> (Cloud Run, Vertex AI, Cloud Storage, Text-to-Speech, Gemini API)</td><td data-label="What it handles">Our cloud service, screen frames and voice recordings sent for reading, text of spoken answers, game research</td><td data-label="Why">Runs our service, reads frames, transcribes speech, makes the voice</td></tr>
+<tr><td><strong>Google Cloud</strong> (Cloud Run, Vertex AI, Cloud Storage, Text-to-Speech, Gemini API)</td><td data-label="What it handles">Our cloud service, screen frames and voice recordings sent for reading, text of spoken answers, game research, support conversations</td><td data-label="Why">Runs our service, reads frames, transcribes speech, makes the voice</td></tr>
 <tr><td><strong>DeepSeek</strong></td><td data-label="What it handles">Your Consult questions as text, with the game and our guide notes for it; when Gemini can't answer an F4 question, the question text, facts about the game and text read from your screen. Never frames or account details.</td><td data-label="Why">Writes Consult's answers; backup for F4 answers</td></tr>
-<tr><td><strong>Anthropic</strong> (Claude, through Anthropic's own service)</td><td data-label="What it handles">Game names and area names; some questions and answers, with the text read from your screen and sometimes one reduced-size picture of your screen; error reports, for the nightly review; never account details</td><td data-label="Why">Double-checks answers; reviews error reports</td></tr>
+<tr><td><strong>Anthropic</strong> (Claude, through Anthropic's own service)</td><td data-label="What it handles">Game names and area names; some questions and answers, with the text read from your screen and sometimes one reduced-size picture of your screen; error reports, for the nightly review; the support emails you send us; never account details</td><td data-label="Why">Double-checks answers; reviews error reports; reads and answers support emails</td></tr>
 <tr><td><strong>Supabase</strong></td><td data-label="What it handles">Account, licence, usage and progress records</td><td data-label="Why">Database and sign-in</td></tr>
 <tr><td><strong>Payment provider</strong> (named here when paid plans open)</td><td data-label="What it handles">Orders, payments, tax, receipts, refunds</td><td data-label="Why">Reseller and merchant of record</td></tr>
 <tr><td><strong>Vercel</strong></td><td data-label="What it handles">Website visits</td><td data-label="Why">Website hosting and analytics</td></tr>
@@ -152,6 +154,7 @@
 <tr><td><strong>Rewardful</strong></td><td data-label="What it handles">Referral codes, sign-ups through partners</td><td data-label="Why">Partner program</td></tr>
 <tr><td><strong>Resend, Railway</strong></td><td data-label="What it handles">Waitlist emails</td><td data-label="Why">Sending and receiving sign-ups</td></tr>
 <tr><td><strong>Proton</strong></td><td data-label="What it handles">Emails you send us</td><td data-label="Why">Our email</td></tr>
+<tr><td><strong>Trello</strong> (Atlassian)</td><td data-label="What it handles">Support conversations: your message, our reply, your first name and a shortened email address</td><td data-label="Why">Our support team's work board</td></tr>
 <tr><td><strong>GitHub</strong></td><td data-label="What it handles">Installer downloads</td><td data-label="Why">Hosting the app's downloads</td></tr>
 </table>
 <p>We may also share data if the law requires it, to protect our users or our service from fraud or abuse, or as part of a sale or merger of our business, in which case this policy would still apply to it.</p>
@@ -170,7 +173,7 @@
 <tr><td><strong>Game research results</strong></td><td data-label="How long">Kept to serve the guide again. Unlinked from you when your account is deleted.</td></tr>
 <tr><td><strong>Error reports</strong></td><td data-label="How long">90 days, then deleted automatically.</td></tr>
 <tr><td><strong>Service logs</strong></td><td data-label="How long">About 30 days. Logs record requests and errors, not your frames or recordings.</td></tr>
-<tr><td><strong>Founder Access, waitlist and support emails</strong></td><td data-label="How long">Until you ask us to remove them, and no longer than two years after your last contact.</td></tr>
+<tr><td><strong>Founder Access, waitlist and support emails</strong></td><td data-label="How long">Until you ask us to remove them, and no longer than two years after your last contact. This includes the copies of support conversations on our cloud service and our support board, which are deleted automatically two years after the last message. Anthropic keeps what it receives according to its own terms.</td></tr>
 </table>
 </section>
 
