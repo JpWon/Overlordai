@@ -16,6 +16,9 @@
     ? location.origin + '/dashboard.html'
     : (cfg.redirectTo || location.origin.replace(/\/$/, '') + '/dashboard.html');
 
+  /* The password-reset email links here (it must be in Supabase's redirect allow-list). */
+  const resetTo = location.origin.replace(/\/$/, '') + '/reset-password.html';
+
   /* A key worth using is long; anything shorter is the empty placeholder. */
   const configured = Boolean(lib && cfg.url && cfg.anonKey && cfg.anonKey.length > 40);
 
@@ -112,11 +115,19 @@
     return data;
   }
 
-  /* Password reset: Supabase emails a recovery link; the landing page picks the
-     session up out of the URL, same implicit flow as the provider hand-off. */
+  /* Password reset: Supabase emails a recovery link to reset-password.html, which picks
+     the session up out of the URL (same implicit flow as the provider hand-off) and lets
+     the player choose a new password with updatePassword(). */
   async function resetPassword(email) {
     if (!configured) throw new Error('sign-in is not configured on this host yet');
-    const { data, error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
+    const { data, error } = await client.auth.resetPasswordForEmail(email, { redirectTo: resetTo });
+    if (error) throw error;
+    return data;
+  }
+
+  async function updatePassword(password) {
+    if (!configured) throw new Error('sign-in is not configured on this host yet');
+    const { data, error } = await client.auth.updateUser({ password });
     if (error) throw error;
     return data;
   }
@@ -145,7 +156,7 @@
   window.OverlordAuth = {
     configured, redirectTo, gateDashboard: Boolean(cfg.gateDashboard),
     signIn, signInWithEmail, signUpWithEmail, signInWithOtp, session, signOut, onChange, provider,
-    resetPassword, resendConfirmation,
+    resetPassword, updatePassword, resendConfirmation,
     /* escape hatch for the per-page code */
     client: () => client
   };
