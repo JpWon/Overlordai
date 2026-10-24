@@ -987,7 +987,7 @@
           <div class="input"><input id="si-email" type="email" autocomplete="username" placeholder="you@domain.com" required></div></div>
         <button class="btn" type="button" id="oneClick" style="margin-top:.9rem">Sign in with one click <span class="arr">&rarr;</span></button>
         <p class="hint">No password &mdash; we email you a sign-in link.</p>
-        <div class="field"><label for="si-pass">Password <a href="#" id="forgotLink" style="color:inherit">Forgot password?</a></label>
+        <div class="field"><label for="si-pass">Password <a href="reset-password.html" id="forgotLink" style="color:inherit">Forgot password?</a></label>
           <div class="input"><input id="si-pass" type="password" autocomplete="current-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
             <button type="button" class="peek" data-peek="si-pass">Show</button></div></div>
         <label class="check"><input type="checkbox" id="remember" checked> Remember this device for 30 days</label>
@@ -1215,15 +1215,12 @@
     }
   });
 
+  /* Forgot password? opens reset-password.html (step 1 sends the email there); a typed
+     address is carried across so the player doesn't type it twice. */
   const forgot = document.getElementById('forgotLink');
-  if (forgot) forgot.addEventListener('click', async e => {
-    e.preventDefault();
+  if (forgot) forgot.addEventListener('click', () => {
     const e1 = (email.value || '').trim();
-    if (!e1) { say('Type your email above, then tap Forgot password.'); if (email) email.focus(); return; }
-    try {
-      await auth.resetPassword(e1);
-      say('If that address has an account, we\u2019ve sent a reset link. Check your inbox.', 'ok');
-    } catch (err) { say((err && err.message) || 'Could not send the reset link.'); }
+    try { if (e1) sessionStorage.setItem('ovr_email', e1); } catch (e) {}
   });
 
   /* One-click sign-in. The entry point sits directly under the email box: with an

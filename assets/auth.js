@@ -125,6 +125,14 @@
     return data;
   }
 
+  /* Step 2 of the reset page: the 8-digit code from the same email as the link. */
+  async function verifyRecoveryCode(email, token) {
+    if (!configured) throw new Error('sign-in is not configured on this host yet');
+    const { data, error } = await client.auth.verifyOtp({ email, token, type: 'recovery' });
+    if (error) throw error;
+    return data;
+  }
+
   async function updatePassword(password) {
     if (!configured) throw new Error('sign-in is not configured on this host yet');
     const { data, error } = await client.auth.updateUser({ password });
@@ -156,7 +164,7 @@
   window.OverlordAuth = {
     configured, redirectTo, gateDashboard: Boolean(cfg.gateDashboard),
     signIn, signInWithEmail, signUpWithEmail, signInWithOtp, session, signOut, onChange, provider,
-    resetPassword, updatePassword, resendConfirmation,
+    resetPassword, verifyRecoveryCode, updatePassword, resendConfirmation,
     /* escape hatch for the per-page code */
     client: () => client
   };
