@@ -1024,10 +1024,13 @@
      ceiling), abraxas_gateway.py + cloud/research_service.py (/vision relay to DeepSeek or Gemini, /consult,
      /speak, /research on Vertex), tactical_engine.transcribe_prayer_audio_cloud (F4 audio to Gemini),
      value_ledger.py, trial_sync.js (sha256 of machine-id), the site's gtag / Vercel Analytics / Rewardful
-     tags. Retention periods marked "proposed" in the PR are Eros's to confirm. Pending: attorney review. -->
+     tags. Retention periods marked "proposed" in the PR are Eros's to confirm. Pending: attorney review.
+     v2.3 (prayer-window capture, JP 2026-10-23, psyche prayer_window.py): the few seconds around a question,
+     read on the PC, up to four downscaled frames sent with it; the 30-second screen-text log on the PC.
+     The date below is the RELEASE day of the app version that ships it: set it then, never earlier. -->
 <span class="lg__label">OVR · legal · privacy</span>
 <h1>Privacy<br><em>policy.</em></h1>
-<div class="lg__meta"><span>Version 2.2</span><span>Last updated 23 October 2026</span><span>Covers the app, the website and our cloud service</span></div>
+<div class="lg__meta"><span>Version 2.3</span><span>Last updated RELEASE_DAY</span><span>Covers the app, the website and our cloud service</span></div>
 <p class="lg__lede">Overlord AI watches your game to help you, so it handles your screen and, when you ask out loud, your voice. This policy says exactly what we collect, where it goes, how long it's kept and what you can do about it. We don't sell your personal information.</p>
 <div class="lg__toc"><b>Contents</b>
 <a href="#s1">1 Who we are</a> <span>·</span>
@@ -1059,7 +1062,8 @@
 <h2>2 The short version</h2>
 <table class="lg-stack">
 <tr><th>What</th><th>When</th><th>Where it goes</th></tr>
-<tr><td><strong>Frames of your screen</strong></td><td data-label="When">Only while a game is running: when you ask, and automatically from time to time during play (section 3)</td><td data-label="Where it goes">Our cloud service, then Google Gemini to read them. Not stored by us.</td></tr>
+<tr><td><strong>Frames of your screen</strong></td><td data-label="When">Only while a game is running: the few seconds around each question you ask, and automatically from time to time during play (section 3)</td><td data-label="Where it goes">Our cloud service, then Google Gemini to read them. Not stored by us.</td></tr>
+<tr><td><strong>Text read from your screen</strong></td><td data-label="When">While a single-player game is running, read on your PC (section 3)</td><td data-label="Where it goes">Stays on your PC, except the text sent along with a question. Never saved.</td></tr>
 <tr><td><strong>Your voice</strong></td><td data-label="When">Only after you press F4 to ask out loud</td><td data-label="Where it goes">Our cloud service, then Google Gemini to turn it into text. Not stored by us.</td></tr>
 <tr><td><strong>Questions and answers as text</strong></td><td data-label="When">When you ask, or the app needs an answer</td><td data-label="Where it goes">Google Gemini or DeepSeek through our service; some answers are checked by a second AI provider (Google Gemini or Anthropic's Claude). Spoken answers are made on your PC, or through Google Cloud Text-to-Speech on a PC too slow for that (section 4)</td></tr>
 <tr><td><strong>Account details</strong></td><td data-label="When">When you sign up</td><td data-label="Where it goes">Supabase (our database and sign-in provider)</td></tr>
@@ -1075,12 +1079,13 @@
 <p><strong>You choose what Overlord AI can see.</strong> The first time, your operating system asks you to pick a screen to share. Overlord AI captures that whole screen (monitor), not just the game window, so close anything private on it or share a different screen. On Linux your choice is remembered so you aren't asked at every launch. Capture runs only while a game is running: it starts when Overlord AI detects your game and shuts off when it detects the game has closed. You can also stop it at any time from your system's screen-sharing controls or by closing the app.</p>
 <h3>When frames are sent</h3>
 <ul>
-<li><strong>When you ask.</strong> Pressing F4, or asking a question, sends the current frame with your question.</li>
+<li><strong>When you ask.</strong> When you ask Overlord a question (F4, or your controller's prayer button), it looks at your game for the few seconds you're speaking, reads the text on screen, and sends what it saw with your question so it can answer. Because a controller's button can open the game's menu, it also remembers the last few seconds before you pressed: while a single-player game is running, it keeps about 8 seconds of reduced-size frames in your PC's memory (RAM), replacing them as it goes. With your question it sends up to four of those frames, the ones that differ, plus the text read from them. Nothing is kept after the answer plays.</li>
+<li><strong>Between questions, on your PC only.</strong> To keep up with where you are, Overlord reads the text on your screen (area names, on-screen labels) every few seconds and keeps the last 30 seconds of it in memory. That text stays on your PC unless it's sent along with a question, and it's never saved.</li>
 <li><strong>Automatically, during play.</strong> To notice in-game conversations and keep its tip cards up to date, the app also checks the screen on its own: about every 15 seconds while you explore, slowing to once every 5 minutes when nothing turns up, and as often as every 4 seconds during an in-game conversation. A frame isn't sent if that part of the screen hasn't changed.</li>
 </ul>
 <h3>Where frames go</h3>
 <p>Frames go over an encrypted connection (HTTPS) to our cloud service on Google Cloud, which checks your sign-in and passes the frame to <strong>Google Gemini</strong> to read it. The answer comes back to your PC. Our service doesn't save frames. Google handles the frames it receives under its own terms (section 9). <strong>DeepSeek never receives frames:</strong> when Gemini can't answer, DeepSeek gets only the text read from your screen and facts about the game.</p>
-<p>Screen capture starts only when Overlord AI detects that a game is running, and it shuts off when it detects that the game has closed. Frames are held in short-term memory (RAM), never written to disk: older ones are deleted within about 30 seconds, the rest are discarded when capture shuts off, and nothing survives a restart. On Windows, frames are kept briefly in the system's temporary folder instead and are deleted within about 30 seconds. Overlord AI doesn't record video of your sessions.</p>
+<p>Screen capture starts only when Overlord AI detects that a game is running, and it shuts off when it detects that the game has closed. Frames are held in short-term memory (RAM), never written to disk: older ones are deleted within about 30 seconds, the rest are discarded when capture shuts off, and nothing survives a restart. On Windows, frames are kept briefly in the system's temporary folder instead and are deleted within about 30 seconds; the few seconds kept for your next question are in memory only. Online multiplayer games never get the few seconds of memory or the text reading. Overlord AI doesn't record video of your sessions, and it never stores what it saw.</p>
 </section>
 
 <section id="s4">
@@ -1162,7 +1167,8 @@
 <h2>10 How long we keep it</h2>
 <table class="lg-stack">
 <tr><th>Data</th><th>How long</th></tr>
-<tr><td><strong>Screen frames</strong></td><td data-label="How long">Up to about 30 seconds on your PC, held in RAM; discarded when the game closes and cleared by a restart. Not stored by our service. Google keeps what it receives according to its own terms.</td></tr>
+<tr><td><strong>Screen frames</strong></td><td data-label="How long">Up to about 30 seconds on your PC, held in RAM (the few seconds kept for your next question: about 8 seconds); discarded when the game closes and cleared by a restart. Not stored by our service. Google keeps what it receives according to its own terms.</td></tr>
+<tr><td><strong>Text read from your screen</strong></td><td data-label="How long">The last 30 seconds, in your PC's memory; discarded when the game closes. Never saved, on your PC or by our service.</td></tr>
 <tr><td><strong>Voice recordings</strong></td><td data-label="How long">One temporary file on your PC, overwritten by your next question. Not stored by our service.</td></tr>
 <tr><td><strong>Account, licence and progress records</strong></td><td data-label="How long">While your account is open. Deleted within 30 days after you ask us to delete your account.</td></tr>
 <tr><td><strong>Usage counts</strong></td><td data-label="How long">While your account is open, then deleted with it.</td></tr>
