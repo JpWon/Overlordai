@@ -1,3 +1,22 @@
+/* Owner opt-out for Vercel Web Analytics (JP 2026-10-24): visit any page with
+ * ?me=1 once and this browser's visits stop being counted (localStorage
+ * "overlord-me"); ?me=0 turns counting back on. It must run before
+ * /_vercel/insights/script.js, which is why it sits at the top of this file:
+ * consent.js loads synchronously in <head> ahead of that tag on every page. The
+ * pages keep their own `window.va = window.va || ...` line; this queue is the same.
+ */
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+(function () {
+  var me = false;
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('me') === '1') localStorage.setItem('overlord-me', '1');
+    if (q.get('me') === '0') localStorage.removeItem('overlord-me');
+    me = localStorage.getItem('overlord-me') === '1';
+  } catch (e) {}
+  if (me) window.va('beforeSend', function () { return null; });
+})();
+
 /* Cookie consent (2026-10-16).
  *
  * The site's three cookie-setting tags - Google Ads (gtag.js), the Reddit Ads
