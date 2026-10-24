@@ -125,7 +125,7 @@
     return data;
   }
 
-  /* Step 2 of the reset page: the 8-digit code from the same email as the link. */
+  /* Step 2 of the reset page: the 8-digit code from the reset email. */
   async function verifyRecoveryCode(email, token) {
     if (!configured) throw new Error('sign-in is not configured on this host yet');
     const { data, error } = await client.auth.verifyOtp({ email, token, type: 'recovery' });
