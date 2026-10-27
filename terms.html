@@ -56,7 +56,7 @@
       "email": "support@overlordai.co",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "411 W 1st St, Unit #5073",
+        "streetAddress": "411 W 1st St, Ste 5073",
         "addressLocality": "Sanford",
         "addressRegion": "FL",
         "postalCode": "32771",
@@ -853,6 +853,15 @@
     padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem);background:var(--page-background);}
   .site-footer__inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:2.2rem;}
   .site-footer__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;}
+  /* Footer sign-off (centered between the logo and the nav; soft warm gold, theme-aware) */
+  .site-footer__signoff{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.12rem;padding:0 1rem;}
+  .site-footer__signoff .ln{display:block;font-family:Georgia,'Times New Roman',serif;font-style:italic;}
+  .site-footer__signoff .ln--main{font-size:.95rem;line-height:1.3;letter-spacing:.01em;color:#D4A24E;}
+  .site-footer__signoff .ln--latin{font-size:.72rem;line-height:1.3;letter-spacing:.02em;margin-top:.1rem;color:#9c8a63;}
+  [data-theme="light"] .site-footer__signoff .ln--main{color:#8a5a1a;}
+  [data-theme="light"] .site-footer__signoff .ln--latin{color:#6f5a30;}
+  /* sign-off reveal: shared plasma-matrix reveal in /assets/signoff-reveal.js (plays on scroll-in) */
+  @media (max-width:900px){ .site-footer__signoff{flex-basis:100%;order:0;padding:.5rem 0;} }
   .site-footer__brand{display:flex;align-items:center;gap:.1rem;color:var(--neutral-on-background-strong);}
   .site-footer__text{display:flex;flex-direction:column;align-items:center;}
   .site-footer__name{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;line-height:1.3;}
@@ -1024,13 +1033,13 @@
      checked against the app's code that day. Pending: attorney review (Eros). -->
 <span class="lg__label">OVR · legal · terms</span>
 <h1>Terms of<br><em>service.</em></h1>
-<div class="lg__meta"><span>Version 2.0</span><span>Last updated 15 October 2026</span><span>Covers accounts, plans and payments</span></div>
+<div class="lg__meta"><span>Version 2.1</span><span>Last updated 27 October 2026</span><span>Covers accounts, plans and payments</span></div>
 <p class="lg__lede">These Terms are the agreement between you and Primus Enterprises LLC, doing business as Overlord AI, for your Overlord AI account, the plans you buy and the use of our service. The <a href="eula.html">End-user licence agreement</a> covers the desktop app itself, the <a href="privacy.html">Privacy Policy</a> covers your data, and the <a href="refunds.html">Refund Policy</a> covers refunds.</p>
-<div class="lg__toc"><b>Contents</b> <a href="#s1">1 Who we are</a> <span>·</span> <a href="#s2">2 What Overlord AI is</a> <span>·</span> <a href="#s3">3 Your account</a> <span>·</span> <a href="#s4">4 Founder Access, plans and the free trial</a> <span>·</span> <a href="#s5">5 Orders and payment</a> <span>·</span> <a href="#s6">6 Cancelling and refunds</a> <span>·</span> <a href="#s7">7 Acceptable use</a> <span>·</span> <a href="#s8">8 Game rules are your responsibility</a> <span>·</span> <a href="#s9">9 Games and trademarks</a> <span>·</span> <a href="#s10">10 AI answers</a> <span>·</span> <a href="#s11">11 Changes to the service</a> <span>·</span> <a href="#s12">12 Suspension and termination</a> <span>·</span> <a href="#s13">13 Disclaimers and liability</a> <span>·</span> <a href="#s14">14 Governing law</a> <span>·</span> <a href="#s15">15 Changes to these Terms</a> <span>·</span> <a href="#s16">16 Contact</a></div>
+<div class="lg__toc"><b>Contents</b> <a href="#s1">1 Who we are</a> <span>·</span> <a href="#s2">2 What Overlord AI is</a> <span>·</span> <a href="#s3">3 Your account</a> <span>·</span> <a href="#s4">4 Founder Access, plans and the free trial</a> <span>·</span> <a href="#s5">5 Orders and payment</a> <span>·</span> <a href="#s6">6 Cancelling and refunds</a> <span>·</span> <a href="#s7">7 Acceptable use</a> <span>·</span> <a href="#s8">8 Game rules are your responsibility</a> <span>·</span> <a href="#s9">9 Games and trademarks</a> <span>·</span> <a href="#s10">10 AI answers and AI support</a> <span>·</span> <a href="#s11">11 Changes to the service</a> <span>·</span> <a href="#s12">12 Suspension and termination</a> <span>·</span> <a href="#s13">13 Disclaimers and liability</a> <span>·</span> <a href="#s14">14 Governing law</a> <span>·</span> <a href="#s15">15 Changes to these Terms</a> <span>·</span> <a href="#s16">16 Contact</a></div>
 
 <section id="s1">
   <h2>1 Who we are</h2>
-  <p>Overlord AI is a registered fictitious name (dba) of <strong>Primus Enterprises LLC</strong>, a Florida limited liability company ("we", "us", "our"). Our business address is 411 W 1st St, Unit #5073, Sanford, FL 32771, United States, and our support email is <a href="mailto:support@overlordai.co">support@overlordai.co</a>.</p>
+  <p>Overlord AI is a registered fictitious name (dba) of <strong>Primus Enterprises LLC</strong>, a Florida limited liability company ("we", "us", "our"). Our business address is 411 W 1st St, Ste 5073, Sanford, FL 32771, United States, and our support email is <a href="mailto:support@overlordai.co">support@overlordai.co</a>.</p>
   <p>You accept these Terms when you create an account, claim Founder Access, start the free trial or buy a plan. If you don't accept them, please don't use Overlord AI.</p>
 </section>
 
@@ -1038,10 +1047,11 @@
   <h2>2 What Overlord AI is</h2>
   <p>Overlord AI is an AI guide companion for PC games. It watches your game (with your permission) to show tips, directions and answers on screen and by voice. It runs on Windows and Linux, and it needs an internet connection, because answers, game research and the voice come from our cloud service.</p>
   <ul>
-    <li><strong>It watches the screen you choose to share</strong> and sends screen frames to our cloud service, which uses AI models to answer. The <a href="privacy.html">Privacy Policy</a> explains exactly what is sent and where.</li>
+    <li><strong>It watches your game while you play.</strong> On Windows it watches the game’s window while the game is in front; on Linux it uses the screen you share. It sends screen frames to our cloud service, which uses AI models to answer. The <a href="privacy.html">Privacy Policy</a> explains exactly what is sent and where.</li>
     <li><strong>It doesn't play for you.</strong> It never presses keys, moves the mouse or otherwise controls a game.</li>
-    <li><strong>It doesn't change your games.</strong> It doesn't read or change game memory, change game files or inject code into a game process. It reads some game save and settings files without changing them.</li>
+    <li><strong>It doesn't change your games.</strong> It doesn't read or change game memory, change game files or inject code into a game process. It reads your save, quest, progress and settings files and your Steam achievement files, read-only, without changing them.</li>
     <li><strong>It isn't meant to give you an advantage in competitive online play.</strong> It's built for single-player games, and we don't make guides for competitive multiplayer games.</li>
+    <li><strong>It can speak up on its own.</strong> Overlord AI may show tips and, now and then, give a short spoken nudge without being asked. You can turn proactive tips off in Settings, or say “quiet for now” to pause them.</li>
   </ul>
 </section>
 
@@ -1125,11 +1135,13 @@
   <h2>9 Games and trademarks</h2>
   <p>Game names and trademarks belong to their respective owners. Overlord AI is not affiliated with or endorsed by any game publisher. We name games in plain text only to say which games our guides cover.</p>
   <p>The app, our game guides, the Overlord AI name and our rooster mark belong to us. These Terms don't give you any rights in them beyond using the service as described here and in the EULA.</p>
+  <p><strong>Copyright complaints.</strong> If you believe material on our website (for example a guide page) infringes your copyright, send a notice to <a href="mailto:legal@overlordai.co">legal@overlordai.co</a> or to our postal address (section 16) with: your name and contact details; identification of the copyrighted work; the location (URL) of the material you say infringes; a statement that you believe in good faith the use isn't authorised by the owner, its agent or the law; a statement, under penalty of perjury, that your notice is accurate and that you are the owner or authorised to act for the owner; and your physical or electronic signature. We respond to valid notices and may remove or disable the material.</p>
 </section>
 
 <section id="s10">
-  <h2>10 AI answers</h2>
+  <h2>10 AI answers and AI support</h2>
   <p>Overlord AI's answers come from AI models reading your screen and from guides researched from public sources. They can be wrong, incomplete or out of date. Treat them like advice from a strategy guide: the game itself is the final word.</p>
+  <p><strong>AI support.</strong> Replies to your support emails may come from Claudia Prima, our AI support agent; she signs every email she sends. Anything she can't solve — and anything about billing, refunds, your privacy or your account — goes to a person.</p>
 </section>
 
 <section id="s11">
@@ -1158,13 +1170,13 @@
 
 <section id="s15">
   <h2>15 Changes to these Terms</h2>
-  <p>We may update these Terms. The date at the top shows the latest version. For a material change, we'll email you at least 30 days before it takes effect. If you keep using Overlord AI after that, you accept the new Terms; if you don't accept them, cancel before they take effect.</p>
+  <p>We may update these Terms. The date at the top shows the latest version. For a material change, we'll email you at least 30 days before it takes effect. If you keep using Overlord AI after that, you accept the new Terms; if you don't accept them, cancel before they take effect. The 27 October 2026 update (v2.1) adds our AI-support and copyright-notice details and brings the service description in line with the current app; these are clarifications and don't reduce your rights.</p>
 </section>
 
 <section id="s16">
   <h2>16 Contact</h2>
-  <p>Overlord AI<br>411 W 1st St, Unit #5073, Sanford, FL 32771, United States<br><a href="mailto:support@overlordai.co">support@overlordai.co</a></p>
-  <p>Formal legal notices can go to that postal address or by email. Notices to you go to the email address on your account.</p>
+  <p>Overlord AI<br>411 W 1st St, Ste 5073, Sanford, FL 32771, United States<br><a href="mailto:support@overlordai.co">support@overlordai.co</a></p>
+  <p>Formal legal notices (including copyright complaints) can go to our postal address above or to <a href="mailto:legal@overlordai.co">legal@overlordai.co</a>. Notices to you go to the email address on your account.</p>
 </section>
 
 <p class="lg__end">Also see: <a href="privacy.html">Privacy Policy</a> · <a href="refunds.html">Refund Policy</a> · <a href="eula.html">End-user licence</a> · <a href="contact.html">Contact</a></p>
@@ -1175,6 +1187,10 @@
   <div class="site-footer__inner">
     <div class="site-footer__top">
       <div class="site-footer__brand"><span class="site-footer__mark" aria-hidden="true"></span><span class="site-footer__text"><span class="site-footer__name">Overlord <em>AI</em></span><span class="site-footer__tag">Live Gaming Companion</span><span class="site-footer__platforms">Linux and Windows</span></span></div>
+      <div class="site-footer__signoff" aria-label="Sign-off">
+        <span class="ln ln--main">A guide&rsquo;s foresight lights the road before your feet.</span>
+        <span class="ln ln--latin">Prōvidentia ducis viam ante pedēs illūminat.</span>
+      </div>
       <nav class="site-footer__nav">
         <a href="index.html#top">Home</a>
         <a href="index.html#work">Preview</a>
@@ -1196,7 +1212,7 @@
         <a href="/featured">Featured on</a>
         <a href="/guides/">Guides</a>
       </div>
-      <p class="site-footer__credit" style="margin:0 0 0 auto;line-height:1.6;">&copy; 2026 Primus Enterprises LLC, dba Overlord AI</p>
+      <p class="site-footer__credit" style="margin:0 0 0 auto;line-height:1.6;">&copy; 2026 Primus Enterprises LLC, dba Overlord AI &middot; 411 W 1st St, Ste 5073, Sanford, FL 32771 &middot; support@overlordai.co</p>
     </div>
   </div>
 </footer>
@@ -1339,5 +1355,6 @@
   opts.forEach(b => b.addEventListener('click', () => apply(b.dataset.period)));
 })();
 </script>
+  <script src="/assets/signoff-reveal.js" defer></script>
 </body>
 </html>

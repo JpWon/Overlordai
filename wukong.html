@@ -402,6 +402,15 @@
     padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem);background:var(--page-background);}
   .site-footer__inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:2.2rem;}
   .site-footer__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;}
+  /* Footer sign-off (centered between the logo and the nav; soft warm gold, theme-aware) */
+  .site-footer__signoff{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.12rem;padding:0 1rem;}
+  .site-footer__signoff .ln{display:block;font-family:Georgia,'Times New Roman',serif;font-style:italic;}
+  .site-footer__signoff .ln--main{font-size:.95rem;line-height:1.3;letter-spacing:.01em;color:#D4A24E;}
+  .site-footer__signoff .ln--latin{font-size:.72rem;line-height:1.3;letter-spacing:.02em;margin-top:.1rem;color:#9c8a63;}
+  [data-theme="light"] .site-footer__signoff .ln--main{color:#8a5a1a;}
+  [data-theme="light"] .site-footer__signoff .ln--latin{color:#6f5a30;}
+  /* sign-off reveal: shared plasma-matrix reveal in /assets/signoff-reveal.js (plays on scroll-in) */
+  @media (max-width:900px){ .site-footer__signoff{flex-basis:100%;order:0;padding:.5rem 0;} }
   .site-footer__brand{display:flex;align-items:center;gap:.1rem;color:var(--neutral-on-background-strong);}
   .site-footer__text{display:flex;flex-direction:column;align-items:center;}
   .site-footer__name{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;line-height:1.3;}
@@ -752,6 +761,10 @@
   <div class="site-footer__inner">
     <div class="site-footer__top">
       <div class="site-footer__brand"><span class="site-footer__mark" aria-hidden="true"></span><span class="site-footer__text"><span class="site-footer__name">Overlord <em>AI</em></span><span class="site-footer__tag">Live Gaming Companion</span><span class="site-footer__platforms">Linux and Windows</span></span></div>
+      <div class="site-footer__signoff" aria-label="Sign-off">
+        <span class="ln ln--main">A guide&rsquo;s foresight lights the road before your feet.</span>
+        <span class="ln ln--latin">Prōvidentia ducis viam ante pedēs illūminat.</span>
+      </div>
       <nav class="site-footer__nav">
         <a href="index.html#top">Home</a>
         <a href="index.html#work">Preview</a>
@@ -775,7 +788,7 @@
         <a href="/featured">Featured on</a>
         <a href="/guides/">Guides</a>
       </div>
-      <p class="site-footer__credit" style="margin:0 0 0 auto;line-height:1.6;">&copy; 2026 Overlord AI</p>
+      <p class="site-footer__credit" style="margin:0 0 0 auto;line-height:1.6;">&copy; 2026 Primus Enterprises LLC, dba Overlord AI &middot; 411 W 1st St, Ste 5073, Sanford, FL 32771 &middot; support@overlordai.co</p>
     </div>
   </div>
 </footer>
@@ -860,5 +873,6 @@
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
 })();
 </script>
+  <script src="/assets/signoff-reveal.js" defer></script>
 </body>
 </html>

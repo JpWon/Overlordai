@@ -56,7 +56,7 @@
       "email": "support@overlordai.co",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "411 W 1st St, Unit #5073",
+        "streetAddress": "411 W 1st St, Ste 5073",
         "addressLocality": "Sanford",
         "addressRegion": "FL",
         "postalCode": "32771",
@@ -853,6 +853,15 @@
     padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem);background:var(--page-background);}
   .site-footer__inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:2.2rem;}
   .site-footer__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;}
+  /* Footer sign-off (centered between the logo and the nav; soft warm gold, theme-aware) */
+  .site-footer__signoff{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.12rem;padding:0 1rem;}
+  .site-footer__signoff .ln{display:block;font-family:Georgia,'Times New Roman',serif;font-style:italic;}
+  .site-footer__signoff .ln--main{font-size:.95rem;line-height:1.3;letter-spacing:.01em;color:#D4A24E;}
+  .site-footer__signoff .ln--latin{font-size:.72rem;line-height:1.3;letter-spacing:.02em;margin-top:.1rem;color:#9c8a63;}
+  [data-theme="light"] .site-footer__signoff .ln--main{color:#8a5a1a;}
+  [data-theme="light"] .site-footer__signoff .ln--latin{color:#6f5a30;}
+  /* sign-off reveal: shared plasma-matrix reveal in /assets/signoff-reveal.js (plays on scroll-in) */
+  @media (max-width:900px){ .site-footer__signoff{flex-basis:100%;order:0;padding:.5rem 0;} }
   .site-footer__brand{display:flex;align-items:center;gap:.1rem;color:var(--neutral-on-background-strong);}
   .site-footer__text{display:flex;flex-direction:column;align-items:center;}
   .site-footer__name{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;line-height:1.3;}
@@ -1025,14 +1034,19 @@
 
 <span class="lg__label">OVR · legal · EULA</span>
 <h1>End-user<br><em>licence.</em></h1>
-<div class="lg__meta"><span>Version 2.0</span><span>Last updated 15 October 2026</span><span>Applies to the Overlord AI desktop app for Windows and Linux</span></div>
+<div class="lg__meta"><span>Version 2.1</span><span>Last updated 27 October 2026</span><span>Applies to the Overlord AI desktop app for Windows and Linux</span></div>
 <p class="lg__lede">This licence is the agreement between you and Primus Enterprises LLC, dba Overlord AI, for the Overlord AI desktop app. Your account, plans and payments are covered by the <a href="terms.html">Terms of Service</a>, and your data by the <a href="privacy.html">Privacy Policy</a>.</p>
 <div class="lg__toc"><b>Contents</b> <a href="#s1">1 The app</a> · <a href="#s2">2 Your licence</a> · <a href="#s3">3 What you may not do</a> · <a href="#s4">4 The free trial</a> · <a href="#s5">5 Third-party components</a> · <a href="#s6">6 Updates</a> · <a href="#s7">7 Our property</a> · <a href="#s8">8 Your data</a> · <a href="#s9">9 Support</a> · <a href="#s10">10 Warranties</a> · <a href="#s11">11 Liability</a> · <a href="#s12">12 Termination</a> · <a href="#s13">13 Changes</a> · <a href="#s14">14 Governing law</a> · <a href="#s15">15 Contact</a></div>
 
 <section id="s1">
 <h2>1 · The app</h2>
 <p>Overlord AI is an AI guide companion for PC games. The app watches your game (with your permission) to show tips, directions and answers on screen and by voice. It runs beside your game on Windows or Linux, and it needs an internet connection and an Overlord AI account, because answers, game research and the voice come from our cloud service.</p>
-<p>The app watches the screen you choose to share, only while a game is running, and reads some game save and settings files without changing them. It doesn't read or change game memory, doesn't change game files, doesn't inject code into a game process, and never sends key presses or mouse movements to a game. It's built for single-player games and isn't meant to give anyone an advantage in competitive online play.</p>
+<p>While a game is running, the app watches your screen to help you. On Windows it looks at the game's own window while the game is the window in front &mdash; around the moments you ask (a &ldquo;prayer&rdquo;) and about once a second during in-game conversations and while your character is standing still. On Linux it uses the screen you share. Frames and the text read from the screen are held in memory only and are not stored.</p>
+<p>To know your game and where you are in it, the app reads &mdash; read-only &mdash; your save files, your game's quest and progress files, its settings files, your Steam achievement files, and the game's own data files on your PC. It never changes a save or a game file and never uploads a raw save or data file. It doesn't read or change game memory, doesn't inject code into a game process, and never sends key presses or mouse movements to a game. It's built for single-player games and isn't meant to give anyone an advantage in competitive online play.</p>
+<p>The co-pilot's spoken voice is produced on your PC by a bundled voice model; a cloud voice is used only as a fallback. When you ask out loud (F4 or the prayer button, or the microphone in Consult), the recording is sent to be turned into text so the app can answer.</p>
+<p>The app runs in the background: on Windows it starts with your computer (the Auto Engine is on by default) and watches quietly for a game to open &mdash; choosing &ldquo;Close&rdquo; from the tray keeps it watching, and turning the Auto Engine off stops it. On Windows it updates itself while you aren't playing.</p>
+<p>Overlord AI may offer tips on its own &mdash; cards on the screen and, now and then, a short spoken nudge &mdash; built from what it sees in your game. You can turn proactive tips off in Settings, or say &ldquo;quiet for now&rdquo; to pause them.</p>
+<p>If &ldquo;Send error reports&rdquo; is on (it is on unless you turn it off), the app sends short error reports so we can fix what breaks, as described in the <a href="privacy.html">Privacy Policy</a>, section 6.</p>
 <p>You must be at least 13 to accept this licence. If you're under the age of majority where you live, a parent or guardian accepts it for you.</p>
 </section>
 
@@ -1073,7 +1087,10 @@
 <tr><td><strong>Google Cloud</strong> (Gemini, Text-to-Speech, Vertex AI)</td><td>Reading frames, speech to text, the voice, game research</td></tr>
 <tr><td><strong>DeepSeek</strong></td><td>Reading frames and writing answers</td></tr>
 <tr><td><strong>Supabase</strong></td><td>Accounts and sign-in</td></tr>
-<tr><td><strong>Steam</strong></td><td>Detecting which game you're playing (Steam is Valve's; Overlord AI isn't affiliated with Valve)</td></tr>
+<tr><td><strong>Anthropic</strong> (Claude)</td><td>Double-checking answers, the nightly error-report review, and reading and answering support emails</td></tr>
+<tr><td><strong>Kokoro</strong></td><td>The co-pilot's voice, generated on your PC</td></tr>
+<tr><td><strong>Windows OCR</strong></td><td>Reading on-screen text on your PC (Windows)</td></tr>
+<tr><td><strong>Steam</strong>, <strong>GOG Galaxy</strong>, <strong>Epic Games Launcher</strong></td><td>Detecting which game you're playing, from their install records (each launcher belongs to its owner; Overlord AI isn't affiliated with Valve, GOG or Epic)</td></tr>
 </table>
 <p>Open-source components keep their own licences, and where a licence requires a notice to travel with the app, it does. Game names and trademarks belong to their respective owners. Overlord AI is not affiliated with or endorsed by any game publisher, and the app doesn't ship any game's assets.</p>
 </section>
@@ -1095,7 +1112,7 @@
 
 <section id="s9">
 <h2>9 · Support</h2>
-<p>Email <a href="mailto:support@overlordai.co">support@overlordai.co</a>. We aim to reply within two business days. Support covers the app we publish, on a plan or trial from us, on Windows and Linux.</p>
+<p>Email <a href="mailto:support@overlordai.co">support@overlordai.co</a>. We aim to reply within 4 hours, usually do within 16, and always within 24. Support covers the app we publish, on a plan or trial from us, on Windows and Linux.</p>
 </section>
 
 <section id="s10">
@@ -1126,7 +1143,7 @@
 
 <section id="s15">
 <h2>15 · Contact</h2>
-<p>Overlord AI<br>411 W 1st St, Unit #5073, Sanford, FL 32771, United States<br><a href="mailto:support@overlordai.co">support@overlordai.co</a></p>
+<p>Overlord AI<br>411 W 1st St, Ste 5073, Sanford, FL 32771, United States<br><a href="mailto:support@overlordai.co">support@overlordai.co</a></p>
 </section>
 
 <p class="lg__end">Also see: <a href="terms.html">Terms of Service</a> · <a href="privacy.html">Privacy Policy</a> · <a href="refunds.html">Refund Policy</a> · <a href="contact.html">Contact</a></p>
@@ -1137,6 +1154,10 @@
   <div class="site-footer__inner">
     <div class="site-footer__top">
       <div class="site-footer__brand"><span class="site-footer__mark" aria-hidden="true"></span><span class="site-footer__text"><span class="site-footer__name">Overlord <em>AI</em></span><span class="site-footer__tag">Live Gaming Companion</span><span class="site-footer__platforms">Linux and Windows</span></span></div>
+      <div class="site-footer__signoff" aria-label="Sign-off">
+        <span class="ln ln--main">A guide&rsquo;s foresight lights the road before your feet.</span>
+        <span class="ln ln--latin">Prōvidentia ducis viam ante pedēs illūminat.</span>
+      </div>
       <nav class="site-footer__nav">
         <a href="index.html#top">Home</a>
         <a href="index.html#work">Preview</a>
@@ -1158,7 +1179,7 @@
         <a href="/featured">Featured on</a>
         <a href="/guides/">Guides</a>
       </div>
-      <p class="site-footer__credit" style="margin:0 0 0 auto;line-height:1.6;">&copy; 2026 Primus Enterprises LLC, dba Overlord AI</p>
+      <p class="site-footer__credit" style="margin:0 0 0 auto;line-height:1.6;">&copy; 2026 Primus Enterprises LLC, dba Overlord AI &middot; 411 W 1st St, Ste 5073, Sanford, FL 32771 &middot; support@overlordai.co</p>
     </div>
   </div>
 </footer>
@@ -1301,5 +1322,6 @@
   opts.forEach(b => b.addEventListener('click', () => apply(b.dataset.period)));
 })();
 </script>
+  <script src="/assets/signoff-reveal.js" defer></script>
 </body>
 </html>
