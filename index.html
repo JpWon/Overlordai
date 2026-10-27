@@ -1219,18 +1219,7 @@
   .site-footer__signoff .ln--latin{font-size:.72rem;line-height:1.3;letter-spacing:.02em;margin-top:.1rem;color:#9c8a63;}
   [data-theme="light"] .site-footer__signoff .ln--main{color:#8a5a1a;}
   [data-theme="light"] .site-footer__signoff .ln--latin{color:#6f5a30;}
-  /* the site's unfold reveal (same letter-drop geometry as the titles), script-free, on scroll-in */
-  @keyframes sf-unfold{from{opacity:0;transform:translateY(-.3em) scaleY(.5);}to{opacity:1;transform:none;}}
-  @media (prefers-reduced-motion: no-preference){
-    @supports (animation-timeline: view()){
-      .site-footer__signoff .ln{transform-origin:top center;animation:sf-unfold .7s cubic-bezier(.45,0,.25,1) both;animation-timeline:view();animation-range:entry 5% entry 85%;}
-      .site-footer__signoff .ln--latin{animation-range:entry 22% entry 100%;}
-    }
-    @supports not (animation-timeline: view()){
-      .site-footer__signoff .ln{transform-origin:top center;animation:sf-unfold .7s cubic-bezier(.45,0,.25,1) both;}
-      .site-footer__signoff .ln--latin{animation-delay:.18s;}
-    }
-  }
+  /* sign-off reveal: the shared plasma-matrix reveal in /assets/signoff-reveal.js (plays on scroll-in) */
   @media (max-width:900px){ .site-footer__signoff{flex-basis:100%;order:0;padding:.5rem 0;} }
   .site-footer__brand{display:flex;align-items:center;gap:.1rem;color:var(--neutral-on-background-strong);}
   .site-footer__text{display:flex;flex-direction:column;align-items:center;}
@@ -1711,17 +1700,17 @@
   <div class="plainsec__inner">
     <!-- One slow sequence, in reading order (data-mx-seq): each heading resolves, then its text
          fades in, then the next starts. Slower on purpose so the "is it cheating?" answers get read. -->
-    <span class="plainsec__label mx" data-mx-seq="plain" data-mx-slow="1.6">In plain words</span>
-    <h2 class="mx" data-mx-seq="plain" data-mx-slow="2.4">What Overlord AI <em>is.</em></h2>
-    <p class="plainsec__lede mxf mxf--slow" data-mx-seq="plain">Overlord AI is an AI guide companion for PC games. It watches your game (with your permission) to show tips, directions and answers on screen and by voice. Think of the strategy guide that used to sit next to the console, rewritten as a voice that plays alongside you.</p>
+    <span class="plainsec__label mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.6">In plain words</span>
+    <h2 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2.4">What Overlord AI <em>is.</em></h2>
+    <p class="plainsec__lede mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Overlord AI is an AI guide companion for PC games. It watches your game (with your permission) to show tips, directions and answers on screen and by voice. Think of the strategy guide that used to sit next to the console, rewritten as a voice that plays alongside you.</p>
     <div class="plainsec__facts">
-      <div><h3 class="mx" data-mx-seq="plain" data-mx-slow="2">Who it's for</h3><p class="mxf mxf--slow" data-mx-seq="plain">Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
-      <div><h3 class="mx" data-mx-seq="plain" data-mx-slow="2">Platforms</h3><p class="mxf mxf--slow" data-mx-seq="plain">Windows 10/11 (64-bit), an installer, and Linux (Ubuntu/Debian, a .deb package). Every feature works on both.</p></div>
+      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">Who it's for</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
+      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">Platforms</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Windows 10/11 (64-bit), an installer, and Linux (Ubuntu/Debian, a .deb package). Every feature works on both.</p></div>
     </div>
     <div class="plainsec__lists">
       <div>
-        <h3 class="mx" data-mx-seq="plain" data-mx-slow="2">What Overlord AI does</h3>
-        <ul class="mxf mxf--slow" data-mx-seq="plain">
+        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">What Overlord AI does</h3>
+        <ul class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Watches the screen you choose to share</button><div class="xp__more"><p>Only while your game is running, to work out where you are and what's happening.</p></div></li>
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Shows tip cards on screen</button><div class="xp__more"><p>Directions, loot, combos and conversation choices.</p></div></li>
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Talks to you</button><div class="xp__more"><p>It speaks answers out loud, and listens when you press F4 and ask.</p></div></li>
@@ -1729,8 +1718,8 @@
         </ul>
       </div>
       <div>
-        <h3 class="mx" data-mx-seq="plain" data-mx-slow="2">What it doesn't do</h3>
-        <ul class="mxf mxf--slow" data-mx-seq="plain">
+        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">What it doesn't do</h3>
+        <ul class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't play for you</button><div class="xp__more"><p>It never presses keys, moves the mouse or controls the game.</p></div></li>
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't change the game</button><div class="xp__more"><p>No changes to game memory or game files, and no code injected into the game.</p></div></li>
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't run in online multiplayer games</button><div class="xp__more"><p>It checks each game when it launches and refuses the online multiplayer ones; it's built for single-player games. See <a href="fair-play.html">Fair play</a>.</p></div></li>
@@ -2298,12 +2287,13 @@
   const io = new IntersectionObserver(entries => {
     for (const e of entries){
       if (!e.isIntersecting) continue;
+      if (e.intersectionRatio < (+e.target.dataset.mxAt || .6)) continue;   // section 2 starts at .25 (was .6)
       io.unobserve(e.target);
       const list = state.get(e.target);
       if (list) playSeq(list);
       else play(e.target);
     }
-  }, {threshold:.6, rootMargin:'0px 0px -8% 0px'});
+  }, {threshold:[.25,.6], rootMargin:'0px 0px -8% 0px'});
   /* Each heading and paragraph is watched on its own (they're small), never a whole section:
      #intro is far taller than the screen, so a threshold on it could never fire. */
   heads.forEach(el => io.observe(el));
@@ -2826,5 +2816,6 @@
 })();
 </script>
 
+  <script src="/assets/signoff-reveal.js" defer></script>
 </body>
 </html>
