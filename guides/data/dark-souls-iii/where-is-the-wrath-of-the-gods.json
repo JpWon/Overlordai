@@ -1,0 +1,63 @@
+{
+  "slug": "where-is-the-wrath-of-the-gods",
+  "game": "dark-souls-iii",
+  "game_title": "DARK SOULS III",
+  "game_page": "/soulslike.html",
+  "store_url": "https://store.steampowered.com/app/374320/",
+  "query": "where is the wrath of the gods in dark souls iii?",
+  "title": "Where to Find the Wrath of the Gods Miracle in Dark Souls 3",
+  "meta_desc": "Find the Wrath of the Gods miracle in Dark Souls 3. This guide shows you the exact path to its location in the Profaned Capital, starting from the bonfire.",
+  "published_at": "2026-10-28",
+  "atlas": {
+    "app_id": "374320",
+    "updated": "2026-10-17"
+  },
+  "intro": "The Wrath of the Gods is a powerful miracle that lets the caster create a massive, repelling shockwave. This can be an invaluable tool for faith-based characters who need some breathing room in a fight. To add this spell to your arsenal, you'll need to journey to the Profaned Capital, a treacherous area that holds many secrets and valuable items beyond just this miracle.",
+  "intro_ref": [
+    "loot/wrath_of_the_gods",
+    "rooms/profaned_capital"
+  ],
+  "steps": [
+    {
+      "heading": "Starting from the Profaned Capital Bonfire",
+      "text": "Your journey begins at the Profaned Capital bonfire, which serves as the main checkpoint for this region. Before you head toward the Wrath of the Gods, you can find a couple of other items very close to your starting point. Sliding down the interior ladder near the bonfire will lead you to a corpse holding the Profaned Flame pyromancy spell. From the bonfire, you'll need to descend into the toxic swamp below to proceed. Be mindful of the environment, as a corpse tucked into a corner by a wooden bridge in the swamp holds the Cursebite Ring, which increases your resistance to curses.",
+      "atlas_ref": [
+        "rooms/profaned_capital",
+        "loot/profaned_flame",
+        "loot/cursebite_ring"
+      ]
+    },
+    {
+      "heading": "Crossing the Swamp to the Cathedral",
+      "text": "After navigating the toxic swamp, your next destination is a large cathedral-like building. Inside one of the main rooms, you will encounter a large creature called a Monstrosity of Sin. Defeating this beast will reward you with the Eleonora axe, a weapon with a life-stealing Skill. After dealing with the monster, look for a ladder on the side of the building that leads up to the roof. This rooftop area is key to finding not only the Wrath of the Gods but several other important items as well.",
+      "atlas_ref": [
+        "loot/eleonora",
+        "loot/wrath_of_the_gods",
+        "loot/jailer_s_key_ring"
+      ]
+    },
+    {
+      "heading": "Navigating the Cathedral Roof",
+      "text": "Once you're on the cathedral roof, you have a few paths to explore. A hostile Court Sorcerer NPC can be found up here, and defeating them will grant you Logan's Scroll, which can be given to Orbeck of Vinheim to unlock new sorceries. Nearby, a hallway on the rooftop leads to the Jailer's Key Ring, a key item used to open cells back in the Irithyll Dungeon. Another path involves leaping from the roof through an open window into a cell, where you can find the Covetous Gold Serpent Ring. To find the Wrath of the Gods, you'll need to locate a hole in the center of the roof's floor.",
+      "atlas_ref": [
+        "loot/logan_s_scroll",
+        "loot/jailer_s_key_ring",
+        "loot/covetous_gold_serpent_ring",
+        "loot/wrath_of_the_gods"
+      ]
+    },
+    {
+      "heading": "The Altar Below",
+      "text": "Your final step is to carefully drop through the central opening in the cathedral roof. This will place you on top of an altar in the room below. On this very altar, you will find the Wrath of the Gods miracle waiting for you. Picking it up will teach you the spell, completing your search and adding its powerful shockwave ability to your collection.",
+      "atlas_ref": [
+        "loot/wrath_of_the_gods"
+      ]
+    }
+  ],
+  "outro": "With the path through the Profaned Capital now clear, you can make use of this classic and formidable miracle on your journey.",
+  "outro_ref": [
+    "loot/wrath_of_the_gods"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": []
+}
