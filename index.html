@@ -1158,6 +1158,10 @@
   .plainsec a{color:var(--accent);}
   .plainsec__lists li strong{color:var(--neutral-on-background-strong);font-weight:600;}
   @media (max-width:760px){.plainsec__facts,.plainsec__lists{grid-template-columns:1fr;}}
+  /* when the plain description sits inside section 2's rows (between ROW 02 and ROW 03) it must
+     run the full width of the rows column and take its vertical spacing from .vp-rows' gap,
+     not from its own big section padding — otherwise it opens a dead gap between the rows */
+  .vp-rows > .plainsec.vp-inline-plain{width:100%;padding:0;}
 
   /* each does/doesn't line shows its lead; hover (mouse), tap or keyboard focus unfolds the
      detail. Hover only where the device really hovers. */
@@ -1235,7 +1239,7 @@
   .site-footer__nav{display:flex;flex-wrap:wrap;gap:1.6rem;}
   .site-footer__nav a{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--neutral-on-background-weak);transition:color .35s ease;}
   .site-footer__nav a:hover{color:var(--accent);}
-  .site-footer__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;
+  .site-footer__bottom{display:flex;flex-direction:column;flex-wrap:wrap;justify-content:center;align-items:center;text-align:center;gap:1rem;
     padding-top:1.8rem;border-top:1px solid var(--neutral-alpha-weak);
     font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
   .site-footer__bottom .legal{display:flex;flex-wrap:wrap;gap:1.4rem;}
@@ -1395,7 +1399,7 @@
       </div>
     </div>
     <div class="drip-line"><span class="txt mx" data-mx-slow="1.5">Stuck on level one?</span></div>
-    <div class="drip-line"><span class="txt mx" data-mx-delay="900" data-mx-slow="1.5">Overlord <span class="accent">has</span> your back.</span></div>
+    <div class="drip-line"><span class="txt mx" data-mx-delay="900" data-mx-slow="1.5">Overlord <span class="accent">has your back.</span></span></div>
     <p class="vp-lede rv" style="--d:.45s; max-width:680px; margin:24px auto 0; font-size:1.15rem; line-height:1.7; color:var(--neutral-on-background-weak); text-align:center;">
       You bought the brutally hard <strong>$70 game</strong> everyone was raving about. You don't have 100 hours to "git-gud" between work and life. Overlord watches your screen in real time, calling out bosses, routing hidden loot, and timing your counters—<strong>before you hit the wall and quit.</strong>
     </p>
@@ -1554,6 +1558,41 @@
       </div>
     </div>
 
+<!-- ============ 2b · what Overlord AI is, plainly (payment-provider review, 2026-10-16) ============ -->
+<section class="plainsec vp-inline-plain" id="what">
+  <div class="plainsec__inner">
+    <!-- One slow sequence, in reading order (data-mx-seq): each heading resolves, then its text
+         fades in, then the next starts. Slower on purpose so the "is it cheating?" answers get read. -->
+    <span class="plainsec__label mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.6">In plain words</span>
+    <h2 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2.4">What Overlord AI <em>is.</em></h2>
+    <p class="plainsec__lede mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Overlord AI is an AI guide companion for PC games. It watches your game (with your permission) to show tips, directions and answers on screen and by voice. Think of the strategy guide that used to sit next to the console, rewritten as a voice that plays alongside you.</p>
+    <div class="plainsec__facts">
+      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">Who it's for</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
+      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">Platforms</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Windows 10/11 (64-bit), an installer, and Linux (Ubuntu/Debian, a .deb package). Every feature works on both.</p></div>
+    </div>
+    <div class="plainsec__lists">
+      <div>
+        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">What Overlord AI does</h3>
+        <ul class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Watches your game while you play</button><div class="xp__more"><p>Only while your game is running, to work out where you are and what's happening.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Shows tip cards on screen</button><div class="xp__more"><p>Directions, loot, combos and conversation choices.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Talks to you</button><div class="xp__more"><p>It speaks answers out loud, and listens when you press F4 and ask.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Reads your game's save and settings files</button><div class="xp__more"><p>Without changing them, to follow your progress and your button layout.</p></div></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">What it doesn't do</h3>
+        <ul class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't play for you</button><div class="xp__more"><p>It never presses keys, moves the mouse or controls the game.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't change the game</button><div class="xp__more"><p>No changes to game memory or game files, and no code injected into the game.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't run in online multiplayer games</button><div class="xp__more"><p>It checks each game when it launches and refuses the online multiplayer ones; it's built for single-player games. See <a href="fair-play.html">Fair play</a>.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't record your sessions</button><div class="xp__more"><p>It only watches while your game is running and shuts off when the game closes. Frames are held in short-term memory and deleted within about 30 seconds, and our servers don't store them. See the <a href="privacy.html">Privacy Policy</a>.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
     <!-- ROW 03: LOOT TIPS -->
     <div class="vp-row rv">
       <figure class="vp-media" data-slot="loot-radar">
@@ -1690,41 +1729,6 @@
             <div class="feat-desc">Shows the precise rapport path to unlock hidden stock and max discounts.</div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 2b · what Overlord AI is, plainly (payment-provider review, 2026-10-16) ============ -->
-<section class="plainsec" id="what">
-  <div class="plainsec__inner">
-    <!-- One slow sequence, in reading order (data-mx-seq): each heading resolves, then its text
-         fades in, then the next starts. Slower on purpose so the "is it cheating?" answers get read. -->
-    <span class="plainsec__label mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.6">In plain words</span>
-    <h2 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2.4">What Overlord AI <em>is.</em></h2>
-    <p class="plainsec__lede mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Overlord AI is an AI guide companion for PC games. It watches your game (with your permission) to show tips, directions and answers on screen and by voice. Think of the strategy guide that used to sit next to the console, rewritten as a voice that plays alongside you.</p>
-    <div class="plainsec__facts">
-      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">Who it's for</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
-      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">Platforms</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Windows 10/11 (64-bit), an installer, and Linux (Ubuntu/Debian, a .deb package). Every feature works on both.</p></div>
-    </div>
-    <div class="plainsec__lists">
-      <div>
-        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">What Overlord AI does</h3>
-        <ul class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">
-          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Watches your game while you play</button><div class="xp__more"><p>Only while your game is running, to work out where you are and what's happening.</p></div></li>
-          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Shows tip cards on screen</button><div class="xp__more"><p>Directions, loot, combos and conversation choices.</p></div></li>
-          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Talks to you</button><div class="xp__more"><p>It speaks answers out loud, and listens when you press F4 and ask.</p></div></li>
-          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Reads your game's save and settings files</button><div class="xp__more"><p>Without changing them, to follow your progress and your button layout.</p></div></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">What it doesn't do</h3>
-        <ul class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">
-          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't play for you</button><div class="xp__more"><p>It never presses keys, moves the mouse or controls the game.</p></div></li>
-          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't change the game</button><div class="xp__more"><p>No changes to game memory or game files, and no code injected into the game.</p></div></li>
-          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't run in online multiplayer games</button><div class="xp__more"><p>It checks each game when it launches and refuses the online multiplayer ones; it's built for single-player games. See <a href="fair-play.html">Fair play</a>.</p></div></li>
-          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't record your sessions</button><div class="xp__more"><p>It only watches while your game is running and shuts off when the game closes. Frames are held in short-term memory and deleted within about 30 seconds, and our servers don't store them. See the <a href="privacy.html">Privacy Policy</a>.</p></div></li>
-        </ul>
       </div>
     </div>
   </div>
@@ -1900,7 +1904,7 @@
     </div>
 
     <div class="site-footer__bottom">
-      <div class="legal" style="flex-wrap:wrap;">
+      <div class="legal" style="flex-wrap:wrap;justify-content:center;">
         <a href="terms.html">Terms</a>
         <a href="privacy.html">Privacy</a>
         <a href="refunds.html">Refunds</a>
@@ -1912,7 +1916,7 @@
         <a href="/featured">Featured on</a>
         <a href="/guides/">Guides</a>
       </div>
-      <p class="site-footer__credit" style="margin:0 0 0 auto;line-height:1.6;">&copy; 2026 Primus Enterprises LLC, dba Overlord AI &middot; 411 W 1st St, Ste 5073, Sanford, FL 32771 &middot; support@overlordai.co</p>
+      <p class="site-footer__credit" style="margin:0;line-height:1.6;text-align:center;">&copy; 2026 Primus Enterprises LLC, dba Overlord AI &middot; 411 W 1st St, Ste 5073, Sanford, FL 32771 &middot; support@overlordai.co</p>
     </div>
   </div>
 </footer>
