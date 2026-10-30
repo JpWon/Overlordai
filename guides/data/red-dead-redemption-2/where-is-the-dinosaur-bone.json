@@ -1,0 +1,62 @@
+{
+  "slug": "where-is-the-dinosaur-bone",
+  "game": "red-dead-redemption-2",
+  "game_title": "Red Dead Redemption 2",
+  "game_page": "/soulslike.html",
+  "store_url": "https://store.steampowered.com/app/1174180/",
+  "query": "where is the dinosaur bone in red dead redemption 2?",
+  "title": "Where to Find the Cumberland Forest Dinosaur Bone in Red Dead Redemption 2",
+  "meta_desc": "Find the Dinosaur Bone collectible in Cumberland Forest for the 'A Test of Faith' Stranger mission in Red Dead Redemption 2. Learn where it is and its purpose.",
+  "published_at": "2026-10-30",
+  "atlas": {
+    "app_id": "1174180",
+    "updated": "2026-10-19"
+  },
+  "intro": "One of the many collectibles scattered across the world is the Dinosaur Bone, a fossil required for the 'A Test of Faith' Stranger mission. This quest is given by the paleontologist Deborah MacGuiness, and finding all the bones leads to a unique reward. One of these bones can be found within Cumberland Forest, an area located in the New Hanover region.",
+  "intro_ref": [
+    "loot/dinosaur_bone",
+    "npc/deborah_macguiness",
+    "rooms/cumberland_forest"
+  ],
+  "steps": [
+    {
+      "heading": "Cumberland Forest Location",
+      "text": "To begin your search for this particular fossil, you'll need to travel to Cumberland Forest. The bone is located near Six Point Overlook, a landmark within the forest. From the overlook, head west until you reach the edge of a large, rocky cliff face. The journey will take you through the wooded landscape characteristic of this part of New Hanover.",
+      "atlas_ref": [
+        "loot/dinosaur_bone",
+        "rooms/cumberland_forest"
+      ]
+    },
+    {
+      "heading": "Finding the Bone",
+      "text": "Once you've reached the cliff's edge west of Six Point Overlook, carefully examine the ground. The Dinosaur Bone is not just lying on top of the soil; it's a fossil that is partially embedded in the earth. A close look near the edge of the cliff should reveal its location, allowing you to collect it.",
+      "atlas_ref": [
+        "loot/dinosaur_bone"
+      ]
+    },
+    {
+      "heading": "A Test of Faith Mission",
+      "text": "This bone is just one of thirty needed to complete the 'A Test of Faith' Stranger mission. The objective is to find all the dinosaur bone locations and mail them to Deborah MacGuiness. You can send the locations to her from any post office. She resides in a shack at Firewood Rise, which is also in Cumberland Forest.",
+      "atlas_ref": [
+        "loot/dinosaur_bone",
+        "npc/deborah_macguiness",
+        "loot/jawbone_knife"
+      ]
+    },
+    {
+      "heading": "Completing the Collection",
+      "text": "After you have successfully located and mailed all thirty dinosaur bone locations to Deborah, you will eventually receive an invitation letter from her. This letter invites you to her shack at Firewood Rise. Visiting her after getting the invitation will trigger a cutscene and reward you with the Jawbone Knife, a unique weapon crafted from a prehistoric jawbone.",
+      "atlas_ref": [
+        "npc/deborah_macguiness",
+        "loot/jawbone_knife"
+      ]
+    }
+  ],
+  "outro": "Finding this fossil in Cumberland Forest is one step toward completing the full collection and earning the special Jawbone Knife.",
+  "outro_ref": [
+    "loot/dinosaur_bone",
+    "loot/jawbone_knife"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": []
+}
