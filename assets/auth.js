@@ -102,14 +102,37 @@
     return data;
   }
 
+  /* Product-email consent (JP 2026-10-30). The box on signup.html is unchecked by default. Email
+     sign-ups carry it in the sign-up data (a database trigger records it); Google/Apple cannot, so
+     the choice waits in localStorage until the first signed-in page calls set_product_emails. */
+  const TIPS_KEY = 'overlord-product-emails';
+  function rememberProductEmails(yes) {
+    try { if (yes) localStorage.setItem(TIPS_KEY, String(Date.now())); else localStorage.removeItem(TIPS_KEY); }
+    catch (_) { /* storage blocked: the box simply isn't recorded */ }
+  }
+  if (configured) {
+    client.auth.onAuthStateChange((_event, s) => {
+      let at = 0;
+      try { at = Number(localStorage.getItem(TIPS_KEY) || 0); } catch (_) { return; }
+      if (!s || !s.user || !at) return;
+      if (Date.now() - at > 3600e3) { rememberProductEmails(false); return; }   // a stale tick never counts
+      client.rpc('set_product_emails', { p_yes: true, p_source: 'website' })
+        .then(({ error }) => { if (!error) rememberProductEmails(false); })
+        .catch(() => {});
+    });
+  }
+
   /* Email + Password Sign Up */
-  async function signUpWithEmail(email, password, displayName) {
+  async function signUpWithEmail(email, password, displayName, extra) {
     if (!configured) throw new Error('sign-in is not configured on this host yet');
     const options = { emailRedirectTo: redirectTo };
     /* Apple's hand-off returns no name, so the create-account page collects one and
        we keep it on the user record here. */
     if (displayName) options.data = { display_name: String(displayName).trim() };
     if (luxRef()) options.data = Object.assign(options.data || {}, { ref: 'lux' });
+    if (extra && extra.productEmails) {
+      options.data = Object.assign(options.data || {}, { product_emails: true, product_emails_source: 'website' });
+    }
     const { data, error } = await client.auth.signUp({ email, password, options });
     if (error) throw error;
     return data;
@@ -164,6 +187,7 @@
   window.OverlordAuth = {
     configured, redirectTo, gateDashboard: Boolean(cfg.gateDashboard),
     signIn, signInWithEmail, signUpWithEmail, signInWithOtp, session, signOut, onChange, provider,
+    rememberProductEmails,
     resetPassword, verifyRecoveryCode, updatePassword, resendConfirmation,
     /* escape hatch for the per-page code */
     client: () => client
