@@ -970,6 +970,12 @@
       <h2>Create your account</h2>
       <p class="sub">One account for your plan, your licences and your devices.</p>
 
+      <!-- JP 2026-10-30: product-email consent, unchecked by default; covers Google, Apple and email. -->
+      <label class="consent" for="su-tips" style="display:flex;gap:.6rem;align-items:flex-start;margin:1rem 0 0;font-size:.9rem;line-height:1.45;cursor:pointer;">
+        <input id="su-tips" type="checkbox" style="margin-top:.2rem;flex:none;width:1rem;height:1rem;accent-color:#6d5cff;">
+        <span>Send me tips and product emails.<br><span style="opacity:.7;font-size:.82rem;">Optional. Unsubscribe in one click from any of them.</span></span>
+      </label>
+
       <div class="oauth">
         <button class="oauth__btn" type="button" data-provider="Google">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -1201,7 +1207,11 @@
     b.textContent = shown ? 'Show' : 'Hide';
   }));
 
+  const tips = document.getElementById('su-tips');
+  const wantsTips = () => !!(tips && tips.checked);
   document.querySelectorAll('.oauth__btn[data-provider]').forEach(b => b.addEventListener('click', async () => {
+    // Google/Apple cannot carry sign-up data: remember the box until the first signed-in page records it.
+    if (auth.rememberProductEmails) auth.rememberProductEmails(wantsTips());
     try { await auth.signIn(b.dataset.provider); }
     catch (err) { say((err && err.message) || 'Could not reach that provider.'); }
   }));
@@ -1216,7 +1226,7 @@
     if (p1.length < 8) { say('Passwords need at least 8 characters.'); return; }
     btn.disabled = true; say('Creating your account\u2026');
     try {
-      const out = await auth.signUpWithEmail(e1, p1, n);
+      const out = await auth.signUpWithEmail(e1, p1, n, { productEmails: wantsTips() });
       if (window.rdt) rdt('track', 'SignUp');   // fires only after Supabase accepts the account
       sessionStorage.setItem('ovr_email', e1);
       if (out && out.session) {                       // email confirmation is OFF
