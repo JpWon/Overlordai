@@ -1,0 +1,49 @@
+{
+  "slug": "how-to-beat-tigers-acolyte",
+  "game": "black-myth-wukong",
+  "game_title": "Black Myth: Wukong",
+  "game_page": "/wukong.html",
+  "store_url": "https://store.steampowered.com/app/2358720/",
+  "query": "how to beat tiger's acolyte black myth wukong",
+  "title": "How to Beat Tiger's Acolyte in Black Myth: Wukong",
+  "meta_desc": "Learn key tactics to defeat the Tiger's Acolyte in Black Myth: Wukong, including how to use the bridge to your advantage and which skills are best.",
+  "published_at": "2026-11-05",
+  "atlas": {
+    "app_id": "2358720",
+    "updated": "2026-10-26"
+  },
+  "intro": "The Tiger's Acolyte is a Yaoguai Chief you will encounter in the Yellow Wind Formation. This boss, whose name literally translates to \"Tiger's Servant,\" presents a unique challenge due to the battle's location. The key to victory lies not just in attacking the boss, but in mastering your position on the narrow bridge where the fight takes place.",
+  "intro_ref": [
+    "boss/tiger_s_acolyte",
+    "rooms/yellow_wind_formation"
+  ],
+  "steps": [
+    {
+      "heading": "Mastering the Bridge",
+      "text": "The fight against the Tiger's Acolyte happens on a bridge, which makes positioning your primary concern. A single misstep can send you falling, so precise dodging is critical. Every evasive move should be calculated not only to avoid an attack but also to ensure you remain safely on the bridge. Focus on staying centered and being aware of the edges at all times. The challenge is as much about surviving the environment as it is about surviving the boss's attacks, so prioritize careful footwork throughout the entire encounter.",
+      "atlas_ref": [
+        "boss/tiger_s_acolyte"
+      ]
+    },
+    {
+      "heading": "Avoid Transformations",
+      "text": "While transformations can be powerful tools in other fights, they may become a liability here. The movesets of certain transformations can be erratic and difficult to control in a tight space. An unpredictable lunge or a wide-swinging attack could easily send you over the side of the bridge, ending the fight abruptly. To maintain maximum control over your positioning and movement, it is recommended to avoid using transformations if you can. Sticking to your base form allows for more predictable and precise dodges, which is essential for staying on the platform.",
+      "atlas_ref": [
+        "boss/tiger_s_acolyte"
+      ]
+    },
+    {
+      "heading": "Helpful Skills",
+      "text": "Certain skills are particularly effective in this battle. Using the Immobilize skill can give you a crucial window to deal damage without having to worry about the boss's movements or your own footing. The Wandering Wight Headbutt is another valuable tool to have in your arsenal for this specific encounter. Additionally, the Rock-parry technique can be a great friend, helping you create openings while defending yourself. Leveraging these abilities at the right moments can make the fight much more manageable, allowing you to control the pace and secure a victory.",
+      "atlas_ref": [
+        "boss/tiger_s_acolyte"
+      ]
+    }
+  ],
+  "outro": "Success in this fight comes down to spatial awareness and using the right skills to control the boss on the narrow battlefield.",
+  "outro_ref": [
+    "boss/tiger_s_acolyte"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": []
+}
