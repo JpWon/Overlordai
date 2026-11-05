@@ -31,7 +31,7 @@
      "text": "Behind the musician on the left side of the stage there's the Troubadour's Lute, a sidearm that confuses enemies so they attack the people next to them. A friendly drunkard hands out a free Common Moonshine, and giving it to the belligerent drunk in the corner gets him talking. The Barkeep at the counter sells consumables like the Hand of Rock, and you can ask him about Gragu too.",
      "atlas_ref": ["loot/troubadour_s_lute", "npc/friendly_drunkard", "npc/belligerent_drunk", "npc/barkeep", "loot/hand_of_rock"]}
   ],
-  "outro": "Gragu is one of seven Shells in the Atlas for this game. The full list, with where each one is, is in the Shells guide.",
+  "outro": "Gragu is one of seven Shells in the game. The full list, with where each one is, is in the Shells guide.",
   "outro_ref": ["loot/gragu"],
   "outro_link": "/guides/mortal-shell-ii/where-to-find-every-shell.html",
   "youtube_credits": [],
