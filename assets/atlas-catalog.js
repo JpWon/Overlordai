@@ -1,5 +1,4 @@
-/* The mapped-games list, one source for the homepage strip and /roster (assets/atlas-catalog.json +
-   Supabase atlas_catalog). scripts/atlas_stats.py does the same sums in Python for the static fallback. */
+/* The mapped-games list, one source for the homepage strip and /roster. */
 (function() {
   var KEY = 'sb_publishable_LEJ4On121RzEpDlCgiqm8w_cDc8BROJ';
 
@@ -33,8 +32,7 @@
 
   /* The homepage footer stats, inside the Game Co-Pilots line: totals from every mapped game. */
   function stripHTML(a) {
-    return '<strong>' + a.totals.games + ' games</strong> &middot; ' + a.totals.rooms.toLocaleString() +
-      ' areas &middot; ' + a.totals.loot.toLocaleString() + ' items &middot; ' + a.totals.boss.toLocaleString() + ' bosses';
+    return '<strong>' + a.totals.games + ' games</strong> mapped so far';
   }
 
   window.OverlordAtlas = { load: load, stripHTML: stripHTML };

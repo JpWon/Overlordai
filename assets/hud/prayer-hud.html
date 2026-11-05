@@ -4,21 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Overlord AI — Ask with F4</title>
-<!--
-  Marketing animation: the crystal tactical pill (the "Pill Cart") running one Divine Prayer.
-  Faithful to the shipping behaviour in psyche/:
-    · control_watcher.py fire_prayer() — double-tap F4 emits, in order:
-        "Divine Prayer: Listening to your prayer..."            (status=analyzing, 9s)
-        "Divine Prayer: Assimilating prayer & surveying coordinates..." (status=analyzing, 12s)
-      then tactical_engine.py --prayer resolves the guidance card.
-    · tactical-overlay.html — title flips "Tactical HUD" -> "Tactical Radar" while analyzing;
-      .status-analyzing line is accent-soft and SITS STILL (only idle lines marquee);
-      telemetry cells CPU/GPU/FPS/Temp; bar is 52px, radius 24, skewX(-7deg), glass.
-    · tactical_interface.html — the card sections rendered are the real ones:
-      Target Visual Intel, Mission Directives, Action Tip.
-  Card copy is sample text; the vocabulary (radar, prayers, stealth dismiss, launch) is the app's.
-  Design canvas 900x560, scaled by --s so the same layout holds in a carousel card and full size.
--->
+<!-- Overlord AI HUD demo for the website. -->
 <style>
   :root{
     --accent:#6d5cff; --accent-soft:#b9a8ff;
@@ -254,7 +240,7 @@
   };
   addEventListener('resize', fit); fit();
 
-  /* the real lines, in the real order (control_watcher.py fire_prayer) */
+  /* the real lines, in the real order */
   const MSG = {
     idle:         'Getting ready…',
     listening:    'Divine Prayer: Listening to your prayer...',
@@ -308,7 +294,7 @@
     }
     if (name === 'guidance'){
       el.grid.style.opacity = 0; el.sweep.style.opacity = 0; el.sweep.style.animation = 'none';
-      /* control_watcher.py pushes the advice line once the prayer resolves;
+      /* the advice line arrives once the prayer resolves;
          status is no longer 'analyzing', so the title flips back */
       say(ADVICE, false);
       el.card.classList.add('show');

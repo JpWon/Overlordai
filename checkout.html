@@ -728,12 +728,12 @@
           <div class="surprise-badge mono">✦ FOUNDER ACCESS &middot; FREE THROUGH <span class="founder-access-date">NOVEMBER 15</span></div>
           <h2 class="portal-title">Thank You For Trying Overlord!</h2>
           <p class="portal-desc">
-            We are currently in open founder preview, which means <strong>full access is free through <span class="founder-access-date">November 15</span></strong>. No credit card required, zero charges, and no backend billing. Download the full software, unlock your license, and start playing right now.
+            We are currently in open founder preview, which means <strong>full access is free through <span class="founder-access-date">November 15</span></strong>. No credit card required and zero charges. Download the full software, unlock your license, and start playing right now.
           </p>
 
           <form id="founderForm" class="portal-form">
             <div class="oauth-wrap">
-              <span class="mono field-label">1-Click Fast Track with OAuth:</span>
+              <span class="mono field-label">1-click sign-in:</span>
               <div class="oauth-grid">
                 <button class="oauth__btn" type="button" data-oauth="google">
                   <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -904,16 +904,16 @@ const PRODUCTS = {
     id: 'demo-trial',
     kicker: '01 · FREE TRIAL & FOUNDER ACCESS',
     title: 'Trial & Founder Pass',
-    caption: 'Full access to the core strategy guidebook, live screen assistance, and Isabella voice.',
+    caption: 'Full access to the strategy guidebook, live screen help and your co-pilot\'s voice.',
     price: '$0.00',
     period: 'free through November 15',
     lineItem: 'Overlord AI Founder Trial',
     discount: '$0.00',
     features: [
       'Full live screen guidance & core guidebook',
-      'Wayland (Linux) & Windows 10/11 native support',
-      'Atlas companion for all 7+ mapped titles',
-      'Local zero-latency Isabella neural voice',
+      'Linux and Windows 10/11 support',
+      'Built-in guides for every mapped game',
+      'Spoken answers in your co-pilot\'s voice',
       'Instant software download & execution'
     ]
   },
@@ -928,9 +928,9 @@ const PRODUCTS = {
     discount: '-$14.99',
     features: [
       'Unlimited real-time tactical overlay & mission guidance',
-      'Wayland (Linux) & Windows 10/11 native support',
-      'Complete rafter & hidden Ability Point (AP) atlas',
-      'Local zero-latency Isabella neural voice',
+      'Linux and Windows 10/11 support',
+      'Every rafter and hidden Ability Point, marked',
+      'Spoken answers in your co-pilot\'s voice',
       'Instant software download & license activation'
     ]
   },
@@ -1000,7 +1000,6 @@ const PRODUCTS = {
     `).join('');
   }
 
-  // Supabase Client for Lead Recording & OAuth
   const cfg = window.OVERLORD_SUPABASE || {};
   const sbLib = window.supabase;
   const sbClient = (sbLib && cfg.url && cfg.anonKey) ? sbLib.createClient(cfg.url, cfg.anonKey, {
@@ -1112,7 +1111,7 @@ const PRODUCTS = {
         }
       } else {
         if (statusMsg) {
-          statusMsg.textContent = 'Auth service is unavailable. Please enter email below.';
+          statusMsg.textContent = 'That sign-in option isn\'t available right now. Please enter your email below.';
           statusMsg.style.color = '#ef4444';
         }
       }

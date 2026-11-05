@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roster | Overlord AI</title>
-<meta name="description" content="Every game Overlord's Atlas has mapped so far, live. New maps land as they are finished.">
+<meta name="description" content="Every game Overlord knows so far. New games land as they are finished.">
 <meta name="robots" content="index,follow,max-snippet:-1">
 <link rel="canonical" href="https://www.overlordai.co/roster">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Overlord AI">
 <meta property="og:title" content="Roster | Overlord AI">
-<meta property="og:description" content="Every game Overlord's Atlas has mapped so far, live.">
+<meta property="og:description" content="Every game Overlord knows so far.">
 <meta property="og:url" content="https://www.overlordai.co/roster">
 <meta property="og:image" content="https://www.overlordai.co/og-thumbnail.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -59,10 +59,10 @@
 <header class="bar"><a href="/"><span class="bar__mark" aria-hidden="true"></span>Overlord AI</a></header>
 <main>
 
-<p class="crumbs">Atlas</p><h1>The Roster</h1>
-<p class="byline"><span class="dot" aria-hidden="true"></span>Live from the Atlas &middot; new maps land as they are finished</p>
+<h1>The Roster</h1>
+<p class="byline"><span class="dot" aria-hidden="true"></span>New games land as they are finished</p>
 <!-- roster-totals:start -->
-<p class="totals" id="totals">Mapped so far: <strong>12 games</strong> &middot; 639 areas &middot; 1,951 items &middot; 522 bosses.</p>
+<p class="totals" id="totals"><strong>12 games</strong> mapped so far.</p>
 <!-- roster-totals:end -->
 
 <input class="find" id="find" type="search" placeholder="Is your game here?" aria-label="Search the roster" autocomplete="off">
@@ -82,9 +82,9 @@
   <li><span class="name">The Witcher 3: Wild Hunt</span><span class="n">41 areas &middot; 85 items &middot; 32 bosses</span></li>
 </ul>
 <!-- roster-list:end -->
-<p class="none" id="none">Not mapped yet. Overlord still researches any single-player game from public guides the first time you play it, and its map fills in as you go.</p>
+<p class="none" id="none">Not mapped yet. Overlord still helps with any single-player game and learns it as you play.</p>
 
-<p class="outro">Every game here has a finished Atlas: its areas, items and bosses are preloaded before you start. Anything else is researched the first time you play it.</p>
+<p class="outro">Overlord already knows every game here, from its areas and items to its bosses. Anything else, it learns as you play.</p>
 </main>
 <footer><div class="in">
   <span>&copy; 2026 Overlord AI</span>
@@ -95,7 +95,7 @@
 <script src="/assets/atlas-catalog.js"></script>
 <script>
 (function() {
-  // Same source as the homepage strip: assets/atlas-catalog.js (Supabase atlas_catalog + bundled maps).
+  // Same source as the homepage strip: assets/atlas-catalog.js.
   var list = document.getElementById('roster'), find = document.getElementById('find'), none = document.getElementById('none');
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function(c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -112,12 +112,10 @@
 
   OverlordAtlas.load().then(function(a) {
       var t = a.totals;
-      document.getElementById('totals').innerHTML = 'Mapped so far: <strong>' + t.games + ' games</strong> &middot; ' +
-        t.rooms.toLocaleString() + ' areas &middot; ' + t.loot.toLocaleString() + ' items &middot; ' + t.boss.toLocaleString() + ' bosses.';
+      document.getElementById('totals').innerHTML = '<strong>' + t.games + ' games</strong> mapped so far.';
       list.innerHTML = a.titles.map(function(n) {
-        var g = a.games[n], label = a.pages[n] ? '<a href="' + a.pages[n] + '">' + esc(n) + '</a>' : esc(n);
-        return '<li><span class="name">' + label + '</span><span class="n">' + g.rooms.toLocaleString() + ' areas &middot; ' +
-          g.loot.toLocaleString() + ' items &middot; ' + g.boss.toLocaleString() + ' bosses</span></li>';
+        var label = a.pages[n] ? '<a href="' + a.pages[n] + '">' + esc(n) + '</a>' : esc(n);
+        return '<li><span class="name">' + label + '</span></li>';
       }).join('');
       filter();
     })

@@ -1,5 +1,5 @@
 {
-  "_about": "One source for the homepage 'Mapped so far' strip, /roster and scripts/atlas_stats.py. Mapped games come from Supabase atlas_catalog (status=ready) plus 'bundled' (maps that ship with the app). 'popularity' ranks titles for the footer only (biggest, most recognizable first; publisher-reported lifetime sales/players). Games not listed still count and still show on /roster; they just never make the footer.",
+  "_about": "The mapped-games list for the homepage strip and /roster.",
   "catalog_url": "https://bzxzhizvfzmldpkxxuqu.supabase.co/rest/v1/atlas_catalog?status=eq.ready&select=game_title,counts",
   "bundled": {
     "Control": {

@@ -4,66 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Overlord AI — GPS card</title>
-<!--
-  Marketing animation: the shipping GPS tactical radar, faithfully reproduced.
-  Source of truth — psyche/OverlordApp/tactical_interface.js
-  (shell/tactical_interface.js is byte-identical; assets/tactical-interface.css is the shipped copy).
-
-  NODE / FRAME (what the radar is mounted in):
-    · tactical_interface.html:97-102  — the variant block, comment "variant: GPS tactical radar display (Eros 2026-10-02)";
-        <div id="oc-gps-radar" class="oc-gps-radar"><canvas id="oc-radar-canvas" class="oc-radar-canvas" width="253" height="215"></canvas></div>
-    · tactical-interface.css:531-542  — .oc[data-config="gps"] .oc-gps-radar{position:absolute;inset:0;width:100%;height:100%}
-        and .oc-radar-canvas{width:100%;height:100%;display:block}
-    · tactical_interface.js:1584-1606 — JS overrides the canvas to a SQUARE: size = gps_square_size (default 240, render-card.html:112),
-        card.width = card.height = size; canvas.width = canvas.height = size. So the radar is a square that fills the square card.
-
-  DRAW VALUES — every number below is copied verbatim, with its source line:
-    · pad = 2 ................................................. js:803
-    · ux,uy = user_norm * [w,h]; user_norm default [0.50,0.50]  js:798-800
-    · corners c1..c4 at pad ................................... js:804-807
-    · cornerDistMax = max |corner-center| ..................... js:810-815
-    · maxRadius = cornerDistMax + 14 .......................... js:816
-    · FRAME_RADIUS_FRACTION = 0.44; framePx = min(w,h)*0.44 ... js:869-872
-    · PING CADENCE: pulseDurationMs = 3800 .................... js:978
-    · cycle = (elapsed % pulseDurationMs)/pulseDurationMs ..... js:1030-1031
-    · clearRect(0,0,w,h) ...................................... js:1033
-    · crystal boundary strokeRect, rgba(56,189,248,0.15), lw1 .. js:1037-1039
-    · corner brackets bLen=14, rgba(56,189,248,0.50), lw1.5 ... js:1042-1050
-    · range rings [45,95,145], rgba(56,189,248,0.06) .......... js:1053-1058
-    · faint crosshairs ±16, rgba(56,189,248,0.08) ............. js:1082-1086
-    · compass compRadius = min(w,h)*0.44 ..................... js:1089
-    · N diamond #38bdf8 shadowBlur 8 (6/4 dia), label 'N' 800 11px at cy-13  js:1104-1118
-    · E/S/W rgba(148,163,184,0.70) 700 9.5px ................. js:1120-1124
-    · ticks every 30deg (skip 90s), tLen4, rgba(56,189,248,0.18)  js:1129-1140
-    · heading readout rgba(56,189,248,0.75) 700 9px at (pad+10,h-pad-10)  js:1143-1149
-    · OUTWARD WAVE (cycle 0..0.48): pProg=cycle/0.48, r=pProg*maxRadius,
-        alpha = max(0, 0.92*(1-pProg*0.85)) .................. js:1163-1167
-      outer ring   r,      lw2.8, rgba(74,222,128,α),      flareAmp4.2, phase0    js:1170
-      core ring    r-1.5,  lw1.5, rgba(220,252,231,α*0.95),flareAmp3.5, phase0.5  js:1172
-      secondary    r-18,   lw1.8, rgba(74,222,128,α*0.55), flareAmp2.8, phase1.2 (if r>18)  js:1175
-      tertiary     r-34,   lw1.2, rgba(74,222,128,α*0.30), flareAmp2.0, phase2.4 (if r>34)  js:1179
-      → FOUR concentric plasma rings per ping ................ (ring count)
-      ionization sheet radial gradient rgba(74,222,128,0..0.26)  js:1183-1190
-      7 orbiting sparks, r1.6, rgba(240,253,244,α*0.85) ..... js:1193-1204
-    · drawPlasmaRing: 64 segments, 3-harmonic flare, shadow #4ade80  js:981-1006
-    · INWARD ECHO (cycle 0.48..1.0): inProg=(cycle-0.48)/0.52,
-        wavefronts curTop/Bot/Left/Right, inAlpha=max(0,0.85*(1-inProg*0.75)),
-        coreAlpha=min(1,inAlpha*1.2) .......................... js:1205-1215
-      four wavy plasma bars (32 seg, bow 6*(1-inProg*0.5), ripple 1.8),
-        stroked rgba(74,222,128,inAlpha) lw2.4 then rgba(240,253,244,coreAlpha) lw1.2  js:1222-1248
-      corner return pulses r max(2,6*(1-inProg)), rgba(134,239,172,inAlpha*0.7)  js:1260-1269
-      converging fill sheet rgba(74,222,128,inAlpha*0.08) .... js:1274-1277
-      corner flash on cycle 0.42..0.54: strokeRect lw3.2 shadow18,
-        4 corner squares 8px rgba(220,252,231,·), burst arcs r16*flash  js:1282-1315
-    · BEACON (the fixed blip at the user, always drawn): ........ js:1490-1535
-      FOV cone 30deg, fovRadius=min(w,h)*0.30, green radial 0.16→0  js:1492-1504
-      forward chevron (ux,uy-12)/±4, rgba(240,253,244,0.95), shadow #4ade80 blur6  js:1506-1515
-      user aura 12+flash*8, white core r3.5+flash*1.5, shadow 10+flash*12  js:1520-1534
-      (flash: isEchoWave && curWaveRadius<24 → 1.0 during the whole echo, js:1517-1518)
-
-  This file: transparent, self-contained, 900x560 design box, no network, no audio.
-  It shows the radar and its ping — no card chrome, no targets, no copy.
--->
+<!-- Overlord AI HUD demo for the website. -->
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   /* THE PAGE PAINTS NOTHING: the violet gradient lives behind the panel. */
