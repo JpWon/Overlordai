@@ -28,8 +28,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<!-- SEO: this page is behind the sign-in, so it is deliberately noindex and carries
-     no JSON-LD. It is NOT in add_site_metadata.py's PAGES tuple and NOT in sitemap.xml. -->
+<!-- SEO: behind the sign-in, deliberately noindex, no JSON-LD, not in sitemap.xml. -->
 <meta name="description" content="Your Overlord AI account: plan, licences, devices, downloads and billing. One account for your plan, your licences and your machines.">
 <meta name="robots" content="noindex,nofollow">
 <link rel="canonical" href="https://www.overlordai.co/dashboard.html">
@@ -1227,7 +1226,7 @@
             <div class="fact"><span class="mono">02 · Scope</span><h3>Single-player</h3>
               <p>Built for single-player games. Online multiplayer games are refused when they launch, and we don't make guides for competitive multiplayer games.</p></div>
             <div class="fact"><span class="mono">03 · Keep</span><h3>Local by default</h3>
-              <p>Your saves, game files and key presses stay on this machine. What leaves goes to Overlord's own service, under your sign-in: screen frames and your questions (your voice too, when you press F4) for the AI to answer, and your game progress for your stats. No model key is on your machine.</p></div>
+              <p>Your saves, game files and key presses stay on this machine. What leaves goes to Overlord's own service, under your sign-in: images of your screen and your questions (your voice too, when you press F4) so Overlord can answer, and your game progress for your stats.</p></div>
           </div>
         </div>
 
@@ -1281,7 +1280,7 @@
           <div class="sect__head"><span class="mono">Free demo</span></div>
           <div class="rowlist">
             <div class="krow">
-              <div class="krow__main"><b>30-minute trial</b><span class="krow__sub">Used · 30 of 30 minutes · no card was taken · one per person, enforced by email + machine fingerprint</span></div>
+              <div class="krow__main"><b>30-minute trial</b><span class="krow__sub">Used · 30 of 30 minutes · no card was taken · one per person, checked by account email and device</span></div>
               <div class="krow__meta"><span class="chip">Consumed</span></div>
               <div class="krow__act"><a class="mini" href="plans.html">Subscribe <span class="arr">&rarr;</span></a></div>
             </div>
@@ -1300,30 +1299,30 @@
           <div class="sect__head"><span class="mono">Active Nodes</span><span class="mono">3 of 3 Seats</span></div>
           <div class="rowlist">
             <div class="krow">
-              <div class="krow__main"><b>station-01 (Local Host)</b><span class="krow__sub">Ubuntu Linux · x86_64 · Wayland · launch-linux.sh</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Port 4932</span><span class="chip">Seat 01</span></div>
+              <div class="krow__main"><b>station-01</b><span class="krow__sub">Ubuntu Linux · this PC</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Seat 01</span></div>
               <div class="krow__act">
-                <button class="mini" type="button" data-mock-link="Local Host is running">Running</button>
+                <button class="mini" type="button" data-mock-link="This PC is running">Running</button>
               </div>
             </div>
             <div class="krow">
-              <div class="krow__main"><b>cloud-win-01 (Windows Cloud)</b><span class="krow__sub">Windows Server 2022 · 34.66.253.76 · RDP</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Port 3389</span><span class="chip">Seat 02</span></div>
+              <div class="krow__main"><b>gaming-pc</b><span class="krow__sub">Windows 11 · gaming PC</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Seat 02</span></div>
               <div class="krow__act">
-                <button class="mini" type="button" data-mock-link="Windows VM Connected">Connected</button>
+                <button class="mini" type="button" data-mock-link="Gaming PC connected">Connected</button>
               </div>
             </div>
             <div class="krow">
-              <div class="krow__main"><b>cloud-lin-01 (Linux VM)</b><span class="krow__sub">Debian 13 · 136.70.153.76 · SSH</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Standby</span><span class="chip">Port 22</span><span class="chip">Seat 03</span></div>
+              <div class="krow__main"><b>laptop</b><span class="krow__sub">Linux · laptop</span></div>
+              <div class="krow__meta"><span class="chip chip--on"><i></i>Standby</span><span class="chip">Seat 03</span></div>
               <div class="krow__act">
-                <button class="mini" type="button" data-mock-link="Linux VM Standby">Standby</button>
+                <button class="mini" type="button" data-mock-link="Laptop on standby">Standby</button>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="note"><span class="mono">i</span><span>A machine fingerprint is a hash of the hardware, kept to enforce one trial per person and to count seats. It is not a name, and it is not your play. <a href="privacy.html">Privacy policy</a>.</span></div>
+        <div class="note"><span class="mono">i</span><span>A device ID is kept to enforce one trial per person and to count seats. It is not a name, and it is not your play. <a href="privacy.html">Privacy policy</a>.</span></div>
       </div>
 
       <!-- ============ 04 Downloads ============ -->
@@ -1337,7 +1336,7 @@
 
         <div class="dl">
           <a data-dl="deb" href="https://github.com/JpWon/Overlordai/releases/download/v2.1.7/overlord_2.1.7_amd64.deb" download><b>Linux Package (.deb) · <span data-rel-ver>v2.1.7</span></b><small>Ubuntu / Debian / Linux Mint · <span data-rel-size="deb">448 MB</span> · Native 1-Click GUI install</small><span class="go">Download &rarr;</span></a>
-          <a data-dl="exe" href="https://github.com/JpWon/Overlordai/releases/download/v2.1.7/Overlord.Ai.Setup.2.1.7.exe" download><b>Windows Installer (.exe) · <span data-rel-ver>v2.1.7</span></b><small>Windows 10 / 11 · <span data-rel-size="exe">463 MB</span> Standalone Setup · Every feature: launcher, Consult, voice, F4 controls, in-game maps, GPS homing, and loot and NPC cards.</small><span class="go">Download &rarr;</span></a>
+          <a data-dl="exe" href="https://github.com/JpWon/Overlordai/releases/download/v2.1.7/Overlord.Ai.Setup.2.1.7.exe" download><b>Windows Installer (.exe) · <span data-rel-ver>v2.1.7</span></b><small>Windows 10 / 11 · <span data-rel-size="exe">463 MB</span> Standalone Setup · Every feature: voice, F4 questions, in-game maps, and loot and NPC cards.</small><span class="go">Download &rarr;</span></a>
         </div>
 
         <div class="note"><span class="mono">Windows</span><span><b>Windows will try to talk you out of running it.</b> The first launch shows <b>&ldquo;Windows protected your PC&rdquo;</b> with only a <b>Don&rsquo;t run</b> button in view. That is SmartScreen, and it appears for any installer from a publisher that is not yet code-signed &mdash; it is not a virus finding, and it says nothing about your machine. Click <b>More info</b>, then <b>Run anyway</b>. Those are the only two clicks: the install is per-user, needs no admin rights and no reboot. Want proof the file is ours? Compare the SHA-256 on the release page.</span></div>
@@ -1352,13 +1351,13 @@
           <dt>Platforms</dt><dd>Windows 10/11 (64-bit), Linux (Ubuntu/Debian)</dd>
           <dt>Internet</dt><dd>Required</dd>
           <dt>Microphone</dt><dd>Optional</dd>
-        </dl><p class="needs__src">Measured October 16, 2026 on an AMD Radeon RX Vega 56/64: Overlord 1.6.4, idle desktop, 30-second GPU-busy averages, three runs each.</p></div></dd>
+        </dl><p class="needs__src">Measured in October 2026 on a mid-range graphics card.</p></div></dd>
             <dt>Supported Platforms</dt><dd>Windows 10/11 (64-bit) and Linux (Ubuntu/Debian). Every feature works on both.</dd>
-            <dt>Voice Engine</dt><dd>Google Cloud Text-to-Speech, through our cloud service. When you press F4 and speak, the recording is sent to Google Gemini to be turned into text.</dd>
+            <dt>Voice</dt><dd>Overlord speaks its answers out loud. When you press F4 and speak, your recording goes to our service to be turned into text, and isn't kept.</dd>
             <dt>Authentication</dt><dd>Sign in with your Google or verified email account to activate all assigned machine seats.</dd>
-            <dt>Elysium Protocol</dt><dd>Integrated telemetry and error auto-remediation reporting via Supabase.</dd>
+            <dt>Error reports</dt><dd>When something breaks, Overlord sends an error report so we can fix it.</dd>
           </dl>
-          <p class="hash mono">Every release is built by our CI and published on GitHub Releases. [RELEASE-<span data-rel-ver>v2.1.7</span>]</p>
+          <p class="hash mono">Every release is published on our release page. [RELEASE-<span data-rel-ver>v2.1.7</span>]</p>
         </div>
 
         <div class="note"><span class="mono">✓</span><span><b>Windows:</b> every feature, the same as Linux.</span></div>
@@ -1447,10 +1446,10 @@
         <div class="sect">
           <div class="sect__head"><span class="mono">Your data</span><a href="privacy.html">Privacy policy</a></div>
           <div class="facts">
-            <div class="fact"><span class="mono">Leaves the machine</span><h3>One frame</h3>
-              <p>The captured screen frame and the text of your question, over HTTPS, to the endpoint behind the model key you supplied.</p></div>
+            <div class="fact"><span class="mono">Leaves the machine</span><h3>Your screen and your question</h3>
+              <p>An image of your screen and your question, sent securely to Overlord's service so it can answer. When you press F4 and speak, your recording goes too, to be turned into text.</p></div>
             <div class="fact"><span class="mono">Stays on the machine</span><h3>Everything else</h3>
-              <p>Your audio, the transcript, your voice, your saves and the guide data never leave it.</p></div>
+              <p>Your saves, your game files and your key presses never leave it.</p></div>
             <div class="fact"><span class="mono">Held here</span><h3>Email, key, seats</h3>
               <p>The account email, the licence key and which machines hold a seat. Not your play history, not a game.</p></div>
           </div>
@@ -1597,7 +1596,7 @@
 
       <div class="fstep" data-fstep="keeps">
         <h3>What we keep, and why.</h3>
-        <p>Most of it goes: the email, the licence key, the seats and the machine fingerprints are removed with the account. What stays is the minimum we are required to keep — the receipts and the accounting record behind them — which is what the Terms mean by <b>subject to what we must keep for tax and accounting</b>.</p>
+        <p>Most of it goes: the email, the licence key, the seats and the device IDs are removed with the account. What stays is the minimum we are required to keep — the receipts and the accounting record behind them — which is what the Terms mean by <b>subject to what we must keep for tax and accounting</b>.</p>
         <p>Before you ask, take a copy. Access and portability are rights you have, and the export includes your profile, licences, seats and invoice history.</p>
         <div class="fnav">
           <button class="mini" type="button" data-flow-back>Back</button>
@@ -1610,7 +1609,7 @@
         <h3>Confirm the request.</h3>
         <dl class="fsum">
           <dt>Ends</dt><dd>Your plan and every licence under it, and the seats those licences hold.</dd>
-          <dt>Taken out</dt><dd>Email, licence keys, seat bindings, machine fingerprints, the account record.</dd>
+          <dt>Taken out</dt><dd>Email, licence keys, seat bindings, device IDs, the account record.</dd>
           <dt>Kept</dt><dd>Receipts and the accounting record, for as long as tax law requires.</dd>
           <dt>Guides</dt><dd>Anything already on your machine stops working when the period ends; nothing is wiped from your disk by us.</dd>
           <dt>Not instant</dt><dd>We email a confirmation link first. Nothing is removed until you open it.</dd>
@@ -1680,7 +1679,7 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- Supabase sign-in. Public config first, then the client, then the page code. -->
+<!-- Sign-in: public config first, then the client, then the page code. -->
 <script src="assets/vendor/supabase-js.js"></script>
 <script src="assets/auth-config.js"></script>
 <script src="assets/auth.js"></script>

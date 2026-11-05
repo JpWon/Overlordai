@@ -1027,10 +1027,6 @@
 <canvas id="ambient"></canvas>
 
 <main class="lg" id="legal">
-<!-- End-user licence agreement. Rewritten 2026-10-15 for the payment-provider review (the website-readiness handoff
-     in the psyche repo): licensor Primus Enterprises LLC dba Overlord AI, Windows and Linux builds, cloud
-     voice, billing through a payment provider. Component list read from OverlordApp/shell/package.json and the app's imports.
-     Pending: attorney review (Eros). -->
 
 <span class="lg__label">OVR · legal · EULA</span>
 <h1>End-user<br><em>licence.</em></h1>
@@ -1040,13 +1036,13 @@
 
 <section id="s1">
 <h2>1 · The app</h2>
-<p>Overlord AI is an AI guide companion for PC games. The app watches your game (with your permission) to show tips, directions and answers on screen and by voice. It runs beside your game on Windows or Linux, and it needs an internet connection and an Overlord AI account, because answers, game research and the voice come from our cloud service.</p>
-<p>While a game is running, the app watches your screen to help you. On Windows it looks at the game's own window while the game is the window in front &mdash; around the moments you ask (a &ldquo;prayer&rdquo;) and about once a second during in-game conversations and while your character is standing still. On Linux it uses the screen you share. Frames and the text read from the screen are held in memory only and are not stored.</p>
-<p>To know your game and where you are in it, the app reads &mdash; read-only &mdash; your save files, your game's quest and progress files, its settings files, your Steam achievement files, and the game's own data files on your PC. It never changes a save or a game file and never uploads a raw save or data file. It doesn't read or change game memory, doesn't inject code into a game process, and never sends key presses or mouse movements to a game. It's built for single-player games and isn't meant to give anyone an advantage in competitive online play.</p>
-<p>The co-pilot's spoken voice is produced on your PC by a bundled voice model; a cloud voice is used only as a fallback. When you ask out loud (F4 or the prayer button, or the microphone in Consult), the recording is sent to be turned into text so the app can answer.</p>
+<p>Overlord AI is an AI guide companion for PC games. The app watches your game (with your permission) to show tips, directions and answers on screen and by voice. It runs beside your game on Windows or Linux, and it needs an internet connection and an Overlord AI account, because Overlord's answers and voice come from our service.</p>
+<p>While a game is running, the app watches your screen to help you. On Windows it looks at the game's own window while the game is the window in front &mdash; around the moments you ask (a &ldquo;prayer&rdquo;) and from time to time during play so its tips keep up. On Linux it uses the screen you share. What it sees is kept on your PC only briefly and is not stored.</p>
+<p>To know your game and where you are in it, the app reads, without changing them, your game's own files on your PC, such as saves and settings. It never changes a save or a game file and never uploads a raw save or data file. It doesn't read or change game memory, doesn't inject code into a game process, and never sends key presses or mouse movements to a game. It's built for single-player games and isn't meant to give anyone an advantage in competitive online play.</p>
+<p>The co-pilot's voice is usually made on your PC; when it can't be, a cloud voice is used. When you ask out loud (F4 or the prayer button, or the microphone in Consult), the recording is sent to be turned into text so the app can answer.</p>
 <p>The app runs in the background: on Windows it starts with your computer (the Auto Engine is on by default) and watches quietly for a game to open &mdash; choosing &ldquo;Close&rdquo; from the tray keeps it watching, and turning the Auto Engine off stops it. On Windows it updates itself while you aren't playing.</p>
 <p>Overlord AI may offer tips on its own &mdash; cards on the screen and, now and then, a short spoken nudge &mdash; built from what it sees in your game. You can turn proactive tips off in Settings, or say &ldquo;quiet for now&rdquo; to pause them.</p>
-<p>If &ldquo;Send error reports&rdquo; is on (it is on unless you turn it off), the app sends short error reports so we can fix what breaks, as described in the <a href="privacy.html">Privacy Policy</a>, section 6.</p>
+<p>The app sends short error reports so we can fix what breaks, as described in the <a href="privacy.html">Privacy Policy</a>, section 6.</p>
 <p>You must be at least 13 to accept this licence. If you're under the age of majority where you live, a parent or guardian accepts it for you.</p>
 </section>
 
@@ -1079,19 +1075,7 @@
 
 <section id="s5">
 <h2>5 · Third-party components and services</h2>
-<p>The app is built on other people's software and services. Naming them doesn't mean they endorse Overlord AI.</p>
-<table>
-<tr><th>Component or service</th><th>Used for</th></tr>
-<tr><td><strong>Electron</strong>, <strong>Node.js</strong>, <strong>Chromium</strong></td><td>The app's window and interface</td></tr>
-<tr><td><strong>Python</strong>, <strong>GStreamer</strong>, <strong>FFmpeg</strong>, <strong>PipeWire</strong></td><td>The co-pilot engine, screen capture and audio on Linux</td></tr>
-<tr><td><strong>Google Cloud</strong> (Gemini, Text-to-Speech, Vertex AI)</td><td>Reading frames, speech to text, the voice, game research</td></tr>
-<tr><td><strong>DeepSeek</strong></td><td>Reading frames and writing answers</td></tr>
-<tr><td><strong>Supabase</strong></td><td>Accounts and sign-in</td></tr>
-<tr><td><strong>Anthropic</strong> (Claude)</td><td>Double-checking answers, the nightly error-report review, and reading and answering support emails</td></tr>
-<tr><td><strong>Kokoro</strong></td><td>The co-pilot's voice, generated on your PC</td></tr>
-<tr><td><strong>Windows OCR</strong></td><td>Reading on-screen text on your PC (Windows)</td></tr>
-<tr><td><strong>Steam</strong>, <strong>GOG Galaxy</strong>, <strong>Epic Games Launcher</strong></td><td>Detecting which game you're playing, from their install records (each launcher belongs to its owner; Overlord AI isn't affiliated with Valve, GOG or Epic)</td></tr>
-</table>
+<p>The app uses open-source software, each under its own licence, and cloud and AI services from third parties, described in our <a href="privacy.html#s9">Privacy Policy, section 9</a>. Naming them doesn't mean they endorse Overlord AI. Steam, GOG Galaxy and the Epic Games Launcher belong to their owners; Overlord AI isn't affiliated with Valve, GOG or Epic.</p>
 <p>Open-source components keep their own licences, and where a licence requires a notice to travel with the app, it does. Game names and trademarks belong to their respective owners. Overlord AI is not affiliated with or endorsed by any game publisher, and the app doesn't ship any game's assets.</p>
 </section>
 

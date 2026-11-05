@@ -4,32 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Overlord — NPC Interaction · Dialogue Card</title>
-<!--
-  Marketing animation: the COMPACT NPC dialogue card (Overlord config 1) opening
-  over the page's purple gradient. Faithful to the shipping card surface:
-
-   · tactical_interface.html — "This surface renders exactly ONE card component in
-     TWO configurations: [data-config="npc"] — the compact dialogue card;
-     [data-config="prayer"] — the large prayer / loot card". The intel body it
-     renders is the "variant: loot / tactical intel body (also the compact NPC
-     body)" (`oc-intel-wrap`, `oc-intel-tag`, `oc-intel-body`) — tactical_interface.html:89-95.
-   · tactical_interface.js renderNpcCard() — config 'npc', symbol ◈, eyebrow tag
-     'Dialogue', title = speaker, intel tag 'Dialogue', intel body = the dialogue
-     line (no steps / action tip in this payload). tactical_interface.js:391-429.
-   · loot-card.html renderNpcCard() — the ?state=npc SAMPLE PAYLOAD, used verbatim
-     as the dialogue content. loot-card.html:706-716 (render) + :768-771 (payload).
-   · The action box advances the node (preload.js advanceDialogueNode(), bound at
-     tactical_interface.js:1869-1874); loot-card's demo stamps state
-     'node advanced · demo' on that click (loot-card.html:743).
-   · Geometry/copy: compact NPC card 280px wide, radius 14, header 44px, symbol
-     #c084fc, body max-height 118px — tactical-interface.css:338-365, :680, :715,
-     :740-746, :1051-1056. Window 320x320 — shell/main.js:912.
-
-  NO dialogue is invented. Every spoken word comes from loot-card.html:769-770.
-  Design canvas 900x560, scaled by --s so the same layout holds at 200px and 900px.
-  TRANSPARENT: html/body paint nothing; only the card's own glass, hairlines,
-  speaker labels and violet accents are drawn. The purple gradient is the host's.
--->
+<!-- Overlord AI HUD demo for the website. -->
 <style>
   :root{
     --accent:#6d5cff;

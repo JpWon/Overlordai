@@ -4,43 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Combo Card — Black Myth: Wukong</title>
-<!--
-  Marketing animation: Overlord's COMBO CARD carrying its real researched stack of
-  Black Myth: Wukong strings, stepping through them the way the shipping app does.
-
-  Grounded entirely in the repo — every combo name, step string and button comes
-  verbatim from the data; nothing here is invented.
-
-  SOURCE OF TRUTH
-    · guides/controls/black_myth_wukong_combos.json — combos[]: 7 researched
-      strings with name + inputs (PC keyboard/mouse + gamepad wording), step_count,
-      beats (boss slugs), requires.unlocks. game_title = "Black Myth: Wukong".
-      Verbatim lines: c1 124-143, c2 144-164, c3 165-184, c4 185-204,
-      c5 205-223, c6 224-243, c7 244-262. Boss names 79-122.
-    · combo_coach.py — "the brain behind the COMBO CARD":
-        - combo STACK NAVIGATION (lines 156-201): "The card carries a stack of
-          learned combos … a spoken 'next combo' / F4 sext-tap must switch the open
-          combo"  -> the rail + the F4 x6 / "next combo" cue.
-        - ASSUMED_STEP_MS = 1000 (line 446) and combo_timing() (472+) -> the
-          presumed pace note ("no timing documented") the card prints.
-        - SCHEME_LABELS['keyboard_mouse'] (89-92) -> the measured device chip.
-        - combo_payload() (898+): title "Combo Card", tips become the step pills,
-          combos[] fold into the stack, the card carries inputs + provenance only.
-    · OverlordApp/tactical-interface.css
-        - .oc[data-config="combo"] (427-455): width 253, hairline/glass iconography.
-        - LIVE COMBO STEPPING (544-571): input_watcher sees the button he ACTUALLY
-          pressed; the step lights with the SAME sweep the mouse uses on hover/click
-          — .oc-step-pill.lit (violet #6d5cff ::after scaleX 0->1, 0.6s) + the
-          ocStepLit glow; .done keeps the fill, settles. Reproduced here.
-        - THE EXECUTION FILL (573-601) -> the 2px bottom hairline .step-fill.
-        - ASSUMED PACE (603-622) -> .oc-pace-note.
-    · tactical_interface.html (32-113) + tactical_interface.js (280-321): the real
-      card shell — oc-step-pill > oc-step-badge + oc-step-text; the pill is the row.
-
-  TRANSPARENCY: no panel fill is painted (html/body transparent; the card is hairlines
-  + corner ticks + the violet step sweep only). A purple gradient sits behind it.
-  Canvas 900x560, scaled by --s so the same layout holds in a carousel and a lightbox.
--->
+<!-- Overlord AI HUD demo for the website. -->
 <style>
   :root{
     --accent:#6d5cff; --accent-soft:#b9a8ff; --accent-bright:#dcd6ff;
@@ -223,8 +187,8 @@
    Each `inputs[]` string is copied character-for-character from the file (lines in
    `line`); `name` likewise. Nothing is paraphrased or invented. */
 var GAME = "Black Myth: Wukong";                 // game_title, combos.json:5
-var SCHEME = "Keyboard and Mouse";               // combo_coach.py SCHEME_LABELS['keyboard_mouse']:90
-var ASSUMED_STEP_MS = 1000;                      // combo_coach.py ASSUMED_STEP_MS:446 (the presumed pace the card prints)
+var SCHEME = "Keyboard and Mouse";
+var ASSUMED_STEP_MS = 1000;
 
 /* boss slug -> display name, from combos.json bosses[] (lines 79-122) */
 var BOSS = {

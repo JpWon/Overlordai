@@ -21,9 +21,9 @@
 
 ## ⚡ What is Overlord AI?
 
-**[Overlord AI](https://www.overlordai.co/)** is a lightweight, low-latency desktop companion built for PC gamers who want deep tactical mastery without breaking their immersion. 
+**[Overlord AI](https://www.overlordai.co/)** is a lightweight desktop companion built for PC gamers who want deep tactical mastery without breaking their immersion. 
 
-Instead of pausing to search wikis, scrolling through Reddit threads, or scrubbing through 40-minute YouTube walkthroughs, **Overlord AI sits alongside your game, observes your screen in real time (<200ms latency), and speaks contextual advice, boss mechanics, and secret waypoints directly through your headset.**
+Instead of pausing to search wikis, scrolling through Reddit threads, or scrubbing through 40-minute YouTube walkthroughs, **Overlord AI sits alongside your game, watches your screen as you play, and speaks advice, boss mechanics and secret routes through your headset.**
 
 <p align="center">
   <a href="https://www.overlordai.co/">
@@ -35,11 +35,11 @@ Instead of pausing to search wikis, scrolling through Reddit threads, or scrubbi
 
 ## 🎮 Key Features
 
-* **👁️ Real-Time Screen Awareness**: Inspects gameplay visual state with sub-second responsiveness without degrading your framerate.
-* **🎙️ Natural Voice Co-Pilot**: Powered by ultra-low-latency local neural voice synthesis. Hear tactical callouts as naturally as talking to a co-op partner.
-* **🗺️ Built-in Secret & Ability Atlas**: Instant access to hidden loot, breakable walls, Ability Points (AP), secret rafters, and exclusive upgrades across supported titles.
-* **🛡️ 100% Ban-Safe & Fair Play**: Unlike cheat trainers or memory injectors, Overlord AI never injects DLLs, never touches game memory, and never risks account bans. It operates purely via external screen vision—giving you legitimate tactical mastery.
-* **⚡ Zero Performance Overhead**: Whisper-silent edge capture designed to preserve maximum GPU rendering budget and 144+ FPS refresh rates.
+* **👁️ Real-Time Screen Awareness**: It sees what you see, without slowing your game.
+* **🎙️ Natural Voice Co-Pilot**: Hear callouts as naturally as talking to a co-op partner.
+* **🗺️ Built-in Secrets Guide**: Instant access to hidden loot, breakable walls, Ability Points (AP), secret rafters, and exclusive upgrades across supported titles.
+* **🛡️ Fair Play**: It never injects code, never touches game memory, never changes your game files and never presses keys.
+* **⚡ Light on Your PC**: Built to stay out of your game's way.
 * **🚫 Zero Alt-Tab Distraction**: Stay focused on the fight. No intrusive full-screen overlays—just crisp, actionable audio guidance when you need it.
 
 ---
@@ -47,7 +47,7 @@ Instead of pausing to search wikis, scrolling through Reddit threads, or scrubbi
 ## 🎯 Supported Titles & Specializations
 
 * **Black Myth: Wukong**: Chapter secrets, hidden meditation spots, spirit transformations, and boss counter-strategies.
-* **Control (Remedy Entertainment)**: Complete hidden Ability Point (AP) atlas, secret rafters, breakable walls, and exclusive weapon mods (such as *Eternal Fire*).
+* **Control (Remedy Entertainment)**: Every hidden Ability Point (AP), secret rafters, breakable walls, and exclusive weapon mods (such as *Eternal Fire*).
 * **Expanding Catalog**: New game profiles, boss guides, and tactical radar maps added continuously.
 
 ---
@@ -61,18 +61,6 @@ Instead of pausing to search wikis, scrolling through Reddit threads, or scrubbi
 | 🔐 **Account & Downloads** | [https://www.overlordai.co/login.html](https://www.overlordai.co/login.html) |
 | 💬 **Support & Knowledge Base** | [https://www.overlordai.co/support.html](https://www.overlordai.co/support.html) |
 | ⚖️ **Terms & EULA** | [https://www.overlordai.co/terms.html](https://www.overlordai.co/terms.html) |
-
----
-
-## 💻 Repository Structure
-
-This repository powers the official public web presence and documentation for **[Overlord AI](https://www.overlordai.co/)**:
-
-* `index.html` — Homepage featuring interactive live demos, value proposition, and feature breakdowns.
-* `plans.html` — Transparent tier selection (Free Demo, Subscription, and Pro).
-* `login.html` & `signup.html` — Client authentication portals.
-* `dashboard.html` — Member license management, client download portal, and telemetry options.
-* `support.html` — Help desk, FAQ, and technical requirements.
 
 ---
 

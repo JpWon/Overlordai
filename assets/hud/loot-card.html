@@ -4,37 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Overlord — Loot Card</title>
-<!--
-  Overlord — LOOT CARD (standalone marketing panel)
-  =================================================
-  The shipping player card, LOOT configuration, isolated as one transparent
-  pane for the homepage "Work '26" ring carousel (index.html -> c.embed).
-
-  Faithful to:
-    psyche/OverlordApp/loot-card.html          (the card prototype: drawer glass,
-                                                fold-in unfold, section set, the
-                                                ?state=loot sample payload)
-    psyche/OverlordApp/tactical_interface.html (the live overlay DOM: oc-head,
-                                                oc-tag, oc-no-img, oc-steps-list,
-                                                oc-action-box, oc-intel-body)
-    psyche/OverlordApp/tactical-interface.css  (real class geometry: loot card
-                                                295px/42px head/115px image box,
-                                                violet hairline + royal fill)
-    psyche/OverlordApp/tactical_interface.js   (renderTactical: loot variant,
-                                                stepsTag 'Objective Directives',
-                                                intelTag 'Tactical Intel')
-
-  Transparency: the page paints NO background. The carousel's own purple
-  gradient (.card__face --art) shows straight through; only hairlines, violet
-  accents and the card's own content are drawn. `?bg=plasma` paints the
-  carousel's gradient for QA stills only — off by default.
-
-  URL knobs:  ?beat=loot|closed   start pinned on a beat
-              ?bg=plasma          QA backdrop only (default: transparent)
-
-  Sandbox-safe: no external files, no fonts, no network, no storage, no parent
-  DOM. Honors prefers-reduced-motion by settling on the open card.
--->
+<!-- Overlord AI HUD demo for the website. -->
 <style>
   :root{
     --accent:#6d5cff;
