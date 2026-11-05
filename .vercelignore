@@ -1,11 +1,6 @@
-# Repo-only files: build scripts, internal notes, SQL and the waitlist server.
+# Repo-only files: the waitlist server and asset notes.
 # They stay in git but are never uploaded to Vercel, so the site can't serve them.
 /README.md
-/legal/*.md
-/legal/*.py
-/legal/*.content.html
-/legal/_skeleton.html
-/scripts/
 /waitlist-api/
 /assets/make_*.py
 /assets/*_trace.json
