@@ -145,6 +145,13 @@ window.va = window.va || function () { (window.vaq = window.vaq || []).push(argu
   }
 
   window.ovrCookieSettings = showBanner;
+  /* Same rule the trackers use: assets/funnel.js only stores its anonymous id when this is true. */
+  window.ovrConsentAllows = function () {
+    var c = stored();
+    return c === "granted" || (!c && !inEurope() && !gpc());
+  };
+  /* Funnel tracking (assets/funnel.js) on every page that loads this file. */
+  addScript("/assets/funnel.js", {});
 
   var choice = stored();
   var europe = inEurope();

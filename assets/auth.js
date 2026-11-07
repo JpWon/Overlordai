@@ -56,9 +56,17 @@
   if (configured) {
     client.auth.onAuthStateChange((_event, s) => {
       const u = s && s.user;
-      if (!u || !luxRef() || (u.user_metadata || {}).ref) return;
-      if (Date.now() - Date.parse(u.created_at || 0) > 3600e3) return;
-      client.auth.updateUser({ data: { ref: 'lux' } }).catch(() => {});
+      if (!u || Date.now() - Date.parse(u.created_at || 0) > 3600e3) return;
+      const md = u.user_metadata || {}, add = {};
+      if (luxRef() && !md.ref) add.ref = 'lux';
+      /* Funnel, Google/Apple sign-ups: same anon id + first touch as the email form sends.
+         Written once (never over an existing first touch), and the sign-up conversion fires once. */
+      const F = window.OverlordFunnel;
+      if (F && !md.first_touch) {
+        Object.assign(add, F.accountFields());
+        F.signedUp(u.id);
+      }
+      if (Object.keys(add).length) client.auth.updateUser({ data: add }).catch(() => {});
     });
   }
   luxRef();
@@ -133,8 +141,13 @@
     if (extra && extra.productEmails) {
       options.data = Object.assign(options.data || {}, { product_emails: true, product_emails_source: 'website' });
     }
+    /* Funnel: the anonymous id and first touch (UTM, ad click id, affiliate, promo) ride on the
+       new account, so the back end can link the visits before sign-up to this user id. */
+    const F = window.OverlordFunnel;
+    if (F) options.data = Object.assign(options.data || {}, F.accountFields());
     const { data, error } = await client.auth.signUp({ email, password, options });
     if (error) throw error;
+    if (F) F.signedUp(data && data.user && data.user.id);
     return data;
   }
 
