@@ -1197,12 +1197,12 @@
         <p class="sub">Thank you for joining our team — we hope you enjoy having Overlord in your corner. Manage your plan, licences, and active nodes below.</p>
 
         <div class="stats">
-          <div class="stat"><span class="stat__k">Plan</span><span class="stat__v">Sub<em>scription</em></span>
+          <div class="stat"><span class="stat__k">Plan</span><span class="stat__v" id="statPlanVal">Sub<em>scription</em></span>
             <span class="stat__sub" id="statPlanSub">$14.99 / month</span></div>
-          <div class="stat"><span class="stat__k">Licences</span><span class="stat__v">1 / 1</span>
-            <span class="stat__sub">Active · 1 machine</span></div>
-          <div class="stat"><span class="stat__k">Devices</span><span class="stat__v">1</span>
-            <span class="stat__sub">Bound · station-01</span></div>
+          <div class="stat"><span class="stat__k">Licences</span><span class="stat__v" id="statLicVal">&mdash;</span>
+            <span class="stat__sub" id="statLicSub">Sign in to see your seats</span></div>
+          <div class="stat"><span class="stat__k">Devices</span><span class="stat__v" id="statDevVal">&mdash;</span>
+            <span class="stat__sub" id="statDevSub">Sign in to see your machines</span></div>
           <div class="stat"><span class="stat__k">Runtime · period</span><span class="stat__v">12h 40m</span>
             <span class="stat__sub">Single-player only</span></div>
         </div>
@@ -1261,14 +1261,14 @@
           <div class="sect__head"><span class="mono">Your key</span><span class="mono">Primary Seat</span></div>
           <div class="rowlist">
             <div class="krow">
-              <div class="krow__main"><b class="mono" id="licenseKeyVal">OVRD-4K7Q-91XZ-0M2E</b><span class="krow__sub">Seat 01 of 01 · Subscription · activated 01 Jul '26</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Bound to station-01</span></div>
+              <div class="krow__main"><b class="mono" id="licenseKeyVal">&mdash;</b><span class="krow__sub" id="licenseKeySub">Sign in to see your licence</span></div>
+              <div class="krow__meta" id="licenseKeyMeta"><span class="chip">Not signed in</span></div>
               <div class="krow__act">
                 <button class="mini" type="button" id="copyKeyBtn" data-mock-link="Key copied to clipboard">Copy</button>
                 <button class="mini mini--quiet" type="button" data-mock-link="Seat deactivated. Available to assign to a new device">Deactivate</button>
               </div>
             </div>
-            <div class="krow">
+            <div class="krow" id="seatUpsellRow">
               <div class="krow__main"><b class="mono">Seat 02 · not in use</b><span class="krow__sub">Opens with Pro · move a seat any time</span></div>
               <div class="krow__meta"><span class="chip">Locked on Subscription</span></div>
               <div class="krow__act"><a class="mini" href="plans.html">Unlock <span class="arr">&rarr;</span></a></div>
@@ -1296,28 +1296,10 @@
         <p class="sub">Machines holding one of your seats. Deactivating one frees the seat for another machine.</p>
 
         <div class="sect">
-          <div class="sect__head"><span class="mono">Active Nodes</span><span class="mono">3 of 3 Seats</span></div>
-          <div class="rowlist">
+          <div class="sect__head"><span class="mono">Active Nodes</span><span class="mono" id="deviceSeatsHead">&mdash; Seats</span></div>
+          <div class="rowlist" id="deviceList">
             <div class="krow">
-              <div class="krow__main"><b>station-01</b><span class="krow__sub">Ubuntu Linux · this PC</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Seat 01</span></div>
-              <div class="krow__act">
-                <button class="mini" type="button" data-mock-link="This PC is running">Running</button>
-              </div>
-            </div>
-            <div class="krow">
-              <div class="krow__main"><b>gaming-pc</b><span class="krow__sub">Windows 11 · gaming PC</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Seat 02</span></div>
-              <div class="krow__act">
-                <button class="mini" type="button" data-mock-link="Gaming PC connected">Connected</button>
-              </div>
-            </div>
-            <div class="krow">
-              <div class="krow__main"><b>laptop</b><span class="krow__sub">Linux · laptop</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Standby</span><span class="chip">Seat 03</span></div>
-              <div class="krow__act">
-                <button class="mini" type="button" data-mock-link="Laptop on standby">Standby</button>
-              </div>
+              <div class="krow__main"><b>Sign in to see your machines</b><span class="krow__sub">Each PC appears here once the app is signed in on it</span></div>
             </div>
           </div>
         </div>
@@ -1685,6 +1667,126 @@
 <script src="assets/auth.js"></script>
 
 <script>
+/* ---------- seats + devices — ONE source, keyed by the Supabase user id ----------
+   my_entitlement() (auth.uid()) names the licence; its seat limit is licences.seats
+   (Standard 1, Pro 3, set by the back end from plans.licences). The device list AND both
+   counts are that licence's live rows in licence_activations, so the Licences card, the
+   Devices card and the Devices panel can never disagree. The page never decides a limit
+   and never refuses a machine: activate_device() does that on the server (SEATS_FULL). */
+window.loadSeats = async function loadSeats(sess) {
+  const auth = window.OverlordAuth;
+  const $ = id => document.getElementById(id);
+  const PLAN = { standard: 'Subscription', pro: 'Pro', free: 'Free demo' };
+  const OS = { windows: 'Windows', linux: 'Linux', steamdeck: 'Steam Deck' };
+  const STALE_DAYS = 30;
+  /* The server keeps a machine name only in hashed form, or "Unnamed machine"; show those as the platform. */
+  const label = a => (!a.device_name || a.device_name === 'Unnamed machine' || /^[0-9a-f]{64}$/i.test(a.device_name))
+    ? (OS[a.platform] || 'Unknown') + ' PC' : a.device_name;
+  const fmt = iso => {
+    if (!iso) return '—';
+    const d = new Date(iso), M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return String(d.getDate()).padStart(2, '0') + ' ' + M[d.getMonth()] + ' ’' + String(d.getFullYear()).slice(2);
+  };
+  const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+  const chip = (text, on) => { const c = el('span', on ? 'chip chip--on' : 'chip'); if (on) c.appendChild(el('i')); c.appendChild(document.createTextNode(text)); return c; };
+  const list = $('deviceList');
+  const note = (title, sub) => {
+    list.replaceChildren();
+    const r = el('div', 'krow'), m = el('div', 'krow__main');
+    m.append(el('b', null, title), el('span', 'krow__sub', sub)); r.appendChild(m); list.appendChild(r);
+  };
+  const set = (id, text) => { const n = $(id); if (n) n.textContent = text; };
+
+  if (!sess || !auth || !auth.configured) {
+    set('statLicVal', '—'); set('statLicSub', 'Sign in to see your seats');
+    set('statDevVal', '—'); set('statDevSub', 'Sign in to see your machines');
+    set('deviceSeatsHead', '— Seats');
+    note('Sign in to see your machines', 'Each PC appears here once the app is signed in on it');
+    return;
+  }
+
+  const sb = auth.client();
+  let ent = null, lic = null, acts = [];
+  try {
+    const r = await sb.rpc('my_entitlement'); if (r.error) throw r.error; ent = r.data || {};
+    if (ent.licence_reference) {
+      const l = await sb.from('licences').select('id, plan_id, seats, reference, status, created_at')
+                        .eq('reference', ent.licence_reference).maybeSingle();
+      if (l.error) throw l.error; lic = l.data;
+    }
+    if (lic) {
+      const a = await sb.from('licence_activations')
+                        .select('id, device_name, platform, activated_at, last_seen_at')
+                        .eq('licence_id', lic.id).is('deactivated_at', null).order('activated_at');
+      if (a.error) throw a.error; acts = a.data || [];
+    }
+  } catch (_) {
+    set('statLicSub', 'Couldn’t load your seats'); set('statDevSub', 'Refresh to try again');
+    note('Couldn’t load your machines', 'Refresh the page to try again');
+    return;
+  }
+
+  const upsell = $('seatUpsellRow');
+  if (!lic) {                                   // free demo / no paid licence
+    set('statPlanVal', PLAN[ent.plan] || 'Free demo');
+    set('statLicVal', '0'); set('statLicSub', 'No paid licence on this account');
+    set('statDevVal', '0'); set('statDevSub', 'No machines hold a seat');
+    set('licenseKeyVal', '—'); set('licenseKeySub', 'No paid licence yet');
+    $('licenseKeyMeta').replaceChildren(chip('Free demo'));
+    set('deviceSeatsHead', '0 Seats');
+    note('No machines hold a seat', 'A paid plan gives each PC a seat when the app signs in on it');
+    if (upsell) upsell.hidden = false;
+    return;
+  }
+
+  const seats = lic.seats, used = acts.length, planName = PLAN[lic.plan_id] || lic.plan_id;
+  set('statPlanVal', planName);
+  set('statLicVal', used + ' / ' + seats);
+  set('statLicSub', 'Active · ' + seats + (seats === 1 ? ' machine' : ' machines'));
+  set('statDevVal', String(used));
+  set('statDevSub', used ? acts.map(label).join(', ') : 'None registered yet');
+  set('licenseKeyVal', lic.reference);
+  set('licenseKeySub', 'Seats in use ' + used + ' of ' + seats + ' · ' + planName + ' · since ' + fmt(lic.created_at));
+  $('licenseKeyMeta').replaceChildren(chip('Active', true));
+  if (upsell) upsell.hidden = seats > 1;        // "Seat 02 · Locked on Subscription" only fits a 1-seat plan
+  set('deviceSeatsHead', used + ' of ' + seats + ' Seats' + (used >= seats ? ' · full' : ''));
+
+  list.replaceChildren();
+  if (!used) note('No machines registered yet', 'Each PC takes a seat when the app is signed in on it · ' + seats + ' available');
+  const now = Date.now();
+  acts.forEach((a, i) => {
+    const days = Math.floor((now - new Date(a.last_seen_at).getTime()) / 864e5);
+    const row = el('div', 'krow'), main = el('div', 'krow__main'), meta = el('div', 'krow__meta'), act = el('div', 'krow__act');
+    main.append(el('b', null, label(a)),
+      el('span', 'krow__sub', (OS[a.platform] || a.platform) + ' · activated ' + fmt(a.activated_at) + ' · last seen ' + fmt(a.last_seen_at)));
+    meta.append(days > STALE_DAYS ? chip('Not seen in ' + days + ' days') : chip('Active', true),
+                chip('Seat ' + String(i + 1).padStart(2, '0')));
+    const btn = el('button', 'mini mini--quiet', 'Remove'); btn.type = 'button';
+    let armed = null;
+    btn.addEventListener('click', async () => {
+      if (!armed) {                              // two-step confirm, no browser dialog
+        btn.textContent = 'Confirm remove';
+        armed = setTimeout(() => { armed = null; btn.textContent = 'Remove'; }, 4000);
+        return;
+      }
+      clearTimeout(armed); armed = null; btn.disabled = true;
+      const r = await sb.rpc('deactivate_device', { p_activation_id: a.id });
+      const t = $('toast');
+      if (t) {
+        t.textContent = r.data && r.data.ok ? label(a) + ' removed · its seat is free'
+                                            : 'Couldn’t remove that machine. Refresh and try again.';
+        t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 2800);
+      }
+      loadSeats(await auth.session());
+    });
+    act.appendChild(btn);
+    row.append(main, meta, act);
+    list.appendChild(row);
+  });
+};
+</script>
+
+<script>
 /* ---------- session — the real Supabase session, beside the sample data ----------
    Nothing on this page is per-user yet: the plan, licence, device and billing
    rows are still the sample account. This block only shows who is actually
@@ -1715,11 +1817,13 @@
     }
   };
 
-  if (!auth || !auth.configured) { render(null); return; }
+  if (!auth || !auth.configured) { render(null); loadSeats(null); return; }
 
   const current = await auth.session();
   render(current);
   auth.onChange(render);
+  loadSeats(current);
+  auth.onChange(loadSeats);
 
   const leave = async () => {
     await auth.signOut();
