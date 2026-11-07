@@ -39,6 +39,9 @@
       return;
     }
     if (btn) { btn.setAttribute('aria-busy', 'true'); btn.style.pointerEvents = 'none'; }
+    /* funnel (site/funnel-events branch): checkout_started, only when that script is on the page */
+    if (window.OverlordFunnel && window.OverlordFunnel.track) window.OverlordFunnel.track('checkout_started',
+      { plan: plan === 'pro' ? 'pro' : 'standard', interval: 'monthly' });
     try {
       const r = await fetch('/api/checkout', {
         method: 'POST',
