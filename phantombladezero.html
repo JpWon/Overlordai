@@ -31,7 +31,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <!-- SEO + social: absolute URLs, factual only (no reviews exist, so no ratings) -->
-<meta name="description" content="Overlord is a voice co-pilot that talks you through any single-player game as you play, Phantom Blade Zero included. Its full Phantom Blade Zero map is coming. Free demo.">
+<meta name="description" content="Overlord is a voice co-pilot that talks you through any single-player game as you play, Phantom Blade Zero included. Free 30-minute demo.">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <link rel="canonical" href="https://www.overlordai.co/phantombladezero.html">
 <meta name="application-name" content="Overlord AI">
@@ -40,7 +40,7 @@
 <meta property="og:site_name" content="Overlord AI">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Phantom Blade Zero Voice Co-Pilot — Overlord AI (Free Demo)">
-<meta property="og:description" content="Overlord is a voice co-pilot that talks you through any single-player game as you play, Phantom Blade Zero included. Its full Phantom Blade Zero map is coming. Free demo.">
+<meta property="og:description" content="Overlord is a voice co-pilot that talks you through any single-player game as you play, Phantom Blade Zero included. Free 30-minute demo.">
 <meta property="og:url" content="https://www.overlordai.co/phantombladezero.html">
 <meta property="og:image" content="https://www.overlordai.co/og-thumbnail.png">
 <meta property="og:image:width" content="1200">
@@ -48,7 +48,7 @@
 <meta property="og:image:alt" content="Overlord AI rooster mark on paper">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Phantom Blade Zero Voice Co-Pilot — Overlord AI (Free Demo)">
-<meta name="twitter:description" content="Overlord is a voice co-pilot that talks you through any single-player game as you play, Phantom Blade Zero included. Its full Phantom Blade Zero map is coming. Free demo.">
+<meta name="twitter:description" content="Overlord is a voice co-pilot that talks you through any single-player game as you play, Phantom Blade Zero included. Free 30-minute demo.">
 <meta name="twitter:image" content="https://www.overlordai.co/og-thumbnail.png">
 <meta name="twitter:image:alt" content="Overlord AI rooster mark on paper">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
@@ -432,6 +432,8 @@
   .site-footer__bottom a{color:var(--neutral-on-background-weak);text-decoration:none;transition:color .35s ease;}
   .site-footer__bottom a:hover{color:var(--accent);}
 
+  [data-when][hidden]{display:none !important;}
+
 </style>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -452,7 +454,7 @@
         "priceCurrency": "USD",
         "description": "Free 30-minute live demo"
       },
-      "description": "Overlord is a voice co-pilot that talks you through any single-player game as you play, Phantom Blade Zero included. Its full Phantom Blade Zero map is coming. Free demo."
+      "description": "Overlord is a voice co-pilot that talks you through any single-player game as you play, Phantom Blade Zero included. Free 30-minute demo."
     },
     {
       "@type": "FAQPage",
@@ -560,7 +562,7 @@
   </div>
 </div>
 
-<main id="top">
+<main id="top" data-atlas-app="4115450">
 
   <!-- ============ 1 · hero ============ -->
   <section class="wk-hero">
@@ -577,14 +579,16 @@
   </section>
 
   <!-- ============ 2 · where things stand ============ -->
+  <!-- Two versions: "coming" shows by default; "mapped" replaces it on its own once Phantom Blade Zero is in the live
+       Atlas catalog (assets/atlas-catalog.js, by Steam app id 4115450). -->
   <section class="wk-sec" id="numbers">
-    <div class="wk-wrap">
+    <div class="wk-wrap" data-when="coming">
       <span class="wk-sec__label">Where things stand</span>
       <h2 class="wk-h2 rv">The full Phantom Blade Zero map is coming.</h2>
       <p class="wk-sub rv" style="--d:.1s">
         For the games on our <a href="/roster" style="color:inherit; text-decoration:underline;">roster</a>, Overlord
-        has a map: the areas, the items and the bosses, so it can point you to the loot and the fight. Phantom Blade
-        Zero isn't mapped yet and isn't on the roster. Until it is, Overlord works from what it sees on your screen
+        has a map: the areas, the items and the bosses, so it can point you to the loot and the fight. Phantom Blade Zero
+        isn't mapped yet and isn't on the roster. Until it is, Overlord works from what it sees on your screen
         and what you ask it.
       </p>
 
@@ -600,6 +604,30 @@
         <div class="wk-feat rv" style="--d:.2s">
           <h3>Coming: the full map</h3>
           <p>We're building Phantom Blade Zero's full map. When it's done, the game joins the <a href="/roster" style="color:inherit; text-decoration:underline;">roster</a>.</p>
+        </div>
+      </div>
+    </div>
+    <div class="wk-wrap" data-when="mapped" hidden>
+      <span class="wk-sec__label">Where things stand</span>
+      <h2 class="wk-h2 rv">Phantom Blade Zero is mapped.</h2>
+      <p class="wk-sub rv" style="--d:.1s">
+        Phantom Blade Zero is on our <a href="/roster" style="color:inherit; text-decoration:underline;">roster</a>. Overlord
+        has its map: the areas, the items and the bosses, so it can point you to the loot and the fight instead of
+        giving generic advice.
+      </p>
+
+      <div class="wk-grid">
+        <div class="wk-feat rv">
+          <h3>It talks you through</h3>
+          <p>Overlord watches your screen while you play and talks you through what is happening, out loud, instead of you pausing to look something up.</p>
+        </div>
+        <div class="wk-feat rv" style="--d:.1s">
+          <h3>Ask it a question</h3>
+          <p>Stuck on a fight or not sure where to go next? Ask it any time, by voice, without leaving the game.</p>
+        </div>
+        <div class="wk-feat rv" style="--d:.2s">
+          <h3>Knows Phantom Blade Zero's map</h3>
+          <p>Overlord knows its areas, items and bosses, so it can point you to the loot and the fight.</p>
         </div>
       </div>
     </div>
@@ -626,7 +654,7 @@
         </div>
         <div class="wk-feat rv" style="--d:.2s">
           <h3>Any single-player game</h3>
-          <p>Overlord helps with any single-player game as you play. For the games on the roster it also knows the map; Phantom Blade Zero's is coming.</p>
+          <p>Overlord helps with any single-player game as you play. For the games on the roster it also knows the map<span data-when="coming">; Phantom Blade Zero's is coming</span><span data-when="mapped" hidden>, and Phantom Blade Zero is one of them</span>.</p>
         </div>
         <div class="wk-feat rv">
           <h3>Three in-character voices</h3>
@@ -695,7 +723,7 @@
         <details class="faqsec__item"><summary>Does Overlord change or control the game?</summary><p>No. Overlord watches your screen, with your permission, the way a person sitting next to you would. It doesn't read or change game memory, change game files, inject code or press keys for you. Each game sets its own rules about outside help, so check the terms of the games you play.</p></details>
         <details class="faqsec__item"><summary>What do I need to run it?</summary><p>A Windows 10/11 or Linux (Ubuntu/Debian) PC beside the game you already own. Every feature works on both. There is nothing to install into the game itself and no patch to manage. You also need an Overlord AI account and an internet connection for answers and the voice.</p></details>
         <details class="faqsec__item"><summary>How much does it cost?</summary><p>The demo is free: 30 minutes of live play with no credit card, one trial per person. After that, Subscription is $14.99 a month or $149.99 a year for one machine, and Pro is $39.99 a month or $399.99 a year for three PCs. You can cancel any time.</p></details>
-        <details class="faqsec__item"><summary>Does it support Phantom Blade Zero?</summary><p>Overlord helps with any single-player game as you play, Phantom Blade Zero included: it watches your screen and talks you through. Phantom Blade Zero isn't mapped yet, so Overlord doesn't know its areas, items and bosses the way it does for the games on the <a href="/roster">roster</a>. The full Phantom Blade Zero map is coming.</p></details>
+        <details class="faqsec__item"><summary>Does it support Phantom Blade Zero?</summary><p data-when="coming">Overlord helps with any single-player game as you play, Phantom Blade Zero included: it watches your screen and talks you through. Phantom Blade Zero isn't mapped yet, so Overlord doesn't know its areas, items and bosses the way it does for the games on the <a href="/roster">roster</a>. The full Phantom Blade Zero map is coming.</p><p data-when="mapped" hidden>Yes. Phantom Blade Zero is mapped: Overlord knows its areas, items and bosses and talks you through it as you play. It's on the <a href="/roster">roster</a>.</p></details>
       </div>
     </div>
   </section>
@@ -714,6 +742,19 @@
   </section>
 
 </main>
+<script src="/assets/atlas-catalog.js"></script>
+<script>
+  /* "coming" until this game is in the live Atlas catalog, then "mapped" (same list as /roster). */
+  (function () {
+    var app = document.getElementById('top').getAttribute('data-atlas-app');
+    if (!window.OverlordAtlas) return;
+    OverlordAtlas.load().then(function (a) {
+      if (!a.hasApp(app)) return;
+      document.querySelectorAll('[data-when="coming"]').forEach(function (el) { el.hidden = true; });
+      document.querySelectorAll('[data-when="mapped"]').forEach(function (el) { el.hidden = false; });
+    }).catch(function () {});
+  })();
+</script>
 
 <!-- ============ footer ============ -->
 <footer class="site-footer" id="footer">

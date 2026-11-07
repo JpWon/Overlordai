@@ -1,6 +1,6 @@
 {
   "_about": "The mapped-games list for the homepage strip and /roster.",
-  "catalog_url": "https://bzxzhizvfzmldpkxxuqu.supabase.co/rest/v1/atlas_catalog?status=eq.ready&select=game_title,counts",
+  "catalog_url": "https://bzxzhizvfzmldpkxxuqu.supabase.co/rest/v1/atlas_catalog?status=eq.ready&select=app_id,game_title,counts",
   "bundled": {
     "Control": {
       "rooms": 23,
@@ -36,5 +36,9 @@
     "Sekiro": "/sekiro.html",
     "Lies of P": "/liesofp.html",
     "Mortal Shell II": "/mortalshell2.html"
+  },
+  "pages_by_app": {
+    "4115450": "/phantombladezero.html",
+    "3321460": "/crimsondesert.html"
   }
 }

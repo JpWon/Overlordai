@@ -8,13 +8,14 @@
         .then(function(r) { return r.json(); })
         .then(function(rows) {
           if (!Array.isArray(rows)) throw new Error('catalog unreadable');
-          var games = {};
+          var games = {}, appOf = {}, apps = {};
           Object.keys(cfg.bundled || {}).forEach(function(t) {
             var b = cfg.bundled[t];
             games[t] = { rooms: b.rooms || 0, loot: b.loot || 0, boss: b.boss || 0 };
           });
           rows.forEach(function(row) {
             if (!row.game_title) return;
+            if (row.app_id) { appOf[row.game_title] = String(row.app_id); apps[String(row.app_id)] = row.game_title; }
             var c = row.counts || {}, g = games[row.game_title] || (games[row.game_title] = { rooms: 0, loot: 0, boss: 0 });
             g.rooms += (c.rooms || 0); g.loot += (c.loot || 0); g.boss += (c.boss || 0);
           });
@@ -25,7 +26,14 @@
           var footer = (cfg.popularity || []).filter(function(t) { return games[t] && never.indexOf(t) === -1; })
             .slice(0, cfg.footer_top || 4);
           var short = function(t) { return (cfg.short || {})[t] || t; };
-          return { games: games, titles: titles, totals: totals, footer: footer, short: short, pages: cfg.pages || {} };
+          var byApp = cfg.pages_by_app || {}, pages = {};
+          titles.forEach(function(t) {
+            var p = (cfg.pages || {})[t] || byApp[appOf[t]];
+            if (p) pages[t] = p;
+          });
+          var hasApp = function(id) { return Object.prototype.hasOwnProperty.call(apps, String(id)); };
+          return { games: games, titles: titles, totals: totals, footer: footer, short: short, pages: pages,
+                   hasApp: hasApp };
         });
     });
   }

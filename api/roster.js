@@ -22,8 +22,15 @@ async function titles(cfg) {
   const rows = await r.json();
   if (!Array.isArray(rows) || !rows.length) throw new Error('catalog unreadable');
   const games = new Set(Object.keys(cfg.bundled || {}));
-  rows.forEach((row) => { if (row.game_title) games.add(row.game_title); });
-  return [...games].sort((a, b) => a.localeCompare(b));
+  const pages = {};
+  rows.forEach((row) => {
+    if (!row.game_title) return;
+    games.add(row.game_title);
+    const p = (cfg.pages || {})[row.game_title] || (cfg.pages_by_app || {})[String(row.app_id || '')];
+    if (p) pages[row.game_title] = p;
+  });
+  Object.keys(cfg.pages || {}).forEach((t) => { if (games.has(t)) pages[t] = cfg.pages[t]; });
+  return { list: [...games].sort((a, b) => a.localeCompare(b)), pages };
 }
 
 module.exports = async (req, res) => {
@@ -31,8 +38,7 @@ module.exports = async (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   try {
     const cfg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'assets', 'atlas-catalog.json'), 'utf8'));
-    const list = await titles(cfg);
-    const pages = cfg.pages || {};
+    const { list, pages } = await titles(cfg);
     let out = between(page, '<!-- roster-totals:start -->', '<!-- roster-totals:end -->',
       '<p class="totals" id="totals">' + WORDING + ' &middot; <strong>' + list.length + ' games</strong></p>');
     out = between(out, '<!-- roster-list:start -->', '<!-- roster-list:end -->',
