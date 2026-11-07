@@ -28,3 +28,9 @@ function getFounderAccessEndLabel(dateStr) {
 
 window.FOUNDER_ACCESS_END = FOUNDER_ACCESS_END;
 window.FOUNDER_ACCESS_END_LABEL = getFounderAccessEndLabel(FOUNDER_ACCESS_END);
+
+/* Paid checkout (Creem) opens on its own at midnight US Eastern on Nov 16 (JP, 2026-11-07).
+   Before this moment the plan buttons keep their Founder Access behaviour. The server
+   (api/checkout.js) enforces the same time in production, so this is not a security gate. */
+const PAID_CHECKOUT_START = "2026-11-16T05:00:00Z";
+window.PAID_CHECKOUT_START = PAID_CHECKOUT_START;

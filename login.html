@@ -1221,7 +1221,7 @@
       await auth.signInWithEmail(e1, p1);
       sessionStorage.setItem('ovr_email', e1);
       say('Signed in \u2014 taking you to your account\u2026', 'ok');
-      location.assign(auth.redirectTo || 'dashboard.html');
+      location.assign(auth.afterAuthUrl ? auth.afterAuthUrl() : (auth.redirectTo || 'dashboard.html'));
     } catch (err) {
       say('Email or password is incorrect.', 'bad');
       btn.disabled = false;

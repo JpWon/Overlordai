@@ -1231,7 +1231,7 @@
       sessionStorage.setItem('ovr_email', e1);
       if (out && out.session) {                       // email confirmation is OFF
         say('Account created \u2014 taking you in\u2026', 'ok');
-        location.assign(auth.redirectTo || 'dashboard.html');
+        location.assign(auth.afterAuthUrl ? auth.afterAuthUrl() : (auth.redirectTo || 'dashboard.html'));
         return;
       }
       const who = document.getElementById('confirmWho');

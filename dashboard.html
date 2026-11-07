@@ -1374,7 +1374,7 @@
           <div class="krow">
             <div class="krow__main"><b>Subscription · monthly</b><span class="krow__sub">Started 01 Jul '26 · one licence · one machine</span></div>
             <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Card ···· 4242</span></div>
-            <div class="krow__act"><button class="mini" type="button" data-mock-link="Redirecting to the billing portal...">Manage</button></div>
+            <div class="krow__act"><button class="mini" type="button" id="manageSubBtn" data-mock-link="Redirecting to the billing portal...">Manage</button></div>
           </div>
           <div class="krow">
             <div class="krow__main"><b>Switch to yearly</b><span class="krow__sub">$149.99 / year · the same tier, billed once</span></div>
@@ -1718,8 +1718,36 @@
   if (!auth || !auth.configured) { render(null); return; }
 
   const current = await auth.session();
+  /* Signed in with Google/Apple on the way to a paid checkout: carry on to it. */
+  const next = current && auth.takeAfterAuth ? auth.takeAfterAuth() : null;
+  if (next) { location.replace(next); return; }
   render(current);
   auth.onChange(render);
+
+  /* Billing -> Manage: the real Creem customer portal (cancel, update card, invoices) for a
+     signed-in player who has bought through Creem. Signed out, it stays the sample button. */
+  let liveSession = current;
+  auth.onChange(s => { liveSession = s; });
+  const toast = msg => { const t = document.getElementById('toast');
+    if (t) { t.textContent = msg; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 3200); } };
+  async function openPortal(btn, s) {
+    btn.disabled = true;
+    try {
+      const r = await fetch('/api/portal', { method: 'POST', headers: { Authorization: 'Bearer ' + s.access_token } });
+      const out = await r.json().catch(() => ({}));
+      if (r.ok && out.url && /^https:\/\/([a-z0-9-]+\.)*creem\.io\//i.test(out.url)) { location.assign(out.url); return; }
+      toast(r.status === 404 ? 'No paid subscription on this account yet.'
+                             : 'The billing portal couldn’t open. Please try again, or email support@overlordai.co.');
+    } catch (_) { toast('The billing portal couldn’t open. Check your connection and try again.'); }
+    finally { btn.disabled = false; }
+  }
+  /* Capture on the document runs before the sample button's own click handler. */
+  document.addEventListener('click', e => {
+    const btn = e.target.closest && e.target.closest('#manageSubBtn');
+    if (!btn || !liveSession) return;        // signed out: the sample toast handles it
+    e.preventDefault(); e.stopPropagation();
+    openPortal(btn, liveSession);
+  }, true);
 
   const leave = async () => {
     await auth.signOut();

@@ -14,7 +14,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payment Confirmed — Overlord AI</title>
+<title>Payment Received — Overlord AI</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -31,12 +31,12 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Overlord AI">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Payment Confirmed — Overlord AI">
+<meta property="og:title" content="Payment Received — Overlord AI">
 <meta property="og:description" content="Thank you for subscribing to Overlord AI. Your live co-pilot license is active.">
 <meta property="og:url" content="https://www.overlordai.co/thanks.html">
 <meta property="og:image" content="https://www.overlordai.co/og-thumbnail.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Payment Confirmed — Overlord AI">
+<meta name="twitter:title" content="Payment Received — Overlord AI">
 <meta name="twitter:description" content="Thank you for subscribing to Overlord AI. Your live co-pilot license is active.">
 <meta name="twitter:image" content="https://www.overlordai.co/og-thumbnail.png">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
@@ -193,6 +193,8 @@
     font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;
     margin-bottom:1.8rem;
   }
+  .status-badge--pending{background:rgba(109,92,255,.12);border-color:rgba(109,92,255,.35);color:var(--accent);}
+  .status-badge--pending i{background:var(--accent);box-shadow:0 0 10px var(--accent);animation:ping 2s cubic-bezier(0,0,.2,1) infinite;}
   .status-badge i{
     width:7px;height:7px;border-radius:50%;background:var(--success);
     box-shadow:0 0 10px var(--success);
@@ -399,24 +401,24 @@
 
 <main class="thanks-wrap">
   <div class="card">
-    <div class="status-badge">
+    <div class="status-badge status-badge--pending" id="statusBadge">
       <i></i>
-      <span>Payment Verified · Live Access Active</span>
+      <span id="statusBadgeText">Payment received · Activating</span>
     </div>
 
-    <h1>Payment <span>Confirmed</span></h1>
-    <p class="lead">
-      Your order has been processed by our payment provider, our reseller and merchant of record. Your license and access keys are unlocked on your Control Deck.
+    <h1 id="statusTitle">Payment <span>received</span></h1>
+    <p class="lead" id="statusLead">
+      Thank you. Our payment provider, our reseller and merchant of record, has your order, and we're switching your plan on now. This usually takes a few seconds.
     </p>
 
     <div class="ledger">
       <div class="ledger-item">
         <span class="ledger-label">Account Status</span>
-        <span class="ledger-val" style="color:var(--success);">Active · Paid Plan</span>
+        <span class="ledger-val" id="accountStatus">Activating&hellip;</span>
       </div>
       <div class="ledger-item">
         <span class="ledger-label">Billing</span>
-        <span class="ledger-val">Payment processed (receipt emailed)</span>
+        <span class="ledger-val">Receipt emailed by our payment provider</span>
       </div>
       <div class="ledger-item">
         <span class="ledger-label">Transaction Reference</span>
@@ -430,8 +432,8 @@
 
     <div class="redirect-box">
       <div class="redirect-text">
-        <span id="redirectLabel">Redirecting to Control Deck in</span>
-        <b id="countdownTimer">6s</b>
+        <span id="redirectLabel">Waiting for your plan to switch on</span>
+        <b id="countdownTimer"></b>
       </div>
       <div class="progress-track">
         <div class="progress-bar" id="progressBar"></div>
@@ -442,7 +444,7 @@
       <a class="btn btn--primary" id="goDeckBtn" href="dashboard.html">
         Go to Control Deck <span class="arr">&rarr;</span>
       </a>
-      <button class="btn btn--ghost" type="button" id="togglePauseBtn">
+      <button class="btn btn--ghost" type="button" id="togglePauseBtn" hidden>
         Pause Redirect
       </button>
     </div>
@@ -490,62 +492,96 @@
   </div>
 </footer>
 
+<script src="assets/vendor/supabase-js.js"></script>
+<script src="assets/auth-config.js"></script>
+<script src="assets/auth.js"></script>
 <script>
-  /* ---------- URL params & Session Ref ---------- */
+  /* ---------- Transaction reference (from the payment provider's return link) ---------- */
   (() => {
     const params = new URLSearchParams(window.location.search);
-    const session = params.get('session_id');
+    const ref = params.get('checkout_id') || params.get('order_id') || params.get('session_id');
     const refEl = document.getElementById('sessionRef');
-    if (session) {
-      refEl.textContent = session.length > 24 ? (session.slice(0, 14) + '...' + session.slice(-6)) : session;
-      refEl.title = session;
+    if (ref) {
+      refEl.textContent = ref.length > 24 ? (ref.slice(0, 14) + '...' + ref.slice(-6)) : ref;
+      refEl.title = ref;
     } else {
       refEl.textContent = '—';
     }
   })();
 
-  /* ---------- Countdown & Auto-Redirect ---------- */
+  /* ---------- Activation: this page never grants access ----------
+     The payment provider's webhook, handled by our back end, switches the plan on. This page
+     only reads the player's entitlement from Supabase (my_entitlement) until it shows a paid
+     plan, then counts down to the Control Deck. */
   (() => {
-    const TOTAL_MS = 6000;
-    const INTERVAL_MS = 50;
-    let elapsed = 0;
-    let isPaused = false;
-    let timerId = null;
+    const POLL_MS = 3000, GIVE_UP_MS = 180000, REDIRECT_MS = 6000, TICK = 50;
+    const PAID = { standard: 'Subscription', pro: 'Pro' };
+    const LIVE = ['active', 'trialing', 'past_due'];
+    const $ = id => document.getElementById(id);
+    const badge = $('statusBadge'), badgeText = $('statusBadgeText'), title = $('statusTitle'),
+          lead = $('statusLead'), acct = $('accountStatus'), bar = $('progressBar'),
+          timerLabel = $('countdownTimer'), pauseBtn = $('togglePauseBtn'),
+          redirectLabel = $('redirectLabel'), deckBtn = $('goDeckBtn');
+    bar.style.width = '0%';
 
-    const bar = document.getElementById('progressBar');
-    const timerLabel = document.getElementById('countdownTimer');
-    const pauseBtn = document.getElementById('togglePauseBtn');
-    const redirectLabel = document.getElementById('redirectLabel');
-
-    function update() {
-      if (isPaused) return;
-      elapsed += INTERVAL_MS;
-      const progress = Math.min((elapsed / TOTAL_MS) * 100, 100);
-      bar.style.width = progress + '%';
-
-      const remainingSec = Math.max(0, Math.ceil((TOTAL_MS - elapsed) / 1000));
-      timerLabel.textContent = remainingSec + 's';
-
-      if (elapsed >= TOTAL_MS) {
-        clearInterval(timerId);
-        window.location.assign('dashboard.html');
-      }
+    function countdown() {
+      let elapsed = 0, paused = false;
+      pauseBtn.hidden = false;
+      redirectLabel.textContent = 'Redirecting to Control Deck in';
+      const id = setInterval(() => {
+        if (paused) return;
+        elapsed += TICK;
+        bar.style.width = Math.min(elapsed / REDIRECT_MS * 100, 100) + '%';
+        timerLabel.textContent = Math.max(0, Math.ceil((REDIRECT_MS - elapsed) / 1000)) + 's';
+        if (elapsed >= REDIRECT_MS) { clearInterval(id); window.location.assign('dashboard.html'); }
+      }, TICK);
+      pauseBtn.addEventListener('click', () => {
+        paused = !paused;
+        pauseBtn.textContent = paused ? 'Resume Redirect' : 'Pause Redirect';
+        redirectLabel.textContent = paused ? 'Redirect paused' : 'Redirecting to Control Deck in';
+        bar.style.opacity = paused ? '0.5' : '1';
+      });
     }
 
-    timerId = setInterval(update, INTERVAL_MS);
+    function activated(ent) {
+      badge.classList.remove('status-badge--pending');
+      badgeText.textContent = 'Payment Verified · Live Access Active';
+      title.innerHTML = 'Access <span>active</span>';
+      lead.textContent = 'Your plan is switched on. Your licence and downloads are waiting on your Control Deck.';
+      acct.textContent = 'Active · ' + (PAID[ent.plan] || 'Paid plan');
+      acct.style.color = 'var(--success)';
+      countdown();
+    }
 
-    pauseBtn.addEventListener('click', () => {
-      isPaused = !isPaused;
-      if (isPaused) {
-        pauseBtn.textContent = 'Resume Redirect';
-        redirectLabel.textContent = 'Redirect paused';
-        bar.style.opacity = '0.5';
-      } else {
-        pauseBtn.textContent = 'Pause Redirect';
-        redirectLabel.textContent = 'Redirecting to Control Deck in';
-        bar.style.opacity = '1';
-      }
-    });
+    function stillWaiting() {
+      redirectLabel.textContent = 'Still activating';
+      acct.textContent = 'Still activating';
+      lead.textContent = 'This is taking longer than usual. Your payment is safe: refresh this page in a minute, or email support@overlordai.co and we’ll sort it out.';
+    }
+
+    function needsSignIn() {
+      acct.textContent = 'Sign in to finish';
+      redirectLabel.textContent = 'Sign in to see your plan';
+      lead.textContent = 'Your payment went through. Sign in with the account you bought with and your plan will be waiting.';
+      deckBtn.setAttribute('href', 'login.html');
+    }
+
+    const auth = window.OverlordAuth;
+    if (!auth || !auth.configured) { stillWaiting(); return; }
+    const started = Date.now();
+    let pulse = 0;
+    (async function poll() {
+      const s = await auth.session();
+      if (!s) { needsSignIn(); return; }
+      try {
+        const { data, error } = await auth.client().rpc('my_entitlement');
+        if (!error && data && PAID[data.plan] && LIVE.includes(String(data.status || 'active'))) { activated(data); return; }
+      } catch (_) { /* network blip: keep polling */ }
+      pulse = (pulse + 1) % 4;
+      bar.style.width = (25 + pulse * 25) + '%';
+      if (Date.now() - started > GIVE_UP_MS) { stillWaiting(); return; }
+      setTimeout(poll, POLL_MS);
+    })();
   })();
 
   /* ---------- Theme Switcher ---------- */
