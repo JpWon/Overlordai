@@ -1359,9 +1359,9 @@
             <div class="krow__act"><button class="mini" type="button" id="manageSubBtn" data-mock-link="Sign in to manage your subscription.">Manage</button></div>
           </div>
           <div class="krow">
-            <div class="krow__main"><b>Switch to yearly</b><span class="krow__sub">Yearly billing isn&rsquo;t on sale yet</span></div>
-            <div class="krow__meta"><span class="chip">Not yet</span></div>
-            <div class="krow__act"><button class="mini" type="button" disabled>Switch</button></div>
+            <div class="krow__main"><b>Switch to yearly</b><span class="krow__sub">$149.99 / year · the same tier, billed once</span></div>
+            <div class="krow__meta"><span class="chip chip--accent">-17%</span></div>
+            <div class="krow__act"><button class="mini" type="button" data-mock-link="Switched to yearly billing tier ($149.99/yr)">Switch</button></div>
           </div>
           <div class="krow">
             <div class="krow__main"><b id="cancelTitle">Cancel Subscription</b><span class="krow__sub" id="cancelSub">Stops the next charge · access runs to the end of the period you have paid for</span></div>
@@ -1810,7 +1810,11 @@ window.loadSeats = async function loadSeats(sess) {
     $('subMeta').replaceChildren(chip('Active', true));
   }
   publish({ signedIn: true, email: user && user.email, planName, price, interval,
-            renews: sub ? fmt(sub.current_period_end) : '', firstPaidAt: sub ? sub.created_at : null, sub });
+            renews: sub ? fmt(sub.current_period_end) : '',
+            /* Refund window = 3 days from the FIRST SUCCESSFUL PAYMENT (JP), read from the back end's
+               Creem data via my_entitlement().first_paid_at. Never the subscription start: until the
+               back end exposes it, the refund option stays off rather than guessing. */
+            firstPaidAt: ent.first_paid_at || null, sub });
 
   list.replaceChildren();
   if (!used) note('No machines registered yet', 'Each PC takes a seat when the app is signed in on it · ' + seats + ' available');
@@ -2266,12 +2270,21 @@ document.addEventListener('click', async e => {
   /* ---------- cancel: timing ---------- */
   const cfRefundOpt = document.getElementById('cfRefundOpt');
   const cfRefundWhy = document.getElementById('cfRefundWhy');
-  if (refundEligible()){
+  /* Re-run whenever the account loads: the window counts from the first successful payment. */
+  const daysAgo = iso => { const n = daysSince(iso); return n === 0 ? 'today' : n === 1 ? '1 day ago' : n + ' days ago'; };
+  function syncRefund(){
     const input = cfRefundOpt.querySelector('input');
-    input.disabled = false;
-    cfRefundOpt.classList.remove('off');
-    cfRefundWhy.textContent = `Available: the charge for your first paid period was ${daysSince(MOCK.firstPaidAt)} days ago, inside the three-day window, so that period is refunded in full and the licence ends now.`;
+    const ok = refundEligible();
+    input.disabled = !ok;
+    if (!ok && input.checked) input.checked = false;
+    cfRefundOpt.classList.toggle('off', !ok);
+    cfRefundWhy.textContent = ok
+      ? `Available: your first payment was ${daysAgo(MOCK.firstPaidAt)}, inside the three-day window, so that period is refunded in full and the licence ends now.`
+      : MOCK.firstPaidAt
+        ? `Not available: your first payment was ${daysAgo(MOCK.firstPaidAt)}, outside the three-day window. Cancelling still stops the next charge.`
+        : 'Not shown here yet: the three-day window counts from your first successful payment. Within three days of paying, email support@overlordai.co for a full refund.';
   }
+  syncRefund();
   const timing = () => (document.querySelector('input[name="cfTiming"]:checked') || {}).value || 'period';
   const TERMS_NOTE = 'The key stops working when the period ends; the application asks for a valid key again.';
 
@@ -2342,6 +2355,7 @@ document.addEventListener('click', async e => {
       firstPaidAt: a.firstPaidAt || null, hasSub: Boolean(a.sub) });
     const de = document.getElementById('cfDoneEmail'); if (de && MOCK.email) de.textContent = MOCK.email;
     renderBilling(!a.sub ? 'none' : (a.sub.cancel_at_period_end ? 'cancelling' : 'active'));
+    syncRefund();
   });
   if (window.OVR_ACCOUNT) dispatchEvent(new CustomEvent('ovr:account', { detail: window.OVR_ACCOUNT }));
 
