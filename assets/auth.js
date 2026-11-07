@@ -184,10 +184,27 @@
     return data;
   }
 
+  /* A page that needs sign-in first (the plans page's paid checkout) leaves its own path in
+     sessionStorage; after sign-in the player goes back there instead of the dashboard.
+     Only known same-site paths are honoured, never an arbitrary URL. */
+  const AFTER_AUTH_KEY = 'ovr_after_auth';
+  const AFTER_AUTH_OK = /^\/plans\.html\?buy=(sub|pro)(&checkout=creem)?$/;
+  function setAfterAuth(path) {
+    try { if (AFTER_AUTH_OK.test(path)) sessionStorage.setItem(AFTER_AUTH_KEY, path); } catch (_) {}
+  }
+  function takeAfterAuth() {
+    try {
+      const p = sessionStorage.getItem(AFTER_AUTH_KEY);
+      sessionStorage.removeItem(AFTER_AUTH_KEY);
+      return p && AFTER_AUTH_OK.test(p) ? p : null;
+    } catch (_) { return null; }
+  }
+  function afterAuthUrl() { return takeAfterAuth() || redirectTo || 'dashboard.html'; }
+
   window.OverlordAuth = {
     configured, redirectTo, gateDashboard: Boolean(cfg.gateDashboard),
     signIn, signInWithEmail, signUpWithEmail, signInWithOtp, session, signOut, onChange, provider,
-    rememberProductEmails,
+    rememberProductEmails, setAfterAuth, takeAfterAuth, afterAuthUrl,
     resetPassword, verifyRecoveryCode, updatePassword, resendConfirmation,
     /* escape hatch for the per-page code */
     client: () => client
