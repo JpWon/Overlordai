@@ -1142,11 +1142,11 @@
       <h1>Welcome back,<br><em>player.</em></h1>
       <p>Thank you for joining our team! We're thrilled to have you with us and hope you enjoy the experience as you explore and conquer with Overlord.</p>
       <div class="dash__chips">
-        <span class="chip chip--on" id="planChip"><i></i>Subscription · active</span>
-        <span class="chip">1 licence · 1 machine</span>
-        <span class="chip">Renews 01 Nov '26</span>
+        <span class="chip" id="planChip">Sign in to see your plan</span>
+        <span class="chip" id="hdrSeats">&mdash; seats</span>
+        <span class="chip" id="hdrRenews">&mdash;</span>
         <span class="chip">Linux and Windows</span>
-        <span class="chip chip--accent">Verified</span>
+        <span class="chip" id="hdrVerified">Not signed in</span>
         <span class="chip" id="signOutBtn" role="button" tabindex="0" hidden style="cursor:pointer">Sign out</span>
       </div>
     </div>
@@ -1197,23 +1197,23 @@
         <p class="sub">Thank you for joining our team — we hope you enjoy having Overlord in your corner. Manage your plan, licences, and active nodes below.</p>
 
         <div class="stats">
-          <div class="stat"><span class="stat__k">Plan</span><span class="stat__v" id="statPlanVal">Sub<em>scription</em></span>
-            <span class="stat__sub" id="statPlanSub">$14.99 / month</span></div>
+          <div class="stat"><span class="stat__k">Plan</span><span class="stat__v" id="statPlanVal">&mdash;</span>
+            <span class="stat__sub" id="statPlanSub">Sign in to see your plan</span></div>
           <div class="stat"><span class="stat__k">Licences</span><span class="stat__v" id="statLicVal">&mdash;</span>
             <span class="stat__sub" id="statLicSub">Sign in to see your seats</span></div>
           <div class="stat"><span class="stat__k">Devices</span><span class="stat__v" id="statDevVal">&mdash;</span>
             <span class="stat__sub" id="statDevSub">Sign in to see your machines</span></div>
-          <div class="stat"><span class="stat__k">Runtime · period</span><span class="stat__v">12h 40m</span>
-            <span class="stat__sub">Single-player only</span></div>
+          <div class="stat"><span class="stat__k">Runtime · period</span><span class="stat__v" id="statRunVal">&mdash;</span>
+            <span class="stat__sub" id="statRunSub">Not recorded to your account yet</span></div>
         </div>
 
         <div class="sect">
           <div class="sect__head"><span class="mono">Last session</span><a href="index.html#work">What the guide covers</a></div>
           <div class="rowlist">
             <div class="krow">
-              <div class="krow__main"><b>Single-player session</b><span class="krow__sub">Last night · 2h 14m · callouts spoken out loud</span></div>
-              <div class="krow__meta"><span class="chip">Screen share</span><span class="chip">Cloud voice</span></div>
-              <div class="krow__act"><button class="mini mini--solid" type="button" data-mock-link="Launching Overlord... Check your local desktop client">Launch Overlord <span class="arr">&rarr;</span></button></div>
+              <div class="krow__main"><b>No sessions shown yet</b><span class="krow__sub">Your play sessions aren&rsquo;t recorded to your account yet</span></div>
+              <div class="krow__meta"></div>
+              <div class="krow__act"><button class="mini mini--solid" type="button" data-mock-link="Open Overlord from your desktop or Start menu. It isn&rsquo;t started from this page.">Launch Overlord <span class="arr">&rarr;</span></button></div>
             </div>
           </div>
         </div>
@@ -1235,7 +1235,7 @@
           <div class="rowlist">
             <div class="krow">
               <div class="krow__main"><b>Bring a second machine on</b><span class="krow__sub">Subscription covers one · Pro covers three</span></div>
-              <div class="krow__meta"><span class="chip">Seat 02 free on Pro</span></div>
+              <div class="krow__meta"><span class="chip" id="shortSeatChip">Pro covers three PCs</span></div>
               <div class="krow__act"><a class="mini" href="plans.html">See Pro <span class="arr">&rarr;</span></a></div>
             </div>
             <div class="krow">
@@ -1265,7 +1265,7 @@
               <div class="krow__meta" id="licenseKeyMeta"><span class="chip">Not signed in</span></div>
               <div class="krow__act">
                 <button class="mini" type="button" id="copyKeyBtn" data-mock-link="Key copied to clipboard">Copy</button>
-                <button class="mini mini--quiet" type="button" data-mock-link="Seat deactivated. Available to assign to a new device">Deactivate</button>
+                <button class="mini mini--quiet" type="button" data-panel-link="devices">Deactivate</button>
               </div>
             </div>
             <div class="krow" id="seatUpsellRow">
@@ -1280,8 +1280,8 @@
           <div class="sect__head"><span class="mono">Free demo</span></div>
           <div class="rowlist">
             <div class="krow">
-              <div class="krow__main"><b>30-minute trial</b><span class="krow__sub">Used · 30 of 30 minutes · no card was taken · one per person, checked by account email and device</span></div>
-              <div class="krow__meta"><span class="chip">Consumed</span></div>
+              <div class="krow__main"><b>30-minute trial</b><span class="krow__sub" id="trialSub">Sign in to see your trial &middot; no card is taken &middot; one per person, checked by account email and device</span></div>
+              <div class="krow__meta" id="trialMeta"><span class="chip">&mdash;</span></div>
               <div class="krow__act"><a class="mini" href="plans.html">Subscribe <span class="arr">&rarr;</span></a></div>
             </div>
           </div>
@@ -1350,18 +1350,18 @@
         <h2>Billing</h2>
         <p class="sub">Our payment provider, the reseller and merchant of record, will process the payment, the receipts, tax and the recurring charge when paid plans open. We hold the plan, the licences and the keys, never your card number.</p>
 
-        <div class="price-row"><b>$14.99</b><span id="billWhen">Subscription · per month · renews automatically 01 Nov '26</span></div>
+        <div class="price-row"><b id="billPrice">&mdash;</b><span id="billWhen">Sign in to see your plan</span></div>
 
         <div class="rowlist">
           <div class="krow">
-            <div class="krow__main"><b>Subscription · monthly</b><span class="krow__sub">Started 01 Jul '26 · one licence · one machine</span></div>
-            <div class="krow__meta"><span class="chip chip--on"><i></i>Active</span><span class="chip">Card ···· 4242</span></div>
-            <div class="krow__act"><button class="mini" type="button" id="manageSubBtn" data-mock-link="Redirecting to the billing portal...">Manage</button></div>
+            <div class="krow__main"><b id="subTitle">No plan shown</b><span class="krow__sub" id="subSub">Sign in to see your subscription</span></div>
+            <div class="krow__meta" id="subMeta"><span class="chip">Card details stay with our payment provider</span></div>
+            <div class="krow__act"><button class="mini" type="button" id="manageSubBtn" data-mock-link="Sign in to manage your subscription.">Manage</button></div>
           </div>
           <div class="krow">
-            <div class="krow__main"><b>Switch to yearly</b><span class="krow__sub">$149.99 / year · the same tier, billed once</span></div>
-            <div class="krow__meta"><span class="chip chip--accent">-17%</span></div>
-            <div class="krow__act"><button class="mini" type="button" data-mock-link="Switched to yearly billing tier ($149.99/yr)">Switch</button></div>
+            <div class="krow__main"><b>Switch to yearly</b><span class="krow__sub">Yearly billing isn&rsquo;t on sale yet</span></div>
+            <div class="krow__meta"><span class="chip">Not yet</span></div>
+            <div class="krow__act"><button class="mini" type="button" disabled>Switch</button></div>
           </div>
           <div class="krow">
             <div class="krow__main"><b id="cancelTitle">Cancel Subscription</b><span class="krow__sub" id="cancelSub">Stops the next charge · access runs to the end of the period you have paid for</span></div>
@@ -1382,21 +1382,9 @@
 
         <div class="sect">
           <div class="sect__head"><span class="mono">Receipts</span><span class="mono">Billing History</span></div>
-          <div class="rowlist">
+          <div class="rowlist" id="receiptList">
             <div class="krow">
-              <div class="krow__main"><b class="money">01 Oct '26 · $14.99</b><span class="krow__sub">Subscription · monthly · card ···· 4242</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
-              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt downloaded as PDF">Receipt</button></div>
-            </div>
-            <div class="krow">
-              <div class="krow__main"><b class="money">01 Sep '26 · $14.99</b><span class="krow__sub">Subscription · monthly · card ···· 4242</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
-              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt downloaded as PDF">Receipt</button></div>
-            </div>
-            <div class="krow">
-              <div class="krow__main"><b class="money">01 Aug '26 · $14.99</b><span class="krow__sub">Subscription · monthly · card ···· 4242</span></div>
-              <div class="krow__meta"><span class="chip chip--on"><i></i>Paid</span></div>
-              <div class="krow__act"><button class="mini mini--quiet" type="button" data-mock-link="Receipt downloaded as PDF">Receipt</button></div>
+              <div class="krow__main"><b>No receipts on this account</b><span class="krow__sub">Each payment&rsquo;s receipt is emailed by our payment provider and listed under Manage</span></div>
             </div>
           </div>
         </div>
@@ -1409,18 +1397,18 @@
 
         <div class="rowlist">
           <div class="krow">
-            <div class="krow__main"><b>you@example.com</b><span class="krow__sub">Email · how we reach you, how the demo limit is enforced, how a key is delivered</span></div>
-            <div class="krow__meta"><span class="chip chip--on"><i></i>Verified</span></div>
-            <div class="krow__act"><button class="mini" type="button" data-mock-link="Verification link sent to update email address">Change</button></div>
+            <div class="krow__main"><b>Not signed in</b><span class="krow__sub">Email · how we reach you, how the demo limit is enforced, how a key is delivered</span></div>
+            <div class="krow__meta" id="emailMeta"><span class="chip">&mdash;</span></div>
+            <div class="krow__act"><button class="mini" type="button" data-mock-link="To change your email, write to support@overlordai.co from this address.">Change</button></div>
           </div>
           <div class="krow">
-            <div class="krow__main"><b>Password</b><span class="krow__sub">Last changed 01 Jul '26 · one-time code sign-in available</span></div>
+            <div class="krow__main"><b>Password</b><span class="krow__sub" id="pwSub">Sign in to manage your password &middot; one-time code sign-in available</span></div>
             <div class="krow__meta"><span class="chip">Reset by email</span></div>
-            <div class="krow__act"><button class="mini" type="button" data-mock-link="Password reset link sent to your email">Reset</button></div>
+            <div class="krow__act"><button class="mini" type="button" id="pwResetBtn">Reset</button></div>
           </div>
           <div class="krow">
-            <div class="krow__main"><b>Sessions</b><span class="krow__sub">This browser · signed in today</span></div>
-            <div class="krow__meta"><span class="chip">1 active</span></div>
+            <div class="krow__main"><b>Sessions</b><span class="krow__sub" id="sessSub">Not signed in on this browser</span></div>
+            <div class="krow__meta"><span class="chip">This browser</span></div>
             <div class="krow__act"><a class="mini" href="login.html">Sign out <span class="arr">&rarr;</span></a></div>
           </div>
         </div>
@@ -1443,7 +1431,7 @@
             <div class="krow">
               <div class="krow__main"><b>Take a copy of your data</b><span class="krow__sub">Profile, licences, seats and invoice history, as a file you keep</span></div>
               <div class="krow__meta"><span class="chip">Access &amp; portability</span></div>
-              <div class="krow__act"><button class="mini" type="button" data-mock-link="Account data export requested. Check your email for the archive link.">Export</button></div>
+              <div class="krow__act"><a class="mini" id="exportBtn" href="mailto:privacy@overlordai.co?subject=Data%20export%20request">Export</a></div>
             </div>
             <div class="krow">
               <div class="krow__main"><b>Request deletion of the account</b><span class="krow__sub">Cancelling is not deleting. This asks for the account and its records to go, subject to what we must keep for tax and accounting</span></div>
@@ -1456,7 +1444,7 @@
       </div>
 
       <div class="console__foot mono">
-        <span>© 2026 Overlord AI · All systems operational</span>
+        <span>© 2026 Overlord AI</span>
         <span><a href="plans.html">Plans</a> · <a href="support.html">Support</a> · <a href="terms.html">Terms</a></span>
       </div>
     </section>
@@ -1538,7 +1526,7 @@
 
       <div class="fstep" data-fstep="done">
         <h3 id="cfDoneTitle">Scheduled.</h3>
-        <p id="cfDoneBody">Nothing was charged and nothing was deleted. Your confirmation email is on its way to <b id="cfDoneEmail">you@example.com</b>.</p>
+        <p id="cfDoneBody">Nothing was charged and nothing was deleted. Your confirmation email is on its way to <b id="cfDoneEmail">your account email</b>.</p>
         <div class="fsum">
           <dt>Status</dt><dd id="cfDoneStatus">Cancels on 01 Nov '26 · access continues until then</dd>
           <dt>Reversal</dt><dd id="cfDoneReversal">One click in Billing, any time before the date — the plan carries on and no new charge is missed.</dd>
@@ -1582,7 +1570,7 @@
         <p>Before you ask, take a copy. Access and portability are rights you have, and the export includes your profile, licences, seats and invoice history.</p>
         <div class="fnav">
           <button class="mini" type="button" data-flow-back>Back</button>
-          <button class="mini" type="button" data-mock-link="Account data export requested. Check your email for the archive link.">Export my account data</button>
+          <a class="mini" href="mailto:privacy@overlordai.co?subject=Data%20export%20request">Export my account data</a>
           <button class="mini mini--solid" type="button" data-flow-next>Continue <span class="arr">&rarr;</span></button>
         </div>
       </div>
@@ -1696,21 +1684,49 @@ window.loadSeats = async function loadSeats(sess) {
     m.append(el('b', null, title), el('span', 'krow__sub', sub)); r.appendChild(m); list.appendChild(r);
   };
   const set = (id, text) => { const n = $(id); if (n) n.textContent = text; };
+  /* Everything else on the deck that belongs to the account reads from here too. */
+  const publish = acct => { window.OVR_ACCOUNT = acct; dispatchEvent(new CustomEvent('ovr:account', { detail: acct })); };
+  const money = c => '$' + (c / 100).toFixed(2);
+  const user = sess && sess.user ? sess.user : null;
+  const accountBits = () => {
+    const vchip = $('hdrVerified'), emeta = $('emailMeta');
+    const verified = Boolean(user && (user.email_confirmed_at || user.confirmed_at));
+    if (vchip) { vchip.className = verified ? 'chip chip--accent' : 'chip'; vchip.textContent = user ? (verified ? 'Verified' : 'Email not verified') : 'Not signed in'; }
+    if (emeta) emeta.replaceChildren(user ? chip(verified ? 'Verified' : 'Not verified', verified) : chip('\u2014'));
+    const hasPw = Boolean(user && (user.identities || []).some(i => i.provider === 'email'));
+    const prov = user && user.app_metadata && user.app_metadata.provider;
+    set('pwSub', !user ? 'Sign in to manage your password \u00b7 one-time code sign-in available'
+      : hasPw ? 'Reset by email any time \u00b7 one-time code sign-in available'
+      : 'Signed in with ' + (prov ? prov[0].toUpperCase() + prov.slice(1) : 'a provider') + ' \u00b7 no password on this account');
+    set('sessSub', user ? 'This browser \u00b7 last sign-in ' + fmt(user.last_sign_in_at) : 'Not signed in on this browser');
+    const ex = $('exportBtn');
+    if (ex) ex.href = 'mailto:privacy@overlordai.co?subject=' + encodeURIComponent('Data export request')
+      + (user ? '&body=' + encodeURIComponent('Please send me a copy of the data for my account: ' + user.email) : '');
+  };
+  accountBits();
 
   if (!sess || !auth || !auth.configured) {
     set('statLicVal', '—'); set('statLicSub', 'Sign in to see your seats');
     set('statDevVal', '—'); set('statDevSub', 'Sign in to see your machines');
     set('deviceSeatsHead', '— Seats');
     note('Sign in to see your machines', 'Each PC appears here once the app is signed in on it');
+    set('hdrSeats', '\u2014 seats'); set('hdrRenews', '\u2014');
+    set('statPlanVal', '\u2014'); set('statPlanSub', 'Sign in to see your plan');
+    set('billPrice', '\u2014'); set('billWhen', 'Sign in to see your plan');
+    set('subTitle', 'No plan shown'); set('subSub', 'Sign in to see your subscription');
+    set('licenseKeyVal', '\u2014'); set('licenseKeySub', 'Sign in to see your licence');
+    set('trialSub', 'Sign in to see your trial \u00b7 no card is taken \u00b7 one per person, checked by account email and device');
+    set('statRunVal', '\u2014'); set('statRunSub', 'Not recorded to your account yet');
+    publish({ signedIn: false });
     return;
   }
 
   const sb = auth.client();
-  let ent = null, lic = null, acts = [];
+  let ent = null, lic = null, acts = [], sub = null, plan = null;
   try {
     const r = await sb.rpc('my_entitlement'); if (r.error) throw r.error; ent = r.data || {};
     if (ent.licence_reference) {
-      const l = await sb.from('licences').select('id, plan_id, seats, reference, status, created_at')
+      const l = await sb.from('licences').select('id, plan_id, seats, reference, status, created_at, subscription_id')
                         .eq('reference', ent.licence_reference).maybeSingle();
       if (l.error) throw l.error; lic = l.data;
     }
@@ -1719,7 +1735,16 @@ window.loadSeats = async function loadSeats(sess) {
                         .select('id, device_name, platform, activated_at, last_seen_at')
                         .eq('licence_id', lic.id).is('deactivated_at', null).order('activated_at');
       if (a.error) throw a.error; acts = a.data || [];
+      if (lic.subscription_id && !/^owner_comp/.test(lic.subscription_id)) {
+        const r2 = await sb.from('subscriptions')
+          .select('id, status, current_period_end, cancel_at_period_end, created_at')
+          .eq('id', lic.subscription_id).maybeSingle();
+        if (r2.error) throw r2.error; sub = r2.data;
+      }
     }
+    const pid = lic ? lic.plan_id : (ent.plan || 'free');
+    const pr = await sb.from('plans').select('id, name, price_cents, billing_interval').eq('id', pid).maybeSingle();
+    plan = pr.data || null;
   } catch (_) {
     set('statLicSub', 'Couldn’t load your seats'); set('statDevSub', 'Refresh to try again');
     note('Couldn’t load your machines', 'Refresh the page to try again');
@@ -1736,6 +1761,17 @@ window.loadSeats = async function loadSeats(sess) {
     set('deviceSeatsHead', '0 Seats');
     note('No machines hold a seat', 'A paid plan gives each PC a seat when the app signs in on it');
     if (upsell) upsell.hidden = false;
+    const used = Math.round((ent.trial_seconds_used || 0) / 60), left = Math.round((ent.trial_seconds_remaining || 0) / 60);
+    const tstate = { not_started: 'Not started', running: 'In use', exhausted: 'Used up' }[ent.status] || '\u2014';
+    set('trialSub', (ent.status === 'not_started' ? 'Not started yet' : used + ' min used \u00b7 ' + left + ' min left')
+      + ' \u00b7 no card is taken \u00b7 one per person, checked by account email and device');
+    $('trialMeta').replaceChildren(chip(tstate, ent.status === 'running'));
+    set('statRunVal', used + 'm'); set('statRunSub', 'Free demo time used');
+    set('statPlanSub', 'Free \u00b7 no paid plan');
+    set('hdrSeats', 'No paid seats'); set('hdrRenews', 'No renewal');
+    set('billPrice', '$0'); set('billWhen', 'Free demo \u00b7 no paid plan on this account');
+    set('subTitle', 'No paid subscription'); set('subSub', 'See Plans to start one');
+    publish({ signedIn: true, email: user && user.email, planName: '', sub: null });
     return;
   }
 
@@ -1750,6 +1786,31 @@ window.loadSeats = async function loadSeats(sess) {
   $('licenseKeyMeta').replaceChildren(chip('Active', true));
   if (upsell) upsell.hidden = seats > 1;        // "Seat 02 · Locked on Subscription" only fits a 1-seat plan
   set('deviceSeatsHead', used + ' of ' + seats + ' Seats' + (used >= seats ? ' · full' : ''));
+  set('hdrSeats', used + ' of ' + seats + (seats === 1 ? ' seat' : ' seats'));
+  set('shortSeatChip', (seats - used) + ' of ' + seats + (seats === 1 ? ' seat free' : ' seats free'));
+  set('trialSub', 'Not needed on a paid licence \u00b7 one per person, checked by account email and device');
+  $('trialMeta').replaceChildren(chip('Paid licence'));
+  set('statRunVal', '\u2014'); set('statRunSub', 'Not recorded to your account yet');
+  const price = plan ? money(plan.price_cents) : '', interval = (plan && plan.billing_interval) || 'month';
+  if (sub) {
+    const live = ['active', 'trialing', 'past_due'].includes(sub.status);
+    set('hdrRenews', (sub.cancel_at_period_end ? 'Ends ' : 'Renews ') + fmt(sub.current_period_end));
+    set('billPrice', price);
+    set('subTitle', planName + ' \u00b7 ' + (interval === 'month' ? 'monthly' : interval));
+    set('subSub', 'Started ' + fmt(sub.created_at) + ' \u00b7 ' + seats + (seats === 1 ? ' machine' : ' machines'));
+    $('subMeta').replaceChildren(chip(sub.cancel_at_period_end ? 'Cancelling' : (sub.status === 'past_due' ? 'Payment due' : (live ? 'Active' : sub.status)), live && !sub.cancel_at_period_end),
+                                 chip('Card details stay with our payment provider'));
+  } else {                                      // licence with no billing behind it (owner / comp)
+    set('statPlanSub', 'Complimentary \u00b7 no charge');
+    set('hdrRenews', 'No renewal \u00b7 complimentary');
+    set('billPrice', '$0');
+    set('billWhen', planName + ' \u00b7 complimentary licence \u00b7 no charge and no renewal');
+    set('subTitle', planName + ' \u00b7 complimentary');
+    set('subSub', 'Since ' + fmt(lic.created_at) + ' \u00b7 ' + seats + (seats === 1 ? ' machine' : ' machines') + ' \u00b7 nothing is billed');
+    $('subMeta').replaceChildren(chip('Active', true));
+  }
+  publish({ signedIn: true, email: user && user.email, planName, price, interval,
+            renews: sub ? fmt(sub.current_period_end) : '', firstPaidAt: sub ? sub.created_at : null, sub });
 
   list.replaceChildren();
   if (!used) note('No machines registered yet', 'Each PC takes a seat when the app is signed in on it · ' + seats + ' available');
@@ -1784,6 +1845,20 @@ window.loadSeats = async function loadSeats(sess) {
     list.appendChild(row);
   });
 };
+
+/* Account -> Password -> Reset: a real reset email to the signed-in address (Supabase). */
+document.addEventListener('click', async e => {
+  const b = e.target.closest && e.target.closest('#pwResetBtn');
+  if (!b) return;
+  const auth = window.OverlordAuth, t = document.getElementById('toast');
+  const say = m => { if (t) { t.textContent = m; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 3000); } };
+  const sess = auth && auth.configured ? await auth.session() : null;
+  if (!sess || !sess.user || !sess.user.email) { say('Sign in first, then reset your password from here.'); return; }
+  b.disabled = true;
+  try { await auth.resetPassword(sess.user.email); say('Reset link sent to ' + sess.user.email); }
+  catch (_) { say('Couldn\u2019t send the reset email. Try again in a minute.'); }
+  finally { b.disabled = false; }
+});
 </script>
 
 <script>
@@ -2110,15 +2185,15 @@ window.loadSeats = async function loadSeats(sess) {
   /* The one mock account this page renders. Change firstPaidAt to today to see the
      refund branch of the cancel tree switch on — the three-day window is measured from
      the first paid period's charge, which is exactly what terms.html promises. */
+  /* Filled from Supabase by loadSeats() ('ovr:account'); until then there is no plan to show. */
   const MOCK = {
-    email: 'you@example.com',
-    plan: 'Subscription', price: '$14.99', interval: 'month',
-    renews: "01 Nov '26",
-    firstPaidAt: '2026-10-01',
-    refundDays: 3
+    email: '', plan: '', price: '', interval: 'month', renews: '',
+    firstPaidAt: null, refundDays: 3, hasSub: false, signedIn: false
   };
   const daysSince = iso => Math.floor((Date.now() - Date.parse(iso)) / 86400000);
-  const refundEligible = () => daysSince(MOCK.firstPaidAt) <= MOCK.refundDays;
+  const refundEligible = () => Boolean(MOCK.firstPaidAt) && daysSince(MOCK.firstPaidAt) <= MOCK.refundDays;
+  /* Real changes happen in the payment provider's portal (Manage handles the session). */
+  const toPortal = () => { const m = document.getElementById('manageSubBtn'); if (m) m.click(); };
 
   const toast = document.getElementById('toast'); let tt;
   const say = m => { toast.textContent = m; toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('on'), 2600); };
@@ -2227,6 +2302,15 @@ window.loadSeats = async function loadSeats(sess) {
     const act = document.getElementById('cancelAct');
     const when = document.getElementById('billWhen');
     const statSub = document.getElementById('statPlanSub');
+    if (state === 'none'){
+      chip.className = 'chip';
+      chip.textContent = MOCK.signedIn ? (MOCK.plan ? MOCK.plan + ' \u00b7 active' : 'No paid plan') : 'Sign in to see your plan';
+      title.textContent = 'Cancel Subscription';
+      sub.textContent = MOCK.signedIn ? 'Nothing to cancel: no paid subscription on this account' : 'Sign in to manage your subscription';
+      meta.innerHTML = '<span class="chip">No cancellation fee</span>';
+      act.innerHTML = '<button class="mini mini--quiet" type="button" disabled>Cancel</button>';
+      return;
+    }
     if (state === 'cancelling'){
       chip.className = 'chip chip--accent';
       chip.replaceChildren(document.createElement('i'),
@@ -2237,23 +2321,42 @@ window.loadSeats = async function loadSeats(sess) {
       act.innerHTML = '<button class="mini mini--solid" type="button" id="reactivateBtn">Reactivate <span class="arr">&rarr;</span></button>';
       when.textContent = `${MOCK.plan} · per ${MOCK.interval} · cancels ${MOCK.renews} — no further charge`;
       statSub.textContent = `cancels ${MOCK.renews}`;
-      document.getElementById('reactivateBtn').addEventListener('click', () => { renderBilling('active'); say('Subscription reactivated'); });
+      document.getElementById('reactivateBtn').addEventListener('click', toPortal);
     } else {
       chip.className = 'chip chip--on';
-      chip.innerHTML = '<i></i>Subscription · active';
+      chip.replaceChildren(document.createElement('i'), `${MOCK.plan} · active`);
       title.textContent = 'Cancel Subscription';
       sub.textContent = 'Stops the next charge · access runs to the end of the period you have paid for';
       meta.innerHTML = '<span class="chip">No cancellation fee</span>';
       act.innerHTML = '<button class="mini mini--quiet" type="button" data-flow-open="cancelFlow">Cancel</button>';
       act.querySelector('[data-flow-open]').addEventListener('click', e => openFlow(e.currentTarget.dataset.flowOpen));
       when.textContent = `${MOCK.plan} · per ${MOCK.interval} · renews automatically ${MOCK.renews}`;
-      statSub.textContent = PLAN_SUB_DEFAULT;
+      statSub.textContent = `${MOCK.price} / ${MOCK.interval}`;
     }
   }
-  renderBilling('active');
+  renderBilling('none');
+  addEventListener('ovr:account', e => {
+    const a = e.detail || {};
+    Object.assign(MOCK, { signedIn: Boolean(a.signedIn), email: a.email || '', plan: a.planName || '',
+      price: a.price || '', interval: a.interval || 'month', renews: a.renews || '',
+      firstPaidAt: a.firstPaidAt || null, hasSub: Boolean(a.sub) });
+    const de = document.getElementById('cfDoneEmail'); if (de && MOCK.email) de.textContent = MOCK.email;
+    renderBilling(!a.sub ? 'none' : (a.sub.cancel_at_period_end ? 'cancelling' : 'active'));
+  });
+  if (window.OVR_ACCOUNT) dispatchEvent(new CustomEvent('ovr:account', { detail: window.OVR_ACCOUNT }));
 
   document.getElementById('cfConfirm').addEventListener('click', () => {
     const t = timing();
+    /* Nothing is faked: a refund is a request to support, everything else is done in the portal. */
+    closeFlow();
+    if (t === 'refund') {
+      location.href = 'mailto:support@overlordai.co?subject=' + encodeURIComponent('Refund request')
+        + '&body=' + encodeURIComponent('Account: ' + MOCK.email + '\nPlease cancel and refund my first paid period.');
+    } else {
+      say('Opening the billing portal to finish cancelling\u2026');
+      toPortal();
+    }
+    return;
     const f = document.getElementById('cancelFlow');
     renderBilling('cancelling');
     say('Cancellation scheduled for the end of the billing cycle');
@@ -2272,9 +2375,7 @@ window.loadSeats = async function loadSeats(sess) {
     document.getElementById('cfReactivate2').hidden = t !== 'period';
     show(f, 4);
   });
-  document.getElementById('cfReactivate2').addEventListener('click', () => {
-    renderBilling('active'); say('Subscription reactivated'); closeFlow();
-  });
+  document.getElementById('cfReactivate2').addEventListener('click', () => { closeFlow(); toPortal(); });
 
   /* ---------- delete: a request, not a nuke ---------- */
   const dfNext1 = document.getElementById('dfNext1');
@@ -2297,6 +2398,15 @@ window.loadSeats = async function loadSeats(sess) {
   dfWord.addEventListener('input', () => { dfConfirm.disabled = dfWord.value.trim().toUpperCase() !== 'DELETE'; });
   dfConfirm.addEventListener('click', () => {
     const mode = (document.querySelector('input[name="dfMode"]:checked') || {}).value;
+    /* A real request: an email to privacy@ from the player's own mail app. Nothing is claimed as sent. */
+    if (!MOCK.signedIn) { say('Sign in first, so the request comes from your account email.'); return; }
+    location.href = 'mailto:privacy@overlordai.co?subject=' + encodeURIComponent('Account deletion request')
+      + '&body=' + encodeURIComponent('Please delete my Overlord AI account: ' + MOCK.email
+        + (mode === 'only' ? '' : '\nAlso cancel my subscription.'));
+    const st = document.getElementById('deleteState');
+    if (st) st.innerHTML = '<span class="chip chip--accent">Email drafted</span><span class="chip">Send it to finish the request</span>';
+    closeFlow();
+    return;
     if (mode !== 'only') renderBilling('cancelling');
     const status = document.getElementById('deleteState');
     if (status){
