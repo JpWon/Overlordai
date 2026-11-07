@@ -1,5 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/roster.js": {
+      "includeFiles": "{roster.html,assets/atlas-catalog.json}"
+    }
+  },
   "redirects": [
     {
       "source": "/",
@@ -31,7 +36,7 @@
     },
     {
       "source": "/roster",
-      "destination": "/roster.html"
+      "destination": "/api/roster"
     },
     {
       "source": "/featured",

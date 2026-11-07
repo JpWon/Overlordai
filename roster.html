@@ -62,7 +62,7 @@
 <h1>The Roster</h1>
 <p class="byline"><span class="dot" aria-hidden="true"></span>New games land as they are finished</p>
 <!-- roster-totals:start -->
-<p class="totals" id="totals"><strong>12 games</strong> mapped so far.</p>
+<p class="totals" id="totals">New games mapped every night</p>
 <!-- roster-totals:end -->
 
 <input class="find" id="find" type="search" placeholder="Is your game here?" aria-label="Search the roster" autocomplete="off">
@@ -70,16 +70,30 @@
 <ul class="roster" id="roster">
   <li><span class="name"><a href="/wukong.html">Black Myth: Wukong</a></span></li>
   <li><span class="name">Control</span></li>
+  <li><span class="name">Cyberpunk 2077</span></li>
+  <li><span class="name">DARK SOULS II: Scholar of the First Sin</span></li>
   <li><span class="name">DARK SOULS III</span></li>
   <li><span class="name"><a href="/eldenring.html">Elden Ring</a></span></li>
+  <li><span class="name">ELDEN RING NIGHTREIGN</span></li>
+  <li><span class="name">Fallout 4</span></li>
+  <li><span class="name">Ghost of Tsushima</span></li>
   <li><span class="name">Grand Theft Auto V Enhanced</span></li>
+  <li><span class="name">Hogwarts Legacy</span></li>
+  <li><span class="name">Hollow Knight: Silksong</span></li>
+  <li><span class="name">Horizon Zero Dawn Remastered</span></li>
+  <li><span class="name">Marvel&#x27;s Spider-Man 2</span></li>
+  <li><span class="name">Marvel&#x27;s Spider-Man Remastered</span></li>
   <li><span class="name">Mortal Shell</span></li>
   <li><span class="name"><a href="/mortalshell2.html">Mortal Shell II</a></span></li>
   <li><span class="name">Path of Exile</span></li>
   <li><span class="name">Path of Exile 2</span></li>
   <li><span class="name">Red Dead Redemption 2</span></li>
+  <li><span class="name"><a href="/sekiro.html">Sekiro: Shadows Die Twice</a></span></li>
+  <li><span class="name">Star Wars Jedi: Fallen Order</span></li>
+  <li><span class="name">Stellar Blade</span></li>
   <li><span class="name">The Elder Scrolls V: Skyrim Special Edition</span></li>
   <li><span class="name">The Witcher 3: Wild Hunt</span></li>
+  <li><span class="name">WUCHANG: Fallen Feathers</span></li>
 </ul>
 <!-- roster-list:end -->
 <p class="none" id="none">Not mapped yet. Overlord still helps with any single-player game and learns it as you play.</p>
@@ -112,7 +126,7 @@
 
   OverlordAtlas.load().then(function(a) {
       var t = a.totals;
-      document.getElementById('totals').innerHTML = '<strong>' + t.games + ' games</strong> mapped so far.';
+      document.getElementById('totals').innerHTML = 'New games mapped every night &middot; <strong>' + t.games + ' games</strong>';
       list.innerHTML = a.titles.map(function(n) {
         var label = a.pages[n] ? '<a href="' + a.pages[n] + '">' + esc(n) + '</a>' : esc(n);
         return '<li><span class="name">' + label + '</span></li>';
