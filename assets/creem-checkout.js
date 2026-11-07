@@ -39,8 +39,6 @@
       return;
     }
     if (btn) { btn.setAttribute('aria-busy', 'true'); btn.style.pointerEvents = 'none'; }
-    if (window.OverlordFunnel) window.OverlordFunnel.track('checkout_started',
-      { plan: plan === 'pro' ? 'pro' : 'standard', interval: 'monthly' });
     try {
       const r = await fetch('/api/checkout', {
         method: 'POST',

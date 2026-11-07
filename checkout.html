@@ -22,7 +22,6 @@
 
 <script src="assets/founder-config.js"></script>
 <script src="assets/vendor/supabase-js.js"></script>
-<script src="assets/funnel.js"></script>
 <script src="assets/auth-config.js"></script>
 
 <meta charset="UTF-8">
@@ -1124,13 +1123,6 @@ const PRODUCTS = {
     sbClient.auth.getSession().then(({ data }) => {
       if (data && data.session && data.session.user) {
         const user = data.session.user;
-        /* Funnel: a brand-new Google/Apple account made here carries its anon id + first touch,
-           once, and counts as a sign-up (same rule as assets/auth.js). */
-        const F = window.OverlordFunnel, md = user.user_metadata || {};
-        if (F && !md.first_touch && Date.now() - Date.parse(user.created_at || 0) < 3600e3) {
-          sbClient.auth.updateUser({ data: F.accountFields() }).catch(() => {});
-          F.signedUp(user.id);
-        }
         const email = user.email || '';
         const emailInput = document.getElementById('emailInput');
         if (emailInput && email) emailInput.value = email;
