@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- Recording stage for the carousel's Animation clips (messaging.md §7.7, JP 2026-11-08): one HUD asset,
+     900x560, on the standard purple backdrop (assets/img/brand/backdrop-purple.css, §7.5).
+     Usage: site-tools/clip-stage.html?src=../assets/hud/npc-card.html — recorded by a headless-Chrome
+     screencast, encoded with ffmpeg to assets/reels/anim-*.mp4. Repo-only (.vercelignore). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=900">
+<title>Clip stage</title>
+<link rel="stylesheet" href="../assets/img/brand/backdrop-purple.css">
+<style>
+  html,body{margin:0;width:900px;height:560px;overflow:hidden;background:var(--ov-backdrop);}
+  iframe{position:absolute;inset:0;width:900px;height:560px;border:0;background:transparent;}
+</style>
+</head>
+<body>
+<iframe id="hud" title="HUD asset" scrolling="no"></iframe>
+<script>
+  // An asset that paints its own scene (prayer-hud.html: sky, pillars, beam, grid, floor) gets those
+  // layers hidden here, so every clip sits on the one purple backdrop (§7.5). The HUD file is untouched.
+  const BARE = 'html,body{background:transparent!important}' +
+    '.sky,.glow,.pillar,.beam,.grid,.sweep,.floor,.scan{display:none!important}';
+  const f = document.getElementById('hud');
+  f.addEventListener('load', () => {
+    const st = f.contentDocument.createElement('style'); st.textContent = BARE;
+    f.contentDocument.head.appendChild(st);
+  });
+  f.src = new URLSearchParams(location.search).get('src') || '../assets/hud/npc-card.html';
+</script>
+</body>
+</html>
