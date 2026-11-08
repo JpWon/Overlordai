@@ -1,0 +1,351 @@
+<!-- Homepage section 2 as it was on main before messaging.md §7 (2026-11-08): the four hand-coded
+     HTML mock tip cards. Reference only, never served (.vercelignore). Their styles and scripts are
+     in index.html at 1319c1a. -->
+<section class="intro intro--editorial" id="intro">
+  <header class="vp-head">
+    <div class="brandline"><span class="mx" data-mx-slow="1.5">Overlord <em>AI</em></span><span class="brandline__sub mx" data-mx-delay="500" data-mx-slow="1.5">Live Gaming Guidebook Companion</span></div>
+    <div class="hud rv" style="--d:.3s">
+      <div class="hud__badge"><span class="hud__dot"></span><span class="hud__title">Overlord · Live guide</span></div>
+      <div class="hud__divider"></div>
+      <div class="hud__ticker">
+        <div class="hud__track">
+          <span class="hud__text">Remember the strategy guide that sat next to the console? This is that guide, rewritten as a live voice that plays alongside you — with map overviews and live tip cards that pop up while you play.</span>
+          <span class="hud__text" aria-hidden="true">Remember the strategy guide that sat next to the console? This is that guide, rewritten as a live voice that plays alongside you — with map overviews and live tip cards that pop up while you play.</span>
+        </div>
+      </div>
+    </div>
+    <div class="drip-line"><span class="txt mx" data-mx-slow="1.5">Stuck on level one?</span></div>
+    <div class="drip-line"><span class="txt mx" data-mx-delay="900" data-mx-slow="1.5">Overlord <span class="accent">has your back.</span></span></div>
+    <p class="vp-lede rv" style="--d:.45s; max-width:680px; margin:24px auto 0; font-size:1.15rem; line-height:1.7; color:var(--neutral-on-background-weak); text-align:center;">
+      You bought the brutally hard <strong>$70 game</strong> everyone was raving about. You don't have 100 hours to "git-gud" between work and life. Overlord watches your screen in real time, calling out bosses, routing hidden loot, and timing your counters—<strong>before you hit the wall and quit.</strong>
+    </p>
+  </header>
+
+  <div class="vp-rows">
+    <!-- ROW 01: COMBO COACH -->
+    <div class="vp-row rv">
+      <figure class="vp-media" data-slot="combo-coach">
+        <div class="vp-ph">
+          <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
+          <span class="vp-ph__orb"></span>
+          <span class="vp-ph__label mono">Tip card · 01 · Combo Coach</span>
+          <span class="vp-ph__size mono">On screen · While you play</span>
+        </div>
+        <!-- In-Game Floating Glass Card -->
+        <div class="in-game-card" id="card-combo">
+          <div class="card-header">
+            <div class="card-brand">
+              <svg class="rooster-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              <div class="card-title">OVERLORD <em>AI</em> <span class="tag-type">· COMBO COACH</span></div>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn" onclick="copyCombo()">COPY</button>
+              <button class="card-btn">&times;</button>
+            </div>
+          </div>
+          <div class="card-eyebrow">✦ Combo steps · In order</div>
+          <div class="steps-list" id="comboStepsList">
+            <div class="step-pill active" id="pill-0">
+              <span class="step-badge">STEP 1</span>
+              <span>Light Attack staff sweep · <strong style="color:#79c0ff;">[L-Click]</strong></span>
+              <span class="step-fill-bar" style="width:100%;"></span>
+            </div>
+            <div class="step-pill" id="pill-1">
+              <span class="step-badge">STEP 2</span>
+              <span>Light Attack follow-up thrust · <strong style="color:#79c0ff;">[L-Click]</strong></span>
+              <span class="step-fill-bar"></span>
+            </div>
+            <div class="step-pill" id="pill-2">
+              <span class="step-badge">STEP 3</span>
+              <span>Resolute Strike heavy counter · <strong style="color:#ffbe3b;">[R-Click]</strong></span>
+              <span class="step-fill-bar"></span>
+            </div>
+            <div class="step-pill" id="pill-3">
+              <span class="step-badge">STEP 4</span>
+              <span>Skyfall overhead slam finisher · <strong style="color:#79c0ff;">[L-Click]</strong></span>
+              <span class="step-fill-bar"></span>
+            </div>
+          </div>
+          <div class="action-tip-box" id="comboActionTip">
+            <span>💡</span>
+            <span><strong>Action Tip:</strong> Tap <kbd>[R-Click]</kbd> during enemy windup for full invulnerability.</span>
+          </div>
+          <div class="combo-stack">
+            <div class="combo-stack-header">
+              <span>Stances / combos (click to swap)</span>
+              <span style="color:var(--accent-soft);">3 AVAILABLE</span>
+            </div>
+            <div class="combo-tabs">
+              <button class="combo-tab-btn active" onclick="switchCombo(0, this)">
+                <span>Resolute Strike (See Through)</span>
+                <span class="mono">4 steps</span>
+              </button>
+              <button class="combo-tab-btn" onclick="switchCombo(1, this)">
+                <span>Smash Stance Charge Heavy</span>
+                <span class="mono">2 steps</span>
+              </button>
+              <button class="combo-tab-btn" onclick="switchCombo(2, this)">
+                <span>Immobilize &rarr; Spirit Burst</span>
+                <span class="mono">3 steps</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </figure>
+      <div class="vp-text">
+        <span class="vp-num">01</span>
+        <span class="vp-pill">· Boss-Break Execution</span>
+        <h3>Live Combo Coach</h3>
+        <div class="vp-pain">
+          <strong>The Quit Moment:</strong> Spending 3 hours dying to Tiger Vanguard or Malenia because you don't have 100 hours to memorize frame cancels.
+        </div>
+        <p>
+          Brute force button-mashing gets you killed in action RPGs. Overlord's <strong>Combo Coach</strong> sits in your peripheral vision, lighting up every input in real time. It tells you the exact millisecond to weave light attacks into invulnerable heavy counters.
+        </p>
+        <div class="vp-features">
+          <div class="feat-item">
+            <div class="feat-title">&#9656; Live Input Stepping</div>
+            <div class="feat-desc">Visual execution bars fill as you hit keys, building muscle memory on demand.</div>
+          </div>
+          <div class="feat-item">
+            <div class="feat-title">&#9656; Instant Stance Swapping</div>
+            <div class="feat-desc">Tab between counter-strikes and stagger openers tailored to the boss on screen.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 02: GPS DIRECTIONS -->
+    <div class="vp-row rv vp-row--flip">
+      <figure class="vp-media" data-slot="gps-radar">
+        <div class="vp-ph">
+          <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
+          <span class="vp-ph__orb"></span>
+          <span class="vp-ph__label mono">Tip card · 02 · GPS directions</span>
+          <span class="vp-ph__size mono">Press F4 · Get directions</span>
+        </div>
+        <!-- In-Game Floating GPS Card -->
+        <div class="in-game-card" id="card-gps">
+          <div class="card-header">
+            <div class="card-brand">
+              <svg class="rooster-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              <div class="card-title">OVERLORD <em>AI</em> <span class="tag-type" style="color:#00ffaa;">· GPS</span></div>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn" onclick="pingRadar()">PING F4</button>
+              <button class="card-btn">&times;</button>
+            </div>
+          </div>
+          <div class="card-eyebrow">✦ GPS · Directions</div>
+          <div class="radar-canvas-wrap">
+            <canvas id="radarCanvas" width="200" height="200"></canvas>
+          </div>
+          <div class="radar-info-strip">
+            <span id="headingText">HDG 034&deg; · NE</span>
+            <span>DIST: 24m</span>
+            <span style="color:#ffbe3b;">TARGET: GOD LOOT</span>
+          </div>
+          <div class="god-loot-pill">
+            <span>★</span>
+            <span><strong>God-Tier Target:</strong> Hidden Ability Point behind elevator.</span>
+          </div>
+        </div>
+      </figure>
+      <div class="vp-text">
+        <span class="vp-num">02</span>
+        <span class="vp-pill">· Zero Frustration Routing</span>
+        <h3>Never Lost in the Dark</h3>
+        <div class="vp-pain">
+          <strong>The Quit Moment:</strong> You have 45 minutes to play tonight, but spend 35 of them wandering through identical corridors looking for the door.
+        </div>
+        <p>
+          When games ditch mini-maps to be "immersive," busy adults end up running in circles. Tap <strong>F4</strong>, and Overlord's <strong>GPS card</strong> shows which way to face, points you down the right corridor, and marks secret rafters and hidden breakable walls.
+        </p>
+        <div class="vp-features">
+          <div class="feat-item">
+            <div class="feat-title">&#9656; Turn-by-turn directions</div>
+            <div class="feat-desc">Shows exact heading and doorway pathways without spoiling exploration.</div>
+          </div>
+          <div class="feat-item">
+            <div class="feat-title">&#9656; Hidden loot markers</div>
+            <div class="feat-desc">Points out hidden Ability Points (AP), secret chests and permanent upgrades.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- ============ 2b · what Overlord AI is, plainly (payment-provider review, 2026-10-16) ============ -->
+<section class="plainsec vp-inline-plain" id="what">
+  <div class="plainsec__inner">
+    <!-- One slow sequence, in reading order (data-mx-seq): each heading resolves, then its text
+         fades in, then the next starts. Slower on purpose so the "is it cheating?" answers get read. -->
+    <span class="plainsec__label mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.6">In plain words</span>
+    <h2 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2.4">What Overlord AI <em>is.</em></h2>
+    <p class="plainsec__lede mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Overlord AI is an AI guide companion for PC games. It watches your game (with your permission) to show tips, directions and answers on screen and by voice. Think of the strategy guide that used to sit next to the console, rewritten as a voice that plays alongside you.</p>
+    <div class="plainsec__facts">
+      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">Who it's for</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
+      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">Platforms</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Windows 10/11 (64-bit), an installer, and Linux (Ubuntu/Debian, a .deb package). Every feature works on both.</p></div>
+    </div>
+    <div class="plainsec__lists">
+      <div>
+        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">What Overlord AI does</h3>
+        <ul class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Watches your game while you play</button><div class="xp__more"><p>Only while your game is running, to work out where you are and what's happening.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Shows tip cards on screen</button><div class="xp__more"><p>Directions, loot, combos and conversation choices.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Talks to you</button><div class="xp__more"><p>It speaks answers out loud, and listens when you press F4 and ask.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Reads your game's save and settings files</button><div class="xp__more"><p>Without changing them, to follow your progress and your button layout.</p></div></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">What it doesn't do</h3>
+        <ul class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't play for you</button><div class="xp__more"><p>It never presses keys, moves the mouse or controls the game.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't change the game</button><div class="xp__more"><p>No changes to game memory or game files, and no code injected into the game.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't run in online multiplayer games</button><div class="xp__more"><p>It checks each game when it launches and refuses the online multiplayer ones; it's built for single-player games. See <a href="fair-play.html">Fair play</a>.</p></div></li>
+          <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't record your sessions</button><div class="xp__more"><p>It only watches while your game is running and shuts off when the game closes. Nothing is saved: your PC clears what it sees moments later, and our servers don't keep it. See the <a href="privacy.html">Privacy Policy</a>.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- ROW 03: LOOT TIPS -->
+    <div class="vp-row rv">
+      <figure class="vp-media" data-slot="loot-radar">
+        <div class="vp-ph">
+          <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
+          <span class="vp-ph__orb"></span>
+          <span class="vp-ph__label mono">Tip card · 03 · Loot finder</span>
+          <span class="vp-ph__size mono">Before you miss it</span>
+        </div>
+        <!-- In-Game Floating Loot Card -->
+        <div class="in-game-card" id="card-loot">
+          <div class="card-header">
+            <div class="card-brand">
+              <svg class="rooster-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              <div class="card-title">OVERLORD <em>AI</em> <span class="tag-type" style="color:#ffbe3b;">· LOOT TIPS</span></div>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn">TIPS</button>
+              <button class="card-btn">&times;</button>
+            </div>
+          </div>
+          <div class="card-eyebrow">✦ Ward 8 · Notice Board Secret</div>
+          <div style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); border-radius:6px; padding:9px 11px; font-size:.78rem; line-height:1.5;">
+            <strong style="color:#ffbe3b;">Ability Point Detected:</strong> An unlisted Ability Point sits on the Notice Board by the service lift. Take it before the Ashtray Maze resets!
+          </div>
+          <div class="steps-list">
+            <div class="step-pill done">
+              <span class="step-badge" style="background:rgba(0,255,170,.2); color:#00ffaa;">DONE</span>
+              <span>Clear the Hiss lingering in security corridor.</span>
+            </div>
+            <div class="step-pill active">
+              <span class="step-badge">NEXT</span>
+              <span>Inspect Notice Board · <strong style="color:#ffbe3b;">Collect +1 Ability Point</strong></span>
+              <span class="step-fill-bar" style="width:100%;"></span>
+            </div>
+          </div>
+          <div class="action-tip-box" style="background:rgba(255,190,59,.12); border-color:rgba(255,190,59,.4);">
+            <span>💡</span>
+            <span><strong>Action Tip:</strong> Press <kbd>[E]</kbd> to claim. Permanent mod fits Pierce weapon.</span>
+          </div>
+          <div style="font-family:'Space Mono','Space Mono Fallback',monospace; font-size:.6rem; color:var(--neutral-on-background-weak); text-align:center; padding-top:2px;">
+            SINGLE-PLAYER · SECRETS ON
+          </div>
+        </div>
+      </figure>
+      <div class="vp-text">
+        <span class="vp-num">03</span>
+        <span class="vp-pill">· Build & Secret Optimization</span>
+        <h3>Never Miss God Loot</h3>
+        <div class="vp-pain">
+          <strong>The Quit Moment:</strong> Hitting a mid-game damage wall because you unknowingly walked past a hidden Ability Point or permanent weapon mod three zones ago.
+        </div>
+        <p>
+          You shouldn't need a 40-minute YouTube walkthrough on a second monitor just to avoid missing permanent upgrades. Overlord's <strong>loot finder</strong> flags missable Ability Points, secret rafters, and weapon mods right before areas lock out.
+        </p>
+        <div class="vp-features">
+          <div class="feat-item">
+            <div class="feat-title">&#9656; Built-in secrets guide</div>
+            <div class="feat-desc">Knows every hidden ability point, breakable wall, and exclusive mod.</div>
+          </div>
+          <div class="feat-item">
+            <div class="feat-title">&#9656; Build Alignment</div>
+            <div class="feat-desc">Directs upgrades specifically to the weapons and spells you have levelled.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 04: NPC DIALOGUE PROGRESSION -->
+    <div class="vp-row rv vp-row--flip">
+      <figure class="vp-media" data-slot="dialogue-intel">
+        <div class="vp-ph">
+          <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
+          <span class="vp-ph__orb"></span>
+          <span class="vp-ph__label mono">Tip card · 04 · Dialogue guide</span>
+          <span class="vp-ph__size mono">Choice tips</span>
+        </div>
+        <!-- In-Game Floating NPC Card -->
+        <div class="in-game-card" id="card-npc">
+          <div class="card-header">
+            <div class="card-brand">
+              <svg class="rooster-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              <div class="card-title">OVERLORD <em>AI</em> <span class="tag-type" style="color:#b9a8ff;">· DIALOGUE TIPS</span></div>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn">TREE</button>
+              <button class="card-btn">&times;</button>
+            </div>
+          </div>
+          <div class="card-eyebrow">✦ Lena · Dialogue Progression Tree</div>
+          <div style="font-size:.73rem; color:#b9a8ff; margin-bottom:2px;">
+            Optimal route to unlock merchant discount and secret journal:
+          </div>
+          <div class="steps-list" id="dialogueList">
+            <div class="dialogue-choice selected" onclick="pickDialogue(0, this)">
+              <span class="step-badge" style="background:var(--accent); color:#fff;">[1]</span>
+              <span>"Who's sweetie?" · <em style="color:#79c0ff;">Establish rapport</em></span>
+            </div>
+            <div class="dialogue-choice" onclick="pickDialogue(1, this)">
+              <span class="step-badge">[2]</span>
+              <span>"Hmm... maybe I am?" · <em style="color:#79c0ff;">Unlock 20% discount</em></span>
+            </div>
+            <div class="dialogue-choice" onclick="pickDialogue(2, this)">
+              <span class="step-badge">[3]</span>
+              <span>"What is your husband studying?" · <em style="color:#79c0ff;">Softens before ask</em></span>
+            </div>
+          </div>
+          <div class="action-tip-box" id="dialogueResultBox">
+            <span>💬</span>
+            <span id="dialogueOutcomeText">Selected Option 1 unlocks Lena's trust without locking out husband quest.</span>
+          </div>
+          <div style="font-family:'Space Mono','Space Mono Fallback',monospace; font-size:.6rem; color:var(--neutral-on-background-weak); text-align:center; padding-top:2px;">
+            IRREVERSIBLE QUEST GUARD · SPOILER-FREE OUTCOMES
+          </div>
+        </div>
+      </figure>
+      <div class="vp-text">
+        <span class="vp-num">04</span>
+        <span class="vp-pill">· Story & Questline Integrity</span>
+        <h3>Zero-Regret Dialogue</h3>
+        <div class="vp-pain">
+          <strong>The Quit Moment:</strong> Picking a vague dialogue option that accidentally turns an essential NPC hostile or locks you out of the true ending.
+        </div>
+        <p>
+          Modern RPGs love high-stakes conversations, but one misleading choice can ruin 40 hours of story. Overlord's <strong>dialogue guide</strong> previews the tone, the unlocks and the quest consequences of each choice, so your decisions are always intentional.
+        </p>
+        <div class="vp-features">
+          <div class="feat-item">
+            <div class="feat-title">&#9656; Questline Lockout Guard</div>
+            <div class="feat-desc">Warns you before selecting options that permanently lock companion quests.</div>
+          </div>
+          <div class="feat-item">
+            <div class="feat-title">&#9656; Vendor Unlock Mapping</div>
+            <div class="feat-desc">Shows the precise rapport path to unlock hidden stock and max discounts.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
