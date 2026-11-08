@@ -2,13 +2,17 @@
 <!-- Recording stage for the carousel's Animation clips (messaging.md §7.7, JP 2026-11-08): one HUD asset,
      900x560, on the standard purple backdrop (assets/img/brand/backdrop-purple.css, §7.5).
      Usage: site-tools/clip-stage.html?src=../assets/hud/npc-card.html — recorded by a headless-Chrome
-     screencast, encoded with ffmpeg to assets/reels/anim-*.mp4. Repo-only (.vercelignore). -->
+     screencast, encoded with ffmpeg to assets/reels/anim-*.mp4. Repo-only (.vercelignore).
+     §7.10 (JP 2026-11-08): add &mx=<npc|loot|combo|prayer> to record one pass that materializes with the
+     plasma-matrix fade-in (site-tools/mx-in.js), runs its beats, and dissolves, so the loop restarts on the
+     fade-in: no slide-in, no closed beat, no long end hold. The recorder calls __prep(), then __run(). -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=900">
 <title>Clip stage</title>
 <link rel="stylesheet" href="../assets/img/brand/backdrop-purple.css">
+<script src="mx-in.js"></script>
 <style>
   html,body{margin:0;width:900px;height:560px;overflow:hidden;background:var(--ov-backdrop);}
   iframe{position:absolute;inset:0;width:900px;height:560px;border:0;background:transparent;}
@@ -22,11 +26,74 @@
   const BARE = 'html,body{background:transparent!important}' +
     '.sky,.glow,.pillar,.beam,.grid,.sweep,.floor,.scan{display:none!important}';
   const f = document.getElementById('hud');
-  f.addEventListener('load', () => {
+  const q = new URLSearchParams(location.search);
+  const loaded = new Promise(res => f.addEventListener('load', () => {
     const st = f.contentDocument.createElement('style'); st.textContent = BARE;
-    f.contentDocument.head.appendChild(st);
-  });
-  f.src = new URLSearchParams(location.search).get('src') || '../assets/hud/npc-card.html';
+    f.contentDocument.head.appendChild(st); res();
+  }, { once: true }));
+  f.src = q.get('src') || '../assets/hud/npc-card.html';
+
+  /* ---- §7.10 matrix fade-in passes ---- */
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const hud = () => f.contentWindow.__hud;
+  const doc = () => f.contentDocument;
+  const IN = 1200, OUT = 300;
+  // the glyph shimmer runs over the card itself (iframe coords = page coords: the iframe sits at 0,0)
+  const CARD = { npc: '#card', loot: '#card', combo: '.card', prayer: '.hud-wrap' };
+  let fx = null;
+  const PASS = {
+    npc: {
+      async prep(){ hud().pin('dialogue'); await sleep(1000); },
+      async run(){ await fx.in(IN); await sleep(2600); hud().pin('answer'); await sleep(3200); await fx.out(OUT); }
+    },
+    loot: {
+      async prep(){ hud().pin('loot'); await sleep(1200); },
+      async run(){ await fx.in(IN); await sleep(3800); await fx.out(OUT); }
+    },
+    combo: {
+      async prep(){ hud().pin('combo-1'); await sleep(400); },
+      async run(){
+        // the real cadence from the start of combo 1: each input lights as it lands, then the card
+        // settles "done"; the dissolve starts as it would step on to the next combo
+        hud().resume(); const p = fx.in(IN);
+        const t0 = performance.now();
+        while (performance.now() - t0 < 15000) {
+          const rows = [...doc().querySelectorAll('.step')];
+          if (rows.length && rows.every(r => r.classList.contains('done'))) break;
+          await sleep(30);
+        }
+        await p; await sleep(650); await fx.out(OUT);
+      }
+    },
+    prayer: {
+      async prep(){
+        hud().pin('idle'); await sleep(1200);
+        // the guidance card enters with the matrix fade-in too, not its own slide-up
+        const st = doc().createElement('style');
+        st.textContent = '.card{transition:none!important;transform:translate(-50%,0) scale(1)!important}';
+        doc().head.appendChild(st);
+        const c = doc().getElementById('card');
+        this.card = MX.attach(c, () => c.getBoundingClientRect());
+      },
+      // the real beats (idle .9, tap .9, listening 3.6, assimilating 4.2) and the guidance beat trimmed to
+      // its read time (3.4 s instead of 5.6 s), then the dissolve
+      async run(){
+        const t0 = performance.now();
+        hud().resume(); await fx.in(IN);
+        await sleep(900 + 900 + 3600 + 4200 - (performance.now() - t0));
+        await this.card.in(IN); await sleep(3400 - IN); await fx.out(OUT);
+      }
+    }
+  };
+  const name = q.get('mx');
+  window.__ready = loaded.then(() => sleep(400)).then(() => 'ok');
+  window.__prep = async () => {
+    const pass = PASS[name];
+    const box = () => { const e = doc().querySelector(CARD[name]); return e.getBoundingClientRect(); };
+    fx = MX.attach(f, box);
+    await pass.prep(); fx.hidden(); return 'prepped';
+  };
+  window.__run = async () => { await PASS[name].run(); return 'done'; };
 </script>
 </body>
 </html>
