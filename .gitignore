@@ -12,6 +12,8 @@ overlordai-co-v1.html
 !icon-512.png
 !og-thumbnail.png
 !assets/*.png
+# the purple backdrop base every generated image/animation uses (messaging.md §7.5)
+!assets/img/brand/backdrop-purple.png
 
 # secrets / deps (waitlist-api)
 .env

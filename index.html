@@ -1465,7 +1465,7 @@
 
     <div class="vp-cta rv" style="--d:.6s">
       <a class="vp-cta__primary" href="signup.html">Play free for 30 minutes</a>
-      <a class="vp-cta__secondary" href="#work">See it live &rarr;</a>
+      <a class="vp-cta__secondary" href="#work" data-demo="control">See it live &rarr;</a>
     </div>
 
     <div class="vp-unlocks rv" style="--d:.75s">
@@ -2390,6 +2390,16 @@
   stage.addEventListener('wheel', e => {
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY)){ e.preventDefault(); vel -= e.deltaX * .02; idleAt = performance.now(); }
   }, {passive:false});
+
+  /* "See it live →" in section 2 opens the Live demo · Control pane in this lightbox, with sound
+     (messaging §7.1, JP 2026-11-08): no YouTube, no new tab; href="#work" stays as the no-JS fallback.
+     When JP's questline-first demo replaces that pane's file, the link follows it. */
+  window.ovOpenPane = title => { const i = CARDS.findIndex(c => c.title === title); if (i < 0) return false; open(i); return true; };
+  document.querySelectorAll('[data-demo="control"]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById('work').scrollIntoView({behavior:'instant', block:'start'});   // the ring sits behind the lightbox
+    if (!window.ovOpenPane('Live demo · Control')) location.hash = 'work';
+  }));
 
   /* lightbox */
   const lb = document.getElementById('lightbox'), frame = document.getElementById('lbFrame'), cap = document.getElementById('lbCap');
