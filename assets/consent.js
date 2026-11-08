@@ -105,8 +105,8 @@ window.va = window.va || function () { (window.vaq = window.vaq || []).push(argu
     var box = document.createElement("div");
     box.className = "ovr-cc"; box.id = "ovrCookieBanner";
     box.setAttribute("role", "dialog"); box.setAttribute("aria-live", "polite"); box.setAttribute("aria-label", "Cookie choices");
-    box.innerHTML = "<p>We'd like to use cookies to measure our ads (Google Ads, Reddit Ads) and to credit partners who " +
-      "refer you (Rewardful). The site works the same either way. <a href=\"privacy.html#s8\">Privacy Policy</a></p>" +
+    box.innerHTML = "<p>We'd like to use cookies to measure our ads (Google Ads, Reddit Ads), to credit partners who " +
+      "refer you (Rewardful), and to see which visits lead to downloads and sign-ups (a random visit ID). The site works the same either way. <a href=\"privacy.html#s8\">Privacy Policy</a></p>" +
       "<div class=\"ovr-cc__row\"><button type=\"button\" data-c=\"denied\">Reject</button>" +
       "<button type=\"button\" data-c=\"granted\">Accept</button></div>";
     box.addEventListener("click", function (e) {
