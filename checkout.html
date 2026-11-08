@@ -763,11 +763,6 @@
             </div>
 
             <div class="field-wrap">
-              <label for="feedbackInput" class="mono field-label">What plan were you looking to buy, or what game are you playing tonight? <span class="field-opt">(Optional)</span></label>
-              <textarea id="feedbackInput" class="portal-textarea" rows="2" placeholder="e.g. Elden Ring, Black Myth: Wukong, wanted to test the tactical radar..."></textarea>
-            </div>
-
-            <div class="field-wrap">
               <label for="emailInput" class="mono field-label">Your Email <span style="color:var(--accent);font-weight:600;">* (Required for license key &amp; updates)</span></label>
               <input type="email" id="emailInput" class="portal-input" placeholder="player@example.com" required>
             </div>
@@ -910,7 +905,7 @@ const PRODUCTS = {
     id: 'demo-trial',
     kicker: '01 · FREE TRIAL & FOUNDER ACCESS',
     title: 'Trial & Founder Pass',
-    caption: 'Full access to the strategy guidebook, live screen help and your co-pilot\'s voice.',
+    caption: '30 minutes of live play. Free, no credit card.',
     price: '$0.00',
     period: 'free through November 15',
     lineItem: 'Overlord AI Founder Trial',
@@ -1047,7 +1042,6 @@ const PRODUCTS = {
         },
         body: JSON.stringify({
           email: payload.email,
-          feedback: payload.feedback || null,
           plan: payload.plan || null,
           license_key: payload.license_key || null
         })
@@ -1064,14 +1058,13 @@ const PRODUCTS = {
   const copyBtn = document.getElementById('copyKeyBtn');
   const statusMsg = document.getElementById('portalStatusMsg');
 
-  async function activateLicense(email, feedback, authProvider, userId) {
+  async function activateLicense(email, authProvider, userId) {
     const randHex = Math.random().toString(36).substring(2, 6).toUpperCase();
     const genKey = 'OVR-' + (planKey === 'pro' ? 'PRO' : 'FOUNDER') + '-' + randHex + '-2026';
     if (displayKey) displayKey.textContent = genKey;
 
     const payload = {
       email,
-      feedback: feedback || null,
       plan: planKey,
       license_key: genKey,
       auth_provider: authProvider || 'email',
@@ -1091,8 +1084,6 @@ const PRODUCTS = {
   document.querySelectorAll('[data-oauth]').forEach(b => {
     b.addEventListener('click', async () => {
       const provider = b.dataset.oauth;
-      const feedbackVal = (document.getElementById('feedbackInput')?.value || '').trim();
-      if (feedbackVal) sessionStorage.setItem('ovr_pending_feedback', feedbackVal);
       sessionStorage.setItem('ovr_pending_plan', planKey);
 
       if (sbClient) {
@@ -1135,10 +1126,8 @@ const PRODUCTS = {
 
         const isOauthReturn = urlParams.get('founder_oauth') === '1' || window.location.hash.includes('access_token');
         if (isOauthReturn && email) {
-          const pendingFeedback = sessionStorage.getItem('ovr_pending_feedback') || '';
-          sessionStorage.removeItem('ovr_pending_feedback');
           sessionStorage.removeItem('ovr_pending_plan');
-          activateLicense(email, pendingFeedback, user.app_metadata?.provider || 'oauth', user.id);
+          activateLicense(email, user.app_metadata?.provider || 'oauth', user.id);
         }
       }
     }).catch(() => {});
@@ -1148,7 +1137,6 @@ const PRODUCTS = {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = (document.getElementById('emailInput')?.value || '').trim();
-      const feedback = (document.getElementById('feedbackInput')?.value || '').trim();
 
       if (!email) {
         if (statusMsg) {
@@ -1164,7 +1152,7 @@ const PRODUCTS = {
         claimBtn.innerHTML = '<span>Activating License&hellip;</span>';
       }
 
-      await activateLicense(email, feedback, 'email', null);
+      await activateLicense(email, 'email', null);
     });
   }
 
