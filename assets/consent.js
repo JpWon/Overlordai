@@ -145,6 +145,8 @@ window.va = window.va || function () { (window.vaq = window.vaq || []).push(argu
   }
 
   window.ovrCookieSettings = showBanner;
+  // the funnel (assets/funnel.js) runs only where the trackers may load: the same consent decision
+  window.ovrTrackingAllowed = function () { return loaded; };
 
   var choice = stored();
   var europe = inEurope();
