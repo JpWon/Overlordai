@@ -1172,14 +1172,11 @@
   .vp-ph__label,.vp-ph__size{text-shadow:0 1px 3px rgba(0,0,0,.8);}
   .vp-value{margin-top:6px;font-weight:700;font-size:1.05rem;line-height:1.45;color:var(--neutral-on-background-strong);}
   .vp-value::before{content:"";display:inline-block;width:10px;height:2px;background:var(--accent);vertical-align:middle;margin-right:10px;}
-  /* the product card, drawn live over the text-free render so the words stay crisp and editable */
-  .vp-card{position:absolute;z-index:2;top:12%;width:46%;max-width:250px;padding:10px 12px 11px;border-radius:10px;
+  /* the product card, centred on the purple backdrop (§7.5 standard) as live HTML so the words stay crisp and editable */
+  .vp-card{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:54%;max-width:300px;padding:12px 14px 13px;border-radius:10px;
     background:linear-gradient(168deg,rgba(255,255,255,.07),rgba(255,255,255,.02) 50%),rgba(10,10,18,.78);
     border:1px solid rgba(109,92,255,.55);box-shadow:0 0 0 1px rgba(0,0,0,.3),0 12px 28px rgba(0,0,0,.55),0 0 18px rgba(109,92,255,.18);
     backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#f4f2ff;font-size:.72rem;line-height:1.4;}
-  .vp-card--r{right:5%;} .vp-card--l{left:5%;}
-  .vp-card--narrow{width:37%;left:4%;top:8%;}
-  .vp-card--narrow .vp-card__line{flex-wrap:nowrap;}
   .vp-card__brand{font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.6rem;letter-spacing:.14em;font-weight:700;margin-bottom:4px;}
   .vp-card__brand em{font-style:normal;color:var(--accent);} .vp-card__brand span{color:var(--neutral-on-background-weak);font-weight:400;}
   .vp-card__eyebrow{font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:6px;}
@@ -1197,9 +1194,7 @@
   .vp-card__arc{display:block;width:100%;height:auto;color:var(--accent-soft);margin:2px 0;}
   /* phones: the frame is ~55% of desktop size, so draw the card at desktop size and scale it with the frame */
   @media (max-width:600px){
-    .vp-card{width:250px;max-width:none;top:15%;transform:scale(.56);}
-    .vp-card--narrow{width:207px;top:15%;}
-    .vp-card--r{transform-origin:top right;} .vp-card--l{transform-origin:top left;}
+    .vp-card{width:300px;max-width:none;transform:translate(-50%,-50%) scale(.6);}
   }
 
   /* ================= What Overlord AI is (plain description) ================= */
@@ -1494,8 +1489,8 @@
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__label mono">Tip card · 01 · NPC card</span>
           <span class="vp-ph__size mono">On screen · When an NPC speaks</span>
-          <img class="vp-img" src="assets/img/pillars/01-npc.webp" width="1120" height="700" loading="lazy" alt="Overlord AI NPC card over a dialogue with a hooded NPC: the line to say now is lit, a later choice is marked as one that would lock a quest.">
-          <div class="vp-card vp-card--r" aria-hidden="true"><div class="vp-card__brand">OVERLORD <em>AI</em> <span>· NPC CARD</span></div><div class="vp-card__eyebrow">✦ Conversation · Say this</div><div class="vp-card__line is-on"><b>1</b> “I’ll find what you lost.” <i>say this</i></div><div class="vp-card__line"><b>2</b> Ask about the old tower <i>next</i></div><div class="vp-card__line is-warn"><b>3</b> “Leave me be.” <i>not yet · locks a quest</i></div></div>
+          <img class="vp-img" src="assets/img/pillars/01-npc.webp" width="1120" height="700" loading="lazy" alt="Say the right thing: the Overlord AI NPC card">
+          <div class="vp-card" aria-hidden="true"><div class="vp-card__brand">OVERLORD <em>AI</em> <span>· NPC CARD</span></div><div class="vp-card__eyebrow">✦ Conversation · Say this</div><div class="vp-card__line is-on"><b>1</b> “I’ll find what you lost.” <i>say this</i></div><div class="vp-card__line"><b>2</b> Ask about the old tower <i>next</i></div><div class="vp-card__line is-warn"><b>3</b> “Leave me be.” <i>not yet · locks a quest</i></div></div>
         </div>
       </figure>
       <div class="vp-text">
@@ -1514,8 +1509,8 @@
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__label mono">Tip card · 02 · Loot card</span>
           <span class="vp-ph__size mono">On screen · Before you miss it</span>
-          <img class="vp-img" src="assets/img/pillars/02-loot.webp" width="1120" height="700" loading="lazy" alt="Overlord AI loot card in a lamplit shrine: a talisman in this room, take it before the gate closes, fits your build.">
-          <div class="vp-card vp-card--l vp-card--narrow" aria-hidden="true"><div class="vp-card__brand">OVERLORD <em>AI</em> <span>· LOOT CARD</span></div><div class="vp-card__eyebrow">✦ Loot · This room</div><div class="vp-card__line is-on"><b>★</b> Talisman in this room</div><div class="vp-card__line"><b>!</b> Take it before the gate closes</div><div class="vp-card__line is-ok"><b>✓</b> Fits your build</div></div>
+          <img class="vp-img" src="assets/img/pillars/02-loot.webp" width="1120" height="700" loading="lazy" alt="Never walk past it: the Overlord AI loot card">
+          <div class="vp-card" aria-hidden="true"><div class="vp-card__brand">OVERLORD <em>AI</em> <span>· LOOT CARD</span></div><div class="vp-card__eyebrow">✦ Loot · This room</div><div class="vp-card__line is-on"><b>★</b> Talisman in this room</div><div class="vp-card__line"><b>!</b> Take it before the gate closes</div><div class="vp-card__line is-ok"><b>✓</b> Fits your build</div></div>
         </div>
       </figure>
       <div class="vp-text">
@@ -1569,8 +1564,8 @@
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__label mono">Tip card · 03 · Combo card</span>
           <span class="vp-ph__size mono">On screen · In the fight</span>
-          <img class="vp-img" src="assets/img/pillars/03-combo.webp" width="1120" height="700" loading="lazy" alt="Overlord AI combo card during a boss windup: four input pills, the counter lit, wait for the windup then counter.">
-          <div class="vp-card vp-card--r" aria-hidden="true"><div class="vp-card__brand">OVERLORD <em>AI</em> <span>· COMBO CARD</span></div><div class="vp-card__eyebrow">✦ Combo · In order</div><div class="vp-card__pills"><span>Dodge</span><span>Wait</span><span class="is-on">Counter</span><span>Finisher</span></div><div class="vp-card__line">Wait for the windup, then counter</div></div>
+          <img class="vp-img" src="assets/img/pillars/03-combo.webp" width="1120" height="700" loading="lazy" alt="Know the opening: the Overlord AI combo card">
+          <div class="vp-card" aria-hidden="true"><div class="vp-card__brand">OVERLORD <em>AI</em> <span>· COMBO CARD</span></div><div class="vp-card__eyebrow">✦ Combo · In order</div><div class="vp-card__pills"><span>Dodge</span><span>Wait</span><span class="is-on">Counter</span><span>Finisher</span></div><div class="vp-card__line">Wait for the windup, then counter</div></div>
         </div>
       </figure>
       <div class="vp-text">
@@ -1589,8 +1584,8 @@
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__label mono">Tip card · 04 · GPS card</span>
           <span class="vp-ph__size mono">Press F4 · Ask where to go</span>
-          <img class="vp-img" src="assets/img/pillars/04-gps.webp" width="1120" height="700" loading="lazy" alt="Overlord AI GPS card at a fog-filled crossroads: a compass arc pointing toward the next objective.">
-          <div class="vp-card vp-card--l" aria-hidden="true"><div class="vp-card__brand">OVERLORD <em>AI</em> <span>· GPS CARD</span></div><div class="vp-card__eyebrow">✦ GPS · Next objective</div><svg class="vp-card__arc" viewBox="0 0 120 34" aria-hidden="true"><path d="M8 30 A58 58 0 0 1 112 30" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-width="1.5"/><path d="M60 4 L66 16 L60 13 L54 16 Z" fill="currentColor"/></svg><div class="vp-card__line is-on">Next objective · this way</div></div>
+          <img class="vp-img" src="assets/img/pillars/04-gps.webp" width="1120" height="700" loading="lazy" alt="Point me there: the Overlord AI GPS card">
+          <div class="vp-card" aria-hidden="true"><div class="vp-card__brand">OVERLORD <em>AI</em> <span>· GPS CARD</span></div><div class="vp-card__eyebrow">✦ GPS · Next objective</div><svg class="vp-card__arc" viewBox="0 0 120 34" aria-hidden="true"><path d="M8 30 A58 58 0 0 1 112 30" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-width="1.5"/><path d="M60 4 L66 16 L60 13 L54 16 Z" fill="currentColor"/></svg><div class="vp-card__line is-on">Next objective · this way</div></div>
         </div>
       </figure>
       <div class="vp-text">
@@ -1671,6 +1666,7 @@
   </div>
 </section>
 
+<!-- Plain on purpose for Google's brand verification. Remove this block once the verification is approved (messaging.md §7.8). -->
 <!-- ============ About Overlord AI (plain HTML, no script, no reveal; Google brand verification, JP Nov 7) ============ -->
 <section id="about-overlord-ai" aria-labelledby="about-overlord-ai-h" style="position:relative;z-index:5;background:var(--page-background);padding:3rem 1.5rem;border-top:1px solid var(--neutral-alpha-weak);">
   <div style="max-width:52rem;margin:0 auto;font-size:.95rem;line-height:1.6;color:var(--neutral-on-background-weak);">
@@ -2281,26 +2277,29 @@
         video:'…/clip.mp4', poster:'…/clip-poster.jpg', ratio:'1462/816'.
         `art` is the gradient fallback — a pane still looks finished before its file exists,
         and a screenshot pane whose file 404s simply keeps its gradient. `dur` shows bottom-right.  */
-    {tag:'Video',      title:'Dashboard walkthrough', caption:'Overlord AI dashboard walkthrough', dur:'1:37',
-     video:'assets/reels/dashboard-walkthrough.mp4', poster:'assets/reels/dashboard-walkthrough-poster.jpg', ratio:'1920/1080',
-     art:'radial-gradient(120% 90% at 30% 20%,#8fb3ff 0%,#4b3bd6 38%,#140c3a 100%)'},
-    {tag:'Video',      title:'Gold Combo', dur:'0:07',
-     video:'assets/reels/gold-combo.mp4', poster:'assets/reels/gold-combo-poster.jpg', ratio:'1920/1080',
-     art:'radial-gradient(110% 90% at 60% 30%,#ffe08a 0%,#c98a1c 40%,#1a1006 100%)'},
-    {tag:'Animation',  title:'Divine Prayer', dur:'live', embed:'assets/hud/prayer-hud.html', ratio:'900/560',
-     art:'linear-gradient(135deg,#1b1240 0%,#5a2bd8 55%,#c7b8ff 100%)'},
+    /* Ring order (JP 2026-11-08, messaging §7.7): questlines first. The four Animation panes are
+       placeholder loops of the HUD assets on the purple backdrop until JP records real footage. */
     {tag:'Video',      title:'Live demo · Control', caption:'Overlord AI live game guidebook demo, played in Control (no cuts, no script)', dur:'1:32',
      video:'assets/reels/control-live-demo.mp4', poster:'assets/reels/control-live-demo-poster.jpg', ratio:'1920/1080',
      art:'radial-gradient(90% 90% at 70% 70%,#e1e8ff 0%,#6f7bff 30%,#0d0a26 80%)'},   /* JP 2026-11-03: replaces the GPS directions animation; same clip as youtu.be/mq6YbrQVC10 */
-    {tag:'Animation',  title:'Combo Card', dur:'live',
-     embed:'assets/hud/combo-card.html', ratio:'900/560',
-     art:'conic-gradient(from 200deg at 40% 60%,#0c0a22,#3d2bb8,#9d8cff,#0c0a22)'},
-    {tag:'Animation',  title:'Loot Card', dur:'live',
-     embed:'assets/hud/loot-card.html', ratio:'900/560',
-     art:'linear-gradient(160deg,#0a0820 10%,#2a47d9 50%,#b28dff 100%)'},
-    {tag:'Animation',  title:'NPC Interaction', dur:'live',
-     embed:'assets/hud/npc-card.html', ratio:'900/560',
+    {tag:'Animation',  title:'NPC Interaction', dur:'loop',
+     video:'assets/reels/anim-npc.mp4', poster:'assets/reels/anim-npc-poster.jpg', ratio:'900/560', loop:true,
      art:'radial-gradient(70% 60% at 50% 40%,#ffffff 0%,#9aa9ff 22%,#3a1f9c 60%,#07051a 100%)'},
+    {tag:'Animation',  title:'Loot Card', dur:'loop',
+     video:'assets/reels/anim-loot.mp4', poster:'assets/reels/anim-loot-poster.jpg', ratio:'900/560', loop:true,
+     art:'linear-gradient(160deg,#0a0820 10%,#2a47d9 50%,#b28dff 100%)'},
+    {tag:'Animation',  title:'Combo Card', dur:'loop',
+     video:'assets/reels/anim-combo.mp4', poster:'assets/reels/anim-combo-poster.jpg', ratio:'900/560', loop:true,
+     art:'conic-gradient(from 200deg at 40% 60%,#0c0a22,#3d2bb8,#9d8cff,#0c0a22)'},
+    {tag:'Animation',  title:'Divine Prayer', dur:'loop',
+     video:'assets/reels/anim-prayer.mp4', poster:'assets/reels/anim-prayer-poster.jpg', ratio:'900/560', loop:true,
+     art:'linear-gradient(135deg,#1b1240 0%,#5a2bd8 55%,#c7b8ff 100%)'},
+    {tag:'Video',      title:'Gold Combo', dur:'0:07',
+     video:'assets/reels/gold-combo.mp4', poster:'assets/reels/gold-combo-poster.jpg', ratio:'1920/1080',
+     art:'radial-gradient(110% 90% at 60% 30%,#ffe08a 0%,#c98a1c 40%,#1a1006 100%)'},
+    {tag:'Video',      title:'Dashboard walkthrough', caption:'Overlord AI dashboard walkthrough', dur:'1:37',
+     video:'assets/reels/dashboard-walkthrough.mp4', poster:'assets/reels/dashboard-walkthrough-poster.jpg', ratio:'1920/1080',
+     art:'radial-gradient(120% 90% at 30% 20%,#8fb3ff 0%,#4b3bd6 38%,#140c3a 100%)'}
   ];
   const stage = document.getElementById('ringStage');
   const ring  = document.getElementById('ring');
@@ -2315,6 +2314,7 @@
     el.innerHTML = `<div class="card__float" style="--bob:${(-i*1.1).toFixed(1)}s">
         <div class="card__face" style="--art:${face ? `url('${face}') center/cover no-repeat,${c.art}` : c.art}">
           ${c.embed ? `<iframe class="card__embed" src="${c.embed}" title="${c.title}" scrolling="no" tabindex="-1"></iframe>` : ''}
+          ${c.loop && c.video ? `<video class="card__embed" src="${c.video}" poster="${c.poster || ''}" muted loop autoplay playsinline preload="metadata" aria-hidden="true"></video>` : ''}
           <span class="card__tag">${c.tag}</span>
           ${c.tag === 'Video' ? '<div class="card__play"></div>' : ''}
           <div class="card__meta"><span>${c.title}</span><span>${c.dur}</span></div>
@@ -2333,8 +2333,9 @@
       const a = i * STEP + rot;
       const rad = a * Math.PI / 180;
       const depth = (Math.cos(rad) + 1) / 2;            // 1 = front, 0 = back
-      // counter-yaw 60% so every card stays front-facing (max ±72°) — no mirrored backs
-      el.style.transform = `rotateY(${a}deg) translateZ(${R}px) rotateY(${-a * .6}deg)`;
+      // counter-yaw 100% (JP 2026-11-08, messaging §7.7): every card faces the viewer flat as it travels,
+      // so nothing reads turned-in or backwards. JP's fallback if it looks pasted on: -a * .9, never lower.
+      el.style.transform = `rotateY(${a}deg) translateZ(${R}px) rotateY(${-a}deg)`;
       el.style.opacity = (.35 + .65 * depth).toFixed(3);
       el.style.filter = `blur(${((1 - depth) * 2.2).toFixed(2)}px)`;
       el.style.zIndex = Math.round(depth * 100);
@@ -2411,6 +2412,7 @@
       lbVid.poster = c.poster || '';
       lbVid.setAttribute('aria-label', c.caption || c.title);
       lbVid.src = c.video;
+      lbVid.loop = !!c.loop; lbVid.muted = !!c.loop;          // the Animation loops are silent placeholders
       lbVid.classList.add('is-on');
       play.style.display = 'none';
       lbVid.play().catch(() => {});                          // the click is the user gesture, so sound plays

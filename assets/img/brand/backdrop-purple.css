@@ -1,0 +1,8 @@
+/* Overlord AI purple backdrop, the standard for every generated image or animation (JP 2026-11-08,
+   messaging.md §7.5). Built from the section-3 carousel's own pane gradients: deep indigo-violet,
+   one soft lighter bloom, no texture. backdrop-purple.png is this, rendered at 1600x1000. */
+:root{
+  --ov-backdrop:
+    radial-gradient(58% 62% at 50% 44%,rgba(154,169,255,.42) 0%,rgba(90,43,216,.38) 38%,rgba(58,31,156,0) 72%),
+    linear-gradient(160deg,#0a0820 0%,#1b1240 42%,#2a1a6e 78%,#3a1f9c 100%);
+}
