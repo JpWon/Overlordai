@@ -116,6 +116,12 @@
   }
   .ovr-logo__text{display:flex;flex-direction:column;line-height:1.05;}
   .ovr-logo__mark{font-family:'Anton',sans-serif;font-size:1.15rem;letter-spacing:.06em;}
+  /* messaging.md §7.9.10 (JP 2026-11-08): the wordmark always reads OVERLORD AI, AI in the brand purple */
+  .ovr-logo__mark{white-space:nowrap;}
+  .ovr-logo__mark em{font-style:normal;color:var(--accent,#6d5cff);}
+  /* JP 2026-11-08: "Live game guidebook" at 1280 and up; below that the shorter "Game guidebook" so it stays on one line */
+  .ovr-logo__sub--short{display:none;}
+  @media (max-width:1279.98px){.ovr-logo__sub--wide{display:none;}.ovr-logo__sub--short{display:inline;}}
   .ovr-logo__sub{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
 
   .navbar-desktop-links{display:flex;align-items:center;gap:2rem;}
@@ -361,8 +367,8 @@
       <a class="ovr-logo" href="index.html#top">
         <span class="ovr-logo__icon" aria-hidden="true"></span>
         <span class="ovr-logo__text">
-          <span class="ovr-logo__mark">OVERLORD</span>
-          <span class="ovr-logo__sub">AI Co-Pilot</span>
+          <span class="ovr-logo__mark">OVERLORD <em>AI</em></span>
+          <span class="ovr-logo__sub"><span class="ovr-logo__sub--wide">Live game guidebook</span><span class="ovr-logo__sub--short">Game guidebook</span></span>
         </span>
       </a>
     </div>
