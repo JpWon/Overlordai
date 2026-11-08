@@ -142,6 +142,8 @@
     border-left:1px solid var(--border-color);
     border-right:1px solid var(--border-color);
   }
+  .checkout-split.is-demo{grid-template-columns:minmax(0,1fr);max-width:880px;}
+  .checkout-split.is-demo .checkout-license{display:none;}
   @media (max-width:960px){
     .checkout-split{
       grid-template-columns:1fr;
@@ -633,6 +635,37 @@
     flex-wrap:wrap;
     gap:1.5rem;
   }
+  /* Anti-Cheat Compliance & Fair Play Strip */
+  .compliance-strip{background:linear-gradient(168deg,rgba(255,255,255,.03) 0%,rgba(255,255,255,.01) 100%),rgba(14,17,24,.7);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;backdrop-filter:blur(12px);}
+  .compliance-badges{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,2vw,24px);}
+  .compliance-badge{display:flex;align-items:center;gap:10px;}
+  .badge-icon-box{width:34px;height:34px;border-radius:8px;background:rgba(0,255,170,.08);border:1px solid rgba(0,255,170,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--green-glow,#00ffaa);}
+  .badge-icon-box svg{width:17px;height:17px;fill:currentColor;}
+  .badge-icon-box.purple{background:rgba(109,92,255,.1);border-color:rgba(109,92,255,.3);color:var(--accent-soft,#b9a8ff);}
+  .badge-icon-box.gold{background:rgba(255,190,59,.1);border-color:rgba(255,190,59,.3);color:#ffbe3b;}
+  .badge-text{display:flex;flex-direction:column;}
+  .badge-title{font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.72rem;font-weight:700;letter-spacing:.04em;color:#fff;text-transform:uppercase;}
+  .badge-sub{font-size:.66rem;color:var(--neutral-on-background-weak);margin-top:1px;}
+  .compliance-cta{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:6px;cursor:pointer;transition:all .2s ease;}
+  /* §7.9.7 (JP 2026-11-08): at full width the three badges and both buttons stay on one row;
+     each badge's subtext wraps inside its badge instead of pushing the buttons under */
+  @media (min-width:1280px){
+    .compliance-strip{flex-wrap:nowrap;}
+    .compliance-badges{flex:1 1 auto;min-width:0;flex-wrap:nowrap;}
+    .compliance-badge{flex:1 1 0;min-width:0;}
+    .compliance-actions{flex:none;flex-wrap:nowrap!important;}
+  }
+  .compliance-cta:hover{background:rgba(0,255,170,.15);border-color:#00ffaa;color:#00ffaa;}
+  /* §7.9.12: the strip sits above the two centred footer lines */
+  .site-footer .compliance-strip{margin:0 0 1.8rem;text-align:left;}
+  .site-footer .site-footer__inner:has(.compliance-strip){flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:0;}
+  .site-footer .site-footer__inner .site-footer__bottom{width:100%;}
+  .site-footer__bottom{display:flex;flex-direction:column;flex-wrap:wrap;justify-content:center;align-items:center;text-align:center;gap:1rem;
+    padding-top:1.8rem;border-top:1px solid var(--neutral-alpha-weak);
+    font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .site-footer__bottom .legal{display:flex;flex-wrap:wrap;gap:1.4rem;}
+  .site-footer__bottom a{color:var(--neutral-on-background-weak);text-decoration:none;transition:color .35s ease;}
+  .site-footer__bottom a:hover{color:var(--accent);}
 </style>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -781,44 +814,6 @@
           <p class="portal-desc">
             Your complimentary Founder License has been activated. Grab the release package for your system below to get started.
           </p>
-
-          <div class="key-box mono">
-            <div class="key-box__label">Founder License Key:</div>
-            <div class="key-box__code-row">
-              <code id="displayKey">OVR-FOUNDER-FREE-ACCESS-2026</code>
-              <button type="button" class="key-copy-btn" id="copyKeyBtn">COPY</button>
-            </div>
-          </div>
-
-          <div class="download-grid">
-            <a class="dl-card" href="https://github.com/JpWon/Overlordai/releases/download/v2.2.0/overlord_2.2.0_amd64.deb" download>
-              <div class="dl-card__icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-              </div>
-              <div class="dl-card__info">
-                <strong>Download for Linux (.deb)</strong>
-                <small class="mono">Ubuntu / Debian / Mint &middot; 447 MB &middot; Native 1-Click GUI install</small>
-              </div>
-              <span class="dl-card__arrow">&rarr;</span>
-            </a>
-
-            <a class="dl-card" href="https://github.com/JpWon/Overlordai/releases/download/v2.2.0/Overlord.Ai.Setup.2.2.0.exe" download>
-              <div class="dl-card__icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg>
-              </div>
-              <div class="dl-card__info">
-                <strong>Download for Windows (.exe)</strong>
-                <small class="mono">Windows 10 / 11 Standalone &middot; 463 MB Setup</small>
-              </div>
-              <span class="dl-card__arrow">&rarr;</span>
-            </a>
-          </div>
-
-          <div class="portal-extra-links mono">
-            <a href="dashboard.html" class="deck-link">Open Web Control Deck &rarr;</a>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- RIGHT: License Details ("Here's your license on the right") -->
@@ -877,10 +872,45 @@
 </main>
 
 <!-- ================= FOOTER ================= -->
-<footer class="site-footer">
+<footer class="site-footer" id="footer">
   <div class="site-footer__inner">
-    <div class="site-footer__bottom" style="display:flex;flex-direction:column;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center;text-align:center;">
-      <span>Windows and Linux</span>
+    <!-- messaging.md §7.9.12 (JP 2026-11-08): the funnel pages end like the homepage: the fair-play strip
+         ("is this cheating?" is asked right here), then two centred lines. -->
+    <!-- Anti-Cheat & Fair Play Compliance Strip -->
+    <div class="compliance-strip">
+      <div class="compliance-badges">
+        <div class="compliance-badge">
+          <div class="badge-icon-box">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </div>
+          <div class="badge-text">
+            <span class="badge-title">Plays Fair</span>
+            <span class="badge-sub">Never touches the game &bull; Reads the screen and your save files, read-only</span>
+          </div>
+        </div>
+        <div class="compliance-badge">
+          <div class="badge-icon-box purple">
+            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          </div>
+          <div class="badge-text">
+            <span class="badge-title">Reads the screen, nothing else</span>
+            <span class="badge-sub">Zero Memory Access &bull; Zero DLL Injection</span>
+          </div>
+        </div>
+        <div class="compliance-badge">
+          <div class="badge-icon-box gold">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+          </div>
+          <div class="badge-text">
+            <span class="badge-title">Single-Player Only</span>
+            <span class="badge-sub">No Input Macros &bull; Multiplayer Refused</span>
+          </div>
+        </div>
+      </div>
+      <div class="compliance-actions" style="display:flex;gap:8px;flex-wrap:wrap;"><a class="compliance-cta" href="/fair-play" style="text-decoration:none;">Fair play &rarr;</a><a class="compliance-cta" href="/fair-play#never" style="text-decoration:none;">Safety specs &rarr;</a></div>
+    </div>
+
+    <div class="site-footer__bottom">
       <div class="legal" style="flex-wrap:wrap;justify-content:center;">
         <a href="terms.html">Terms</a>
         <a href="privacy.html">Privacy</a>
@@ -960,6 +990,8 @@ const PRODUCTS = {
   const pParam = (urlParams.get('plan') || '').toLowerCase();
   const planKey = (pParam === 'pro') ? 'pro' : ((pParam === 'demo') ? 'demo' : 'sub');
   const product = PRODUCTS[planKey];
+  // §7.9.13: the free 30 minutes show no price panel (prices live on the plans page the visitor came from)
+  if (planKey === 'demo') document.querySelector('.checkout-split')?.classList.add('is-demo');
 
   // Populate Right Column: License Overview
   const kickerEl = document.getElementById('licenseKicker');
@@ -1042,8 +1074,7 @@ const PRODUCTS = {
         },
         body: JSON.stringify({
           email: payload.email,
-          plan: payload.plan || null,
-          license_key: payload.license_key || null
+          plan: payload.plan || null
         })
       });
     } catch (err) {}
@@ -1054,19 +1085,16 @@ const PRODUCTS = {
   const form = document.getElementById('founderForm');
   const preState = document.getElementById('portalPreState');
   const successState = document.getElementById('portalSuccessState');
-  const displayKey = document.getElementById('displayKey');
-  const copyBtn = document.getElementById('copyKeyBtn');
   const statusMsg = document.getElementById('portalStatusMsg');
 
   async function activateLicense(email, authProvider, userId) {
-    const randHex = Math.random().toString(36).substring(2, 6).toUpperCase();
-    const genKey = 'OVR-' + (planKey === 'pro' ? 'PRO' : 'FOUNDER') + '-' + randHex + '-2026';
-    if (displayKey) displayKey.textContent = genKey;
+    // messaging.md §7.9.13: the free 30 minutes go to the "Unlocked." moment and the dashboard; that page
+    // records the claim (founder_leads + funnel trial_claimed) for the signed-in account.
+    if (planKey === 'demo') { location.assign('thanks.html?plan=demo'); return; }
 
     const payload = {
       email,
       plan: planKey,
-      license_key: genKey,
       auth_provider: authProvider || 'email',
       user_id: userId || null,
       ref: urlParams.get('ref') || null,
@@ -1146,6 +1174,17 @@ const PRODUCTS = {
         return;
       }
 
+      if (planKey === 'demo') {
+        const { data } = sbClient ? await sbClient.auth.getSession() : { data: null };
+        if (!(data && data.session)) {
+          // §7.9.13: sign up / sign in first; the dashboard sees the waiting claim and plays the "Unlocked." moment
+          try { localStorage.setItem('ovr_pending_claim', String(Date.now())); sessionStorage.setItem('ovr_email', email); }
+          catch (_) { /* storage blocked: they still land on sign-up */ }
+          location.assign('signup.html');
+          return;
+        }
+      }
+
       const claimBtn = document.getElementById('claimBtn');
       if (claimBtn) {
         claimBtn.disabled = true;
@@ -1156,23 +1195,6 @@ const PRODUCTS = {
     });
   }
 
-  // Copy Key Button
-  if (copyBtn && displayKey) {
-    copyBtn.addEventListener('click', () => {
-      const key = displayKey.textContent;
-      navigator.clipboard.writeText(key).then(() => {
-        const orig = copyBtn.textContent;
-        copyBtn.textContent = 'COPIED!';
-        copyBtn.style.borderColor = '#10b981';
-        copyBtn.style.color = '#10b981';
-        setTimeout(() => {
-          copyBtn.textContent = orig;
-          copyBtn.style.borderColor = '';
-          copyBtn.style.color = '';
-        }, 2200);
-      }).catch(() => {});
-    });
-  }
 
   // Live ticking clock
   const clock = document.getElementById('clock');

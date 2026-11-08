@@ -12,6 +12,12 @@
   rdt('track','PageVisit');
 </script>
 
+<script>
+  /* messaging.md §7.9.13: thanks.html?plan=demo is the free-claim moment, not a payment page */
+  if (new URLSearchParams(location.search).get('plan') === 'demo') {
+    document.documentElement.classList.add('is-demo'); document.title = 'Unlocked \u2014 Overlord AI';
+  }
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Payment Confirmed — Overlord AI</title>
@@ -21,6 +27,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
+<link rel="stylesheet" href="assets/img/brand/backdrop-purple.css">
 
 <!-- Post-checkout conversion page: prevent search engine indexing -->
 <meta name="robots" content="noindex,nofollow">
@@ -354,6 +361,42 @@
   .site-footer__bottom a{color:inherit;text-decoration:none;transition:color .3s ease;}
   .site-footer__bottom a:hover{color:var(--accent);}
   .legal{display:flex;gap:1.4rem;}
+  :root{--plasma-a:#6d5cff;--plasma-b:#c86bff;--plasma-c:#4fd1ff;}
+  .mx{position:relative;overflow-x:clip;overflow-clip-margin:.4em;}  /* the scan never widens the page */
+  .mx .mx-word{display:inline-block;white-space:nowrap;}
+  .mx.mx-ready .mx-ch{display:inline-block;position:relative;opacity:0;transform:translateY(-.35em) scaleY(.4);}
+  .mx .mx-ch.on{opacity:1;transform:none;color:transparent;
+    transition:opacity .18s ease, transform .35s cubic-bezier(.22,1,.36,1);}
+  .mx .mx-ch.on::after{content:attr(data-g);position:absolute;inset:0;text-align:center;
+    color:var(--g, var(--plasma-a));text-shadow:0 0 .25em var(--g, var(--plasma-a)), 0 0 .6em rgba(109,92,255,.55);}
+  .mx .mx-ch.set{color:inherit;transition:color .45s ease, text-shadow .9s ease;
+    text-shadow:0 0 .35em rgba(109,92,255,.0);}
+  .mx .mx-ch.set::after{content:none;}
+  .mx .mx-ch.flash{text-shadow:0 0 .4em rgba(200,107,255,.85);}
+  .mx.mx-ready::before{content:'';position:absolute;top:-8%;bottom:-8%;left:0;width:22%;pointer-events:none;
+    background:linear-gradient(90deg,transparent,rgba(109,92,255,.0) 10%,rgba(109,92,255,.35) 45%,rgba(79,209,255,.45) 55%,rgba(200,107,255,.0) 90%,transparent);
+    filter:blur(14px);mix-blend-mode:screen;opacity:0;transform:translateX(-120%);}
+  .mx.mx-run::before{animation:mx-scan var(--mx-dur,1.6s) cubic-bezier(.45,0,.25,1) forwards;}
+  @keyframes mx-scan{0%{opacity:0;transform:translateX(-60%)}15%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translateX(480%)}}
+
+
+  /* §7.9.13 the "Unlocked." moment (demo only): purple backdrop, the plasma-matrix word, one line, a quiet sweep */
+  .unlocked{display:none;}
+  html.is-demo .thanks-wrap .card, html.is-demo .thanks-wrap .quick-links{display:none;}
+  html.is-demo .unlocked{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    gap:1.2rem;min-height:60vh;padding:3rem 1.5rem;position:relative;z-index:2;}
+  html.is-demo body{background:var(--ov-backdrop, #0a0820);}
+  .unlocked__word{font-family:'Anton','Anton Fallback',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(3.4rem,12vw,8rem);line-height:1;letter-spacing:-.01em;color:#fff;margin:0;}
+  .unlocked__line{font-size:clamp(1rem,2.2vw,1.2rem);line-height:1.6;color:rgba(244,242,255,.82);max-width:34rem;margin:0;}
+  .unlocked__sweep{width:min(320px,70vw);height:2px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden;}
+  .unlocked__sweep i{display:block;height:100%;width:0;background:linear-gradient(90deg,#6d5cff,#c86bff);
+    box-shadow:0 0 10px rgba(109,92,255,.7);}
+  html.is-demo .unlocked__sweep i{animation:unlock-sweep 3s linear forwards;}
+  @keyframes unlock-sweep{to{width:100%}}
+  .unlocked__go{font-size:.85rem;color:rgba(244,242,255,.7);text-decoration:none;border-bottom:1px solid currentColor;}
+  .unlocked__go:hover{color:#fff;}
+  @media (prefers-reduced-motion: reduce){ html.is-demo .unlocked__sweep i{animation:none;width:100%;} }
 </style>
 </head>
 <body>
@@ -404,6 +447,13 @@
 </header>
 
 <main class="thanks-wrap">
+  <!-- §7.9.13: the free-claim moment (thanks.html?plan=demo). No key, no price, no downloads, no purchase event. -->
+  <section class="unlocked" id="unlocked" aria-live="polite">
+    <h1 class="unlocked__word mx" data-mx-slow="1.4">Unlocked.</h1>
+    <p class="unlocked__line">Your 30 minutes are yours. Taking you to your dashboard&hellip;</p>
+    <div class="unlocked__sweep" aria-hidden="true"><i></i></div>
+    <a class="unlocked__go" id="unlockedGo" href="dashboard.html">Go now &rarr;</a>
+  </section>
   <div class="card">
     <div class="status-badge">
       <i></i>
@@ -512,6 +562,7 @@
 
   /* ---------- Countdown & Auto-Redirect ---------- */
   (() => {
+    if (document.documentElement.classList.contains('is-demo')) return;   // §7.9.13 has its own 3 s
     const TOTAL_MS = 6000;
     const INTERVAL_MS = 50;
     let elapsed = 0;
@@ -609,6 +660,118 @@
     }
     requestAnimationFrame(draw);
   })();
+</script>
+<script src="assets/vendor/supabase-js.js"></script>
+<script src="assets/auth-config.js"></script>
+<script src="assets/auth.js"></script>
+
+<script>
+/* messaging.md §7.9.13: the free-claim moment. Records the claim for the signed-in account (founder_leads +
+   the funnel's trial_claimed), plays "Unlocked." with the site's plasma-matrix reveal, then the dashboard in ~3 s.
+   No purchase or conversion event here: the paid thank-you page keeps its own counting. */
+(() => {
+  if (!document.documentElement.classList.contains('is-demo')) return;
+  const GLYPHS = '0123456789#%&$+=<>/\\|*01';
+  const PLASMA = ['var(--plasma-a)', 'var(--plasma-b)', 'var(--plasma-c)'];
+  const pick = s => s[Math.floor(Math.random() * s.length)];
+  function split(el){
+    el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+    const chars = [];
+    const walk = node => {
+      for (const n of [...node.childNodes]){
+        if (n.nodeType === 3){
+          /* letters sit inside one unbreakable box per word, so a line never splits a word */
+          const frag = document.createDocumentFragment();
+          for (const part of n.textContent.split(/(\s+)/)){
+            if (!part) continue;
+            if (/^\s+$/.test(part)){ frag.append(part); continue; }
+            const word = document.createElement('span');
+            word.className = 'mx-word'; word.setAttribute('aria-hidden', 'true');
+            for (const c of part){
+              const s = document.createElement('span');
+              s.className = 'mx-ch'; s.textContent = c;
+              word.append(s); chars.push(s);
+            }
+            frag.append(word);
+          }
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1){ walk(n); }
+      }
+    };
+    walk(el);
+    el.classList.add('mx-ready');
+    return chars;
+  }
+
+  function run(el, chars){
+    const n = chars.length;
+    const slow = +el.dataset.mxSlow || 1;                     // data-mx-slow="2.5" plays 2.5x slower
+    const step = Math.max(18, Math.min(55, 900 / n)) * slow;  // stagger between letters
+    const hold = 260 * slow;                                  // how long each letter flickers
+    const start = performance.now() + (+el.dataset.mxDelay || 0);
+    const total = (n - 1) * step + hold + 220;
+    el.style.setProperty('--mx-dur', (total / 1000).toFixed(2) + 's');
+    setTimeout(() => el.classList.add('mx-run'), +el.dataset.mxDelay || 0);
+    const plan = chars.map((c, i) => ({c, on: i * step + Math.random() * 60 * slow, set: i * step + hold + Math.random() * 180 * slow, last: 0}));
+    el.dispatchEvent(new Event('mxstart', {bubbles: true}));
+    setTimeout(() => el.dispatchEvent(new Event('mxdone', {bubbles: true})), (+el.dataset.mxDelay || 0) + total);
+    const tick = now => {
+      const t = now - start;
+      let busy = false;
+      for (const p of plan){
+        if (p.done) continue;
+        busy = true;
+        if (t < p.on) continue;
+        if (!p.c.classList.contains('on')) p.c.classList.add('on');
+        if (t >= p.set){
+          p.c.classList.add('set', 'flash'); p.done = true;
+          setTimeout(() => p.c.classList.remove('flash'), 160);
+        } else if (now - p.last > 55){
+          p.c.dataset.g = pick(GLYPHS); p.c.style.setProperty('--g', pick(PLASMA)); p.last = now;
+        }
+      }
+      if (busy) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    return (+el.dataset.mxDelay || 0) + total;                // ms until the last letter locks
+  }
+
+  const word = document.querySelector('.unlocked__word');
+  if (word && !matchMedia('(prefers-reduced-motion: reduce)').matches) run(word, split(word));
+
+  const DASH = 'dashboard.html';
+  const started = Date.now();
+  const leave = () => { try { localStorage.setItem('ovr_after_claim', String(Date.now())); } catch (_) {}
+                        location.replace(DASH); };
+  const go = document.getElementById('unlockedGo');
+  if (go) go.addEventListener('click', e => { e.preventDefault(); leave(); });
+
+  async function record() {
+    const auth = window.OverlordAuth;
+    if (!auth || !auth.configured) return true;
+    const s = await auth.session().catch(() => null);
+    if (!s || !s.user) {                       // not signed in: sign up first; the dashboard brings them back here
+      try { localStorage.setItem('ovr_pending_claim', String(Date.now())); } catch (_) {}
+      location.replace('signup.html');
+      return false;
+    }
+    try { localStorage.removeItem('ovr_pending_claim'); } catch (_) {}
+    const cfg = window.OVERLORD_SUPABASE || {};
+    const lead = { email: s.user.email || null, plan: 'demo', auth_provider: (s.user.app_metadata || {}).provider || 'email',
+                   user_id: s.user.id, created_at: new Date().toISOString() };
+    try { localStorage.setItem('overlord_founder_lead', JSON.stringify(lead)); } catch (_) {}
+    const writes = [];
+    if (cfg.url && cfg.anonKey) {
+      writes.push(fetch(cfg.url.replace(/\/$/, '') + '/rest/v1/founder_leads', { method: 'POST', keepalive: true,
+        headers: { apikey: cfg.anonKey, Authorization: 'Bearer ' + cfg.anonKey, 'Content-Type': 'application/json',
+                   Prefer: 'return=minimal' }, body: JSON.stringify(lead) }).catch(() => null));
+    }
+    if (window.OverlordFunnel) writes.push(window.OverlordFunnel.track('trial_claimed', { from: 'checkout' }).catch(() => null));
+    await Promise.race([Promise.all(writes), new Promise(r => setTimeout(r, 2600))]);
+    return true;
+  }
+  record().then(ok => { if (ok) setTimeout(leave, Math.max(0, 3000 - (Date.now() - started))); });
+})();
 </script>
 <script src="/assets/funnel-config.js"></script>
 <script src="/assets/funnel.js" defer></script>

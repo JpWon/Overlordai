@@ -851,6 +851,10 @@
   }
   .dl-meta{font-size:.62rem;font-family:'Space Mono',monospace;color:var(--neutral-on-background-weak);letter-spacing:.04em;text-align:center;}
   .dl-alt{font-size:.68rem;color:var(--neutral-on-background-weak);text-align:center;margin-top:.1rem;}
+  /* §7.9.13: a new claimer sees the download first (it leads the header, also on phones) and the next step */
+  .dash--claimer .dash__head-action{order:-1;}
+  @media (min-width:981px){ .dash--claimer .dash__head{flex-direction:row-reverse;} .dash--claimer .dash__head-action{order:0;} }
+  .dl-next{font-size:.8rem;line-height:1.5;color:var(--neutral-on-background-strong);text-align:center;margin:.2rem 0 0;max-width:22rem;align-self:center;}
   .dl-alt a{color:inherit;text-decoration:underline;text-underline-offset:3px;}
   .dl-alt a:hover{color:var(--accent);}
 
@@ -1167,6 +1171,8 @@
         <span class="arr">&rarr;</span>
       </a>
       <div class="dl-meta" id="smartDlMeta">Detected: Linux x86_64 · 1-click installer (.deb)</div>
+      <!-- §7.9.13: what to do next, shown to a player who just claimed the free 30 minutes -->
+      <p class="dl-next" id="dlNext" hidden>Install, sign in, launch any single-player game. Your free 30 minutes start when Overlord AI detects a game.</p>
       <div class="dl-alt" id="smartDlAlt">Looking for Windows? <a data-dl="exe" href="https://github.com/JpWon/Overlordai/releases/download/v2.2.0/Overlord.Ai.Setup.2.2.0.exe" download>Download Installer (.exe)</a> · <a href="#tab-downloads" class="to-dl-tab">All downloads</a></div>
     </div>
   </section>
@@ -1724,6 +1730,12 @@
   if (!auth || !auth.configured) { render(null); return; }
 
   const current = await auth.session();
+  // §7.9.13: a claim that waited for sign-up / sign-in finishes here: the "Unlocked." moment, then back
+  try {
+    const pend = Number(localStorage.getItem('ovr_pending_claim') || 0);
+    if (current && pend && Date.now() - pend < 2 * 3600e3) { location.replace('thanks.html?plan=demo'); return; }
+    if (pend && Date.now() - pend >= 2 * 3600e3) localStorage.removeItem('ovr_pending_claim');
+  } catch (_) { /* storage blocked */ }
   render(current);
   auth.onChange(render);
 
@@ -2191,6 +2203,37 @@
 })();
 </script>
   <script src="/assets/signoff-reveal.js" defer></script>
+
+<script>
+/* §7.9.13: the dashboard's first view after the free claim: the download leads, one line of what to do next,
+   and the funnel's claim -> dashboard -> download chain (dashboard_first_view, once per account; download_click
+   is already counted by assets/funnel.js). */
+(() => {
+  let at = 0;
+  try { at = Number(localStorage.getItem('ovr_after_claim') || 0); } catch (_) {}
+  const claimer = at && Date.now() - at < 24 * 3600e3;
+  if (claimer) {
+    document.querySelector('main.dash')?.classList.add('dash--claimer');
+    const next = document.getElementById('dlNext');
+    if (next) next.hidden = false;
+  }
+  const sendView = () => {
+    if (!window.OverlordFunnel) return;
+    let sent = false;
+    try { sent = !!localStorage.getItem('ovr_dash_first_view'); } catch (_) {}
+    if (sent) return;
+    window.OverlordFunnel.track('dashboard_first_view', { after_claim: !!claimer }).then(r => {
+      if (r && r.ok) { try { localStorage.setItem('ovr_dash_first_view', '1'); } catch (_) {} }
+    });
+  };
+  if (document.readyState === 'complete') setTimeout(sendView, 400); else addEventListener('load', () => setTimeout(sendView, 400));
+  document.addEventListener('click', e => {
+    if (e.target.closest && e.target.closest('a[href*="/releases/download/"]')) {
+      try { localStorage.removeItem('ovr_after_claim'); } catch (_) {}      // downloaded: the first view is done
+    }
+  }, true);
+})();
+</script>
 <script src="/assets/funnel-config.js"></script>
 <script src="/assets/funnel.js" defer></script>
 </body>
