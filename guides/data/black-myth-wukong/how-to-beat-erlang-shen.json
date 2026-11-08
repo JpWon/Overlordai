@@ -1,0 +1,49 @@
+{
+  "slug": "how-to-beat-erlang-shen",
+  "game": "black-myth-wukong",
+  "game_title": "Black Myth: Wukong",
+  "game_page": "/wukong.html",
+  "store_url": "https://store.steampowered.com/app/2358720/",
+  "query": "how to beat erlang shen in black myth: wukong",
+  "title": "How to Beat Erlang Shen in Black Myth: Wukong",
+  "meta_desc": "Learn the tactics to defeat the Yaoguai King, Erlang Shen, at Mount Mei. This guide covers his phases, sword attacks, and parries in Black Myth: Wukong.",
+  "published_at": "2026-11-08",
+  "atlas": {
+    "app_id": "2358720",
+    "updated": "2026-10-26"
+  },
+  "intro": "To challenge the Yaoguai King known as Erlang Shen, you will need to find your way to Mount Mei, which is a secret location within the game world [atlas_ref: rooms/mount_mei]. This powerful boss is actually a transformation of another character, the Sacred Divinity, who changes into this form during the encounter with the Destined One [atlas_ref: boss/erlang_shen]. The fight against Erlang Shen is a challenging one that unfolds in multiple phases, each with its own set of attacks and strategies you'll need to watch out for. Understanding his moveset is key to surviving this divine showdown. The encounter starts with him using his standard sword but escalates when he empowers his weapon with fire [atlas_ref: boss/erlang_shen]. Prepare for a battle that tests your defensive skills and timing.",
+  "intro_ref": [
+    "boss/erlang_shen",
+    "rooms/mount_mei"
+  ],
+  "steps": [
+    {
+      "heading": "Phase One: Swordplay and Feints",
+      "text": "In the initial phase of the battle, Erlang Shen will come at you with his sword, mixing up his standard attacks with some tricky maneuvers. Be ready for him to try and catch you off guard with feints, which are fake-out moves designed to bait you into a mistake. In addition to his sword strikes, he also has grab attacks that he will use in combination with his weapon. You will need to stay vigilant and watch his movements closely to avoid getting caught by these grabs or tricked by a sudden feint [atlas_ref: boss/erlang_shen]. This part of the fight is all about reading your opponent and not overcommitting to your own attacks, as he can quickly punish any opening you give him.",
+      "atlas_ref": [
+        "boss/erlang_shen"
+      ]
+    },
+    {
+      "heading": "Phase Two: The Fiery Sword",
+      "text": "The fight enters its second phase when Erlang Shen summons a powerful fiery sword directly from the heavens. This new weapon dramatically changes his attack patterns. He often begins this phase with a running fire slash. The good news is that this initial charge is an attack that you can block. Following that, he will continue his assault with a series of wide, arcing slashes, all imbued with fire [atlas_ref: boss/erlang_shen]. The arena can quickly fill with dangerous fire trails, so managing your position becomes even more important. You'll need to keep an eye on his movements and the fiery arcs his sword leaves behind to find safe spots to counter-attack.",
+      "atlas_ref": [
+        "boss/erlang_shen"
+      ]
+    },
+    {
+      "heading": "Watch for the Parry",
+      "text": "During his second phase, while wielding his flaming sword, Erlang Shen gains a dangerous defensive move. He can use his sword to parry your incoming attacks. If you hit him while he is in this defensive stance, he will block the blow and immediately follow up with a swift counter slash [atlas_ref: boss/erlang_shen]. It's critical to be able to recognize when he's preparing to parry. Attacking him recklessly during this phase can lead to taking a lot of unnecessary damage. You should hold back your assault when you see him take a blocking stance with his flaming sword and wait for the parry animation to end before you resume your attacks.",
+      "atlas_ref": [
+        "boss/erlang_shen"
+      ]
+    }
+  ],
+  "outro": "By learning to anticipate his grab attacks, blocking his fire slashes, and avoiding his parry, you can overcome the divine might of Erlang Shen.",
+  "outro_ref": [
+    "boss/erlang_shen"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": []
+}
