@@ -331,23 +331,10 @@
   .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
     display:block;z-index:1;pointer-events:none;}
 
-  /* the word the mask reveals — lives UNDER the cover */
-  .hero .reveal-word{
-    position:absolute;inset:0;z-index:2;
-    display:flex;flex-direction:column;justify-content:center;align-items:center;
-    text-align:center;pointer-events:none;
-  }
-  .reveal-word h1{
-    font-family:'Anton','Anton Fallback',sans-serif;text-transform:uppercase;font-weight:400;
-    font-size:clamp(5rem,16vw,18rem);line-height:.85;letter-spacing:-.01em;
-    color:#ffffff;
-    text-shadow:0 0 50px rgba(120,150,255,.55),0 0 140px rgba(140,90,255,.40);
-  }
-  .reveal-word h1 span{color:#a894ff;}
-  .reveal-word .sub{
-    margin-top:2rem;font-size:clamp(.8rem,1.4vw,1.15rem);
-    letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.75);
-  }
+  /* JP 2026-11-09: the word is retired — the clip in the hero carries its own "Overlord AI",
+     and two of them stacked on the same centre read as a double image. The tagline also
+     repeats the bottom-left meta line. The mask now reveals the clip alone.
+     (The .reveal-word rules are gone with it; git has them if this ever needs to come back.) */
 
   #cover{position:absolute;inset:0;z-index:3;display:block;}
 
@@ -1487,10 +1474,9 @@
     <source src="assets/hero/intro-loop.mp4" type="video/mp4">
   </video>
 
-  <div class="reveal-word">
-    <h1>Overlord<br><span>AI</span></h1>
-    <div class="sub">A live game guidebook for single-player PC games</div>
-  </div>
+  <!-- JP 2026-11-09: the old "Overlord AI" word + tagline are gone from the hero. The clip
+       says the name itself, and the tagline lives in the bottom-left meta line and in the
+       clip's end card. Everything else in the hero (cover mask, meta, hint) is unchanged. -->
 
   <canvas id="cover"></canvas>
 
