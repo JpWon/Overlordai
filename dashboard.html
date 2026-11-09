@@ -952,11 +952,17 @@ document.querySelectorAll('[data-founder-only]').forEach(el => { el.hidden = !wi
   /* ----- who is signed in ----- */
   const email = user.email || '';
   const meta = user.user_metadata || {};
-  const name = String(meta.full_name || meta.display_name || meta.name || (email ? email.split('@')[0] : '') || 'player').trim();
+  /* messaging.md §7.15.8 (JP): greet by the name chosen at sign-up (user_metadata.display_name on the same
+     Supabase account; the user ID stays the only account ID), whichever way they signed in. A Google/Apple
+     sign-up that never typed one gets the provider's first name. Never the email: no name -> "Welcome back." */
+  const firstWord = v => String(v || '').trim().split(/\s+/)[0] || '';
+  const name = String(meta.display_name || '').trim()
+            || firstWord(meta.given_name || meta.first_name || meta.full_name || meta.name);
+  const shown = name && !name.includes('@') ? name : '';
   const hello = $('dashHello');
-  if (hello) {
+  if (hello && shown) {
     const em = document.createElement('em');
-    em.textContent = name + '.';
+    em.textContent = shown + '.';
     hello.replaceChildren('Welcome back,', document.createElement('br'), em);
   }
   set('acctEmail', email || '—');

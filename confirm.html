@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Confirming — Overlord AI</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+<!--
+  JP 2026-11-09: the account emails (confirm, one-click sign-in, invite, email change) link HERE with a token hash,
+  not to the supabase.co verify address, so the link matches the sender. This page trades the hash for a session
+  (assets/auth.js verifyLink) and hands over to the dashboard, which finishes a waiting free-trial claim or sends a
+  checkout sign-in back to checkout. A mail scanner that opens the link can't use it up: nothing happens without
+  a real browser running this page. A password reset link goes to reset-password.html instead.
+-->
+<style>
+  :root{--bg:#000;--ink:#f4f2ff;--dim:rgba(244,242,255,.72);--faint:rgba(244,242,255,.5);--accent:#6d5cff;--line:rgba(255,255,255,.12);}
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;}
+  body{min-height:100vh;display:flex;flex-direction:column;}
+  header{display:flex;align-items:center;gap:.7rem;padding:18px 16px;max-width:1200px;width:100%;margin:0 auto;}
+  header a{display:flex;align-items:center;gap:.7rem;color:inherit;text-decoration:none;}
+  .mark{width:34px;height:34px;background:currentColor;-webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;mask:url('assets/rooster-nav.svg') center/contain no-repeat;}
+  .word{font-weight:600;font-size:1.15rem;letter-spacing:.05em;white-space:nowrap;}
+  .word em{font-style:normal;color:var(--accent);}
+  .sub{display:block;font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--faint);font-weight:500;}
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 16px 64px;}
+  .box{max-width:34rem;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.1rem;}
+  h1{font-family:'Anton',Impact,'Arial Black',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(2.6rem,9vw,4.6rem);line-height:1;margin:0;}
+  h1 em{font-style:normal;color:var(--accent);}
+  p{margin:0;font-size:clamp(1rem,2.4vw,1.12rem);line-height:1.6;color:var(--dim);}
+  .sweep{width:min(320px,70vw);height:2px;border-radius:2px;background:var(--line);overflow:hidden;}
+  .sweep i{display:block;height:100%;width:35%;background:linear-gradient(90deg,#6d5cff,#c86bff);animation:run 1.2s ease-in-out infinite;}
+  @keyframes run{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
+  @media (prefers-reduced-motion: reduce){.sweep i{animation:none;width:100%;}}
+  .btn{display:inline-flex;align-items:center;gap:1rem;padding:1rem 1.4rem;border:1px solid var(--ink);border-radius:4px;color:var(--ink);text-decoration:none;
+       font:500 .72rem/1 'Space Grotesk',sans-serif;letter-spacing:.24em;text-transform:uppercase;}
+  .btn--solid{background:var(--ink);color:var(--bg);}
+  .row{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center;}
+  [hidden]{display:none !important;}
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" aria-label="Overlord AI home"><span class="mark" aria-hidden="true"></span>
+    <span><span class="word">OVERLORD <em>AI</em></span><span class="sub">Live game guidebook</span></span></a>
+</header>
+
+<main>
+  <section class="box" id="working" aria-live="polite">
+    <h1>Just a <em>moment.</em></h1>
+    <p id="workingLine">Confirming your account&hellip;</p>
+    <div class="sweep" aria-hidden="true"><i></i></div>
+  </section>
+
+  <section class="box" id="failed" hidden aria-live="polite">
+    <h1>Link <em>expired.</em></h1>
+    <p>This link was already used or is more than an hour old. Sign in, or ask for a new one from the sign-in page.</p>
+    <div class="row">
+      <a class="btn btn--solid" href="login.html">Sign in &rarr;</a>
+      <a class="btn" href="contact.html">Contact us</a>
+    </div>
+  </section>
+</main>
+
+<script src="assets/vendor/supabase-js.js"></script>
+<script src="assets/auth-config.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+(() => {
+  const qs = new URLSearchParams(location.search);
+  const hash = qs.get('token_hash') || '';
+  const type = qs.get('type') || '';
+  // the token never stays in the address bar or the history
+  history.replaceState(null, '', location.pathname);
+  const LINES = { magiclink: 'Signing you in…', invite: 'Setting up your account…',
+                  email_change: 'Confirming your new email…' };
+  const line = document.getElementById('workingLine');
+  if (LINES[type] && line) line.textContent = LINES[type];
+  const fail = () => { document.getElementById('working').hidden = true; document.getElementById('failed').hidden = false; };
+
+  const auth = window.OverlordAuth;
+  if (!hash || !auth || !auth.configured || !auth.verifyLink) { fail(); return; }
+  if (type === 'recovery') {             // an old reset link: the reset page handles it
+    location.replace('reset-password.html?token_hash=' + encodeURIComponent(hash) + '&type=recovery'); return;
+  }
+  auth.verifyLink(hash, type)
+    .then(() => location.replace('dashboard.html'))   // the dashboard finishes a free-trial claim or returns to checkout
+    .catch(async () => {
+      // a second click on a link that already worked: they're signed in, so just go on
+      const s = await auth.session().catch(() => null);
+      if (s && s.user) location.replace('dashboard.html'); else fail();
+    });
+})();
+</script>
+</body>
+</html>
