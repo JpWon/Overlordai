@@ -1220,6 +1220,8 @@
   .vp-ph__size.vp-ph__hint--br{right:14px;text-align:right;}
   /* phones: the two bottom hints share a narrow card; each keeps to its half and wraps if it must */
   @media (max-width:600px){ .vp-ph__size.vp-ph__hint{max-width:calc(50% - 20px);line-height:1.35;} }
+  /* phones: the top-right line keeps clear of the card label top-left (Round 15: "Double-tap F4 · Ask where to go" is longer) */
+  @media (max-width:600px){ .vp-ph__size:not(.vp-ph__hint){max-width:calc(68% - 20px);text-align:right;line-height:1.35;} }
   .vp-value{margin-top:6px;font-weight:700;font-size:1.05rem;line-height:1.45;color:var(--neutral-on-background-strong);}
   .vp-value::before{content:"";display:inline-block;width:10px;height:2px;background:var(--accent);vertical-align:middle;margin-right:10px;}
 
