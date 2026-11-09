@@ -814,6 +814,7 @@
   /* ===== sign-in (auth) ===== */
   .signin .pane{padding:2rem 1.6rem 1.2rem;}
   .oauth{display:flex;flex-direction:column;gap:.7rem;margin-top:1.6rem;}
+  .no-account{margin-top:.8rem;padding:.7rem .9rem;border:1px solid var(--accent,#6d5cff);border-radius:4px;font-size:.85rem;line-height:1.45;color:var(--neutral-on-background-strong);}
   .oauth__btn{position:relative;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:.9rem;
     width:100%;padding:1rem 1.1rem;border-radius:4px;cursor:pointer;text-align:left;
     border:1px solid var(--neutral-alpha-medium);background:transparent;color:var(--neutral-on-background-strong);
@@ -989,7 +990,6 @@
   <section class="auth__intro">
     <div class="mono" id="modeLabel">OVR · access terminal · secure sign-in</div>
     <h1>Identify<br><em>yourself.</em></h1>
-    <p>One account for your plan, your licences and your devices. Welcome to the Overlord team.</p>
   </section>
 
   <section class="console signin" aria-label="Create account">
@@ -998,6 +998,7 @@
     <div class="pane on" data-step="create">
       <h2>Create your account</h2>
       <p class="sub">One account for your plan, your licences and your devices.</p>
+      <p class="no-account" id="noAccount" role="status" hidden>No account for that email yet. Let&rsquo;s create one.</p>
 
       <div class="oauth">
         <button class="oauth__btn" type="button" data-provider="Google">
@@ -1109,6 +1110,13 @@
 <script src="assets/vendor/supabase-js.js"></script>
 <script src="assets/auth-config.js"></script>
 <script src="assets/auth.js"></script>
+<script>/* messaging.md §7.15: the free 30 minutes still unlock after sign-up (claim=demo from the login page) */
+(() => {
+  if (new URLSearchParams(location.search).get('claim') !== 'demo') return;
+  try { localStorage.setItem('ovr_pending_claim', String(Date.now())); } catch (_) { /* storage blocked */ }
+  const back = document.getElementById('toLogin');
+  if (back) back.href = 'login.html?claim=demo';
+})();</script>
 
 <script>
 /* ---------- NAV — behaviour ported from S2S Navbar.tsx ---------- */
@@ -1243,6 +1251,14 @@
   const carried = new URLSearchParams(location.search).get('email')
                || sessionStorage.getItem('ovr_email') || '';
   if (carried && email) email.value = carried;
+  /* §7.15.7: sent here from Sign in because that email has no account yet */
+  try {
+    if (sessionStorage.getItem('ovr_no_account') === '1') {
+      sessionStorage.removeItem('ovr_no_account');
+      const n = document.getElementById('noAccount'); if (n) n.hidden = false;
+      const nm = document.getElementById('su-name'); if (nm) nm.focus();
+    }
+  } catch (_) {}
 
   document.querySelectorAll('[data-peek]').forEach(b => b.addEventListener('click', () => {
     const i = document.getElementById(b.dataset.peek);

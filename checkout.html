@@ -4,7 +4,17 @@
 <!-- Cookie consent: loads Google Ads, Reddit Ads and Rewardful only when allowed -->
 <script src="assets/consent.js"></script>
 <script>/* messaging.md §7.13.5: the free 30 minutes skip this page: straight to the normal login (old links too) */
-if ((new URLSearchParams(location.search).get('plan') || '').toLowerCase() === 'demo') location.replace('login.html?claim=demo');</script>
+if ((new URLSearchParams(location.search).get('plan') || '').toLowerCase() === 'demo') location.replace('login.html?claim=demo');
+/* §7.15.6 (JP): signed out -> the one sign-in page, then straight back here */
+else {
+  let signedIn = /access_token=/.test(location.hash);           // an OAuth return still carries the token
+  try { for (let i = 0; i < localStorage.length; i++) if (/^sb-.+-auth-token$/.test(localStorage.key(i))) signedIn = true; }
+  catch (_) { signedIn = true; }                                  // storage blocked: let the page handle it
+  if (!signedIn) {
+    try { localStorage.setItem('ovr_return_to', JSON.stringify({ to: 'checkout.html' + location.search.replace(/[^\w?=&%-]/g, ''), at: Date.now() })); } catch (_) {}
+    location.replace('login.html?next=checkout');
+  }
+}</script>
 <!-- Rewardful affiliate tracking -->
 <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
 <!-- Google tag (gtag.js) -->

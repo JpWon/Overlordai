@@ -647,6 +647,12 @@
   .btn--solid{background:var(--neutral-on-background-strong);color:var(--page-background);border-color:var(--neutral-on-background-strong);}
   .plan--pro .btn--solid{background:var(--page-background);color:var(--neutral-on-background-strong);border-color:var(--page-background);}
   .btn--inline{display:inline-flex;width:auto;gap:1.2rem;}
+  /* messaging.md §7.15: Create account under Apple (same outlined style), one Sign in button */
+  .oauth .btn--create{margin-top:.15rem;}
+  .input.is-missing{border-color:#ef4444 !important;box-shadow:0 0 0 1px #ef4444 inset;}
+  .btn__aside{letter-spacing:.04em;text-transform:none;opacity:.7;margin-left:.35em;white-space:nowrap;}
+  @media (max-width:520px){#signinBtn{letter-spacing:.16em;padding-left:.9rem;padding-right:.9rem;}#signinBtn .btn__aside{font-size:.92em;}}
+  .form-note{margin-top:.6rem;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;line-height:1.6;color:var(--neutral-on-background-weak);}
   .hint{margin-top:.55rem;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
 
   .pricing__foot{
@@ -990,7 +996,6 @@
   <section class="auth__intro">
     <div class="mono" id="modeLabel">OVR · access terminal · secure sign-in</div>
     <h1>Identify<br><em>yourself.</em></h1>
-    <p>One account for your plan, your licences and your devices. Welcome to the Overlord team.</p>
   </section>
 
   <section class="console signin" aria-label="Sign in">
@@ -1016,6 +1021,8 @@
           </svg>
           <span>Continue with Apple</span><span class="arr">&rarr;</span>
         </button>
+        <!-- messaging.md §7.15.1 (JP): sign-up up top, not a small link at the bottom -->
+        <a class="btn btn--create" id="toSignup" href="signup.html">Create account <span class="arr">&rarr;</span></a>
       </div>
 
       <div class="or" style="margin:1.6rem 0 0">or use email</div>
@@ -1023,18 +1030,16 @@
       <form id="signinForm" style="margin-top:1.2rem" novalidate>
         <div class="field"><label for="si-email">Email</label>
           <div class="input"><input id="si-email" type="email" autocomplete="username" placeholder="you@domain.com" required></div></div>
-        <button class="btn" type="button" id="oneClick" style="margin-top:.9rem">Sign in with one click <span class="arr">&rarr;</span></button>
-        <p class="hint">No password &mdash; we email you a sign-in link.</p>
         <div class="field"><label for="si-pass">Password <a href="reset-password.html" id="forgotLink" style="color:inherit">Forgot password?</a></label>
-          <div class="input"><input id="si-pass" type="password" autocomplete="current-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
+          <div class="input"><input id="si-pass" type="password" autocomplete="current-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
             <button type="button" class="peek" data-peek="si-pass">Show</button></div></div>
         <label class="check"><input type="checkbox" id="remember" checked> Remember this device for 30 days</label>
-        <button class="btn btn--solid" type="submit" id="signinBtn">Sign in <span class="arr">&rarr;</span></button>
+        <!-- §7.15.2 (JP): one Sign in button. A password signs in; no password emails the one-click link. -->
+        <button class="btn btn--solid" type="submit" id="signinBtn"><span>Sign in <span class="btn__aside">(sign in with one click)</span></span> <span class="arr">&rarr;</span></button>
+        <p class="form-note">No password? Leave it empty &mdash; we email you a one-click sign-in link.</p>
         <p class="msg mono" id="signinMsg" role="status" aria-live="polite"></p>
       </form>
 
-      <p class="alt" style="margin-top:1.4rem"><b>New here?</b>
-        <a href="signup.html" id="toSignup" style="color:inherit"><b>Create an account &rarr;</b></a></p>
     </div>
 
     <div class="pane" data-step="otp">
@@ -1238,9 +1243,23 @@
      (thanks.html?plan=demo), and that page records the claim (founder_leads + funnel trial_claimed). */
   if (new URLSearchParams(location.search).get('claim') === 'demo') {
     try { localStorage.setItem('ovr_pending_claim', String(Date.now())); } catch (_) { /* storage blocked */ }
+    const up = document.getElementById('toSignup');
+    if (up) up.href = 'signup.html?claim=demo';           // §7.15.1: the free 30 minutes unlock after sign-up too
     if (auth.session) auth.session().then(s => { if (s && s.user) location.replace('thanks.html?plan=demo'); })
                                     .catch(() => {});
   }
+  /* §7.15.6: a sign-in that started at checkout goes back there (OAuth / email links land on the
+     dashboard, which sends them back too). Only this site's checkout page, and only for 2 hours. */
+  function returnTo() {
+    try {
+      const r = JSON.parse(localStorage.getItem('ovr_return_to') || 'null');
+      if (r && Date.now() - r.at < 2 * 3600e3 && /^checkout\.html(\?[\w=&%-]*)?$/.test(r.to)) {
+        localStorage.removeItem('ovr_return_to'); return r.to; }
+    } catch (_) {}
+    return '';
+  }
+  if (new URLSearchParams(location.search).get('next') === 'checkout' && auth.session)
+    auth.session().then(s => { if (s && s.user) { const r = returnTo(); if (r) location.replace(r); } }).catch(() => {});
   const form  = document.getElementById('signinForm');
   const email = document.getElementById('si-email');
   const pass  = document.getElementById('si-pass');
@@ -1252,6 +1271,8 @@
 
   /* Carry the address across pages: if someone lands on the wrong one, what they
      typed is not lost. Cheapest thing that makes the flow feel good. */
+  if (email) email.addEventListener('input', () => {
+    email.removeAttribute('aria-invalid'); email.closest('.input')?.classList.remove('is-missing'); });
   const carried = new URLSearchParams(location.search).get('email')
                || sessionStorage.getItem('ovr_email') || '';
   if (carried && email) email.value = carried;
@@ -1274,13 +1295,34 @@
   if (form) form.addEventListener('submit', async e => {
     e.preventDefault();
     const e1 = (email.value || '').trim(), p1 = pass.value || '';
-    if (!e1 || !p1) { say('Enter your email and password.'); return; }
+    if (!e1) {                                   // §7.15.5: no message line; the email box is marked and focused
+      say('');
+      email.setAttribute('aria-invalid', 'true'); email.closest('.input')?.classList.add('is-missing');
+      email.focus(); if (email.reportValidity) email.reportValidity();
+      return;
+    }
+    if (!p1) {                                   // §7.15.2: no password -> the one-click link
+      btn.disabled = true; say('Sending your sign-in link…');
+      try { await auth.signInWithOtp(e1, { create: false }); sessionStorage.setItem('ovr_email', e1);
+            say('Sign-in link sent — check your inbox.', 'ok'); }
+      catch (err) {
+        if (err && err.noAccount) {            // §7.15.7: no account for that email -> create one, email filled in
+          try { sessionStorage.setItem('ovr_email', e1); sessionStorage.setItem('ovr_no_account', '1'); } catch (_) {}
+          const up = document.getElementById('toSignup');
+          location.assign((up && up.getAttribute('href')) || 'signup.html');   // carries claim=demo when present
+          return;
+        }
+        say((err && err.message) || 'Could not send the link.', 'bad');
+      }
+      finally { btn.disabled = false; }
+      return;
+    }
     btn.disabled = true; say('Signing in\u2026');
     try {
       await auth.signInWithEmail(e1, p1);
       sessionStorage.setItem('ovr_email', e1);
       say('Signed in \u2014 taking you to your account\u2026', 'ok');
-      location.assign(auth.redirectTo || 'dashboard.html');
+      location.assign(returnTo() || auth.redirectTo || 'dashboard.html');
     } catch (err) {
       say('Email or password is incorrect.', 'bad');
       btn.disabled = false;
