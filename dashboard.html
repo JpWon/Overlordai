@@ -760,20 +760,15 @@
         <div class="note"><span class="mono">Windows</span><span>The first launch shows <b>&ldquo;Windows protected your PC&rdquo;</b>: that is SmartScreen, shown for any installer from a publisher that is not yet code-signed, not a virus finding. Click <b>More info</b>, then <b>Run anyway</b>. The install is per-user with no admin rights or reboot, and the SHA-256 on the release page shows the file is ours.</span></div>
 
         <div class="sect">
-          <div class="sect__head"><span class="mono">Before you install</span></div>
+          <!-- Round 10 (JP 2026-11-09): only what the player needs, what's legally required and what helps -->
           <dl class="spec">
-            <dt>System</dt><dd><div class="needs"><div class="needs__words"><p>Overlord AI runs beside any game your machine already runs and sips the GPU. It needs an internet connection, a microphone is optional, and it runs on Windows or Linux.</p></div><dl class="needs__specs">
-          <dt>GPU, idle</dt><dd>Nothing measurable</dd>
-          <dt>GPU, card up</dt><dd>Under 3%</dd>
-          <dt>RAM</dt><dd>About 600 MB</dd>
-          <dt>Platforms</dt><dd>Windows 10/11 (64-bit), Linux (Ubuntu/Debian)</dd>
-          <dt>Internet</dt><dd>Required</dd>
-          <dt>Microphone</dt><dd>Optional</dd>
-        </dl><p class="needs__src">Measured in October 2026 on a mid-range graphics card.</p></div></dd>
-            <dt>Platforms</dt><dd>Windows 10/11 (64-bit) and Linux (Ubuntu/Debian). Every feature works on both.</dd>
-            <dt>Error reports</dt><dd>When something breaks, Overlord AI sends an error report so we can fix it.</dd>
+            <dt>Platforms</dt><dd>Windows 10/11 (64-bit), Linux (Ubuntu/Debian)</dd>
+            <dt>Internet</dt><dd>Required</dd>
+            <dt>Microphone</dt><dd>Optional, for voice</dd>
+            <dt>Performance</dt><dd>Lightweight. Runs beside your game at under 3% GPU and about 600 MB of RAM.</dd>
+            <dt>Error reports</dt><dd>When something breaks, Overlord AI sends an error report so we can fix it. <a href="privacy.html" style="color:inherit;text-decoration:underline">Privacy policy</a></dd>
           </dl>
-          <p class="hash mono">Every release is built by our CI and published on <a href="https://github.com/JpWon/Overlordai/releases/latest" style="color:inherit">GitHub Releases</a> · <span data-rel-ver>Latest release</span></p>
+          <p class="hash mono"><span data-rel-version>Latest release</span> · <a href="https://github.com/JpWon/Overlordai/releases/latest" style="color:inherit">Release notes</a></p>
         </div>
 
         <div class="note"><span class="mono">✓</span><span><b>Windows:</b> every feature, the same as Linux.</span></div>
@@ -1180,6 +1175,7 @@ document.querySelectorAll('[data-plans-link]').forEach(a => a.addEventListener('
     document.querySelectorAll('[data-dl="deb"]').forEach(a => { a.href = debUrl; a.toggleAttribute('download', debUrl !== LATEST); });
     document.querySelectorAll('[data-dl="exe"]').forEach(a => { a.href = winUrl; a.toggleAttribute('download', winUrl !== LATEST); });
     document.querySelectorAll('[data-rel-ver]').forEach(el => { el.textContent = label; });
+    document.querySelectorAll('[data-rel-version]').forEach(el => { el.textContent = ver ? 'Version ' + ver.replace(/^v/, '') : 'Latest release'; });
     document.querySelectorAll('[data-rel-size="deb"]').forEach(el => { el.textContent = debMB ? ' · ' + debMB : ''; });
     document.querySelectorAll('[data-rel-size="exe"]').forEach(el => { el.textContent = winMB ? ' · ' + winMB : ''; });
   }
