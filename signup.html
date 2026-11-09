@@ -1109,6 +1109,13 @@
 <script src="assets/vendor/supabase-js.js"></script>
 <script src="assets/auth-config.js"></script>
 <script src="assets/auth.js"></script>
+<script>/* messaging.md §7.15: the free 30 minutes still unlock after sign-up (claim=demo from the login page) */
+(() => {
+  if (new URLSearchParams(location.search).get('claim') !== 'demo') return;
+  try { localStorage.setItem('ovr_pending_claim', String(Date.now())); } catch (_) { /* storage blocked */ }
+  const back = document.getElementById('toLogin');
+  if (back) back.href = 'login.html?claim=demo';
+})();</script>
 
 <script>
 /* ---------- NAV — behaviour ported from S2S Navbar.tsx ---------- */
