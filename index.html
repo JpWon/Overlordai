@@ -500,6 +500,17 @@
   .hud__text{font-size:.92rem;font-weight:500;color:#f4f2ff;letter-spacing:.01em;padding-right:3.5rem;}
   @keyframes hud-ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media (prefers-reduced-motion: reduce){ .hud__track{animation:none;} }
+  /* Round 16 (JP 2026-11-09): section 2's live guide pill wears the in-game crystal pill bar, like the
+     pillar badges and the Play button (OverlordApp/assets/tactical-interface.css #hud-banner). Text and
+     position unchanged: only the glass, the rim, the core ring + cyan shoulder and the breathing bloom. */
+  .vp-head .hud{position:relative;
+    background:linear-gradient(168deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,.038) 45%,rgba(255,255,255,.055) 78%,rgba(255,255,255,.03) 100%),
+               linear-gradient(180deg,rgba(22,23,30,.62) 0%,rgba(12,13,18,.68) 100%);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:inset 0 0 0 1px rgba(236,244,255,.92),inset 0 0 0 3px rgba(120,190,255,.30),0 6px 28px rgba(0,0,0,.8);}
+  .vp-head .hud::after{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;opacity:.5;
+    box-shadow:0 0 18px 3px rgba(96,166,255,.40),0 0 44px 10px rgba(124,112,238,.26);animation:badgeBreath 9s ease-in-out infinite;}
+  @media (prefers-reduced-motion: reduce){ .vp-head .hud::after{animation:none;} }
 
   .vp-head .drip-line{margin:0;}
   .vp-head .drip-line .txt{font-size:clamp(1.5rem,5.4vw,4.6rem);}  /* 4.6rem: "Get more out of the games" stays one line in the 800px head */
@@ -1220,6 +1231,8 @@
   .vp-ph__size.vp-ph__hint--br{right:14px;text-align:right;}
   /* phones: the two bottom hints share a narrow card; each keeps to its half and wraps if it must */
   @media (max-width:600px){ .vp-ph__size.vp-ph__hint{max-width:calc(50% - 20px);line-height:1.35;} }
+  /* phones: the top-right line keeps clear of the card label top-left (Round 15: "Double-tap F4 · Ask where to go" is longer) */
+  @media (max-width:600px){ .vp-ph__size:not(.vp-ph__hint){max-width:calc(68% - 20px);text-align:right;line-height:1.35;} }
   .vp-value{margin-top:6px;font-weight:700;font-size:1.05rem;line-height:1.45;color:var(--neutral-on-background-strong);}
   .vp-value::before{content:"";display:inline-block;width:10px;height:2px;background:var(--accent);vertical-align:middle;margin-right:10px;}
 
@@ -1495,7 +1508,7 @@
 
     <p class="vp-lede rv" style="--d:.45s; max-width:680px; margin:24px auto 0; font-size:1.15rem; line-height:1.7; color:var(--neutral-on-background-weak); text-align:center;">
       <span class="vp-lede__line">Overlord AI is a live game guidebook, a voice that plays alongside you.</span>
-      <span class="vp-lede__line">Finish the questlines that matter. Grab the gear you&rsquo;d have walked past. Level a build that works. Find the secrets. Walk into every boss ready.</span>
+      <span class="vp-lede__line">Finish the questlines that matter. Grab the gear you missed. Level a build that works. Find the secrets. Walk into every boss ready.</span>
       <span class="vp-lede__line">No tabbing out. No searching the web. Stay immersed, stay in the flow.</span>
     </p>
 
@@ -1554,7 +1567,7 @@
     <!-- One slow sequence, in reading order (data-mx-seq): each heading resolves, then its text
          fades in, then the next starts. Slower on purpose so the "is it cheating?" answers get read. -->
     <span class="plainsec__label mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.1">In plain words</span>
-    <h2 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.7">What Overlord <em>AI is.</em></h2>
+    <h2 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.7">What Overlord <em>AI</em> is.</h2>
     <p class="plainsec__lede mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Overlord AI is a live game guidebook for single-player PC games. Like a friend on the couch, guiding you through questlines, puzzles and hidden items. Get more out of the games you own.</p>
     <div class="plainsec__facts">
       <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.4">Who it's for</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
@@ -1609,7 +1622,7 @@
         <div class="vp-ph">
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__label mono">GPS card</span>
-          <span class="vp-ph__size mono">Press F4 · Ask where to go</span>
+          <span class="vp-ph__size mono">Double-tap F4 · Ask where to go</span>
           <span class="vp-ph__size vp-ph__hint vp-ph__hint--bl mono">Voice: &ldquo;Direct me&rdquo;</span>
           <span class="vp-ph__size vp-ph__hint vp-ph__hint--br mono">Long-press F4 to release</span>
           <video class="vp-img" src="assets/reels/pillar-04-gps.mp4" poster="assets/reels/pillar-04-gps-poster.jpg" width="1120" height="700" muted loop autoplay playsinline preload="metadata" aria-label="In-game guidance system: the real Overlord AI GPS card guiding to the Radagon Icon talisman in Elden Ring; the radar pings the gold loot and the line says where to go"></video>
@@ -1654,7 +1667,7 @@
   <div class="closing__overlay"></div>
 
   <div class="closing__content">
-    <p class="closing__body mxw">We guide you through questlines, puzzles and hidden items as you play. Get more out of the games you own.</p>
+    <p class="closing__body mxw"><strong>Overlordai is a live game guidebook.</strong> Our mission is simple: help players get more out of the games they already own. Overlord AI provides an all-around feel-good gaming experience. We guide you through boss fights, puzzles and hidden items as you play, so you don't rage quit and you actually enjoy every title you paid for.</p>
     <div class="closing__actions rv" style="--d:.36s">
       <a class="nb-btn nb-btn--primary" href="plans.html">Try the free demo</a>
       <a class="nb-btn nb-btn--secondary" href="plans.html">Sign up</a>
@@ -2315,7 +2328,7 @@
     {tag:'Animation',  title:'Combo Card', dur:'',
      video:'assets/reels/anim-combo.mp4', poster:'assets/reels/anim-combo-poster.jpg', ratio:'900/560', loop:true,
      art:'conic-gradient(from 200deg at 40% 60%,#0c0a22,#3d2bb8,#9d8cff,#0c0a22)'},
-    {tag:'Animation',  title:'Divine Prayer', dur:'',
+    {tag:'Animation',  title:'Double-tap F4', dur:'',
      video:'assets/reels/anim-prayer.mp4', poster:'assets/reels/anim-prayer-poster.jpg', ratio:'900/560', loop:true,
      art:'linear-gradient(135deg,#1b1240 0%,#5a2bd8 55%,#c7b8ff 100%)'},
     {tag:'Video',      title:'Gold Combo', dur:'0:07',
