@@ -38,9 +38,9 @@
     });
   }
 
-  /* The homepage footer stats, inside the Game Co-Pilots line: the live count from the mapped-games list. */
+  /* The homepage footer stats, inside the Live Guidebook line: the live count from the mapped-games list. */
   function stripHTML(a) {
-    return 'New games mapped every night (<strong>' + a.totals.games + '</strong>)';
+    return 'New games mapped daily (<strong>' + a.totals.games + '</strong>)';
   }
 
   window.OverlordAtlas = { load: load, stripHTML: stripHTML };
