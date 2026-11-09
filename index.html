@@ -326,6 +326,10 @@
     will-change:transform,opacity;
   }
   #plasma{position:absolute;inset:0;display:block;}
+  /* JP 2026-11-09: the hero visual. Same box as the plasma canvas it stands in for, so the
+     reveal word, the cover mask and the meta chrome keep their exact stacking. */
+  .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    display:block;z-index:1;pointer-events:none;}
 
   /* the word the mask reveals — lives UNDER the cover */
   .hero .reveal-word{
@@ -1474,6 +1478,15 @@
 <section class="hero">
   <canvas id="plasma"></canvas>
 
+  <!-- JP 2026-11-09: the hero visual is his intro clip, looping. Same full-bleed box the
+       plasma canvas filled, nothing else in the hero touched: the word still sits under the
+       cover mask, the meta lines and the hint are unchanged. Silent and looped so it plays
+       itself; the poster is frame 0 so there is never a blank pale block. -->
+  <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto"
+         poster="assets/hero/intro-poster.jpg" aria-hidden="true" tabindex="-1">
+    <source src="assets/hero/intro-loop.mp4" type="video/mp4">
+  </video>
+
   <div class="reveal-word">
     <h1>Overlord<br><span>AI</span></h1>
     <div class="sub">A live game guidebook for single-player PC games</div>
@@ -2036,9 +2049,18 @@
   function frame(t){
     if (scrollY > innerHeight * 1.05){ requestAnimationFrame(frame); return; }   // hero hidden — idle
     stepChain();
-    drawPlasma(reduced ? 0 : t);
+    // JP 2026-11-09: when his clip is the hero visual, the plasma sits it out — the canvas
+    // stays in the DOM (the cover mask shares this loop) but nothing is painted behind an
+    // opaque video, so the page is not burning a GPU on pixels nobody can see.
+    if (!document.getElementById('heroVideo')) drawPlasma(reduced ? 0 : t);
     drawCover(t);
     requestAnimationFrame(frame);
+  }
+  // Motion respect: with reduce-motion on, the clip holds its poster instead of moving.
+  const heroVideo = document.getElementById('heroVideo');
+  if (heroVideo && reduced){
+    heroVideo.removeAttribute('autoplay');
+    heroVideo.pause();
   }
   requestAnimationFrame(frame);
 })();
