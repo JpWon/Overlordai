@@ -425,6 +425,11 @@ window.__hud = {
   beats: BEATS.slice(),
   pin: function(name){ return pin(name); },
   resume: resume,
+  /* recording hooks (site-tools/clip-stage.html, messaging §7.11): a slower per-input pace and end hold,
+     and lighting the pinned combo from its first input without rebuilding its rows */
+  pace: function(stepMs, holdMs){ STEP_MS = stepMs; HOLD_MS = holdMs;
+    paceEl.innerHTML = 'Presumed pace &middot; <b>' + (stepMs / 1000).toFixed(1) + ' s</b> per input &mdash; no timing documented'; },
+  ignite: function(){ clearTimers(); state.pinned = false; state.playing = true; ignite(state.cur); },
   state: function(){
     return { beat: state.beat, pinned: state.pinned, playing: state.playing,
              combo: state.cur + 1, comboName: COMBOS[state.cur] ? COMBOS[state.cur].name : null,

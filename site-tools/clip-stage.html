@@ -37,32 +37,42 @@
   const sleep = ms => new Promise(r => setTimeout(r, ms));
   const hud = () => f.contentWindow.__hud;
   const doc = () => f.contentDocument;
-  const IN = 1200, OUT = 300;
+  // §7.11 (JP 2026-11-08): the fade-in a smidgen slower, the dissolve to match, and every beat held long
+  // enough to see what the card does (was IN 1200 / OUT 300)
+  const IN = 1600, OUT = 400;
   // the glyph shimmer runs over the card itself (iframe coords = page coords: the iframe sits at 0,0)
   const CARD = { npc: '#card', loot: '#card', combo: '.card', prayer: '.hud-wrap' };
   let fx = null;
   const PASS = {
     npc: {
       async prep(){ hud().pin('dialogue'); await sleep(1000); },
-      async run(){ await fx.in(IN); await sleep(2600); hud().pin('answer'); await sleep(3200); await fx.out(OUT); }
+      async run(){ await fx.in(IN); await sleep(3400); hud().pin('answer'); await sleep(4000); await fx.out(OUT); }
     },
     loot: {
       async prep(){ hud().pin('loot'); await sleep(1200); },
-      async run(){ await fx.in(IN); await sleep(3800); await fx.out(OUT); }
+      async run(){ await fx.in(IN); await sleep(5000); await fx.out(OUT); }
     },
     combo: {
-      async prep(){ hud().pin('combo-1'); await sleep(400); },
+      async prep(){
+        // §7.11: the card materializes on combo 1 with no input landed yet (pin('combo-1') is "all done"),
+        // so the first thing after the fade-in is input 1 lighting, not a reset of the rows
+        hud().pin('combo-1'); hud().pace(1200, 60000); await sleep(400);
+        doc().querySelectorAll('.step').forEach(r => { r.classList.remove('lit', 'done');
+          const fl = r.querySelector('.step-fill'); fl.style.width = '0'; fl.style.opacity = '0'; });
+        await sleep(900);   // the rows' own transitions settle before the fade-in starts
+      },
       async run(){
         // the real cadence from the start of combo 1: each input lights as it lands, then the card
         // settles "done"; the dissolve starts as it would step on to the next combo
-        hud().resume(); const p = fx.in(IN);
+        // §7.11: slower inputs (1.2 s each instead of 0.9 s, set in prep) and no step-on to the next combo
+        hud().ignite(); const p = fx.in(IN);
         const t0 = performance.now();
         while (performance.now() - t0 < 15000) {
           const rows = [...doc().querySelectorAll('.step')];
           if (rows.length && rows.every(r => r.classList.contains('done'))) break;
           await sleep(30);
         }
-        await p; await sleep(650); await fx.out(OUT);
+        await p; await sleep(1300); await fx.out(OUT);
       }
     },
     prayer: {
@@ -76,12 +86,12 @@
         this.card = MX.attach(c, () => c.getBoundingClientRect());
       },
       // the real beats (idle .9, tap .9, listening 3.6, assimilating 4.2) and the guidance beat trimmed to
-      // its read time (3.4 s instead of 5.6 s), then the dissolve
+      // its read time (4.4 s instead of 5.6 s; §7.10 had 3.4 s, §7.11 slows it a touch), then the dissolve
       async run(){
         const t0 = performance.now();
         hud().resume(); await fx.in(IN);
         await sleep(900 + 900 + 3600 + 4200 - (performance.now() - t0));
-        await this.card.in(IN); await sleep(3400 - IN); await fx.out(OUT);
+        await this.card.in(IN); await sleep(4400 - IN); await fx.out(OUT);
       }
     }
   };
