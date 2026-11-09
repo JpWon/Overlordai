@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const KEY = 'sb_publishable_LEJ4On121RzEpDlCgiqm8w_cDc8BROJ';
-const WORDING = 'New games mapped every night';
+const WORDING = 'New games mapped daily';
 
 function esc(s) {
   return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
