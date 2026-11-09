@@ -1174,14 +1174,16 @@
     font-size:3.6rem;line-height:1;letter-spacing:-.01em;text-transform:uppercase;}
   .vp-name .vp-num{font-size:inherit;}
   .vp-name__card{color:var(--neutral-on-background-strong);}
-  /* §7.10 (JP 2026-11-08): the big line sits inside the old .vp-pill look (purple-and-dark pill), same size */
-  .vp-name{display:inline-flex;align-items:baseline;flex-wrap:nowrap;width:fit-content;max-width:100%;
+  /* §7.10 (JP 2026-11-08): the card name sits in the old .vp-pill look (purple-and-dark pill).
+     §7.11 (JP 2026-11-08): only the label goes in the pill, no number, and the pill is a bit smaller;
+     the number stays outside it, left, in the faint big-number style */
+  .vp-name{flex-wrap:nowrap;align-items:center;gap:.32em;max-width:100%;font-size:2.9rem;}
+  .vp-name .vp-num{opacity:.3;}
+  .vp-name .vp-name__card{white-space:nowrap;line-height:1;
     background:rgba(109,92,255,.1);border:1px solid rgba(109,92,255,.3);border-radius:999px;padding:.14em .5em .1em;}
-  .vp-name .vp-num{opacity:.45;}
-  .vp-name .vp-name__card{white-space:nowrap;}
   .vp-text h3{font-size:clamp(1.5rem,2.4vw,2.2rem);}
-  @media (max-width:600px){.vp-name{font-size:2.6rem;}}
-  @media (max-width:380px){.vp-name{font-size:2.2rem;}}
+  @media (max-width:600px){.vp-name{font-size:2.2rem;}}
+  @media (max-width:380px){.vp-name{font-size:1.9rem;}}
   /* the frame label names the card, top-left (the number is in the big line now) */
   .vp-ph__label{top:8px;bottom:auto;}
   .vp-ph__tick,.vp-ph__label,.vp-ph__size{z-index:3;}
@@ -1483,7 +1485,7 @@
         </div>
       </figure>
       <div class="vp-text">
-        <div class="vp-name"><span class="vp-num">01</span><span class="vp-name__card">· NPC CARD</span></div>
+        <div class="vp-name"><span class="vp-num">01</span><span class="vp-name__card">NPC CARD</span></div>
         <h3>Unlock the right NPC interaction.</h3>
         <p>Pops up when an NPC talks. Shows which answer moves the quest forward, and which one breaks it.</p>
         <div class="vp-value">Finish every questline.</div>
@@ -1497,11 +1499,11 @@
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__label mono">Loot card</span>
           <span class="vp-ph__size mono">On screen · Before you miss it</span>
-          <video class="vp-img" src="assets/reels/pillar-02-loot.mp4" poster="assets/reels/pillar-02-loot-poster.jpg" width="1120" height="700" muted loop autoplay playsinline preload="metadata" aria-label="Find the best weapons, talismans and upgrades: the real Overlord AI Loot card in game, from the Control live demo"></video>
+          <video class="vp-img" src="assets/reels/pillar-02-loot.mp4" poster="assets/reels/pillar-02-loot-poster.jpg" width="1120" height="700" muted loop autoplay playsinline preload="metadata" aria-label="Find the best weapons, talismans and upgrades: the real Overlord AI Loot card from the Control live demo, Loot Card 8: Furnace Chamber, with its target visual and two steps"></video>
         </div>
       </figure>
       <div class="vp-text">
-        <div class="vp-name"><span class="vp-num">02</span><span class="vp-name__card">· LOOT CARD</span></div>
+        <div class="vp-name"><span class="vp-num">02</span><span class="vp-name__card">LOOT CARD</span></div>
         <h3>Find the best weapons, talismans and upgrades.</h3>
         <p>Pops up when you enter an area with gear you’d miss. Tells you what’s here and if it fits your build.</p>
         <div class="vp-value">Never leave gear behind.</div>
@@ -1554,7 +1556,7 @@
         </div>
       </figure>
       <div class="vp-text">
-        <div class="vp-name"><span class="vp-num">03</span><span class="vp-name__card">· COMBO CARD</span></div>
+        <div class="vp-name"><span class="vp-num">03</span><span class="vp-name__card">COMBO CARD</span></div>
         <h3>Know the boss fight.</h3>
         <p>Pops up in the fight. Lights up each input as you press it: when to wait, when to counter, when to finish.</p>
         <div class="vp-value">You press the buttons. We call the timing.</div>
@@ -1572,7 +1574,7 @@
         </div>
       </figure>
       <div class="vp-text">
-        <div class="vp-name"><span class="vp-num">04</span><span class="vp-name__card">· GPS CARD</span></div>
+        <div class="vp-name"><span class="vp-num">04</span><span class="vp-name__card">GPS CARD</span></div>
         <h3>Find hidden loot.</h3>
         <p>Double-tap F4 and say “direct me to mission objective” or “direct me to secret loot.” The card points the way.</p>
         <div class="vp-value">Less wandering. Never get lost.</div>
