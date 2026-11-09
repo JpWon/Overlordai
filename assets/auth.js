@@ -143,6 +143,17 @@
     return data;
   }
 
+  /* JP 2026-11-09: the account emails link to overlordai.co (confirm.html / reset-password.html) with a token
+     hash instead of the supabase.co verify address. This trades the hash for a session, on our own page. */
+  const LINK_TYPES = ['signup', 'magiclink', 'invite', 'recovery', 'email_change', 'email'];
+  async function verifyLink(tokenHash, type) {
+    if (!configured) throw new Error('sign-in is not configured on this host yet');
+    if (!tokenHash || !LINK_TYPES.includes(type)) throw new Error('This link is not complete.');
+    const { data, error } = await client.auth.verifyOtp({ token_hash: tokenHash, type });
+    if (error) throw error;
+    return data;
+  }
+
   /* Send the confirmation email again, for the "check your inbox" pane. */
   async function resendConfirmation(email) {
     if (!configured) throw new Error('sign-in is not configured on this host yet');
@@ -174,7 +185,7 @@
   window.OverlordAuth = {
     configured, redirectTo, gateDashboard: Boolean(cfg.gateDashboard),
     signIn, signInWithEmail, signUpWithEmail, signInWithOtp, session, signOut, onChange, provider,
-    resetPassword, verifyRecoveryCode, updatePassword, resendConfirmation,
+    resetPassword, verifyRecoveryCode, updatePassword, resendConfirmation, verifyLink,
     /* escape hatch for the per-page code */
     client: () => client
   };
