@@ -210,7 +210,7 @@
           "name": "What platforms are supported?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Windows 10/11 (64-bit, an installer) and Linux (Ubuntu and other Debian-based systems, a .deb package). Every feature works on both. You need an Overlord AI account and an internet connection, because Overlord's answers and voice come from our service."
+            "text": "Windows 10/11 (64-bit, an installer) and Linux (Ubuntu and other Debian-based systems, a .deb package). You need an Overlord AI account and an internet connection, because Overlord AI's answers and voice come from our service."
           }
         },
         {
@@ -218,7 +218,7 @@
           "name": "What do I need to run it?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Overlord runs beside any game your machine already runs. It adds nothing measurable while idle and under 3% GPU while a card is on screen, uses about 600 MB of RAM, and needs an internet connection. A microphone is optional. Linux (Ubuntu/Debian) or Windows 10/11, 64-bit."
+            "text": "Windows 10/11 (64-bit) or Linux (Ubuntu/Debian), an internet connection, and optionally a microphone for voice. Overlord AI is lightweight: it runs beside your game at under 3% GPU and about 600 MB of RAM."
           }
         },
         {
@@ -503,6 +503,7 @@
 
   .vp-head .drip-line{margin:0;}
   .vp-head .drip-line .txt{font-size:clamp(1.5rem,5.4vw,4.6rem);}  /* 4.6rem: "Get more out of the games" stays one line in the 800px head */
+  .vp-lede__line{display:block;}  .vp-lede__line + .vp-lede__line{margin-top:.6em;}  /* Round 14: three short lines */
   .vp-lede{max-width:540px;line-height:1.8;font-size:1.05rem;color:var(--neutral-on-background-weak);}
 
   .vp-rows{max-width:1200px;margin:10vh auto 0;display:flex;flex-direction:column;gap:90px;}
@@ -1493,7 +1494,9 @@
     <div class="drip-line"><span class="txt mx" data-mx-delay="900" data-mx-slow="1.5"><span class="accent">you own.</span></span></div>
 
     <p class="vp-lede rv" style="--d:.45s; max-width:680px; margin:24px auto 0; font-size:1.15rem; line-height:1.7; color:var(--neutral-on-background-weak); text-align:center;">
-      Windows and Linux. Single-player only. Read-only and fair play, always. We guide you through questlines, puzzles and hidden items as you play.
+      <span class="vp-lede__line">Overlord AI is a live game guidebook, a voice that plays alongside you.</span>
+      <span class="vp-lede__line">Finish the questlines that matter. Grab the gear you&rsquo;d have walked past. Level a build that works. Find the secrets. Walk into every boss ready.</span>
+      <span class="vp-lede__line">No tabbing out. No searching the web. Stay immersed, stay in the flow.</span>
     </p>
 
     <div class="vp-cta rv" style="--d:.6s">
@@ -1671,15 +1674,13 @@
       <details class="faqsec__item"><summary>What does the free demo include?</summary><p>Thirty minutes of use with the app open: the real product, not a cut-down one. It watches your screen, speaks out loud and covers the published guides. No card is needed, and it ends by stopping, not by charging. One trial per person.</p></details>
       <details class="faqsec__item"><summary>Do I need a credit card to start?</summary><p>No. The 30 minutes start without one, and they end by stopping rather than charging. A card is only ever taken when you choose the Subscription or Pro.</p></details>
       <details class="faqsec__item"><summary>Which games does Overlord cover?</summary><p>Mostly single-player soulslikes and action RPGs. Mapped and preloaded today: Black Myth: Wukong, Elden Ring, Mortal Shell, Mortal Shell II, Control, Path of Exile and Path of Exile 2. Other single-player games work too: Overlord gets to know each one as you play it. Overlord is a guidebook, like the strategy guides that used to sit next to the console. It isn't meant to give anyone an edge in competitive online play, and we don't make guides for competitive multiplayer games.</p></details>
-      <details class="faqsec__item"><summary>What platforms are supported?</summary><p>Windows 10/11 (64-bit, an installer) and Linux (Ubuntu and other Debian-based systems, a .deb package). Every feature works on both. You need an Overlord AI account and an internet connection, because Overlord's answers and voice come from our service.</p></details>
-      <details class="faqsec__item"><summary>What do I need to run it?</summary><div style="padding:0 .25rem 1.4rem;max-width:52rem;"><div class="needs needs--stack"><div class="needs__words"><p>Overlord runs beside any game your machine already runs and sips the GPU. It needs an internet connection, a microphone is optional, and it runs on Windows or Linux.</p></div><dl class="needs__specs">
-          <dt>GPU, idle</dt><dd>Nothing measurable</dd>
-          <dt>GPU, card up</dt><dd>Under 3%</dd>
-          <dt>RAM</dt><dd>About 600 MB</dd>
+      <details class="faqsec__item"><summary>What platforms are supported?</summary><p>Windows 10/11 (64-bit, an installer) and Linux (Ubuntu and other Debian-based systems, a .deb package). You need an Overlord AI account and an internet connection, because Overlord AI's answers and voice come from our service.</p></details>
+      <details class="faqsec__item"><summary>What do I need to run it?</summary><div style="padding:0 .25rem 1.4rem;max-width:52rem;"><dl class="needs__specs" style="border:0;padding:0;">
           <dt>Platforms</dt><dd>Windows 10/11 (64-bit), Linux (Ubuntu/Debian)</dd>
           <dt>Internet</dt><dd>Required</dd>
-          <dt>Microphone</dt><dd>Optional</dd>
-        </dl><p class="needs__src">Measured in October 2026 on a mid-range graphics card.</p></div></div></details>
+          <dt>Microphone</dt><dd>Optional, for voice</dd>
+          <dt>Performance</dt><dd>Lightweight. Runs beside your game at under 3% GPU and about 600 MB of RAM.</dd>
+        </dl></div></details>
       <details class="faqsec__item"><summary>Is this cheating?</summary><p>No. Overlord is a guidebook. It's the walkthrough you'd open on your phone or the strategy guide that used to sit on the shelf next to the game, except it's live: it looks at your screen the way a friend on the couch would and says “you missed some loot over there” instead of you pausing to go look it up. It <a href="fair-play.html">never touches the game</a>: no memory reads, no injected code, no automated inputs, no modified files. It refuses to run in online multiplayer games, because it isn't meant for playing against other people. If you'd rather find every secret blind, that's a great way to play, and Overlord isn't for that run. It's for the player who paid full price and would otherwise quit at the second boss and never see the back half of the game.</p></details>
       <details class="faqsec__item"><summary>Does Overlord touch the game or play for me?</summary><p>No. Overlord doesn't read or change game memory, change game files, inject code into the game or press keys for you. It watches your screen, with your permission, the way a friend beside you would, and it reads your game's save and settings files without changing them. Each game sets its own rules about outside help, and you're responsible for following them, so check the terms of the games you play.</p></details>
       <details class="faqsec__item"><summary>Is my screen or voice sent anywhere?</summary><p>Yes, when Overlord needs them to help you. While screen sharing is on, images of your screen go to our service and the AI providers that read them for us, so Overlord can see where you are and what's in front of you. When you press F4 and speak, your recording goes to our service to be turned into text. Screen capture only runs while your game is running and stops when the game closes. Our service doesn't store your screen images or recordings, and your PC clears them moments later. Our Privacy Policy lists everything that is collected and who helps us process it.</p></details>
