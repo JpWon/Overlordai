@@ -1303,9 +1303,17 @@
     }
     if (!p1) {                                   // §7.15.2: no password -> the one-click link
       btn.disabled = true; say('Sending your sign-in link…');
-      try { await auth.signInWithOtp(e1); sessionStorage.setItem('ovr_email', e1);
+      try { await auth.signInWithOtp(e1, { create: false }); sessionStorage.setItem('ovr_email', e1);
             say('Sign-in link sent — check your inbox.', 'ok'); }
-      catch (err) { say((err && err.message) || 'Could not send the link.', 'bad'); }
+      catch (err) {
+        if (err && err.noAccount) {            // §7.15.7: no account for that email -> create one, email filled in
+          try { sessionStorage.setItem('ovr_email', e1); sessionStorage.setItem('ovr_no_account', '1'); } catch (_) {}
+          const up = document.getElementById('toSignup');
+          location.assign((up && up.getAttribute('href')) || 'signup.html');   // carries claim=demo when present
+          return;
+        }
+        say((err && err.message) || 'Could not send the link.', 'bad');
+      }
       finally { btn.disabled = false; }
       return;
     }

@@ -153,14 +153,21 @@
     return data;
   }
 
-  /* Passwordless Magic Link / OTP */
-  async function signInWithOtp(email) {
+  /* Passwordless Magic Link / OTP. The sign-in page passes { create: false } (messaging.md §7.15.7): an email
+     with no account then fails with err.noAccount instead of quietly making one, and the page sends the player
+     to the create-account step. Other callers keep the old behaviour. */
+  async function signInWithOtp(email, opts) {
     if (!configured) throw new Error('sign-in is not configured on this host yet');
+    const create = !(opts && opts.create === false);
     const { data, error } = await client.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: redirectTo, shouldCreateUser: true }
+      options: { emailRedirectTo: redirectTo, shouldCreateUser: create }
     });
-    if (error) throw error;
+    if (error) {
+      if (!create && (error.code === 'otp_disabled' || /signups? not allowed|user not found/i.test(error.message || '')))
+        error.noAccount = true;
+      throw error;
+    }
     return data;
   }
 
