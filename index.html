@@ -1212,6 +1212,11 @@
   .vp-ph__label{top:8px;bottom:auto;}
   .vp-ph__tick,.vp-ph__label,.vp-ph__size{z-index:3;}
   .vp-ph__label,.vp-ph__size{text-shadow:0 1px 3px rgba(0,0,0,.8);}
+  /* Round 6 (JP 2026-11-09): how each card comes up (bottom left) and goes away (bottom right),
+     in the same on-theme style as the top-right line */
+  .vp-ph__size.vp-ph__hint{top:auto;bottom:8px;}
+  .vp-ph__size.vp-ph__hint--bl{right:auto;left:14px;}
+  .vp-ph__size.vp-ph__hint--br{right:14px;}
   .vp-value{margin-top:6px;font-weight:700;font-size:1.05rem;line-height:1.45;color:var(--neutral-on-background-strong);}
   .vp-value::before{content:"";display:inline-block;width:10px;height:2px;background:var(--accent);vertical-align:middle;margin-right:10px;}
 
@@ -1505,6 +1510,8 @@
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__label mono">NPC card</span>
           <span class="vp-ph__size mono">On screen · When an NPC speaks</span>
+          <span class="vp-ph__size vp-ph__hint vp-ph__hint--bl mono">Auto-detected</span>
+          <span class="vp-ph__size vp-ph__hint vp-ph__hint--br mono">Long-press F4 to close</span>
           <video class="vp-img" src="assets/reels/pillar-01-npc.mp4" poster="assets/reels/pillar-01-npc-poster.jpg" width="1120" height="700" muted loop autoplay playsinline preload="metadata" aria-label="Unlock the right NPC interaction: the real Overlord AI NPC card on Ranni's quest in Elden Ring, at the Miniature Ranni talk: ask three times, then the Baleful Shadow hunt unlocks"></video>
         </div>
       </figure>
@@ -1523,6 +1530,8 @@
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__label mono">Loot card</span>
           <span class="vp-ph__size mono">On screen · Before you miss it</span>
+          <span class="vp-ph__size vp-ph__hint vp-ph__hint--bl mono">Auto-detected</span>
+          <span class="vp-ph__size vp-ph__hint vp-ph__hint--br mono">Long-press F4 to drop</span>
           <video class="vp-img" src="assets/reels/pillar-02-loot.mp4" poster="assets/reels/pillar-02-loot-poster.jpg" width="1120" height="700" muted loop autoplay playsinline preload="metadata" aria-label="Find the best weapons and upgrades: the real Overlord AI Loot card from the Control live demo, Loot Card 8: Furnace Chamber, with its target visual and two steps"></video>
         </div>
       </figure>
@@ -1576,6 +1585,8 @@
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__label mono">Combo card</span>
           <span class="vp-ph__size mono">On screen · when you ask</span>
+          <span class="vp-ph__size vp-ph__hint vp-ph__hint--bl mono">Long-press F4</span>
+          <span class="vp-ph__size vp-ph__hint vp-ph__hint--br mono">Long-press F4 to close</span>
           <video class="vp-img" src="assets/reels/pillar-03-combo.mp4" poster="assets/reels/pillar-03-combo-poster.jpg" width="1120" height="700" muted loop autoplay playsinline preload="metadata" aria-label="Fight like the pros: the real Overlord AI Combo card on a Black Myth: Wukong combo, each input lighting as it lands"></video>
         </div>
       </figure>
@@ -1594,6 +1605,8 @@
           <span class="vp-ph__tick tl"></span><span class="vp-ph__tick tr"></span><span class="vp-ph__tick bl"></span><span class="vp-ph__tick br"></span>
           <span class="vp-ph__label mono">GPS card</span>
           <span class="vp-ph__size mono">Press F4 · Ask where to go</span>
+          <span class="vp-ph__size vp-ph__hint vp-ph__hint--bl mono">Voice: &ldquo;Direct me&rdquo;</span>
+          <span class="vp-ph__size vp-ph__hint vp-ph__hint--br mono">Long-press F4 to release</span>
           <video class="vp-img" src="assets/reels/pillar-04-gps.mp4" poster="assets/reels/pillar-04-gps-poster.jpg" width="1120" height="700" muted loop autoplay playsinline preload="metadata" aria-label="In-game guidance system: the real Overlord AI GPS card guiding to the Radagon Icon talisman in Elden Ring; the radar pings the gold loot and the line says where to go"></video>
         </div>
       </figure>
