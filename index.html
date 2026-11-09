@@ -348,6 +348,8 @@
   .m-tr{top:1.6rem;right:2rem;text-align:right;}
   .m-bl{bottom:1.6rem;left:2rem;}
   .m-br{bottom:1.6rem;right:2rem;text-align:right;}
+  /* JP 2026-11-09: the bottom-right meta scoots a couple of characters closer to the edge */
+  .m-br--nudge{right:1.15rem;}
   .hint{
     position:absolute;z-index:4;pointer-events:none;
     left:50%;bottom:4.2rem;transform:translateX(-50%);
@@ -374,6 +376,7 @@
     .meta{font-size:.62rem;letter-spacing:.1em;max-width:calc(50% - 1.75rem);}
     .m-tl,.m-bl{left:1.25rem;}
     .m-tr,.m-br{right:1.25rem;}
+    .m-br--nudge{right:.95rem;}
     .hint{bottom:5.2rem;}
   }
 
@@ -1481,7 +1484,7 @@
   <canvas id="cover"></canvas>
 
   <div class="meta m-bl">A live game guidebook<br>for single-player PC games</div>
-  <div class="meta m-br">Watches, never touches<br>Linux and Windows &middot; © 2026</div>
+  <div class="meta m-br m-br--nudge">Watches, never touches<br>Linux and Windows&nbsp;&nbsp;© 2026</div>
   <div class="hint"><span class="hint-move mx" data-mx-delay="1100" data-mx-slow="2.5">move to reveal</span><span class="hint-touch mx" data-mx-delay="1100" data-mx-slow="2.5">touch to reveal</span></div>
 </section>
 
