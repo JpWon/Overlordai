@@ -447,6 +447,9 @@
                color 1.4s ease .25s, text-shadow 1.6s ease .1s;}
   .mxf.mxf--slow.in{
     transition:opacity 1.1s ease, filter 1.6s ease, -webkit-mask-position 2.2s cubic-bezier(.45,0,.25,1), mask-position 2.2s cubic-bezier(.45,0,.25,1);}
+  /* §7.13.3 (JP): the "What Overlord AI is." panel reveals a little faster (about 30%) */
+  .plainsec .mxf.mxf--slow.in{
+    transition:opacity .8s ease, filter 1.1s ease, -webkit-mask-position 1.5s cubic-bezier(.45,0,.25,1), mask-position 1.5s cubic-bezier(.45,0,.25,1);}
 
 
 
@@ -661,7 +664,7 @@
   .ovr-logo__mark{font-size:1.25rem;line-height:1.2;letter-spacing:.05em;font-weight:600;}
   /* messaging.md §7.9.10 (JP 2026-11-08): the wordmark always reads OVERLORD AI, AI in the brand purple */
   .ovr-logo__mark{white-space:nowrap;}
-  .ovr-logo__mark em{font-style:normal;color:var(--accent,#6d5cff);}
+  .ovr-logo__mark em{font-style:normal;color:var(--accent,#6d5cff);margin-left:-2px;} /* §7.13.1: AI sits over the K of "guidebook" */
   .ovr-logo__sub{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;color:var(--neutral-on-background-weak);}
   /* JP 2026-11-08: "Live game guidebook" at 1280 and up; below that the shorter "Game guidebook" so it stays on one line */
   .ovr-logo__sub--short{display:none;}
@@ -1517,16 +1520,16 @@
   <div class="plainsec__inner">
     <!-- One slow sequence, in reading order (data-mx-seq): each heading resolves, then its text
          fades in, then the next starts. Slower on purpose so the "is it cheating?" answers get read. -->
-    <span class="plainsec__label mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.6">In plain words</span>
-    <h2 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2.4">What Overlord AI <em>is.</em></h2>
+    <span class="plainsec__label mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.1">In plain words</span>
+    <h2 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.7">What Overlord AI <em>is.</em></h2>
     <p class="plainsec__lede mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Overlord AI is a live game guidebook for PC. It plays alongside your game, on screen and out loud, like having your brother on the couch next to you, pointing at the screen: “Turn around. The secret loot’s back there.”</p>
     <div class="plainsec__facts">
-      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">Who it's for</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
-      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">Platforms</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Windows 10/11 (64-bit), an installer, and Linux (Ubuntu/Debian, a .deb package). Every feature works on both.</p></div>
+      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.4">Who it's for</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Players who would rather keep playing than pause for a wiki or a 40-minute video. It's built for single-player games, mostly soulslikes and action RPGs.</p></div>
+      <div><h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.4">Platforms</h3><p class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">Windows 10/11 (64-bit), an installer, and Linux (Ubuntu/Debian, a .deb package). Every feature works on both.</p></div>
     </div>
     <div class="plainsec__lists">
       <div>
-        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">What Overlord AI does</h3>
+        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.4">What Overlord AI does</h3>
         <ul class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Follows your game while you play</button><div class="xp__more"><p>Only while your game is running, to work out where you are and what's happening.</p></div></li>
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">Shows tip cards on screen</button><div class="xp__more"><p>Quest steps, loot, combos and conversation choices.</p></div></li>
@@ -1535,7 +1538,7 @@
         </ul>
       </div>
       <div>
-        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="2">What it doesn't do</h3>
+        <h3 class="mx" data-mx-seq="plain" data-mx-at="0.25" data-mx-slow="1.4">What it doesn't do</h3>
         <ul class="mxf mxf--slow" data-mx-seq="plain" data-mx-at="0.25">
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't play for you</button><div class="xp__more"><p>It never presses keys, moves the mouse or controls the game.</p></div></li>
           <li class="xp"><button class="xp__lead" type="button" aria-expanded="false">It doesn't change the game</button><div class="xp__more"><p>No changes to game memory or game files, and no code injected into the game.</p></div></li>
@@ -2116,7 +2119,7 @@
     if (streams.has(el)) return stream(el, streams.get(el));
     if (prepared.has(el)) return run(el, prepared.get(el));
     el.classList.add('in');
-    return el.classList.contains('mxf--slow') ? 2200 : 1400;
+    return el.classList.contains('mxf--slow') ? (el.closest('.plainsec') ? 1500 : 2200) : 1400;
   };
 
   /* data-mx-seq groups play in reading order once their first element is in view: each one

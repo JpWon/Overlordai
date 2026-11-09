@@ -139,7 +139,7 @@
   .ovr-logo__mark{font-size:1.25rem;line-height:1.2;letter-spacing:.05em;font-weight:600;}
   /* messaging.md §7.9.10 (JP 2026-11-08): the wordmark always reads OVERLORD AI, AI in the brand purple */
   .ovr-logo__mark{white-space:nowrap;}
-  .ovr-logo__mark em{font-style:normal;color:var(--accent,#6d5cff);}
+  .ovr-logo__mark em{font-style:normal;color:var(--accent,#6d5cff);margin-left:-2px;} /* §7.13.1: AI sits over the K of "guidebook" */
   /* JP 2026-11-08: "Live game guidebook" at 1280 and up; below that the shorter "Game guidebook" so it stays on one line */
   .ovr-logo__sub--short{display:none;}
   @media (max-width:1279.98px){.ovr-logo__sub--wide{display:none;}.ovr-logo__sub--short{display:inline;}}
@@ -682,8 +682,6 @@
         <span class="arr">&rarr;</span>
       </a>
       <div class="dl-meta" id="smartDlMeta">Latest release</div>
-      <!-- §7.9.13: what to do next, shown to a player who just claimed the free 30 minutes -->
-      <p class="dl-next" id="dlNext" hidden>Install, sign in, launch any single-player game. Your free 30 minutes start when Overlord AI detects a game.</p>
       <div class="dl-alt" id="smartDlAlt"><a href="#tab-downloads" class="to-dl-tab">All downloads</a></div>
     </div>
   </section>
@@ -725,15 +723,13 @@
         </div>
 
         <div class="sect">
-          <div class="sect__head"><span class="mono">Last session</span><a href="index.html#work">What the guide covers</a></div>
+          <div class="sect__head"><span class="mono">Last session</span></div>
           <div class="rowlist">
             <div class="krow">
               <div class="krow__main"><b id="lastSession">&mdash;</b><span class="krow__sub" id="lastSessionSub" hidden></span></div>
             </div>
           </div>
         </div>
-
-        <p class="plain">What leaves your PC and why: <a href="privacy.html">Privacy</a> · Is it cheating? <a href="fair-play.html">Fair play</a>.</p>
 
         <div class="sect">
           <div class="sect__head"><span class="mono">Shortcuts</span></div>
@@ -745,8 +741,6 @@
             </div>
             <div class="krow">
               <div class="krow__main"><b>Change or cancel the plan</b><span class="krow__sub">Monthly or yearly, no lock-in, access to the end of the period you have paid for</span></div>
-              <div class="krow__meta"><span class="chip">No cancellation fee</span></div>
-              <div class="krow__act"><button class="mini" type="button" data-panel-link="billing">Billing <span class="arr">&rarr;</span></button></div>
             </div>
           </div>
         </div>
@@ -1446,8 +1440,6 @@ document.querySelectorAll('[data-plans-link]').forEach(a => a.addEventListener('
   const claimer = at && Date.now() - at < 24 * 3600e3;
   if (claimer) {
     document.querySelector('main.dash')?.classList.add('dash--claimer');
-    const next = document.getElementById('dlNext');
-    if (next) next.hidden = false;
   }
   const sendView = () => {
     // dashboard.md §3.6: dashboard viewed (the server keeps one a day per account; after_claim from the claim)

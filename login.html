@@ -297,7 +297,7 @@
   .ovr-logo__mark{font-size:1.25rem;line-height:1.2;letter-spacing:.05em;font-weight:600;}
   /* messaging.md §7.9.10 (JP 2026-11-08): the wordmark always reads OVERLORD AI, AI in the brand purple */
   .ovr-logo__mark{white-space:nowrap;}
-  .ovr-logo__mark em{font-style:normal;color:var(--accent,#6d5cff);}
+  .ovr-logo__mark em{font-style:normal;color:var(--accent,#6d5cff);margin-left:-2px;} /* §7.13.1: AI sits over the K of "guidebook" */
   /* JP 2026-11-08: "Live game guidebook" at 1280 and up; below that the shorter "Game guidebook" so it stays on one line */
   .ovr-logo__sub--short{display:none;}
   @media (max-width:1279.98px){.ovr-logo__sub--wide{display:none;}.ovr-logo__sub--short{display:inline;}}
@@ -1233,6 +1233,14 @@
  */
 (() => {
   const auth  = window.OverlordAuth || {};
+  /* messaging.md §7.13.5: the free 30 minutes come straight here (no Founder Access page first). The claim
+     waits in this browser; every sign-in lands on the dashboard, which plays the "Unlocked." moment
+     (thanks.html?plan=demo), and that page records the claim (founder_leads + funnel trial_claimed). */
+  if (new URLSearchParams(location.search).get('claim') === 'demo') {
+    try { localStorage.setItem('ovr_pending_claim', String(Date.now())); } catch (_) { /* storage blocked */ }
+    if (auth.session) auth.session().then(s => { if (s && s.user) location.replace('thanks.html?plan=demo'); })
+                                    .catch(() => {});
+  }
   const form  = document.getElementById('signinForm');
   const email = document.getElementById('si-email');
   const pass  = document.getElementById('si-pass');
