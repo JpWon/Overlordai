@@ -1473,11 +1473,11 @@
 <section class="hero">
   <canvas id="plasma"></canvas>
 
-  <!-- JP 2026-11-09: the hero visual is his intro clip, looping. Same full-bleed box the
-       plasma canvas filled, nothing else in the hero touched: the word still sits under the
-       cover mask, the meta lines and the hint are unchanged. Silent and looped so it plays
-       itself; the poster is frame 0 so there is never a blank pale block. -->
-  <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto"
+  <!-- JP 2026-11-09: the hero visual is his intro clip. It runs its 9 seconds, holds the last
+       frame for three, then starts again (see the ended handler below) — so the attribute is
+       autoplay, NOT loop. Silent and muted so it plays itself; the poster is the title-card
+       frame so there is never a black block wherever autoplay is blocked. -->
+  <video id="heroVideo" class="hero-video" autoplay muted playsinline preload="auto"
          poster="assets/hero/intro-poster.jpg" aria-hidden="true" tabindex="-1">
     <source src="assets/hero/intro-loop.mp4" type="video/mp4">
   </video>
@@ -2055,6 +2055,19 @@
   if (heroVideo && reduced){
     heroVideo.removeAttribute('autoplay');
     heroVideo.pause();
+  }
+  // JP 2026-11-09: nine seconds of clip, then three seconds sitting on the last frame, then it
+  // starts again. The pause is the point — a still beat between cycles instead of jumping
+  // straight back into the black fade.
+  if (heroVideo){
+    const HERO_HOLD_MS = 3000;
+    heroVideo.addEventListener('ended', () => {
+      setTimeout(() => {
+        if (!heroVideo.isConnected) return;
+        heroVideo.currentTime = 0;
+        heroVideo.play().catch(() => {});
+      }, HERO_HOLD_MS);
+    });
   }
   requestAnimationFrame(frame);
 })();
