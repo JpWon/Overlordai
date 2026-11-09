@@ -856,10 +856,15 @@
   }
   .work__head{
     display:flex;justify-content:space-between;align-items:baseline;
-    font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;
+    font-size:1.17rem;letter-spacing:.3em;text-transform:uppercase;   /* JP 2026-11-09: label pair enlarged 50% */
   }
-  .work__head b{font-family:'Anton','Anton Fallback',sans-serif;font-weight:400;font-size:clamp(3rem,8vw,8rem);letter-spacing:-.01em;line-height:.9;}
-  .work__head .yr{opacity:.5;}
+  /* JP 2026-11-09: "Preview" wears the same label face as "Gameplay footage" at the same
+     height — it used to be the big Anton display line, which made the two read as a heading
+     and a caption instead of a pair. */
+  .work__head b{font-family:inherit;font-weight:400;font-size:inherit;letter-spacing:inherit;line-height:1;}
+  .work__head .yr{opacity:.5;line-height:1;}
+  /* phones: the pair is one line each and must not collide — the 50% bump is desktop-only */
+  @media (max-width:520px){ .work__head{font-size:.86rem;letter-spacing:.18em;} }
   .work__hint{margin-top:1rem;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;opacity:.4;}
 
   .ring-stage{
