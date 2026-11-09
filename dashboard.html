@@ -933,6 +933,12 @@ document.querySelectorAll('[data-founder-only]').forEach(el => { el.hidden = !wi
   if (!auth || !auth.configured) { toLogin(); return; }
   const current = await auth.session().catch(() => null);
 
+  // §7.15.6: a sign-in that started at checkout (Google / Apple / email links land here) goes back there
+  try {
+    const r = JSON.parse(localStorage.getItem('ovr_return_to') || 'null');
+    if (current && current.user && r && Date.now() - r.at < 2 * 3600e3 && /^checkout\.html(\?[\w=&%-]*)?$/.test(r.to)) {
+      localStorage.removeItem('ovr_return_to'); location.replace(r.to); return; }
+  } catch (_) { /* storage blocked */ }
   // §7.9.13: a claim that waited for sign-up / sign-in finishes here: the "Unlocked." moment, then back
   try {
     const pend = Number(localStorage.getItem('ovr_pending_claim') || 0);
