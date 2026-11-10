@@ -9,15 +9,25 @@ const c = require('./_creem');
 module.exports = async (req, res) => {
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return c.send(res, 405, { error: 'method_not_allowed' }); }
 
-  // Founder Access: production refuses paid checkout until the start time (preview is open for testing).
-  if (process.env.VERCEL_ENV === 'production' && !c.paidCheckoutOpen()) {
+  // Founder Access: production refuses paid checkout until the start time (preview and test-mode demo hosts are open for testing).
+  const host = String(req.headers['x-forwarded-host'] || req.headers.host || '');
+  const isDemoTest = /^[a-z0-9-]+\.vercel\.app$/i.test(host) && String(process.env.CREEM_MODE || '').toLowerCase() === 'test';
+  if (process.env.VERCEL_ENV === 'production' && !isDemoTest && !c.paidCheckoutOpen()) {
     return c.send(res, 403, { error: 'founder_access' });
   }
 
-  const user = await c.supabaseUser(c.bearer(req));
+  const reqBody = c.readBody(req);
+  let user = await c.supabaseUser(c.bearer(req));
+  if (!user && isDemoTest) {
+    // Demo host in test mode: allow direct checkout testing without OAuth redirect loop
+    user = {
+      id: 'bc58ef73-a80b-5fc4-a781-4bddee4fe7b3',
+      email: (typeof reqBody.email === 'string' && reqBody.email.includes('@')) ? reqBody.email.trim() : 'info@overlordai.co'
+    };
+  }
   if (!user) return c.send(res, 401, { error: 'sign_in_required' });
 
-  const { plan } = c.readBody(req);
+  const { plan } = reqBody;
   const def = c.PLANS[plan];
   if (!def) return c.send(res, 400, { error: 'unknown_plan' });
   const productId = process.env[def.env];
@@ -27,7 +37,7 @@ module.exports = async (req, res) => {
     product_id: productId,
     request_id: c.uuid(),
     units: 1,
-    success_url: `${c.siteOrigin(req)}/thanks?checkout=creem&plan=${plan}`,
+    success_url: `${c.siteOrigin(req)}/checkout.html?plan=${plan}&checkout=creem&paid=1`,
     metadata: { user_id: user.id, plan_id: def.plan_id, source: 'overlordai.co' }
   };
   if (user.email) body.customer = { email: user.email };
@@ -37,5 +47,6 @@ module.exports = async (req, res) => {
     console.error('creem checkout failed', r.status, r.data && (r.data.message || r.data.error));
     return c.send(res, 502, { error: 'checkout_unavailable' });
   }
-  return c.send(res, 200, { checkout_url: r.data.checkout_url });
+  const normalizedUrl = String(r.data.checkout_url).replace(/^https:\/\/creem\.io\//i, 'https://www.creem.io/');
+  return c.send(res, 200, { checkout_url: normalizedUrl, checkout_id: r.data.id });
 };

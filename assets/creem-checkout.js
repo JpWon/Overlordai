@@ -12,12 +12,7 @@
 (() => {
   const params = new URLSearchParams(location.search);
   const onProdHost = /(^|\.)overlordai\.co$/i.test(location.hostname);
-  const TEST_KEY = 'ovr_creem_test';
-  let testMode = false;
-  try {
-    if (!onProdHost && params.get('checkout') === 'creem') sessionStorage.setItem(TEST_KEY, '1');
-    testMode = !onProdHost && sessionStorage.getItem(TEST_KEY) === '1';
-  } catch (_) {}
+  const testMode = !onProdHost;
 
   const start = Date.parse(window.PAID_CHECKOUT_START || '2026-11-16T05:00:00Z');
   if (!(testMode || Date.now() >= start)) return;
@@ -68,10 +63,17 @@
   }
 
   // Only the paid plan cards. The demo button and the Founder Access banner keep their links.
+  // Route through our own checkout.html page so the Creem payment session mounts inline inside our GUI.
   document.querySelectorAll('.plans .plan__cta a[href]').forEach(a => {
     const m = /[?&]plan=(sub|pro)\b/.exec(a.getAttribute('href'));
     if (!m) return;
-    a.addEventListener('click', e => { e.preventDefault(); buy(m[1], a); });
+    if (testMode) {
+      a.setAttribute('href', 'checkout.html?plan=' + m[1] + '&checkout=creem');
+    }
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      location.assign('checkout.html?plan=' + m[1] + (testMode ? '&checkout=creem' : ''));
+    });
   });
 
   // Coming back from sign-in: carry straight on to checkout.

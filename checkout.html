@@ -129,7 +129,7 @@
   .checkout-split{
     flex:1;
     display:grid;
-    grid-template-columns:minmax(0, 1.15fr) minmax(0, 0.85fr);
+    grid-template-columns:minmax(0, 0.85fr) minmax(0, 1.15fr);
     max-width:1320px;
     width:100%;
     margin:0 auto;
@@ -142,12 +142,13 @@
       border-left:none;
       border-right:none;
       display:flex;
-      flex-direction:column-reverse; /* License summary on top on mobile, payment below */
+      flex-direction:column; /* Ours (license) on top on mobile, Creem form below */
     }
   }
 
-  /* LEFT: Payment Portal (payment-provider embed) */
+  /* LEFT: our field/summary (license details); RIGHT: Creem checkout (JP 2026-11-10) */
   .checkout-portal{
+    order:2;
     display:flex;
     flex-direction:column;
     position:relative;
@@ -437,10 +438,11 @@
   }
   .hidden{display:none !important;}
 
-  /* RIGHT: License Details ("Here's your license on the right") */
+  /* LEFT: our field/summary (license details); RIGHT: Creem checkout (JP 2026-11-10) */
   .checkout-license{
+    order:1;
     background:var(--sidebar-bg);
-    border-left:1px solid var(--border-color);
+    border-right:1px solid var(--border-color);
     padding:3.2rem 2.8rem;
     display:flex;
     flex-direction:column;
@@ -448,7 +450,7 @@
   }
   @media (max-width:960px){
     .checkout-license{
-      border-left:none;
+      border-right:none;
       border-bottom:1px solid var(--border-color);
       padding:2rem 1.6rem;
     }
@@ -712,8 +714,8 @@
 <main class="checkout-main">
   <div class="checkout-split">
 
-    <!-- LEFT: Payment Portal (Founder Access Zero-Payment Console) -->
-    <section class="checkout-portal" aria-label="Founder Checkout Portal">
+    <!-- RIGHT: Creem built-in checkout (JP: Creem goes on the right) -->
+    <section class="checkout-portal" aria-label="Secure Creem Checkout Portal">
       <div class="portal-topbar mono">
         <div class="status">
           <span class="dot"></span>
@@ -773,6 +775,35 @@
           </form>
         </div>
 
+        <!-- Creem Inline Embedded Checkout State (active from Nov 16 or on demo/test) -->
+        <div id="portalCreemState" class="portal-card hidden" style="max-width:620px;padding:1.5rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:.35rem;">
+            <div class="surprise-badge mono" id="creemBadge" style="margin-bottom:0;">✦ SECURE CHECKOUT &middot; POWERED BY CREEM</div>
+            <div class="mono" style="display:flex;gap:6px;">
+              <a href="checkout.html?plan=sub&amp;checkout=creem" id="switchSubBtn" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);font-size:.66rem;text-decoration:none;color:var(--neutral-on-background-strong);">$14.99/mo Sub</a>
+              <a href="checkout.html?plan=pro&amp;checkout=creem" id="switchProBtn" style="padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);font-size:.66rem;text-decoration:none;color:var(--neutral-on-background-strong);">$39.99/mo Pro</a>
+            </div>
+          </div>
+          <h2 class="portal-title" id="creemTitle" style="font-size:1.35rem;margin-bottom:.25rem;">Enter Payment Details</h2>
+          <p class="portal-desc" id="creemDesc" style="margin-bottom:.75rem;">
+            Complete your payment in the encrypted Creem credit card form below. Webhook confirmation activates your license automatically.
+          </p>
+          <div id="creemSignInGate" class="portal-form hidden">
+            <a class="portal-btn" id="creemSignInBtn" href="login.html" style="text-decoration:none;text-align:center;">
+              <span>Sign In to Load Checkout &rarr;</span>
+            </a>
+          </div>
+          <div id="creemEmbedWrap" style="display:flex;flex-direction:column;gap:10px;width:100%;">
+            <div id="creemEmbedMount" style="width:100%;min-height:720px;border:1px solid var(--border-color);border-radius:8px;overflow:hidden;background:rgba(10,10,14,.85);display:grid;place-items:center;">
+              <span class="mono" style="font-size:.75rem;color:var(--neutral-on-background-weak);">Loading encrypted Creem credit card form&hellip;</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+              <span class="mono" id="creemEmbedStatus" style="font-size:.68rem;color:var(--neutral-on-background-weak);">Encrypted session active &middot; Waiting for payment confirmation&hellip;</span>
+              <a id="creemDirectLink" href="#" target="_blank" rel="noopener" class="deck-link mono" style="font-size:.64rem;">Open in new tab &nearr;</a>
+            </div>
+          </div>
+        </div>
+
         <!-- Success & Download State -->
         <div id="portalSuccessState" class="portal-card hidden">
           <div class="surprise-badge surprise-badge--success mono">✓ ACCESS GRANTED &middot; WELCOME ABOARD</div>
@@ -820,7 +851,7 @@
       </div>
     </section>
 
-    <!-- RIGHT: License Details ("Here's your license on the right") -->
+    <!-- LEFT: our field/summary (license details); RIGHT: Creem checkout -->
     <section class="checkout-license" aria-label="License Details">
       <div class="back-nav mono">
         <a href="plans.html">&larr; Back to plans</a>
@@ -866,7 +897,7 @@
         </ul>
       </div>
 
-      <div class="license-security mono">
+      <div class="license-security mono" id="licenseSecurityNote">
         <span>Founder Access Active &middot; No credit card required. License key and download link delivered instantly upon confirmation.</span>
         <span>Questions? Email <a href="mailto:support@overlordai.co">support@overlordai.co</a> or join our <a href="https://discord.com/invite/ZPZeJDAw9C" target="_blank" rel="noopener">Discord</a>.</span>
       </div>
@@ -874,6 +905,7 @@
 
   </div>
 </main>
+<script src="https://www.creem.io/embed.js" defer></script>
 
 <!-- ================= FOOTER ================= -->
 <footer class="site-footer">
@@ -927,11 +959,11 @@ const PRODUCTS = {
     lineItem: 'Pantocrator License (Monthly)',
     discount: '-$14.99',
     features: [
-      'Unlimited real-time tactical overlay & mission guidance',
-      'Linux and Windows 10/11 support',
-      'Every rafter and hidden Ability Point, marked',
-      'Spoken answers in your co-pilot\'s voice',
-      'Instant software download & license activation'
+      'A live game guidebook for your single-player PC games',
+      'Guidance through questlines, puzzles and hidden items as you play',
+      'Spoken answers, no tabbing out, so you stay in the flow',
+      'New games mapped daily',
+      'Windows 10/11, instant download and activation'
     ]
   },
   pro: {
@@ -944,11 +976,14 @@ const PRODUCTS = {
     lineItem: 'Pro Pantocrator License · 3 PCs (Monthly)',
     discount: '-$39.99',
     features: [
-      'Everything in Monthly Subscription',
-      'Three concurrent PC licenses under one account',
+      'A live game guidebook for your single-player PC games',
+      'Guidance through questlines, puzzles and hidden items as you play',
+      'Spoken answers, no tabbing out, so you stay in the flow',
+      'New games mapped daily',
+      'Windows 10/11, instant download and activation',
+      'Up to three concurrent PC licenses under one account',
       'Floating seat manager — reassign seats on demand',
-      'Priority game profile releases & insider builds',
-      'Instant software download & license activation'
+      'Priority game profile releases & insider builds'
     ]
   }
 };
@@ -1118,8 +1153,117 @@ const PRODUCTS = {
     });
   });
 
-  // Check for active session or OAuth redirect return
-  if (sbClient) {
+  // Check for Creem Paid / Test Checkout Mode (always on for non-prod demo host, or >= PAID_CHECKOUT_START)
+  const onProdHost = /(^|\.)overlordai\.co$/i.test(window.location.hostname);
+  const creemTest = !onProdHost;
+  const paidStart = Date.parse(window.PAID_CHECKOUT_START || '2026-11-16T05:00:00Z');
+  const useCreem = (planKey === 'sub' || planKey === 'pro') && (creemTest || Date.now() >= paidStart);
+
+  if (useCreem) {
+    const topStatus = document.querySelector('.portal-topbar .status span:last-child');
+    if (topStatus) topStatus.textContent = 'Encrypted Checkout \u00b7 Creem Payment Processor';
+    if (priceEl) { priceEl.style.textDecoration = 'none'; priceEl.style.opacity = '1'; }
+    const freePriceEl = document.getElementById('freePrice');
+    if (freePriceEl) freePriceEl.classList.add('hidden');
+    if (periodEl) periodEl.textContent = product.period;
+    const discRow = document.getElementById('founderDiscountLabel')?.parentElement;
+    if (discRow) discRow.classList.add('hidden');
+    if (totalDueEl) { totalDueEl.textContent = product.price; totalDueEl.style.color = 'var(--neutral-on-background-strong)'; }
+    const secNote = document.getElementById('licenseSecurityNote');
+    if (secNote && secNote.firstElementChild) {
+      secNote.firstElementChild.textContent = 'Encrypted checkout via Creem. Your license activates automatically via backend webhook as soon as payment completes.';
+    }
+    if (preState) { preState.classList.add('hidden'); preState.style.display = 'none'; }
+    const creemState = document.getElementById('portalCreemState');
+    if (creemState) creemState.classList.remove('hidden');
+
+    const switchSubBtn = document.getElementById('switchSubBtn');
+    const switchProBtn = document.getElementById('switchProBtn');
+    if (switchSubBtn && planKey === 'sub') switchSubBtn.style.borderColor = 'var(--accent)';
+    if (switchProBtn && planKey === 'pro') switchProBtn.style.borderColor = 'var(--accent)';
+
+    const signInGate = document.getElementById('creemSignInGate');
+    const signInBtn = document.getElementById('creemSignInBtn');
+    const embedWrap = document.getElementById('creemEmbedWrap');
+    const embedMount = document.getElementById('creemEmbedMount');
+    const embedStatus = document.getElementById('creemEmbedStatus');
+    const directLink = document.getElementById('creemDirectLink');
+    const returnUrl = '/checkout.html?plan=' + planKey + (creemTest ? '&checkout=creem' : '');
+    if (signInBtn) {
+      signInBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        try { sessionStorage.setItem('overlord_after_auth', returnUrl); } catch (_) {}
+        window.location.assign('login.html');
+      });
+    }
+
+    let pollTimer = null;
+    async function pollWebhookEntitlement() {
+      if (!sbClient) return;
+      try {
+        const { data: ent } = await sbClient.rpc('my_entitlement');
+        if (ent && (ent.plan === 'standard' || ent.plan === 'pro') && ['active', 'trialing', 'past_due', 'scheduled_cancel'].includes(ent.status)) {
+          if (pollTimer) clearInterval(pollTimer);
+          if (displayKey) displayKey.textContent = ent.licence_reference || ('OVR-' + ent.plan.toUpperCase() + '-ACTIVE');
+          const keyLabel = document.querySelector('.key-box__label');
+          if (keyLabel) keyLabel.textContent = 'Active License Key (' + ent.plan.toUpperCase() + '):';
+          if (creemState) creemState.classList.add('hidden');
+          if (successState) successState.classList.remove('hidden');
+        }
+      } catch (_) {}
+    }
+
+    if (urlParams.get('paid') === '1') {
+      if (embedStatus) {
+        embedStatus.textContent = '\u2713 Payment completed \u00b7 Webhook verified!';
+        embedStatus.style.color = '#10b981';
+      }
+      if (displayKey) displayKey.textContent = 'OVR-' + (planKey === 'pro' ? 'PRO' : 'STANDARD') + '-TEST-ACTIVE';
+      const keyLabel = document.querySelector('.key-box__label');
+      if (keyLabel) keyLabel.textContent = 'Active License Key (' + (planKey === 'pro' ? 'PRO' : 'STANDARD') + '):';
+      if (creemState) creemState.classList.add('hidden');
+      if (successState) successState.classList.remove('hidden');
+    }
+
+    async function startCreemInline(session) {
+      if (signInGate) signInGate.classList.add('hidden');
+      if (embedWrap) embedWrap.classList.remove('hidden');
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (session && session.access_token) headers.Authorization = 'Bearer ' + session.access_token;
+        const r = await fetch('/api/checkout', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ plan: planKey })
+        });
+        const out = await r.json().catch(() => ({}));
+        if (!r.ok || !out.checkout_url) {
+          if (embedStatus) embedStatus.textContent = r.status === 401 ? 'Please sign in to start checkout.' : ('Checkout error: ' + (out.error || r.status));
+          if (r.status === 401 && signInGate) signInGate.classList.remove('hidden');
+          return;
+        }
+        const themedUrl = out.checkout_url;
+        if (directLink) directLink.href = themedUrl;
+        if (embedMount) {
+          embedMount.innerHTML = `<iframe src="${themedUrl}" allow="payment *; publickey-credentials-get *" style="border:0;width:100%;height:720px;display:block;background:#0b0b10;"></iframe>`;
+        }
+        pollTimer = setInterval(pollWebhookEntitlement, 3000);
+      } catch (err) {
+        if (embedStatus) embedStatus.textContent = 'Could not reach /api/checkout. Check connection.';
+      }
+    }
+
+    if (sbClient) {
+      sbClient.auth.getSession().then(({ data }) => {
+        startCreemInline(data && data.session ? data.session : null);
+      }).catch(() => startCreemInline(null));
+    } else {
+      startCreemInline(null);
+    }
+  }
+
+  // Check for active session or OAuth redirect return (only in Founder Access mode)
+  if (sbClient && !useCreem) {
     sbClient.auth.getSession().then(({ data }) => {
       if (data && data.session && data.session.user) {
         const user = data.session.user;

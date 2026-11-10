@@ -87,8 +87,11 @@ async function creem(method, path, body) {
 /* Where Creem sends the buyer back. Production is always www.overlordai.co; a preview
    deployment returns to itself so the test can run before launch. */
 function siteOrigin(req) {
-  if (process.env.VERCEL_ENV === 'production') return 'https://www.overlordai.co';
   const host = String(req.headers['x-forwarded-host'] || req.headers.host || '');
+  if (/^[a-z0-9-]+\.vercel\.app$/i.test(host) && String(process.env.CREEM_MODE || 'test').toLowerCase() === 'test') {
+    return `https://${host}`;
+  }
+  if (process.env.VERCEL_ENV === 'production') return 'https://www.overlordai.co';
   if (/^[a-z0-9-]+\.vercel\.app$/i.test(host) || /(^|\.)overlordai\.co$/i.test(host)) return `https://${host}`;
   if (/^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host)) return `http://${host}`;
   return 'https://www.overlordai.co';
