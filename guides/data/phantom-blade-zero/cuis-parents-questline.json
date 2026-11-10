@@ -1,0 +1,53 @@
+{
+  "slug": "cuis-parents-questline",
+  "game": "phantom-blade-zero",
+  "game_title": "Phantom Blade Zero",
+  "game_page": "/soulslike.html",
+  "store_url": "https://store.steampowered.com/app/4115450/",
+  "query": "cui's parents questline in phantom blade zero: who cui's parents is and how overlord helps",
+  "title": "Phantom Blade Zero: Cui's Parents Quest Guide",
+  "meta_desc": "Learn about Cui's Parents in Phantom Blade Zero. Find out who they are, where to find them, and how the Overlord AI app helps you with their quest.",
+  "published_at": "2026-11-10",
+  "atlas": {
+    "app_id": "4115450",
+    "updated": "2026-11-10"
+  },
+  "intro": "In the desolate region of Mount Soulrend, you may come across a grieving couple known only as Cui's Parents. Their story is a short but poignant side quest, or \"Tale,\" that adds a layer of emotional depth to the world of Phantom Blade Zero. Finding them allows you to bring a conclusion to the \"Tale: Cui,\" a narrative thread involving a personal memento.",
+  "intro_ref": [
+    "npc/cui_s_parents"
+  ],
+  "steps": [
+    {
+      "heading": "A Somber Meeting at Soulrend Cliffs",
+      "text": "You first encounter Cui's Parents at a small camp in the Soulrend Cliffs. This rugged area is part of the larger Mount Soulrend region and features a checkpoint bell, making it a key location. The couple's story revolves around you delivering an item known as Cui's Red Ribbon to them. This interaction concludes their part in the narrative, officially completing the \"Tale: Cui.\"",
+      "atlas_ref": [
+        "npc/cui_s_parents",
+        "rooms/soulrend_cliffs"
+      ]
+    },
+    {
+      "heading": "More Than Just a Campsite",
+      "text": "The camp where Cui's Parents wait is more than just a quest location; it's a small hub of activity and secrets. The area serves as a junction, with paths leading to the Summit Shrine and the Mountain God Temple. Besides the grieving parents, you will also find another character, the Spectral Blade, in the same location. Several notable items can be discovered nearby as well, including the Bonesaw, The Lady's Fan, and a Craftsman's Tool Kit, making this a worthwhile place to explore thoroughly.",
+      "atlas_ref": [
+        "rooms/soulrend_cliffs",
+        "npc/spectral_blade",
+        "loot/bonesaw",
+        "loot/the_lady_s_fan",
+        "loot/craftsman_s_tool_kit"
+      ]
+    },
+    {
+      "heading": "How Overlord helps with this questline",
+      "text": "Overlord AI acts as your live in-game guidebook for Phantom Blade Zero. When you meet Cui's Parents, the app recognizes them instantly. It keeps track of your progress in their questline, so you always know where you are in the story. When you reach the right location or trigger the next part of the quest, Overlord gives you clear instructions for the next step. It will also provide a single heads-up if your actions could lock you out of completing the quest. Best of all, it never spoils anything beyond what you need to do next, letting you experience the story as it unfolds.",
+      "atlas_ref": [
+        "npc/cui_s_parents"
+      ]
+    }
+  ],
+  "outro": "Meeting Cui's Parents provides a moment of human connection and closure, reminding you that even in a world of assassins and phantoms, personal stories matter.",
+  "outro_ref": [
+    "npc/cui_s_parents"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": []
+}
