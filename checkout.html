@@ -781,9 +781,6 @@
             <div class="surprise-badge mono" id="creemBadge" style="margin-bottom:0;">SECURE CHECKOUT</div>
           </div>
           <h2 class="portal-title" id="creemTitle" style="font-size:1.35rem;margin-bottom:.25rem;">Enter Payment Details</h2>
-          <p class="portal-desc" id="creemDesc" style="margin-bottom:.75rem;">
-            Complete your payment in the encrypted Creem credit card form below. Webhook confirmation activates your license automatically.
-          </p>
           <div id="creemSignInGate" class="portal-form hidden">
             <a class="portal-btn" id="creemSignInBtn" href="login.html" style="text-decoration:none;text-align:center;">
               <span>Sign In to Load Checkout &rarr;</span>
@@ -894,7 +891,7 @@
       </div>
 
       <div class="license-security mono" id="licenseSecurityNote">
-        <span>Founder Access Active &middot; No credit card required. License key and download link delivered instantly upon confirmation.</span>
+        <span>Your license and download link are delivered the moment your payment is confirmed.</span>
         <span>Questions? Email <a href="mailto:support@overlordai.co">support@overlordai.co</a> or join our <a href="https://discord.com/invite/ZPZeJDAw9C" target="_blank" rel="noopener">Discord</a>.</span>
       </div>
     </section>
@@ -1165,10 +1162,6 @@ const PRODUCTS = {
     const discRow = document.getElementById('founderDiscountLabel')?.parentElement;
     if (discRow) discRow.classList.add('hidden');
     if (totalDueEl) { totalDueEl.textContent = product.price; totalDueEl.style.color = 'var(--neutral-on-background-strong)'; }
-    const secNote = document.getElementById('licenseSecurityNote');
-    if (secNote && secNote.firstElementChild) {
-      secNote.firstElementChild.textContent = 'Encrypted checkout via Creem. Your license activates automatically via backend webhook as soon as payment completes.';
-    }
     if (preState) { preState.classList.add('hidden'); preState.style.display = 'none'; }
     const creemState = document.getElementById('portalCreemState');
     if (creemState) creemState.classList.remove('hidden');
