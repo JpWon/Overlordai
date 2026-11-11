@@ -788,14 +788,11 @@
               <span>Sign In to Load Checkout &rarr;</span>
             </a>
           </div>
-          <div id="creemEmbedWrap" style="display:flex;flex-direction:column;gap:10px;width:100%;">
-            <div id="creemEmbedMount" style="width:100%;min-height:1250px;border:1px solid var(--border-color);border-radius:8px;overflow:hidden;background:rgba(10,10,14,.85);display:grid;place-items:center;">
-              <span class="mono" style="font-size:.75rem;color:var(--neutral-on-background-weak);">Loading encrypted Creem credit card form&hellip;</span>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-              <span class="mono" id="creemEmbedStatus" style="font-size:.68rem;color:var(--neutral-on-background-weak);">Encrypted session active &middot; Waiting for payment confirmation&hellip;</span>
-              <a id="creemDirectLink" href="#" target="_blank" rel="noopener" class="deck-link mono" style="font-size:.64rem;">Open in new tab &nearr;</a>
-            </div>
+          <div id="creemEmbedWrap" style="display:flex;flex-direction:column;gap:14px;width:100%;align-items:center;padding:1.5rem 0;">
+            <a id="creemCheckoutBtn" href="#" class="portal-btn" style="text-decoration:none;text-align:center;max-width:340px;width:100%;display:block;padding:16px 24px;font-size:1.05rem;">
+              <span>Proceed to Secure Checkout &rarr;</span>
+            </a>
+            <span class="mono" id="creemEmbedStatus" style="font-size:.68rem;color:var(--neutral-on-background-weak);text-align:center;">Secure payment processed by Creem &middot; Encrypted</span>
           </div>
         </div>
 
@@ -1218,6 +1215,8 @@ const PRODUCTS = {
     async function startCreemInline(session) {
       if (signInGate) signInGate.classList.add('hidden');
       if (embedWrap) embedWrap.classList.remove('hidden');
+      const checkoutBtn = document.getElementById('creemCheckoutBtn');
+      if (checkoutBtn) checkoutBtn.textContent = 'Preparing secure checkout…';
       try {
         const headers = { 'Content-Type': 'application/json' };
         if (session && session.access_token) headers.Authorization = 'Bearer ' + session.access_token;
@@ -1230,10 +1229,19 @@ const PRODUCTS = {
         if (!r.ok || !out.checkout_url) {
           if (embedStatus) embedStatus.textContent = r.status === 401 ? 'Please sign in to start checkout.' : ('Checkout error: ' + (out.error || r.status));
           if (r.status === 401 && signInGate) signInGate.classList.remove('hidden');
+          if (checkoutBtn) checkoutBtn.style.display = 'none';
           return;
         }
         const themedUrl = out.checkout_url;
-        window.location.assign(themedUrl);
+        if (checkoutBtn) {
+          checkoutBtn.textContent = 'Proceed to Secure Checkout →';
+          checkoutBtn.href = themedUrl;
+          checkoutBtn.onclick = (e) => {
+            e.preventDefault();
+            window.location.assign(themedUrl);
+          };
+        }
+        if (embedStatus) embedStatus.textContent = 'Ready · Click above to open secure checkout';
         pollTimer = setInterval(pollWebhookEntitlement, 3000);
       } catch (err) {
         if (embedStatus) embedStatus.textContent = 'Could not reach /api/checkout. Check connection.';
