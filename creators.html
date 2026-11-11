@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<!-- Cookie consent: loads Google Ads, Reddit Ads and Rewardful only when allowed -->
+<script src="assets/consent.js"></script>
+<!-- Google tag (gtag.js) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18496558698');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creator Program — Overlord AI</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<!-- SEO + social: absolute URLs, factual only. The terms below are the Creem affiliate
+     program's terms (25% recurring, 60-day cookie, approval, payouts on the 1st and 15th,
+     $50 minimum) plus the free Standard year for approved creators. Nothing beyond those. -->
+<meta name="description" content="The Overlord AI Creator Program: approved streamers get a free year of Overlord AI to use on stream, plus 25% of every payment from the viewers they refer, for as long as those viewers stay subscribed.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link rel="canonical" href="https://www.overlordai.co/creators.html">
+<meta name="application-name" content="Overlord AI">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Overlord AI">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Overlord AI Creator Program — a free year on stream + 25% recurring">
+<meta property="og:description" content="Approved creators get a free year of Overlord AI for their own runs and 25% of every payment from the viewers they refer, for as long as they stay subscribed.">
+<meta property="og:url" content="https://www.overlordai.co/creators.html">
+<meta property="og:image" content="https://www.overlordai.co/assets/creators/intro-9s-poster.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta property="og:image:alt" content="Overlord AI: live game guidebook for single player PC games">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Overlord AI Creator Program — a free year on stream + 25% recurring">
+<meta name="twitter:description" content="Approved creators get a free year of Overlord AI for their own runs and 25% of every payment from the viewers they refer, for as long as they stay subscribed.">
+<meta name="twitter:image" content="https://www.overlordai.co/assets/creators/intro-9s-poster.jpg">
+<meta name="theme-color" content="#04030b">
+<!-- Dark theme only on this page (JP 2026-11-11): no theme toggle, no stored-theme read. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+<!-- Metric-matched fallbacks, same values as index.html (no layout shift when the web fonts swap in) -->
+<style>
+  @font-face{font-family:'Anton Fallback';src:local('Arial'),local('Liberation Sans'),local('Helvetica');
+    size-adjust:69.55%;ascent-override:169.14%;descent-override:47.32%;line-gap-override:0%;}
+  @font-face{font-family:'Space Grotesk Fallback';src:local('Arial'),local('Liberation Sans'),local('Helvetica');
+    size-adjust:110.91%;ascent-override:88.72%;descent-override:26.33%;line-gap-override:0%;}
+  @font-face{font-family:'Space Mono Fallback';src:local('Courier New'),local('Liberation Mono'),local('Courier');
+    size-adjust:101.98%;ascent-override:109.82%;descent-override:35.40%;line-gap-override:0%;}
+</style>
+<style>
+  :root{
+    --accent:#6d5cff;
+    --plasma-a:#6d5cff; --plasma-b:#c86bff; --plasma-c:#4fd1ff;
+    /* S2S tokens the nav reads */
+    --naples-moss:#2A4A3E; --naples-terracotta:#C17F3A; --naples-gold:#D4A24E;
+    --brand-strong:var(--neutral-on-background-strong);
+    /* dark ground only: the brand ground #04030b */
+    --page-background:#04030b;
+    --neutral-on-background-strong:#ffffff;
+    --neutral-on-background-weak:#a3a3a3;
+    --neutral-alpha-weak:rgba(255,255,255,.12);
+    --neutral-alpha-medium:rgba(255,255,255,.26);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{background:var(--page-background);}
+  body{
+    background:var(--page-background);
+    color:var(--neutral-on-background-strong);
+    font-family:'Space Grotesk','Space Grotesk Fallback',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;overflow-x:hidden;cursor:default;
+  }
+  /* a quiet plasma glow behind the page (static CSS, no canvas) */
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(60% 50% at 20% 18%,rgba(109,92,255,.16) 0%,transparent 70%),
+               radial-gradient(50% 40% at 85% 55%,rgba(200,107,255,.10) 0%,transparent 70%),
+               radial-gradient(45% 40% at 30% 95%,rgba(79,209,255,.07) 0%,transparent 70%);}
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--plasma-c);outline-offset:3px;}
+
+  /* ================= NAV — ported from S2S Navbar.tsx + globals.css (same as fair-play.html) ================= */
+  .ovr-nav{
+    position:sticky;top:0;width:100%;display:flex;
+    z-index:1200;isolation:isolate;
+    background:color-mix(in srgb, var(--page-background) 80%, transparent);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--neutral-alpha-weak);
+    cursor:default;
+  }
+  .ovr-nav__row{
+    display:flex;width:100%;justify-content:space-between;align-items:center;
+    padding:16px 24px;
+  }
+  .ovr-nav__side{display:flex;align-items:center;gap:12px;flex:1;}
+  .ovr-nav__side--end{justify-content:flex-end;}
+  .icon-btn{
+    display:flex;align-items:center;justify-content:center;
+    width:40px;height:40px;border-radius:8px;border:none;background:transparent;
+    color:var(--neutral-on-background-strong);cursor:pointer;
+    transition:background-color .3s ease;
+  }
+  .icon-btn:hover{background:var(--neutral-alpha-weak);}
+  .navbar-hamburger{
+    display:flex !important;align-items:center;justify-content:center;
+    visibility:visible !important;opacity:1 !important;
+    z-index:1000;cursor:pointer;gap:8px;
+  }
+  .navbar-hamburger .icon-btn{pointer-events:none;z-index:1300;}
+  .navbar-hamburger:hover .icon-btn{background:var(--neutral-alpha-weak);}
+  .royal-icon path{stroke:currentColor;stroke-width:1.2;stroke-linecap:square;}
+  .royal-icon .bar-top,.royal-icon .bar-bot{transition:all .8s cubic-bezier(0.19,1,0.22,1);}
+  .royal-icon .bar-mid{transition:all .6s ease;transform-origin:center;transform-box:fill-box;}
+  .is-open .royal-icon .bar-top{d:path("M6 6L16 16");}
+  .is-open .royal-icon .bar-bot{d:path("M6 16L16 6");}
+  .is-open .royal-icon .bar-mid{opacity:0;transform:scaleX(0);}
+  .ovr-logo{display:flex;flex-direction:row;align-items:center;gap:10px;text-decoration:none;color:var(--neutral-on-background-strong);}
+  .ovr-logo__text{display:flex;flex-direction:column;}
+  .ovr-logo__icon{
+    width:40px;height:40px;flex:0 0 auto;
+    background-color:currentColor;
+    -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+            mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+  }
+  @media (max-width:520px){ .ovr-logo__icon{width:32px;height:32px;} }
+  .ovr-logo__mark{font-size:1.25rem;line-height:1.2;letter-spacing:.05em;font-weight:600;white-space:nowrap;}
+  .ovr-logo__mark em{font-style:normal;color:var(--accent,#6d5cff);margin-left:-2px;}
+  .ovr-logo__sub--short{display:none;}
+  @media (max-width:1279.98px){.ovr-logo__sub--wide{display:none;}.ovr-logo__sub--short{display:inline;}}
+  .ovr-logo__sub{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;color:var(--neutral-on-background-weak);}
+  .navbar-desktop-links{display:none !important;align-items:center;gap:32px;}
+  @media (min-width:768px){ .navbar-desktop-links{display:flex !important;} }
+  .nav-hover{text-decoration:none;}
+  .nav-link-text{
+    display:inline-block;padding-bottom:4px;
+    letter-spacing:.2em;text-transform:uppercase;font-size:.65rem;font-weight:400;
+    color:var(--neutral-on-background-weak);border-bottom:1px solid transparent;
+    transition:all .4s cubic-bezier(0.19,1,0.22,1) !important;
+  }
+  .nav-hover:hover .nav-link-text{
+    color:var(--brand-strong) !important;border-bottom-color:var(--brand-strong) !important;
+    text-shadow:.5px 0 0 currentColor,-.5px 0 0 currentColor;
+  }
+  .navbar-backdrop{
+    display:none;position:fixed;inset:0;z-index:1050;
+    background:rgba(0,0,0,.1);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  }
+  @media (max-width:767px){ .navbar-backdrop.is-open{display:block;} }
+  .navbar-drawer{
+    position:fixed;top:72px;left:32px;width:280px;z-index:1100;
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(32px) saturate(180%);-webkit-backdrop-filter:blur(32px) saturate(180%);
+    opacity:0;max-height:0;
+    transform-origin:top left;transform:scale(.95) skewX(-2deg);
+    transition:all .8s cubic-bezier(0.19,1,0.22,1);
+    overflow:hidden;border-radius:2px;
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+    border:1px solid rgba(255,255,255,.1);
+    padding:0 32px;pointer-events:none;cursor:default;
+  }
+  .navbar-drawer.is-open{
+    opacity:1;max-height:600px;transform:scale(1) skewX(0deg);
+    padding-top:48px;padding-bottom:48px;pointer-events:all;
+  }
+  @media (max-width:767px){
+    .navbar-drawer{left:16px !important;right:16px !important;width:calc(100vw - 32px) !important;}
+  }
+  .drawer-col{display:flex;flex-direction:column;gap:48px;}
+  .drawer-head{display:flex;flex-direction:column;gap:8px;}
+  .drawer-head__row{display:flex;align-items:center;gap:10px;}
+  .drawer-head span{
+    text-transform:uppercase;letter-spacing:.4em;font-size:.55rem;font-weight:600;
+    color:var(--neutral-on-background-weak);
+  }
+  .drawer-head .drawer-head__mark{
+    display:block;width:30px;height:30px;flex:0 0 auto;
+    background-color:var(--neutral-on-background-strong);
+    -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+            mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+  }
+  .drawer-head .drawer-head__label{font-size:.58rem;letter-spacing:.2em;white-space:nowrap;}
+  .drawer-head i{display:block;width:24px;height:1px;background:var(--neutral-alpha-medium);}
+  .drawer-links{display:flex;flex-direction:column;gap:20px;}
+  .drawer-item{opacity:0;transform:translateY(10px);transition:all .8s cubic-bezier(0.19,1,0.22,1);}
+  .navbar-drawer.is-open .drawer-item{opacity:1;transform:translateY(0);}
+  .royal-nav-item{position:relative;overflow:hidden;isolation:isolate;display:flex;text-decoration:none;transition:all .4s cubic-bezier(0.19,1,0.22,1) !important;}
+  .royal-nav-item::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(0.19,1,0.22,1);}
+  .royal-nav-item:hover::after{transform:scaleX(1);}
+  .royal-nav-item .row{display:flex;align-items:center;padding:8px;transition:all .4s cubic-bezier(0.19,1,0.22,1);}
+  .royal-highlight{
+    display:inline-block;color:var(--neutral-on-background-weak);
+    letter-spacing:.25em;text-transform:uppercase;font-size:.75rem;font-weight:300;
+    transition:all .4s ease;
+  }
+  .royal-nav-item:hover .royal-highlight{color:#fff !important;}
+  .drawer-login{
+    opacity:0;transform:translateY(20px);
+    transition:all 1s cubic-bezier(0.19,1,0.22,1) 0s;
+    border-top:1px solid rgba(255,255,255,.1);padding-top:32px;
+  }
+  .navbar-drawer.is-open .drawer-login{opacity:1;transform:translateY(0);transition-delay:.6s;}
+  .drawer-login .royal-nav-item{
+    width:100%;justify-content:center;padding:8px 0;border-radius:4px;
+    border:1px solid var(--neutral-alpha-weak);transition:all .3s ease;
+  }
+  .drawer-login .royal-nav-item:hover{border-color:var(--accent) !important;}
+  .royal-nav-btn-text{
+    letter-spacing:.25em;text-transform:uppercase;font-size:.65rem;font-weight:600;
+    color:var(--neutral-on-background-strong);transition:all .3s ease;
+  }
+  .royal-nav-item:hover .royal-nav-btn-text{color:#fff !important;}
+  .drawer-foot{
+    text-align:center;font-size:.55rem;letter-spacing:.15em;margin-top:auto;
+    color:var(--neutral-on-background-weak);text-transform:uppercase;
+  }
+  .drawer-foot a{color:inherit;text-decoration:none;transition:color .4s ease;}
+  .drawer-foot a:hover{color:var(--accent);}
+
+  /* ================= shared section frame (index.html .plainsec / .vp-head values) ================= */
+  main{position:relative;z-index:2;}
+  .cr-sec{position:relative;padding:clamp(4rem,10vh,7rem) clamp(1.25rem,5vw,4rem);}
+  .cr-sec__inner{max-width:1200px;margin:0 auto;width:100%;}
+  .cr-label{display:block;font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.64rem;letter-spacing:.25em;
+    text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .cr-h2{font-family:'Anton','Anton Fallback',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(2.2rem,5vw,4rem);line-height:1;letter-spacing:-.005em;margin:.9rem 0 1.2rem;}
+  .cr-h2 em{font-style:normal;color:var(--accent);}
+  .cr-lede{font-size:clamp(1.02rem,1.5vw,1.2rem);line-height:1.65;color:var(--neutral-on-background-weak);max-width:720px;}
+  .cr-lede strong{color:var(--neutral-on-background-strong);font-weight:500;}
+
+  /* ================= 1 · HERO: JP's intro clip, with sound, plays once ================= */
+  .cr-hero{padding:clamp(1.5rem,4vh,3rem) clamp(1rem,4vw,3rem) clamp(2.5rem,6vh,4rem);}
+  /* capped at ~66% of the viewport height so the headline under it is on the first screen */
+  .cr-hero__frame{position:relative;max-width:min(1200px,calc(66vh * 16 / 9));margin:0 auto;aspect-ratio:16/9;border-radius:1rem;overflow:hidden;
+    background:#000 url('assets/creators/intro-9s-poster.jpg') center/cover no-repeat;
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 0 0 1px rgba(109,92,255,.25),0 30px 90px -30px rgba(109,92,255,.55),0 10px 40px rgba(0,0,0,.7);}
+  .cr-hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:transparent;}
+  /* corner ticks — the .vp-ph__tick frame from index.html */
+  .cr-tick{position:absolute;width:14px;height:14px;border:0 solid var(--neutral-alpha-medium);z-index:3;pointer-events:none;}
+  .cr-tick.tl{top:10px;left:10px;border-top-width:1px;border-left-width:1px;}
+  .cr-tick.tr{top:10px;right:10px;border-top-width:1px;border-right-width:1px;}
+  .cr-tick.bl{bottom:10px;left:10px;border-bottom-width:1px;border-left-width:1px;}
+  .cr-tick.br{bottom:10px;right:10px;border-bottom-width:1px;border-right-width:1px;}
+
+  /* the sound / play pill wears the in-game crystal pill bar (index.html .vp-cta__primary) */
+  .crystal{position:relative;
+    color:rgba(255,255,255,.9);-webkit-text-stroke:.75px #6d5cff;paint-order:stroke fill;
+    text-shadow:0 0 14px rgba(109,92,255,.55);
+    background:linear-gradient(168deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,.038) 45%,rgba(255,255,255,.055) 78%,rgba(255,255,255,.03) 100%),
+               linear-gradient(180deg,rgba(22,23,30,.62) 0%,rgba(12,13,18,.68) 100%);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:inset 0 0 0 1px rgba(236,244,255,.92),inset 0 0 0 3px rgba(120,190,255,.30),0 6px 28px rgba(0,0,0,.8);}
+  .crystal::after{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;opacity:.5;
+    box-shadow:0 0 18px 3px rgba(96,166,255,.40),0 0 44px 10px rgba(124,112,238,.26);animation:badgeBreath 9s ease-in-out infinite;}
+  @keyframes badgeBreath{0%,100%{opacity:.38}50%{opacity:.62}}
+
+  .cr-sound{position:absolute;z-index:4;right:clamp(12px,2.2vw,22px);bottom:clamp(12px,2.2vw,22px);
+    display:inline-flex;align-items:center;gap:10px;padding:11px 18px 11px 14px;border-radius:999px;cursor:pointer;
+    font:700 .82rem/1 'Space Grotesk','Space Grotesk Fallback',sans-serif;letter-spacing:.06em;text-transform:uppercase;
+    transition:filter .25s ease,transform .25s ease,opacity .3s ease;}
+  .cr-sound:hover{filter:brightness(1.18);transform:translateY(-1px);}
+  .cr-sound svg{width:20px;height:20px;flex:0 0 auto;-webkit-text-stroke:0;}
+  .cr-sound[hidden]{display:none;}
+  /* "Tap for sound" — big and centred, so nobody misses that the clip talks */
+  .cr-sound.is-prompt{right:50%;bottom:50%;transform:translate(50%,50%);padding:16px 26px 16px 20px;font-size:1rem;}
+  .cr-sound.is-prompt:hover{transform:translate(50%,50%) scale(1.03);}
+  .cr-sound.is-prompt svg{width:24px;height:24px;}
+  @media (max-width:520px){ .cr-sound{padding:9px 14px 9px 11px;font-size:.72rem;} .cr-sound.is-prompt{padding:12px 18px 12px 14px;font-size:.85rem;} }
+
+  .cr-hero__copy{max-width:1200px;margin:clamp(1.6rem,4vh,2.6rem) auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .cr-hero__copy h1{font-family:'Anton','Anton Fallback',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(2.4rem,6.4vw,5.6rem);line-height:.95;letter-spacing:-.005em;}
+  .cr-hero__copy h1 em{font-style:normal;color:var(--accent);}
+  .cr-hero__sub{max-width:680px;font-size:clamp(1.02rem,1.6vw,1.22rem);line-height:1.6;color:var(--neutral-on-background-weak);}
+  .cr-hero__sub strong{color:var(--neutral-on-background-strong);font-weight:500;}
+  .cr-jump{margin-top:6px;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--neutral-on-background-weak);
+    text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:3px;transition:color .3s ease;}
+  .cr-jump:hover{color:var(--neutral-on-background-strong);}
+
+  /* ================= 2 · value prop ================= */
+  .cr-split{display:grid;grid-template-columns:1fr;gap:clamp(2rem,4vw,4rem);margin-top:2.2rem;}
+  @media (min-width:900px){ .cr-split{grid-template-columns:1fr 1fr;} }
+  .cr-col h3{font-family:'Space Mono','Space Mono Fallback',monospace;font-weight:400;font-size:.72rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:1rem;filter:brightness(1.35);}
+  .cr-list{list-style:none;border-top:1px solid var(--neutral-alpha-weak);}
+  .cr-list li{padding:1rem 0;border-bottom:1px solid var(--neutral-alpha-weak);font-size:.98rem;line-height:1.6;color:var(--neutral-on-background-weak);}
+  .cr-list li strong{display:block;color:var(--neutral-on-background-strong);font-weight:700;font-size:1.02rem;margin-bottom:.15rem;}
+  .cr-note{margin-top:1.2rem;font-size:.9rem;line-height:1.6;color:var(--neutral-on-background-weak);
+    border-left:2px solid var(--accent);padding:.2rem 0 .2rem .9rem;}
+  .cr-deal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+  @media (max-width:520px){ .cr-deal{grid-template-columns:1fr;} }
+  .cr-deal__card{position:relative;border-radius:14px;padding:1.2rem 1.1rem 1.15rem;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    border:1px solid rgba(255,255,255,.10);}
+  .cr-deal__card--lead{grid-column:1/-1;border-color:rgba(109,92,255,.45);
+    background:radial-gradient(120% 140% at 0% 0%,rgba(109,92,255,.20) 0%,rgba(109,92,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));}
+  .cr-deal__big{font-family:'Anton','Anton Fallback',sans-serif;text-transform:uppercase;font-size:clamp(1.9rem,3.4vw,2.6rem);line-height:1;letter-spacing:-.005em;}
+  .cr-deal__big em{font-style:normal;background:linear-gradient(90deg,var(--plasma-a),var(--plasma-b) 55%,var(--plasma-c));
+    -webkit-background-clip:text;background-clip:text;color:transparent;}
+  .cr-deal__gold{color:var(--naples-gold);}
+  .cr-deal__card p{margin-top:.55rem;font-size:.9rem;line-height:1.55;color:var(--neutral-on-background-weak);}
+
+  /* ================= 3 · demo ================= */
+  .cr-demo{margin-top:2.2rem;}
+  .cr-demo__main{position:relative;border-radius:1rem;overflow:hidden;aspect-ratio:16/9;background:#000;
+    border:1px solid rgba(255,255,255,.12);box-shadow:0 24px 70px -30px rgba(109,92,255,.5);}
+  .cr-demo__main video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;background:#000;}
+  .cr-cap{margin-top:.8rem;font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.68rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .cr-pillars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:2rem;}
+  @media (max-width:1024px){ .cr-pillars{grid-template-columns:repeat(2,minmax(0,1fr));} }
+  @media (max-width:520px){ .cr-pillars{grid-template-columns:1fr;} }
+  .cr-pillar{margin:0;}
+  .cr-pillar__media{position:relative;aspect-ratio:16/10;border-radius:.8rem;overflow:hidden;background:#07051a;border:1px solid rgba(255,255,255,.10);}
+  .cr-pillar__media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .cr-pillar figcaption{margin-top:.6rem;display:flex;align-items:center;gap:.5rem;}
+  .cr-pill{display:inline-flex;align-items:center;font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.66rem;letter-spacing:.12em;
+    text-transform:uppercase;color:#cfc8ff;background:rgba(109,92,255,.1);border:1px solid rgba(109,92,255,.3);padding:3px 9px;border-radius:999px;}
+  .cr-pillar figcaption span.t{font-size:.86rem;color:var(--neutral-on-background-weak);}
+
+  /* ================= 4 · how it works ================= */
+  .cr-steps{list-style:none;display:grid;grid-template-columns:1fr;gap:14px;margin-top:2.2rem;counter-reset:none;}
+  @media (min-width:900px){ .cr-steps{grid-template-columns:repeat(3,minmax(0,1fr));} }
+  .cr-step{border-radius:14px;padding:1.4rem 1.3rem;border:1px solid rgba(255,255,255,.10);
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));}
+  .cr-step__num{font-family:'Anton','Anton Fallback',sans-serif;font-size:3.2rem;line-height:1;letter-spacing:-.02em;color:var(--neutral-on-background-strong);opacity:.18;}
+  .cr-step h3{margin-top:.6rem;font-family:'Anton','Anton Fallback',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(1.4rem,2.2vw,1.8rem);line-height:1.05;}
+  .cr-step p{margin-top:.55rem;font-size:.94rem;line-height:1.6;color:var(--neutral-on-background-weak);}
+
+  /* ================= 5 · CTA ================= */
+  .cr-cta{text-align:center;display:flex;flex-direction:column;align-items:center;}
+  .cr-cta .cr-h2{max-width:900px;}
+  .cr-cta__btn{display:inline-flex;align-items:center;gap:.7rem;margin-top:1.8rem;padding:18px 34px;border-radius:999px;
+    font-weight:700;font-size:clamp(1.02rem,1.6vw,1.2rem);letter-spacing:.03em;text-decoration:none;
+    transition:filter .25s ease,transform .25s ease;}
+  .cr-cta__btn:hover{filter:brightness(1.18);transform:translateY(-1px);}
+  .cr-cta__btn .arr{display:inline-block;transition:transform .5s cubic-bezier(0.19,1,0.22,1);-webkit-text-stroke:0;}
+  .cr-cta__btn:hover .arr{transform:translateX(5px);}
+  .cr-small{margin-top:1.1rem;font-size:.8rem;line-height:1.6;color:var(--neutral-on-background-weak);max-width:560px;}
+
+  /* ================= scroll reveals — one easing for the whole page (fair-play.html) ================= */
+  .rv{opacity:0;transform:translateY(42px);
+    transition:opacity 1.1s cubic-bezier(0.19,1,0.22,1), transform 1.3s cubic-bezier(0.19,1,0.22,1);
+    transition-delay:var(--d, 0s);}
+  .rv.in{opacity:1;transform:none;}
+
+  /* ================= footer (same as fair-play.html, dark ground) ================= */
+  .site-footer{position:relative;z-index:5;border-top:1px solid var(--neutral-alpha-weak);
+    padding:clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem);background:var(--page-background);}
+  .site-footer__inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:2.2rem;}
+  .site-footer__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;}
+  .site-footer__signoff{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.12rem;padding:0 1rem;}
+  .site-footer__signoff .ln{display:block;font-family:Georgia,'Times New Roman',serif;font-style:italic;}
+  .site-footer__signoff .ln--main{font-size:.95rem;line-height:1.3;letter-spacing:.01em;color:#D4A24E;}
+  .site-footer__signoff .ln--latin{font-size:.72rem;line-height:1.3;letter-spacing:.02em;margin-top:.1rem;color:#9c8a63;}
+  @media (max-width:900px){ .site-footer__signoff{flex-basis:100%;order:0;padding:.5rem 0;} }
+  .site-footer__brand{display:flex;align-items:center;gap:.1rem;color:var(--neutral-on-background-strong);}
+  .site-footer__text{display:flex;flex-direction:column;align-items:center;}
+  .site-footer__name{font-family:'Anton','Anton Fallback',sans-serif;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;line-height:1.3;}
+  .site-footer__tag{margin-top:.35rem;font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500;color:var(--neutral-on-background-weak);white-space:nowrap;}
+  .site-footer__platforms{margin-top:.3rem;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neutral-on-background-weak);white-space:nowrap;}
+  .site-footer__mark{
+    display:block;width:49px;height:49px;flex:0 0 auto;background-color:currentColor;
+    -webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+            mask:url('assets/rooster-nav.svg') center/contain no-repeat;
+  }
+  .site-footer__brand em{font-style:normal;color:var(--accent);}
+  .site-footer__nav{display:flex;flex-wrap:wrap;gap:1.6rem;}
+  .site-footer__nav a{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--neutral-on-background-weak);transition:color .35s ease;}
+  .site-footer__nav a:hover{color:var(--accent);}
+  .site-footer__bottom{display:flex;flex-direction:column;flex-wrap:wrap;justify-content:center;align-items:center;text-align:center;gap:1rem;
+    padding-top:1.8rem;border-top:1px solid var(--neutral-alpha-weak);
+    font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
+  .site-footer__bottom .legal{display:flex;flex-wrap:wrap;gap:1.4rem;}
+  .site-footer__bottom a{color:var(--neutral-on-background-weak);text-decoration:none;transition:color .35s ease;}
+  .site-footer__bottom a:hover{color:var(--accent);}
+
+  @media (prefers-reduced-motion: reduce){
+    .rv{opacity:1;transform:none;transition:none;}
+    .crystal::after{animation:none;}
+    .cr-cta__btn,.cr-sound{transition:none;}
+  }
+</style>
+</head>
+<body>
+<!-- ============ NAV — same markup as fair-play.html (theme toggle removed: dark only) ============ -->
+<div class="navbar-backdrop" id="navBackdrop"></div>
+
+<nav class="ovr-nav" id="ovrNav">
+  <div class="ovr-nav__row">
+    <!-- Left — Hamburger + Logo -->
+    <div class="ovr-nav__side">
+      <div class="navbar-hamburger" id="navHamburger">
+        <button class="icon-btn" aria-label="Toggle menu" aria-expanded="false" id="navToggleBtn">
+          <svg class="royal-icon" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="bar-top" d="M4 7H18"/>
+            <path class="bar-mid" d="M4 11H18"/>
+            <path class="bar-bot" d="M4 15H18"/>
+          </svg>
+        </button>
+      </div>
+      <a class="ovr-logo" href="index.html#top">
+        <span class="ovr-logo__icon" aria-hidden="true"></span>
+        <span class="ovr-logo__text">
+          <span class="ovr-logo__mark">OVERLORD <em>AI</em></span>
+          <span class="ovr-logo__sub"><span class="ovr-logo__sub--wide">Live game guidebook</span><span class="ovr-logo__sub--short">Game guidebook</span></span>
+        </span>
+      </a>
+    </div>
+
+    <!-- Center — Desktop links (hidden < 768px) -->
+    <div class="navbar-desktop-links" id="navDesktopLinks">
+      <a class="nav-hover" href="index.html#top"><span class="nav-link-text">Home</span></a>
+      <a class="nav-hover" href="index.html#work"><span class="nav-link-text">Preview</span></a>
+      <a class="nav-hover" href="plans.html"><span class="nav-link-text">Plans</span></a>
+      <a class="nav-hover" href="login.html"><span class="nav-link-text">Log in</span></a>
+    </div>
+
+    <!-- Right — Cart -->
+    <div class="ovr-nav__side ovr-nav__side--end">
+      <a class="icon-btn" href="plans.html" aria-label="Plans">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 4h2.2l1.9 9.2a2 2 0 0 0 2 1.6h8a2 2 0 0 0 1.9-1.4l1.8-6.4H6.4"/>
+          <circle cx="9.3" cy="20.5" r="1.6"/>
+          <circle cx="17.7" cy="20.5" r="1.6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Slide-out crystal drawer -->
+<div class="navbar-drawer" id="navDrawer" aria-hidden="true">
+  <div class="drawer-col">
+    <div class="drawer-head"><div class="drawer-head__row"><span class="drawer-head__mark" aria-hidden="true"></span><span class="drawer-head__label">Live Gaming Companion</span></div><i></i></div>
+    <div class="drawer-links">
+      <div class="drawer-item"><a class="royal-nav-item" href="index.html#top"><div class="row"><span class="royal-highlight">Home</span></div></a></div>
+      <div class="drawer-item"><a class="royal-nav-item" href="index.html#work"><div class="row"><span class="royal-highlight">Preview</span></div></a></div>
+      <div class="drawer-item"><a class="royal-nav-item" href="plans.html"><div class="row"><span class="royal-highlight">Plans</span></div></a></div>
+      <div class="drawer-item"><a class="royal-nav-item" href="support.html"><div class="row"><span class="royal-highlight">Support / FAQ</span></div></a></div>
+    </div>
+    <div class="drawer-login">
+      <a class="royal-nav-item" href="login.html"><span class="royal-nav-btn-text">Member Login</span></a>
+    </div>
+    <div class="drawer-foot"><a href="plans.html">Linux and Windows</a></div>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ============ 1 · HERO — JP's intro clip, WITH SOUND, plays once (JP 2026-11-11) ============
+     No loop attribute. The script below tries play() unmuted; a browser that blocks unmuted
+     autoplay gets the clip muted plus a "Tap for sound" pill that unmutes and restarts from 0.
+     It holds its last frame, and replays once every 3 minutes only while the tab is visible and
+     the clip is in view. prefers-reduced-motion: no autoplay, the poster and a Play button. -->
+<section class="cr-hero" aria-labelledby="crTitle">
+  <div class="cr-hero__frame" id="heroFrame">
+    <video class="cr-hero__video" id="heroVideo" src="assets/creators/intro-9s.mp4" poster="assets/creators/intro-9s-poster.jpg"
+      width="1280" height="720" playsinline preload="auto"
+      aria-label="Overlord AI intro, 9 seconds, with voice-over: the Overlord AI wordmark resolves over a violet plasma grid, with the line Live game guidebook for single player PC games"></video>
+    <span class="cr-tick tl" aria-hidden="true"></span><span class="cr-tick tr" aria-hidden="true"></span>
+    <span class="cr-tick bl" aria-hidden="true"></span><span class="cr-tick br" aria-hidden="true"></span>
+    <button type="button" class="cr-sound crystal" id="heroSound" hidden aria-label="Turn on sound and play the intro from the start">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/>
+        <path class="ic-on" d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11"/>
+      </svg>
+      <span id="heroSoundText">Tap for sound</span>
+    </button>
+  </div>
+  <div class="cr-hero__copy">
+    <span class="cr-label">OVR · Creator program</span>
+    <h1 id="crTitle">Overlord AI <em>Creator</em> Program</h1>
+    <p class="cr-hero__sub"><strong>A free year of Overlord AI on stream</strong>, and <strong>25% of every payment</strong> from the viewers you send, for as long as they stay subscribed.</p>
+    <a class="cr-jump" href="#join">How to join ↓</a>
+  </div>
+</section>
+
+<!-- ============ 2 · value prop: what it does on stream + the deal ============ -->
+<section class="cr-sec" id="deal" aria-labelledby="dealTitle">
+  <div class="cr-sec__inner">
+    <span class="cr-label rv">01 · What you get</span>
+    <h2 class="cr-h2 rv" id="dealTitle">A guide in your run. <em>A cut of every sub.</em></h2>
+    <p class="cr-lede rv">Overlord AI is a live game guidebook for soulslikes and action RPGs. It watches your screen and talks you through the hard parts while you play, so <strong>your chat sees it working in real time</strong>.</p>
+
+    <div class="cr-split">
+      <div class="cr-col rv">
+        <h3>On your stream</h3>
+        <ul class="cr-list">
+          <li><strong>Bosses</strong>What the fight is doing and how to answer it, spoken while you play.</li>
+          <li><strong>Puzzles</strong>Stuck on a panel or a lock? It reads the screen and walks you through it.</li>
+          <li><strong>NPC questlines</strong>Which conversation moves a quest forward, and which choice breaks it.</li>
+          <li><strong>Hidden items</strong>The loot you were about to walk past, and how to get to it.</li>
+        </ul>
+        <p class="cr-note">It watches. It never touches the game: no memory reads, no injected code, no inputs. Single-player games only.</p>
+      </div>
+      <div class="cr-col rv" style="--d:.08s">
+        <h3>The deal</h3>
+        <div class="cr-deal">
+          <div class="cr-deal__card cr-deal__card--lead">
+            <div class="cr-deal__big"><em>25%</em> recurring</div>
+            <p>25% of every payment from viewers you refer, for as long as their subscription stays active. Not just the first month.</p>
+          </div>
+          <div class="cr-deal__card">
+            <div class="cr-deal__big"><span class="cr-deal__gold">Free</span> year</div>
+            <p>Approved creators get a year of Overlord AI (the Standard yearly plan, normally $149.99) for their own runs.</p>
+          </div>
+          <div class="cr-deal__card">
+            <div class="cr-deal__big">60-day cookie</div>
+            <p>A viewer who clicks your link has 60 days to subscribe and still counts as yours.</p>
+          </div>
+          <div class="cr-deal__card cr-deal__card--lead" style="border-color:rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));">
+            <div class="cr-deal__big">Paid by Creem</div>
+            <p>Payouts on the 1st and 15th of each month. $50 minimum, ID check required.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 · demo — real product footage already on the site ============ -->
+<section class="cr-sec" id="demo" aria-labelledby="demoTitle">
+  <div class="cr-sec__inner">
+    <span class="cr-label rv">02 · See it work</span>
+    <h2 class="cr-h2 rv" id="demoTitle">The real thing. <em>No cuts.</em></h2>
+    <p class="cr-lede rv">A live run in Control, recorded straight off the screen. This is what your viewers will see.</p>
+
+    <div class="cr-demo rv">
+      <div class="cr-demo__main">
+        <video src="assets/reels/control-live-demo.mp4" poster="assets/reels/control-live-demo-poster.jpg" width="1280" height="720"
+          muted controls playsinline preload="metadata"
+          aria-label="Overlord AI live game guidebook demo, played in Control (no cuts, no script)"></video>
+      </div>
+      <p class="cr-cap">Live demo · Control · 1:32 · no cuts, no script</p>
+    </div>
+
+    <div class="cr-pillars">
+      <figure class="cr-pillar rv">
+        <div class="cr-pillar__media"><video class="cr-loop" src="assets/reels/pillar-01-npc.mp4" poster="assets/reels/pillar-01-npc-poster.jpg" width="1120" height="700" muted playsinline preload="metadata" aria-label="Unlock the right NPC interaction: the real Overlord AI NPC card on Ranni's quest in Elden Ring, at the Miniature Ranni talk: ask three times, then the Baleful Shadow hunt unlocks"></video></div>
+        <figcaption><span class="cr-pill">NPC card</span><span class="t">Questlines</span></figcaption>
+      </figure>
+      <figure class="cr-pillar rv" style="--d:.06s">
+        <div class="cr-pillar__media"><video class="cr-loop" src="assets/reels/pillar-02-loot.mp4" poster="assets/reels/pillar-02-loot-poster.jpg" width="1120" height="700" muted playsinline preload="metadata" aria-label="Find the best weapons and upgrades: the real Overlord AI Loot card from the Control live demo, Loot Card 8: Furnace Chamber, with its target visual and two steps"></video></div>
+        <figcaption><span class="cr-pill">Loot card</span><span class="t">Hidden items</span></figcaption>
+      </figure>
+      <figure class="cr-pillar rv" style="--d:.12s">
+        <div class="cr-pillar__media"><video class="cr-loop" src="assets/reels/pillar-03-combo.mp4" poster="assets/reels/pillar-03-combo-poster.jpg" width="1120" height="700" muted playsinline preload="metadata" aria-label="Fight like the pros: the real Overlord AI Combo card on a Black Myth: Wukong combo, each input lighting as it lands"></video></div>
+        <figcaption><span class="cr-pill">Combo card</span><span class="t">Fights</span></figcaption>
+      </figure>
+      <figure class="cr-pillar rv" style="--d:.18s">
+        <div class="cr-pillar__media"><video class="cr-loop" src="assets/reels/pillar-04-gps.mp4" poster="assets/reels/pillar-04-gps-poster.jpg" width="1120" height="700" muted playsinline preload="metadata" aria-label="In-game guidance system: the real Overlord AI GPS card guiding to the Radagon Icon talisman in Elden Ring; the radar pings the gold loot and the line says where to go"></video></div>
+        <figcaption><span class="cr-pill">GPS card</span><span class="t">Where to go</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · how it works ============ -->
+<section class="cr-sec" id="how" aria-labelledby="howTitle">
+  <div class="cr-sec__inner">
+    <span class="cr-label rv">03 · How it works</span>
+    <h2 class="cr-h2 rv" id="howTitle">Three steps. <em>Then play.</em></h2>
+    <ol class="cr-steps">
+      <li class="cr-step rv">
+        <div class="cr-step__num" aria-hidden="true">01</div>
+        <h3>Join</h3>
+        <p>Apply through our affiliate program on Creem. Every creator is reviewed, and approval is required.</p>
+      </li>
+      <li class="cr-step rv" style="--d:.08s">
+        <div class="cr-step__num" aria-hidden="true">02</div>
+        <h3>Get your link + free year</h3>
+        <p>Once you're approved you get your referral link, plus a free year of Overlord AI to run on stream.</p>
+      </li>
+      <li class="cr-step rv" style="--d:.16s">
+        <div class="cr-step__num" aria-hidden="true">03</div>
+        <h3>Share it, earn 25%</h3>
+        <p>Put the link in your description and panels. You earn 25% of every payment, for as long as they stay subscribed.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 5 · CTA — the only outbound link besides nav/footer ============ -->
+<section class="cr-sec cr-cta" id="join" aria-labelledby="joinTitle">
+  <span class="cr-label rv">04 · Join</span>
+  <h2 class="cr-h2 rv" id="joinTitle">Bring Overlord <em>to your stream.</em></h2>
+  <p class="cr-lede rv">Free year on stream. 25% recurring on every viewer you send.</p>
+  <a class="cr-cta__btn crystal rv" href="https://affiliates.creem.io/join/overlord-creators" target="_blank" rel="noopener">Join the Creator Program <span class="arr" aria-hidden="true">→</span></a>
+  <p class="cr-small rv">Creem tracks referrals and pays affiliates directly.</p>
+</section>
+
+</main>
+
+<footer class="site-footer" id="footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <div class="site-footer__brand"><span class="site-footer__mark" aria-hidden="true"></span><span class="site-footer__text"><span class="site-footer__name">Overlord <em>AI</em></span><span class="site-footer__tag">Live Gaming Companion</span><span class="site-footer__platforms">Linux and Windows</span></span></div>
+      <div class="site-footer__signoff" aria-label="Sign-off">
+        <span class="ln ln--main">A guide&rsquo;s foresight lights the road before your feet.</span>
+        <span class="ln ln--latin">Prōvidentia ducis viam ante pedēs illūminat.</span>
+      </div>
+      <nav class="site-footer__nav" aria-label="Footer">
+        <a href="index.html#top">Home</a>
+        <a href="index.html#work">Preview</a>
+        <a href="plans.html">Plans</a>
+        <a href="support.html">Support / FAQ</a>
+        <a href="login.html">Log in</a>
+      </nav>
+    </div>
+    <div class="site-footer__bottom">
+      <div class="legal" style="flex-wrap:wrap;justify-content:center;">
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refunds.html">Refunds</a>
+        <a href="contact.html">Contact</a>
+        <a href="fair-play.html">Fair play</a>
+        <a href="eula.html">EULA</a>
+        <a href="https://discord.com/invite/ZPZeJDAw9C">Discord</a>
+        <a href="https://www.youtube.com/@OverlordAI-Co" target="_blank" rel="noopener">YouTube</a>
+        <a href="/featured">Featured on</a>
+        <a href="/guides/">Guides</a>
+      </div>
+      <p class="site-footer__credit" style="margin:0;line-height:1.6;text-align:center;">&copy; 2026 Primus Enterprises LLC, dba Overlord AI &middot; 411 W 1st St, Ste 5073, Sanford, FL 32771 &middot; support@overlordai.co</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- NAV — behaviour ported from S2S Navbar.tsx (same as fair-play.html) ---------- */
+(() => {
+  const drawer    = document.getElementById('navDrawer');
+  const backdrop  = document.getElementById('navBackdrop');
+  const hamburger = document.getElementById('navHamburger');
+  const btn       = document.getElementById('navToggleBtn');
+  const desktop   = document.getElementById('navDesktopLinks');
+  const items     = [...drawer.querySelectorAll('.drawer-item')];
+  let open = false, timer = null;
+  function render(){
+    drawer.classList.toggle('is-open', open);
+    backdrop.classList.toggle('is-open', open);
+    hamburger.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    drawer.setAttribute('aria-hidden', String(!open));
+    items.forEach((el, i) => {
+      const delay = open ? 0.1 + i * 0.08 : (items.length - 1 - i) * 0.05;
+      el.style.transitionDelay = delay + 's';
+    });
+  }
+  const setOpen = v => { open = v; render(); };
+  const toggle  = () => setOpen(!open);
+  const close   = () => setOpen(false);
+  const enter = () => { if (innerWidth >= 768){ clearTimeout(timer); setOpen(true); } };
+  const leave = () => { if (innerWidth >= 768){ timer = setTimeout(close, 400); } };
+  hamburger.addEventListener('click', toggle);
+  for (const el of [hamburger, desktop, drawer]){
+    el.addEventListener('mouseenter', enter);
+    el.addEventListener('mouseleave', leave);
+  }
+  backdrop.addEventListener('click', close);
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  render();
+})();
+
+/* ---------- scroll reveals ---------- */
+(() => {
+  const els = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches){
+    els.forEach(el => el.classList.add('in')); return;
+  }
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  }), {rootMargin:'0px 0px -8% 0px', threshold:.08});
+  els.forEach(el => io.observe(el));
+})();
+
+/* ---------- HERO intro: with sound, play once, replay every 3 min (JP 2026-11-11) ----------
+   - No loop. On load: try play() UNMUTED. Browsers block that without a user gesture, so
+     when the promise rejects we play it muted and show "Tap for sound", which unmutes and
+     restarts from 0 (a click is a gesture, so the unmuted play is allowed).
+   - It holds the last frame when it ends (nothing resets currentTime or reloads the src).
+   - Replay: 3 minutes after it ends, replay ONCE if the tab is visible and the clip is at
+     least half in view; otherwise skip that turn and check again 3 minutes later. A single
+     timer, cleared before re-arming, and a replay only starts from a stopped clip, so replays
+     never stack.
+   - prefers-reduced-motion: no autoplay and no replays; the poster shows with a Play button. */
+(() => {
+  const v = document.getElementById('heroVideo');
+  const btn = document.getElementById('heroSound');
+  const label = document.getElementById('heroSoundText');
+  if (!v || !btn) return;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const REPLAY_MS = 3 * 60 * 1000;
+  let inView = false, replayTimer = null, mode = 'none';
+
+  const ICON_PLAY = '<path d="M8 5.5v13l10.5-6.5z" fill="currentColor" stroke="none"/>';
+  const ICON_SPK  = btn.querySelector('svg').innerHTML;
+  const ICON_MUTE = '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><path d="M16 9.5l5 5M21 9.5l-5 5"/>';
+
+  /* mode: 'prompt' = muted, big centred "Tap for sound"; 'sound' = playing with sound (small mute);
+     'muted' = visitor muted it (small sound-on); 'replay' = ended, small replay; 'play' = reduced motion */
+  function setMode(m){
+    mode = m;
+    const svg = btn.querySelector('svg');
+    btn.hidden = false;
+    btn.classList.toggle('is-prompt', m === 'prompt' || m === 'play');
+    if (m === 'prompt'){ svg.innerHTML = ICON_SPK;  label.textContent = 'Tap for sound'; btn.setAttribute('aria-label','Turn on sound and play the intro from the start'); }
+    if (m === 'sound'){  svg.innerHTML = ICON_MUTE; label.textContent = 'Mute';          btn.setAttribute('aria-label','Mute the intro'); }
+    if (m === 'muted'){  svg.innerHTML = ICON_SPK;  label.textContent = 'Sound on';      btn.setAttribute('aria-label','Turn the intro sound on'); }
+    if (m === 'replay'){ svg.innerHTML = ICON_SPK;  label.textContent = 'Replay';        btn.setAttribute('aria-label','Replay the intro with sound'); }
+    if (m === 'play'){   svg.innerHTML = ICON_PLAY; label.textContent = 'Play intro';    btn.setAttribute('aria-label','Play the intro with sound'); }
+  }
+
+  function playFromStart(){
+    try { v.currentTime = 0; } catch(e){}
+    v.muted = false;
+    return v.play().then(() => { setMode('sound'); }).catch(() => {
+      /* unmuted autoplay blocked: show "Tap for sound" straight away, then start it muted */
+      v.muted = true;
+      setMode('prompt');
+      return v.play().catch(() => { setMode('play'); });
+    });
+  }
+
+  function armReplay(){
+    clearTimeout(replayTimer);
+    if (reduced) return;
+    replayTimer = setTimeout(() => {
+      const stopped = v.paused || v.ended;
+      if (stopped && !document.hidden && inView) playFromStart();
+      else armReplay();                 // skip this turn; look again in 3 minutes
+    }, REPLAY_MS);
+  }
+
+  v.addEventListener('ended', () => { setMode('replay'); armReplay(); });
+  v.addEventListener('play', () => clearTimeout(replayTimer));
+
+  btn.addEventListener('click', () => {
+    if (mode === 'sound'){ v.muted = true; setMode('muted'); return; }
+    if (mode === 'muted'){ v.muted = false; setMode('sound'); return; }
+    /* prompt / replay / play: a gesture, so sound is allowed — restart from 0 with sound */
+    clearTimeout(replayTimer);
+    try { v.currentTime = 0; } catch(e){}
+    v.muted = false;
+    v.play().then(() => setMode('sound')).catch(() => setMode('play'));
+  });
+
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver(es => es.forEach(e => { inView = e.isIntersecting; }), {threshold:.5}).observe(v);
+  } else { inView = true; }
+
+  if (reduced){ setMode('play'); return; }   // poster + Play button, nothing moves by itself
+  playFromStart();
+})();
+
+/* ---------- pillar clips: short muted loops on desktop only ----------
+   Phones/tablets (<=1024px) and reduced motion get the poster with native controls instead of
+   four looping videos. On desktop each loops only while it is on screen. */
+(() => {
+  const clips = [...document.querySelectorAll('video.cr-loop')];
+  const small = matchMedia('(max-width: 1024px)').matches;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (small || reduced || !('IntersectionObserver' in window)){
+    clips.forEach(c => { c.controls = true; });
+    return;
+  }
+  clips.forEach(c => { c.loop = true; });
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const c = e.target;
+    if (e.isIntersecting) c.play().catch(() => { c.controls = true; });
+    else c.pause();
+  }), {threshold:.35});
+  clips.forEach(c => io.observe(c));
+})();
+</script>
+<script src="/assets/signoff-reveal.js" defer></script>
+</body>
+</html>
