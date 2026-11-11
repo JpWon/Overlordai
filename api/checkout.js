@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
   const { plan } = reqBody;
   const def = c.PLANS[plan];
   if (!def) return c.send(res, 400, { error: 'unknown_plan' });
-  const productId = process.env[def.env];
+  const productId = process.env[def.env] || def.fallback;
   if (!productId || !process.env.CREEM_API_KEY) return c.send(res, 503, { error: 'not_configured' });
 
   const body = {

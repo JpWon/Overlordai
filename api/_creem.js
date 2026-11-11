@@ -17,8 +17,10 @@ const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'sb_publishable_LEJ4O
 const DEFAULT_START = '2026-11-16T05:00:00Z';
 
 const PLANS = {
-  sub: { env: 'CREEM_PRODUCT_SUB', plan_id: 'standard' },
-  pro: { env: 'CREEM_PRODUCT_PRO', plan_id: 'pro' }
+  sub: { env: 'CREEM_PRODUCT_SUB', plan_id: 'standard', fallback: 'prod_3srYniobtWAgyh4etXZm82' },
+  pro: { env: 'CREEM_PRODUCT_PRO', plan_id: 'pro', fallback: 'prod_pyFjZmMWEwPUz0MpcHaiu' },
+  sub_year: { env: 'CREEM_PRODUCT_SUB_YEARLY', plan_id: 'standard_year', fallback: 'prod_5Xt8UT6Vqd51Hssu9IeWXI' },
+  pro_year: { env: 'CREEM_PRODUCT_PRO_YEARLY', plan_id: 'pro_year', fallback: 'prod_2UuiK3d6XsjNtCwYL84RRF' }
 };
 
 function creemBase() {
