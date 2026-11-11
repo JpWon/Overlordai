@@ -122,7 +122,8 @@
 
   /* ================= CHECKOUT MAIN LAYOUT ================= */
   .checkout-main{
-    min-height:calc(100vh - 68px);
+    min-height:100vh;
+    height:auto;
     display:flex;
     flex-direction:column;
   }
@@ -1234,7 +1235,7 @@ const PRODUCTS = {
         const themedUrl = out.checkout_url;
         if (directLink) directLink.href = themedUrl;
         if (embedMount) {
-          embedMount.innerHTML = `<iframe src="${themedUrl}" allow="payment *; publickey-credentials-get *" style="border:0;width:100%;height:720px;display:block;background:#0b0b10;"></iframe>`;
+          embedMount.innerHTML = `<iframe src="${themedUrl}" allow="payment *; publickey-credentials-get *" style="border:0;width:100%;height:1250px;display:block;background:#0b0b10;overflow:hidden;"></iframe>`;
         }
         pollTimer = setInterval(pollWebhookEntitlement, 3000);
       } catch (err) {
