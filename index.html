@@ -330,6 +330,11 @@
      reveal word, the cover mask and the meta chrome keep their exact stacking. */
   .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
     display:block;z-index:1;pointer-events:none;}
+  .hero-video--mobile { display: none; }
+  @media (max-width: 1024px) {
+    .hero-video--desktop { display: none !important; }
+    .hero-video--mobile { display: block !important; }
+  }
 
   /* JP 2026-11-09: the word is retired — the clip in the hero carries its own "Overlord AI",
      and two of them stacked on the same centre read as a double image. The tagline also
@@ -1477,10 +1482,11 @@
        frame for three, then starts again (see the ended handler below) — so the attribute is
        autoplay, NOT loop. Silent and muted so it plays itself; the poster is the title-card
        frame so there is never a black block wherever autoplay is blocked. -->
-  <video id="heroVideo" class="hero-video" autoplay muted playsinline preload="auto"
+  <video id="heroVideo" class="hero-video hero-video--desktop" autoplay muted playsinline preload="auto"
          poster="assets/hero/intro-poster.jpg" aria-hidden="true" tabindex="-1">
     <source src="assets/hero/intro-loop.mp4" type="video/mp4">
   </video>
+  <img class="hero-video hero-video--mobile" src="assets/hero/intro-poster.jpg" alt="Overlord AI" aria-hidden="true">
 
   <!-- JP 2026-11-09: the old "Overlord AI" word + tagline are gone from the hero. The clip
        says the name itself, and the tagline lives in the bottom-left meta line and in the
@@ -1710,17 +1716,7 @@
   </div>
 </section>
 
-<!-- Plain on purpose for Google's brand verification. Remove this block once the verification is approved (messaging.md §7.8). -->
-<!-- ============ About Overlord AI (plain HTML, no script, no reveal; Google brand verification, JP Nov 7) ============ -->
-<section id="about-overlord-ai" aria-labelledby="about-overlord-ai-h" style="position:relative;z-index:5;background:var(--page-background);padding:3rem 1.5rem;border-top:1px solid var(--neutral-alpha-weak);">
-  <div style="max-width:52rem;margin:0 auto;font-size:.95rem;line-height:1.6;color:var(--neutral-on-background-weak);">
-    <h2 id="about-overlord-ai-h" style="font-size:1.1rem;margin:0 0 .8rem;color:var(--neutral-on-background-strong);">About Overlord AI</h2>
-    <p style="margin:0 0 .8rem;">Overlord AI is a live game guidebook for single-player PC games: it helps players with quests, hidden items and tough fights while they play.</p>
-    <p style="margin:0 0 .8rem;"><strong>How Overlord AI uses Google APIs:</strong> to run Overlord AI's cloud features and in-game answers, to offer Google sign-in, and to run and measure our own advertising.</p>
-    <p style="margin:0 0 .8rem;">Overlord AI does not use Google APIs or Google user data to create AI-generated non-consensual intimate imagery (AI NCII), or any intimate or sexual content.</p>
-    <p style="margin:0;"><a href="privacy.html" style="color:inherit;text-decoration:underline;">Privacy</a> &middot; <a href="terms.html" style="color:inherit;text-decoration:underline;">Terms</a></p>
-  </div>
-</section>
+
 
 <!-- ============ 6 · Footer ============ -->
 <footer class="site-footer" id="footer">
@@ -2050,24 +2046,31 @@
     drawCover(t);
     requestAnimationFrame(frame);
   }
-  // Motion respect: with reduce-motion on, the clip holds its poster instead of moving.
+  // Motion respect or mobile/tablet: on mobile and tablets, or reduced motion, pause the video
+  // and hold on the last three seconds (full image pause) stagnant without looping.
   const heroVideo = document.getElementById('heroVideo');
-  if (heroVideo && reduced){
-    heroVideo.removeAttribute('autoplay');
-    heroVideo.pause();
-  }
-  // JP 2026-11-09: nine seconds of clip, then three seconds sitting on the last frame, then it
-  // starts again. The pause is the point — a still beat between cycles instead of jumping
-  // straight back into the black fade.
   if (heroVideo){
-    const HERO_HOLD_MS = 3000;
-    heroVideo.addEventListener('ended', () => {
-      setTimeout(() => {
-        if (!heroVideo.isConnected) return;
-        heroVideo.currentTime = 0;
-        heroVideo.play().catch(() => {});
-      }, HERO_HOLD_MS);
-    });
+    const isMobileOrTablet = window.innerWidth <= 1024 || window.matchMedia('(max-width: 1024px)').matches;
+    if (reduced || isMobileOrTablet){
+      heroVideo.removeAttribute('autoplay');
+      heroVideo.pause();
+      const setStagnant = () => {
+        try {
+          heroVideo.currentTime = heroVideo.duration ? heroVideo.duration : 9;
+        } catch(e) {}
+      };
+      if (heroVideo.readyState >= 1) setStagnant();
+      else heroVideo.addEventListener('loadedmetadata', setStagnant, {once: true});
+    } else {
+      const HERO_HOLD_MS = 3000;
+      heroVideo.addEventListener('ended', () => {
+        setTimeout(() => {
+          if (!heroVideo.isConnected) return;
+          heroVideo.currentTime = 0;
+          heroVideo.play().catch(() => {});
+        }, HERO_HOLD_MS);
+      });
+    }
   }
   requestAnimationFrame(frame);
 })();

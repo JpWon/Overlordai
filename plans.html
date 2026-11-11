@@ -1184,7 +1184,7 @@
     <!-- Hidden until yearly payment links exist: both buttons below lead to the MONTHLY
          links, so "Yearly" would charge monthly (2026-10-08). Remove style="display:none" once
          the plan buttons switch links with the period. -->
-    <div class="billing-toggle" role="group" aria-label="Billing period" style="display:none">
+    <div class="billing-toggle" role="group" aria-label="Billing period" style="display:flex !important;">
       <button type="button" class="billing-toggle__opt is-active" data-period="monthly" aria-pressed="true">Monthly</button>
       <button type="button" class="billing-toggle__opt" data-period="yearly" aria-pressed="false">Yearly <em>-17%</em></button>
     </div>
@@ -1453,8 +1453,22 @@
       price.querySelector('b').textContent = price.querySelector('b').dataset[period];
       price.querySelector('span').textContent = price.querySelector('span').dataset[period];
     });
+    const subCta = document.querySelector('[data-tier="sub"]')?.closest('.plan')?.querySelector('.plan__cta a');
+    const proCta = document.querySelector('[data-tier="pro"]')?.closest('.plan')?.querySelector('.plan__cta a');
+    if (period === 'yearly') {
+      if (subCta) subCta.href = 'checkout.html?plan=sub_year&checkout=creem';
+      if (proCta) proCta.href = 'checkout.html?plan=pro_year&checkout=creem';
+    } else {
+      if (subCta) subCta.href = 'checkout.html?plan=sub&checkout=creem';
+      if (proCta) proCta.href = 'checkout.html?plan=pro&checkout=creem';
+    }
   };
   opts.forEach(b => b.addEventListener('click', () => apply(b.dataset.period)));
+  
+  if (location.hostname.includes('vercel.app')) {
+    const banner = document.getElementById('founderBanner');
+    if (banner) banner.style.display = 'none';
+  }
 })();
 </script>
 <script>

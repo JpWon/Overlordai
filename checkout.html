@@ -3,18 +3,6 @@
 <head>
 <!-- Cookie consent: loads Google Ads, Reddit Ads and Rewardful only when allowed -->
 <script src="assets/consent.js"></script>
-<script>/* messaging.md §7.13.5: the free 30 minutes skip this page: straight to the normal login (old links too) */
-if ((new URLSearchParams(location.search).get('plan') || '').toLowerCase() === 'demo') location.replace('login.html?claim=demo');
-/* §7.15.6 (JP): signed out -> the one sign-in page, then straight back here */
-else {
-  let signedIn = /access_token=/.test(location.hash);           // an OAuth return still carries the token
-  try { for (let i = 0; i < localStorage.length; i++) if (/^sb-.+-auth-token$/.test(localStorage.key(i))) signedIn = true; }
-  catch (_) { signedIn = true; }                                  // storage blocked: let the page handle it
-  if (!signedIn) {
-    try { localStorage.setItem('ovr_return_to', JSON.stringify({ to: 'checkout.html' + location.search.replace(/[^\w?=&%-]/g, ''), at: Date.now() })); } catch (_) {}
-    location.replace('login.html?next=checkout');
-  }
-}</script>
 <!-- Rewardful affiliate tracking -->
 <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
 <!-- Google tag (gtag.js) -->
@@ -107,12 +95,6 @@ else {
   .ovr-logo__icon{display:block;width:32px;height:32px;background-color:currentColor;-webkit-mask:url('assets/rooster-nav.svg') center/contain no-repeat;mask:url('assets/rooster-nav.svg') center/contain no-repeat;}
   .ovr-logo__text{display:flex;flex-direction:column;line-height:1;}
   .ovr-logo__mark{font-family:'Anton',sans-serif;font-size:1.2rem;letter-spacing:.04em;text-transform:uppercase;}
-  /* messaging.md §7.9.10 (JP 2026-11-08): the wordmark always reads OVERLORD AI, AI in the brand purple */
-  .ovr-logo__mark{white-space:nowrap;}
-  .ovr-logo__mark em{font-style:normal;color:var(--accent,#6d5cff);margin-left:-2px;} /* §7.13.1: AI sits over the K of "guidebook" */
-  /* JP 2026-11-08: "Live game guidebook" at 1280 and up; below that the shorter "Game guidebook" so it stays on one line */
-  .ovr-logo__sub--short{display:none;}
-  @media (max-width:1279.98px){.ovr-logo__sub--wide{display:none;}.ovr-logo__sub--short{display:inline;}}
   .ovr-logo__sub{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neutral-on-background-weak);margin-top:2px;}
   .navbar-desktop-links{display:flex;align-items:center;gap:2rem;}
   @media (max-width:768px){.navbar-desktop-links{display:none;}}
@@ -140,34 +122,34 @@ else {
 
   /* ================= CHECKOUT MAIN LAYOUT ================= */
   .checkout-main{
-    min-height:calc(100vh - 68px);
+    min-height:100vh;
+    height:auto;
     display:flex;
     flex-direction:column;
   }
   .checkout-split{
     flex:1;
     display:grid;
-    grid-template-columns:minmax(0, 1.15fr) minmax(0, 0.85fr);
+    grid-template-columns:minmax(0, 0.85fr) minmax(0, 1.15fr);
     max-width:1320px;
     width:100%;
     margin:0 auto;
     border-left:1px solid var(--border-color);
     border-right:1px solid var(--border-color);
   }
-  .checkout-split.is-demo{grid-template-columns:minmax(0,1fr);max-width:880px;}
-  .checkout-split.is-demo .checkout-license{display:none;}
   @media (max-width:960px){
     .checkout-split{
       grid-template-columns:1fr;
       border-left:none;
       border-right:none;
       display:flex;
-      flex-direction:column-reverse; /* License summary on top on mobile, payment below */
+      flex-direction:column; /* Ours (license) on top on mobile, Creem form below */
     }
   }
 
-  /* LEFT: Payment Portal (payment-provider embed) */
+  /* LEFT: our field/summary (license details); RIGHT: Creem checkout (JP 2026-11-10) */
   .checkout-portal{
+    order:2;
     display:flex;
     flex-direction:column;
     position:relative;
@@ -203,7 +185,7 @@ else {
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    padding:3.5rem 2.5rem;
+    padding:2rem 2rem;
     background:var(--page-background);
   }
   @media (max-width:768px){
@@ -457,10 +439,11 @@ else {
   }
   .hidden{display:none !important;}
 
-  /* RIGHT: License Details ("Here's your license on the right") */
+  /* LEFT: our field/summary (license details); RIGHT: Creem checkout (JP 2026-11-10) */
   .checkout-license{
+    order:1;
     background:var(--sidebar-bg);
-    border-left:1px solid var(--border-color);
+    border-right:1px solid var(--border-color);
     padding:3.2rem 2.8rem;
     display:flex;
     flex-direction:column;
@@ -468,7 +451,7 @@ else {
   }
   @media (max-width:960px){
     .checkout-license{
-      border-left:none;
+      border-right:none;
       border-bottom:1px solid var(--border-color);
       padding:2rem 1.6rem;
     }
@@ -618,7 +601,7 @@ else {
     position:relative;
     z-index:5;
     border-top:1px solid var(--border-color);
-    padding:2.2rem 2rem;
+    padding:1.1rem 1.2rem;
     background:var(--page-background);
   }
   .site-footer__inner{
@@ -626,13 +609,14 @@ else {
     margin:0 auto;
     display:flex;
     flex-wrap:wrap;
-    justify-content:space-between;
+    justify-content:center;
     align-items:center;
-    gap:1.5rem;
-    font-size:.64rem;
+    gap:.5rem;
+    font-size:.6rem;
     letter-spacing:.14em;
     text-transform:uppercase;
     color:var(--neutral-on-background-weak);
+    text-align:center;
   }
   .site-footer__inner a{
     color:inherit;
@@ -647,37 +631,6 @@ else {
     flex-wrap:wrap;
     gap:1.5rem;
   }
-  /* Anti-Cheat Compliance & Fair Play Strip */
-  .compliance-strip{background:linear-gradient(168deg,rgba(255,255,255,.03) 0%,rgba(255,255,255,.01) 100%),rgba(14,17,24,.7);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;backdrop-filter:blur(12px);}
-  .compliance-badges{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,2vw,24px);}
-  .compliance-badge{display:flex;align-items:center;gap:10px;}
-  .badge-icon-box{width:34px;height:34px;border-radius:8px;background:rgba(0,255,170,.08);border:1px solid rgba(0,255,170,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--green-glow,#00ffaa);}
-  .badge-icon-box svg{width:17px;height:17px;fill:currentColor;}
-  .badge-icon-box.purple{background:rgba(109,92,255,.1);border-color:rgba(109,92,255,.3);color:var(--accent-soft,#b9a8ff);}
-  .badge-icon-box.gold{background:rgba(255,190,59,.1);border-color:rgba(255,190,59,.3);color:#ffbe3b;}
-  .badge-text{display:flex;flex-direction:column;}
-  .badge-title{font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.72rem;font-weight:700;letter-spacing:.04em;color:#fff;text-transform:uppercase;}
-  .badge-sub{font-size:.66rem;color:var(--neutral-on-background-weak);margin-top:1px;}
-  .compliance-cta{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:'Space Mono','Space Mono Fallback',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:6px;cursor:pointer;transition:all .2s ease;}
-  /* §7.9.7 (JP 2026-11-08): at full width the three badges and both buttons stay on one row;
-     each badge's subtext wraps inside its badge instead of pushing the buttons under */
-  @media (min-width:1280px){
-    .compliance-strip{flex-wrap:nowrap;}
-    .compliance-badges{flex:1 1 auto;min-width:0;flex-wrap:nowrap;}
-    .compliance-badge{flex:1 1 0;min-width:0;}
-    .compliance-actions{flex:none;flex-wrap:nowrap!important;}
-  }
-  .compliance-cta:hover{background:rgba(0,255,170,.15);border-color:#00ffaa;color:#00ffaa;}
-  /* §7.9.12: the strip sits above the two centred footer lines */
-  .site-footer .compliance-strip{margin:0 0 1.8rem;text-align:left;}
-  .site-footer .site-footer__inner:has(.compliance-strip){flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:0;}
-  .site-footer .site-footer__inner .site-footer__bottom{width:100%;}
-  .site-footer__bottom{display:flex;flex-direction:column;flex-wrap:wrap;justify-content:center;align-items:center;text-align:center;gap:1rem;
-    padding-top:1.8rem;border-top:1px solid var(--neutral-alpha-weak);
-    font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
-  .site-footer__bottom .legal{display:flex;flex-wrap:wrap;gap:1.4rem;}
-  .site-footer__bottom a{color:var(--neutral-on-background-weak);text-decoration:none;transition:color .35s ease;}
-  .site-footer__bottom a:hover{color:var(--accent);}
 </style>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -705,8 +658,8 @@ else {
       <a class="ovr-logo" href="index.html#top">
         <span class="ovr-logo__icon" aria-hidden="true"></span>
         <span class="ovr-logo__text">
-          <span class="ovr-logo__mark">OVERLORD <em>AI</em></span>
-          <span class="ovr-logo__sub"><span class="ovr-logo__sub--wide">Live game guidebook</span><span class="ovr-logo__sub--short">Game guidebook</span></span>
+          <span class="ovr-logo__mark">OVERLORD</span>
+          <span class="ovr-logo__sub">AI Co-Pilot</span>
         </span>
       </a>
     </div>
@@ -763,8 +716,8 @@ else {
 <main class="checkout-main">
   <div class="checkout-split">
 
-    <!-- LEFT: Payment Portal (Founder Access Zero-Payment Console) -->
-    <section class="checkout-portal" aria-label="Founder Checkout Portal">
+    <!-- RIGHT: Creem built-in checkout (JP: Creem goes on the right) -->
+    <section class="checkout-portal" aria-label="Secure Creem Checkout Portal">
       <div class="portal-topbar mono">
         <div class="status">
           <span class="dot"></span>
@@ -808,6 +761,11 @@ else {
             </div>
 
             <div class="field-wrap">
+              <label for="feedbackInput" class="mono field-label">What plan were you looking to buy, or what game are you playing tonight? <span class="field-opt">(Optional)</span></label>
+              <textarea id="feedbackInput" class="portal-textarea" rows="2" placeholder="e.g. Elden Ring, Black Myth: Wukong, wanted to test the tactical radar..."></textarea>
+            </div>
+
+            <div class="field-wrap">
               <label for="emailInput" class="mono field-label">Your Email <span style="color:var(--accent);font-weight:600;">* (Required for license key &amp; updates)</span></label>
               <input type="email" id="emailInput" class="portal-input" placeholder="player@example.com" required>
             </div>
@@ -819,6 +777,25 @@ else {
           </form>
         </div>
 
+        <!-- Creem Inline Embedded Checkout State (active from Nov 16 or on demo/test) -->
+        <div id="portalCreemState" class="portal-card hidden" style="max-width:640px;padding:1rem 1.25rem;">
+          <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:.4rem;">
+            <div class="surprise-badge mono" id="creemBadge" style="margin-bottom:0;">SECURE CHECKOUT</div>
+            <h2 class="portal-title" id="creemTitle" style="font-size:1.05rem;margin:0;">Enter Payment Details</h2>
+          </div>
+          <div id="creemSignInGate" class="portal-form hidden">
+            <a class="portal-btn" id="creemSignInBtn" href="login.html" style="text-decoration:none;text-align:center;">
+              <span>Sign In to Load Checkout &rarr;</span>
+            </a>
+          </div>
+          <div id="creemEmbedWrap" style="display:flex;flex-direction:column;gap:14px;width:100%;align-items:center;padding:1.5rem 0;">
+            <a id="creemCheckoutBtn" href="#" class="portal-btn" style="text-decoration:none;text-align:center;max-width:340px;width:100%;display:block;padding:16px 24px;font-size:1.05rem;">
+              <span>Proceed to Secure Checkout &rarr;</span>
+            </a>
+            <span class="mono" id="creemEmbedStatus" style="font-size:.68rem;color:var(--neutral-on-background-weak);text-align:center;">Secure payment processed by Creem &middot; Encrypted</span>
+          </div>
+        </div>
+
         <!-- Success & Download State -->
         <div id="portalSuccessState" class="portal-card hidden">
           <div class="surprise-badge surprise-badge--success mono">✓ ACCESS GRANTED &middot; WELCOME ABOARD</div>
@@ -826,9 +803,47 @@ else {
           <p class="portal-desc">
             Your complimentary Founder License has been activated. Grab the release package for your system below to get started.
           </p>
+
+          <div class="key-box mono">
+            <div class="key-box__label">Founder License Key:</div>
+            <div class="key-box__code-row">
+              <code id="displayKey">OVR-FOUNDER-FREE-ACCESS-2026</code>
+              <button type="button" class="key-copy-btn" id="copyKeyBtn">COPY</button>
+            </div>
+          </div>
+
+          <div class="download-grid">
+            <a class="dl-card" href="https://github.com/JpWon/Overlordai/releases/download/v2.1.10/overlord_2.1.10_amd64.deb" download>
+              <div class="dl-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              </div>
+              <div class="dl-card__info">
+                <strong>Download for Linux (.deb)</strong>
+                <small class="mono">Ubuntu / Debian / Mint &middot; 448 MB &middot; Native 1-Click GUI install</small>
+              </div>
+              <span class="dl-card__arrow">&rarr;</span>
+            </a>
+
+            <a class="dl-card" href="https://github.com/JpWon/Overlordai/releases/download/v2.1.10/Overlord.Ai.Setup.2.1.10.exe" download>
+              <div class="dl-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg>
+              </div>
+              <div class="dl-card__info">
+                <strong>Download for Windows (.exe)</strong>
+                <small class="mono">Windows 10 / 11 Standalone &middot; 463 MB Setup</small>
+              </div>
+              <span class="dl-card__arrow">&rarr;</span>
+            </a>
+          </div>
+
+          <div class="portal-extra-links mono">
+            <a href="dashboard.html" class="deck-link">Open Web Control Deck &rarr;</a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- RIGHT: License Details ("Here's your license on the right") -->
+    <!-- LEFT: our field/summary (license details); RIGHT: Creem checkout -->
     <section class="checkout-license" aria-label="License Details">
       <div class="back-nav mono">
         <a href="plans.html">&larr; Back to plans</a>
@@ -837,7 +852,7 @@ else {
       <div class="license-header">
         <div class="license-kicker mono" id="licenseKicker">02 &middot; MONTHLY SUBSCRIPTION</div>
         <h1 class="license-title" id="licenseTitle">Pantocrator License</h1>
-        <p class="license-caption" id="licenseCaption">The sovereign live gaming co-pilot for your primary gaming PC. Cancel anytime in one click.</p>
+        <p class="license-caption" id="licenseCaption"></p>
 
         <div class="license-price-row">
           <span class="license-price mono" id="licensePrice" style="text-decoration:line-through; opacity:0.4;">$14.99</span>
@@ -874,55 +889,20 @@ else {
         </ul>
       </div>
 
-      <div class="license-security mono">
-        <span>Founder Access Active &middot; No credit card required. License key and download link delivered instantly upon confirmation.</span>
+      <div class="license-security mono" id="licenseSecurityNote">
+        <span>Your download is available the moment your payment is confirmed.</span>
         <span>Questions? Email <a href="mailto:support@overlordai.co">support@overlordai.co</a> or join our <a href="https://discord.com/invite/ZPZeJDAw9C" target="_blank" rel="noopener">Discord</a>.</span>
       </div>
     </section>
 
   </div>
 </main>
+<script src="https://www.creem.io/embed.js" defer></script>
 
 <!-- ================= FOOTER ================= -->
-<footer class="site-footer" id="footer">
+<footer class="site-footer">
   <div class="site-footer__inner">
-    <!-- messaging.md §7.9.12 (JP 2026-11-08): the funnel pages end like the homepage: the fair-play strip
-         ("is this cheating?" is asked right here), then two centred lines. -->
-    <!-- Anti-Cheat & Fair Play Compliance Strip -->
-    <div class="compliance-strip">
-      <div class="compliance-badges">
-        <div class="compliance-badge">
-          <div class="badge-icon-box">
-            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-          </div>
-          <div class="badge-text">
-            <span class="badge-title">Plays Fair</span>
-            <span class="badge-sub">Never touches the game &bull; Reads the screen and your save files, read-only</span>
-          </div>
-        </div>
-        <div class="compliance-badge">
-          <div class="badge-icon-box purple">
-            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-          </div>
-          <div class="badge-text">
-            <span class="badge-title">Reads the screen, nothing else</span>
-            <span class="badge-sub">Zero Memory Access &bull; Zero DLL Injection</span>
-          </div>
-        </div>
-        <div class="compliance-badge">
-          <div class="badge-icon-box gold">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-          </div>
-          <div class="badge-text">
-            <span class="badge-title">Single-Player Only</span>
-            <span class="badge-sub">No Input Macros &bull; Multiplayer Refused</span>
-          </div>
-        </div>
-      </div>
-      <div class="compliance-actions" style="display:flex;gap:8px;flex-wrap:wrap;"><a class="compliance-cta" href="/fair-play" style="text-decoration:none;">Fair play &rarr;</a><a class="compliance-cta" href="/fair-play#never" style="text-decoration:none;">Safety specs &rarr;</a></div>
-    </div>
-
-    <div class="site-footer__bottom">
+    <div class="site-footer__bottom" style="display:flex;flex-direction:column;flex-wrap:wrap;gap:.35rem;justify-content:center;align-items:center;text-align:center;">
       <div class="legal" style="flex-wrap:wrap;justify-content:center;">
         <a href="terms.html">Terms</a>
         <a href="privacy.html">Privacy</a>
@@ -947,7 +927,7 @@ const PRODUCTS = {
     id: 'demo-trial',
     kicker: '01 · FREE TRIAL & FOUNDER ACCESS',
     title: 'Trial & Founder Pass',
-    caption: '30 minutes of live play. Free, no credit card.',
+    caption: '',
     price: '$0.00',
     period: 'free through November 15',
     lineItem: 'Overlord AI Founder Trial',
@@ -964,34 +944,37 @@ const PRODUCTS = {
     id: 'subscription-monthly',
     kicker: '02 · MONTHLY SUBSCRIPTION',
     title: 'Pantocrator License',
-    caption: 'The complete sovereign live gaming companion for your primary rig. Cancel anytime in one click.',
+    caption: '',
     price: '$14.99',
     period: '/ month',
     lineItem: 'Pantocrator License (Monthly)',
     discount: '-$14.99',
     features: [
-      'Unlimited real-time tactical overlay & mission guidance',
-      'Linux and Windows 10/11 support',
-      'Every rafter and hidden Ability Point, marked',
-      'Spoken answers in your co-pilot\'s voice',
-      'Instant software download & license activation'
+      'A live game guidebook for your single-player PC games',
+      'Guidance through questlines, puzzles and hidden items as you play',
+      'Spoken answers, no tabbing out, so you stay in the flow',
+      'New games mapped daily',
+      'Windows 10/11, instant download and activation'
     ]
   },
   pro: {
     id: 'pro-monthly',
     kicker: '03 · PRO 3-PC TIER',
     title: 'Pro Pantocrator License',
-    caption: 'Everything in Subscription across three personal gaming rigs. Floating seat manager with instant reassignment.',
+    caption: '',
     price: '$39.99',
     period: '/ month',
     lineItem: 'Pro Pantocrator License · 3 PCs (Monthly)',
     discount: '-$39.99',
     features: [
-      'Everything in Monthly Subscription',
-      'Three concurrent PC licenses under one account',
+      'A live game guidebook for your single-player PC games',
+      'Guidance through questlines, puzzles and hidden items as you play',
+      'Spoken answers, no tabbing out, so you stay in the flow',
+      'New games mapped daily',
+      'Windows 10/11, instant download and activation',
+      'Up to three concurrent PC licenses under one account',
       'Floating seat manager — reassign seats on demand',
-      'Priority game profile releases & insider builds',
-      'Instant software download & license activation'
+      'Priority game profile releases & insider builds'
     ]
   }
 };
@@ -1002,8 +985,6 @@ const PRODUCTS = {
   const pParam = (urlParams.get('plan') || '').toLowerCase();
   const planKey = (pParam === 'pro') ? 'pro' : ((pParam === 'demo') ? 'demo' : 'sub');
   const product = PRODUCTS[planKey];
-  // §7.9.13: the free 30 minutes show no price panel (prices live on the plans page the visitor came from)
-  if (planKey === 'demo') document.querySelector('.checkout-split')?.classList.add('is-demo');
 
   // Populate Right Column: License Overview
   const kickerEl = document.getElementById('licenseKicker');
@@ -1086,7 +1067,9 @@ const PRODUCTS = {
         },
         body: JSON.stringify({
           email: payload.email,
-          plan: payload.plan || null
+          feedback: payload.feedback || null,
+          plan: payload.plan || null,
+          license_key: payload.license_key || null
         })
       });
     } catch (err) {}
@@ -1097,16 +1080,20 @@ const PRODUCTS = {
   const form = document.getElementById('founderForm');
   const preState = document.getElementById('portalPreState');
   const successState = document.getElementById('portalSuccessState');
+  const displayKey = document.getElementById('displayKey');
+  const copyBtn = document.getElementById('copyKeyBtn');
   const statusMsg = document.getElementById('portalStatusMsg');
 
-  async function activateLicense(email, authProvider, userId) {
-    // messaging.md §7.9.13: the free 30 minutes go to the "Unlocked." moment and the dashboard; that page
-    // records the claim (founder_leads + funnel trial_claimed) for the signed-in account.
-    if (planKey === 'demo') { location.assign('thanks.html?plan=demo'); return; }
+  async function activateLicense(email, feedback, authProvider, userId) {
+    const randHex = Math.random().toString(36).substring(2, 6).toUpperCase();
+    const genKey = 'OVR-' + (planKey === 'pro' ? 'PRO' : 'FOUNDER') + '-' + randHex + '-2026';
+    if (displayKey) displayKey.textContent = genKey;
 
     const payload = {
       email,
+      feedback: feedback || null,
       plan: planKey,
+      license_key: genKey,
       auth_provider: authProvider || 'email',
       user_id: userId || null,
       ref: urlParams.get('ref') || null,
@@ -1124,6 +1111,8 @@ const PRODUCTS = {
   document.querySelectorAll('[data-oauth]').forEach(b => {
     b.addEventListener('click', async () => {
       const provider = b.dataset.oauth;
+      const feedbackVal = (document.getElementById('feedbackInput')?.value || '').trim();
+      if (feedbackVal) sessionStorage.setItem('ovr_pending_feedback', feedbackVal);
       sessionStorage.setItem('ovr_pending_plan', planKey);
 
       if (sbClient) {
@@ -1155,8 +1144,121 @@ const PRODUCTS = {
     });
   });
 
-  // Check for active session or OAuth redirect return
-  if (sbClient) {
+  // Check for Creem Paid / Test Checkout Mode (always on for non-prod demo host, or >= PAID_CHECKOUT_START)
+  const onProdHost = /(^|\.)overlordai\.co$/i.test(window.location.hostname);
+  const creemTest = !onProdHost;
+  const paidStart = Date.parse(window.PAID_CHECKOUT_START || '2026-11-16T05:00:00Z');
+  const useCreem = (planKey === 'sub' || planKey === 'pro') && (creemTest || Date.now() >= paidStart);
+
+  if (useCreem) {
+    const topStatus = document.querySelector('.portal-topbar .status span:last-child');
+    if (topStatus) topStatus.textContent = 'Encrypted Checkout \u00b7 Creem Payment Processor';
+    if (priceEl) { priceEl.style.textDecoration = 'none'; priceEl.style.opacity = '1'; }
+    const freePriceEl = document.getElementById('freePrice');
+    if (freePriceEl) freePriceEl.classList.add('hidden');
+    if (periodEl) periodEl.textContent = product.period;
+    const discRow = document.getElementById('founderDiscountLabel')?.parentElement;
+    if (discRow) discRow.classList.add('hidden');
+    if (totalDueEl) { totalDueEl.textContent = product.price; totalDueEl.style.color = 'var(--neutral-on-background-strong)'; }
+    if (preState) { preState.classList.add('hidden'); preState.style.display = 'none'; }
+    const creemState = document.getElementById('portalCreemState');
+    if (creemState) creemState.classList.remove('hidden');
+
+    const switchSubBtn = document.getElementById('switchSubBtn');
+    const switchProBtn = document.getElementById('switchProBtn');
+    if (switchSubBtn && planKey === 'sub') switchSubBtn.style.borderColor = 'var(--accent)';
+    if (switchProBtn && planKey === 'pro') switchProBtn.style.borderColor = 'var(--accent)';
+
+    const signInGate = document.getElementById('creemSignInGate');
+    const signInBtn = document.getElementById('creemSignInBtn');
+    const embedWrap = document.getElementById('creemEmbedWrap');
+    const embedMount = document.getElementById('creemEmbedMount');
+    const embedStatus = document.getElementById('creemEmbedStatus');
+    const directLink = document.getElementById('creemDirectLink');
+    const returnUrl = '/checkout.html?plan=' + planKey + (creemTest ? '&checkout=creem' : '');
+    if (signInBtn) {
+      signInBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        try { sessionStorage.setItem('overlord_after_auth', returnUrl); } catch (_) {}
+        window.location.assign('login.html');
+      });
+    }
+
+    let pollTimer = null;
+    async function pollWebhookEntitlement() {
+      if (!sbClient) return;
+      try {
+        const { data: ent } = await sbClient.rpc('my_entitlement');
+        if (ent && (ent.plan === 'standard' || ent.plan === 'pro') && ['active', 'trialing', 'past_due', 'scheduled_cancel'].includes(ent.status)) {
+          if (pollTimer) clearInterval(pollTimer);
+          if (displayKey) displayKey.textContent = ent.licence_reference || ('OVR-' + ent.plan.toUpperCase() + '-ACTIVE');
+          const keyLabel = document.querySelector('.key-box__label');
+          if (keyLabel) keyLabel.textContent = 'Active License Key (' + ent.plan.toUpperCase() + '):';
+          if (creemState) creemState.classList.add('hidden');
+          if (successState) successState.classList.remove('hidden');
+        }
+      } catch (_) {}
+    }
+
+    if (urlParams.get('paid') === '1') {
+      if (embedStatus) {
+        embedStatus.textContent = '\u2713 Payment completed \u00b7 Webhook verified!';
+        embedStatus.style.color = '#10b981';
+      }
+      if (displayKey) displayKey.textContent = 'OVR-' + (planKey === 'pro' ? 'PRO' : 'STANDARD') + '-TEST-ACTIVE';
+      const keyLabel = document.querySelector('.key-box__label');
+      if (keyLabel) keyLabel.textContent = 'Active License Key (' + (planKey === 'pro' ? 'PRO' : 'STANDARD') + '):';
+      if (creemState) creemState.classList.add('hidden');
+      if (successState) successState.classList.remove('hidden');
+    }
+
+    async function startCreemInline(session) {
+      if (signInGate) signInGate.classList.add('hidden');
+      if (embedWrap) embedWrap.classList.remove('hidden');
+      const checkoutBtn = document.getElementById('creemCheckoutBtn');
+      if (checkoutBtn) checkoutBtn.textContent = 'Preparing secure checkout…';
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (session && session.access_token) headers.Authorization = 'Bearer ' + session.access_token;
+        const r = await fetch('/api/checkout', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ plan: planKey })
+        });
+        const out = await r.json().catch(() => ({}));
+        if (!r.ok || !out.checkout_url) {
+          if (embedStatus) embedStatus.textContent = r.status === 401 ? 'Please sign in to start checkout.' : ('Checkout error: ' + (out.error || r.status));
+          if (r.status === 401 && signInGate) signInGate.classList.remove('hidden');
+          if (checkoutBtn) checkoutBtn.style.display = 'none';
+          return;
+        }
+        const themedUrl = out.checkout_url;
+        if (checkoutBtn) {
+          checkoutBtn.textContent = 'Proceed to Secure Checkout →';
+          checkoutBtn.href = themedUrl;
+          checkoutBtn.onclick = (e) => {
+            e.preventDefault();
+            window.location.assign(themedUrl);
+          };
+        }
+        if (embedStatus) embedStatus.textContent = 'Ready · Click above to open secure checkout';
+        pollTimer = setInterval(pollWebhookEntitlement, 3000);
+      } catch (err) {
+        if (embedStatus) embedStatus.textContent = 'Could not reach /api/checkout. Check connection.';
+      }
+    }
+
+    if (sbClient) {
+      sbClient.auth.getSession().then(({ data }) => {
+        startCreemInline(data && data.session ? data.session : null);
+      }).catch(() => startCreemInline(null));
+    } else {
+      startCreemInline(null);
+    }
+  }
+
+  // Check for active session or OAuth redirect return (only in Founder Access mode)
+  if (sbClient && !useCreem) {
     sbClient.auth.getSession().then(({ data }) => {
       if (data && data.session && data.session.user) {
         const user = data.session.user;
@@ -1166,8 +1268,10 @@ const PRODUCTS = {
 
         const isOauthReturn = urlParams.get('founder_oauth') === '1' || window.location.hash.includes('access_token');
         if (isOauthReturn && email) {
+          const pendingFeedback = sessionStorage.getItem('ovr_pending_feedback') || '';
+          sessionStorage.removeItem('ovr_pending_feedback');
           sessionStorage.removeItem('ovr_pending_plan');
-          activateLicense(email, user.app_metadata?.provider || 'oauth', user.id);
+          activateLicense(email, pendingFeedback, user.app_metadata?.provider || 'oauth', user.id);
         }
       }
     }).catch(() => {});
@@ -1177,6 +1281,7 @@ const PRODUCTS = {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = (document.getElementById('emailInput')?.value || '').trim();
+      const feedback = (document.getElementById('feedbackInput')?.value || '').trim();
 
       if (!email) {
         if (statusMsg) {
@@ -1186,27 +1291,33 @@ const PRODUCTS = {
         return;
       }
 
-      if (planKey === 'demo') {
-        const { data } = sbClient ? await sbClient.auth.getSession() : { data: null };
-        if (!(data && data.session)) {
-          // §7.9.13: sign up / sign in first; the dashboard sees the waiting claim and plays the "Unlocked." moment
-          try { localStorage.setItem('ovr_pending_claim', String(Date.now())); sessionStorage.setItem('ovr_email', email); }
-          catch (_) { /* storage blocked: they still land on sign-up */ }
-          location.assign('signup.html');
-          return;
-        }
-      }
-
       const claimBtn = document.getElementById('claimBtn');
       if (claimBtn) {
         claimBtn.disabled = true;
         claimBtn.innerHTML = '<span>Activating License&hellip;</span>';
       }
 
-      await activateLicense(email, 'email', null);
+      await activateLicense(email, feedback, 'email', null);
     });
   }
 
+  // Copy Key Button
+  if (copyBtn && displayKey) {
+    copyBtn.addEventListener('click', () => {
+      const key = displayKey.textContent;
+      navigator.clipboard.writeText(key).then(() => {
+        const orig = copyBtn.textContent;
+        copyBtn.textContent = 'COPIED!';
+        copyBtn.style.borderColor = '#10b981';
+        copyBtn.style.color = '#10b981';
+        setTimeout(() => {
+          copyBtn.textContent = orig;
+          copyBtn.style.borderColor = '';
+          copyBtn.style.color = '';
+        }, 2200);
+      }).catch(() => {});
+    });
+  }
 
   // Live ticking clock
   const clock = document.getElementById('clock');
@@ -1256,7 +1367,5 @@ const PRODUCTS = {
   renderTheme();
 })();
 </script>
-<script src="/assets/funnel-config.js"></script>
-<script src="/assets/funnel.js" defer></script>
 </body>
 </html>
