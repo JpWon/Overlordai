@@ -1,0 +1,48 @@
+{
+  "slug": "how-to-beat-erlang-the-sacred-divinity",
+  "game": "black-myth-wukong",
+  "game_title": "Black Myth: Wukong",
+  "game_page": "/wukong.html",
+  "store_url": "https://store.steampowered.com/app/2358720/",
+  "query": "how to beat erlang, the sacred divinity in black myth: wukong",
+  "title": "How to Beat Erlang, the Sacred Divinity in Black Myth: Wukong",
+  "meta_desc": "A guide on how to defeat Erlang, the Sacred Divinity. Learn about his attacks, defenses, and how to use the Rakshasi's fan to make him vulnerable.",
+  "published_at": "2026-11-12",
+  "atlas": {
+    "app_id": "2358720",
+    "updated": "2026-10-26"
+  },
+  "intro": "Erlang, the Sacred Divinity, is a mandatory boss fight that serves as the game's opening battle during the prologue. As a Yaoguai King, he presents a significant challenge right from the start. This encounter is a test of your ability to manage multiple threats and break through a formidable defense. Success hinges on understanding his abilities and knowing when to create an opening for your attacks.",
+  "intro_ref": [
+    "boss/erlang_the_sacred_divinity"
+  ],
+  "steps": [
+    {
+      "heading": "Erlang's Defenses",
+      "text": "Erlang possesses a high level of durability, which allows him to withstand most incoming attacks without flinching. He is also adept at using his spear for defense. When he blocks with his weapon, he receives less damage than he would otherwise. This defensive prowess means that simply attacking him head-on can be an inefficient strategy. You'll need to find a way to bypass his guard to deal significant damage.",
+      "atlas_ref": [
+        "boss/erlang_the_sacred_divinity"
+      ]
+    },
+    {
+      "heading": "The Howling Celestial Dog",
+      "text": "Erlang does not fight entirely alone. He can summon his Howling celestial dog directly from his spear to attack you. This ability forces you to contend with an additional enemy while also trying to manage the boss himself. As the fight progresses into its second phase, Erlang will up the ante by summoning two of these celestial dogs at once, increasing the pressure and complexity of the battle.",
+      "atlas_ref": [
+        "boss/erlang_the_sacred_divinity"
+      ]
+    },
+    {
+      "heading": "Using the Rakshasi's Fan",
+      "text": "A key tool for this fight is the Rakshasi's fan. Using this item allows you to create a powerful tornado. This tornado has a unique effect on Erlang: it will completely clear his stamina bar. Once his stamina is depleted, his defense is temporarily lowered. This makes him much more vulnerable to your attacks, providing a critical window to inflict substantial damage. Timing the use of the fan to create these openings is crucial for victory.",
+      "atlas_ref": [
+        "boss/erlang_the_sacred_divinity"
+      ]
+    }
+  ],
+  "outro": "By managing his summoned dogs and using the Rakshasi's fan to break his defense, you can overcome the durable Erlang and emerge victorious from this prologue battle.",
+  "outro_ref": [
+    "boss/erlang_the_sacred_divinity"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": []
+}
