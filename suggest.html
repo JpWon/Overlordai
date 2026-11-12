@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/assets/consent.js"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-18496558698');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suggest a game | Overlord AI</title>
+<meta name="description" content="Tell us which game Overlord AI should map next. JP reads every suggestion.">
+<meta name="robots" content="index,follow,max-snippet:-1">
+<link rel="canonical" href="https://www.overlordai.co/suggest">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Overlord AI">
+<meta property="og:title" content="Suggest a game | Overlord AI">
+<meta property="og:description" content="Tell us which game Overlord AI should map next.">
+<meta property="og:url" content="https://www.overlordai.co/suggest">
+<meta property="og:image" content="https://www.overlordai.co/og-thumbnail.png">
+<meta name="twitter:card" content="summary_large_image">
+<script>try{document.documentElement.setAttribute('data-theme', localStorage.getItem('data-theme') || 'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  /* Same frame as roster.html (the page a player is on when their game is missing); Naples gold marks the
+     thank-you, the brand's accent stays violet. */
+  :root{--accent:#6d5cff;--gold:#D4A24E;--faint:#6E6E7C;--bad:#ff6b6b;}
+  [data-theme="light"]{--bg:#ffffff;--text:#0a0a0a;--muted:#5f5f66;--line:rgba(0,0,0,.10);--panel:#f6f6f8;}
+  [data-theme="dark"]{--bg:#000000;--text:#ffffff;--muted:#a3a3a3;--line:rgba(255,255,255,.12);--panel:#101014;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.65;}
+  a{color:inherit;text-decoration-color:var(--accent);text-underline-offset:3px;}
+  .bar{display:flex;align-items:center;gap:10px;padding:16px 24px;border-bottom:1px solid var(--line);}
+  .bar a{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:'Anton',sans-serif;letter-spacing:.04em;text-transform:uppercase;font-size:18px;}
+  .bar__mark{width:32px;height:32px;background:currentColor;-webkit-mask:url('/assets/rooster-nav.svg') center/contain no-repeat;mask:url('/assets/rooster-nav.svg') center/contain no-repeat;}
+  main{max-width:720px;margin:0 auto;padding:40px 16px 72px;}
+  h1{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(34px,6vw,52px);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;margin:14px 0 14px;}
+  .byline{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:22px;display:flex;align-items:center;gap:8px;}
+  .dot{flex-shrink:0;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  @media (prefers-reduced-motion: reduce){ .dot{animation:none;} }
+  .lede{font-size:18px;margin-bottom:10px;}
+  .fine{font-size:15px;color:var(--muted);margin-bottom:28px;}
+  form{display:grid;gap:18px;}
+  label{display:block;font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;}
+  label .opt{text-transform:none;letter-spacing:0;color:var(--faint);}
+  input[type=text],input[type=url],textarea{width:100%;padding:12px 14px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;}
+  textarea{min-height:110px;resize:vertical;}
+  input:focus,textarea:focus{outline:none;border-color:var(--accent);}
+  .field.bad input,.field.bad textarea{border-color:var(--bad);}
+  .hint{font-size:13px;color:var(--muted);margin-top:4px;display:flex;justify-content:space-between;gap:12px;}
+  .err{color:var(--bad);}
+  .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;}
+  button{justify-self:start;padding:13px 26px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);color:#fff;font-family:'Anton',sans-serif;font-size:16px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+  button:disabled{opacity:.55;cursor:default;}
+  .msg{display:none;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:8px;font-size:16px;}
+  .msg.show{display:block;}
+  .msg.bad{border-color:var(--bad);}
+  .thanks{display:none;padding:22px 22px;background:var(--panel);border:1px solid var(--gold);border-radius:8px;}
+  .thanks.show{display:block;}
+  .thanks h2{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.02em;font-size:26px;color:var(--gold);margin-bottom:8px;}
+  .thanks button{margin-top:14px;background:transparent;color:var(--text);border-color:var(--line);}
+  .outro{margin-top:40px;border-top:1px solid var(--line);padding-top:20px;font-size:15px;color:var(--muted);}
+  footer{border-top:1px solid var(--line);padding:24px 16px;font-size:13px;color:var(--muted);}
+  footer .in{max-width:720px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px 18px;}
+  footer a{text-decoration:none;}
+</style>
+</head>
+<body>
+<header class="bar"><a href="/"><span class="bar__mark" aria-hidden="true"></span>Overlord AI</a></header>
+<main>
+
+<h1>Suggest a game</h1>
+<p class="byline"><span class="dot" aria-hidden="true"></span>JP reads every suggestion</p>
+<p class="lede">Which game should Overlord AI map next? Tell us, and add a Steam link if you have one.</p>
+<p class="fine">A suggestion goes on the list JP reviews. It isn&rsquo;t a request that starts a build, and it doesn&rsquo;t guarantee the game gets mapped. Overlord AI still helps with any single-player game you play today and learns it as you go.</p>
+
+<form id="suggest" novalidate>
+  <div class="field" id="f-title">
+    <label for="title">Game title</label>
+    <input type="text" id="title" name="title" maxlength="120" required autocomplete="off" placeholder="e.g. the full name as it appears on Steam">
+    <div class="hint"><span class="err" id="e-title" role="alert"></span><span id="c-title">0 / 120</span></div>
+  </div>
+  <div class="field" id="f-steam_url">
+    <label for="steam_url">Steam store link <span class="opt">(optional)</span></label>
+    <input type="url" id="steam_url" name="steam_url" maxlength="300" autocomplete="off" inputmode="url" placeholder="https://store.steampowered.com/app/...">
+    <div class="hint"><span class="err" id="e-steam_url" role="alert"></span></div>
+  </div>
+  <div class="field" id="f-note">
+    <label for="note">Anything we should know? <span class="opt">(optional)</span></label>
+    <textarea id="note" name="note" maxlength="500" placeholder="The boss, area or puzzle you'd want help with"></textarea>
+    <div class="hint"><span class="err" id="e-note" role="alert"></span><span id="c-note">0 / 500</span></div>
+  </div>
+  <!-- Honeypot: people never see or fill this; bots that fill every field are thanked and ignored. -->
+  <div class="hp" aria-hidden="true"><label for="website">Website</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+  <button type="submit" id="send">Send suggestion</button>
+  <p class="msg" id="msg" role="status"></p>
+</form>
+
+<div class="thanks" id="thanks" role="status" tabindex="-1">
+  <h2>Thanks &mdash; JP reviews every suggestion</h2>
+  <p>It&rsquo;s on the list. A suggestion doesn&rsquo;t guarantee a build, but it&rsquo;s how we decide what comes next.</p>
+  <button type="button" id="again">Suggest another game</button>
+</div>
+
+<p class="outro">Want to see what&rsquo;s already mapped? <a href="/roster">Browse the roster</a>.</p>
+</main>
+<footer><div class="in">
+  <span>&copy; 2026 Overlord AI</span>
+  <a href="/">Home</a><a href="/roster">Roster</a><a href="/plans.html">Plans</a><a href="/support.html">Support / FAQ</a>
+  <a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/contact.html">Contact</a>
+</div></footer>
+<script>
+(function() {
+  var form = document.getElementById('suggest'), send = document.getElementById('send'), msg = document.getElementById('msg');
+  var thanks = document.getElementById('thanks'), loadedAt = Date.now();
+  // Not form.title: that is the form's own title attribute, not the input.
+  var fTitle = document.getElementById('title'), fSteam = document.getElementById('steam_url');
+  var fNote = document.getElementById('note'), fHp = document.getElementById('website');
+  var WORDS = {
+    title_required: 'Please enter the game\u2019s title.',
+    title_too_long: 'Keep the title to 120 characters.',
+    title_is_link: 'Put the link in the Steam field and the name here.',
+    invalid_title: 'That title doesn\u2019t look right. Try the plain game name.',
+    invalid_steam_url: 'That isn\u2019t a Steam store link. It should look like store.steampowered.com/app/12345.',
+    note_too_long: 'Keep the note to 500 characters.',
+    invalid_note: 'That note couldn\u2019t be saved. Try plain text.',
+    no_html: 'Plain text only, please (no HTML).',
+    rate_limited: 'You\u2019ve sent a few already. Give it a little while and try again.',
+    busy: 'Lots of suggestions right now. Please try again in a bit.',
+    bad_origin: 'Please send this from overlordai.co.',
+    too_large: 'That\u2019s too long to send.'
+  };
+  var FALLBACK = 'We couldn\u2019t take suggestions just now. Please try again later, or email support@overlordai.co.';
+
+  // Pre-fill the title when linked from the roster search ("/suggest?title=...").
+  try {
+    var q = new URLSearchParams(location.search).get('title');
+    if (q) fTitle.value = q.slice(0, 120);
+  } catch (e) {}
+
+  function count(id, max) {
+    var el = document.getElementById(id), out = document.getElementById('c-' + id);
+    function upd() { out.textContent = el.value.length + ' / ' + max; }
+    el.addEventListener('input', upd); upd();
+  }
+  count('title', 120); count('note', 500);
+
+  function clearErrors() {
+    ['title', 'steam_url', 'note'].forEach(function(f) {
+      document.getElementById('f-' + f).classList.remove('bad');
+      document.getElementById('e-' + f).textContent = '';
+    });
+    msg.className = 'msg'; msg.textContent = '';
+  }
+  function showError(field, code) {
+    var text = WORDS[code] || FALLBACK;
+    if (field && document.getElementById('f-' + field)) {
+      document.getElementById('f-' + field).classList.add('bad');
+      document.getElementById('e-' + field).textContent = text;
+      document.getElementById(field).focus();
+    } else {
+      msg.className = 'msg show bad'; msg.textContent = text;
+    }
+  }
+  // A signed-in player's suggestion carries their account (the server checks the token with Supabase).
+  function accessToken() {
+    try {
+      var s = JSON.parse(localStorage.getItem('sb-bzxzhizvfzmldpkxxuqu-auth-token') || 'null');
+      if (s && s.access_token && (!s.expires_at || s.expires_at * 1000 > Date.now())) return s.access_token;
+    } catch (e) {}
+    return null;
+  }
+
+  form.addEventListener('submit', function(ev) {
+    ev.preventDefault();
+    clearErrors();
+    var title = fTitle.value.trim();
+    if (!title) return showError('title', 'title_required');
+    var steam = fSteam.value.trim();
+    if (steam && !/^(https?:\/\/)?(www\.)?store\.steampowered\.com\/app\/\d{1,10}([\/?#]\S*)?$/i.test(steam)) {
+      return showError('steam_url', 'invalid_steam_url');
+    }
+    var headers = { 'Content-Type': 'application/json' }, tok = accessToken();
+    if (tok) headers.Authorization = 'Bearer ' + tok;
+    send.disabled = true; send.textContent = 'Sending\u2026';
+    fetch('/api/suggest-game', {
+      method: 'POST', headers: headers,
+      body: JSON.stringify({ title: title, steam_url: steam, note: fNote.value, source: 'web',
+                             website: fHp.value, t: loadedAt })
+    }).then(function(r) { return r.json().catch(function() { return { ok: false }; }); })
+      .then(function(out) {
+        if (out && out.ok) {
+          form.style.display = 'none';
+          thanks.classList.add('show'); thanks.focus();
+          if (window.gtag) gtag('event', 'suggest_game');
+        } else {
+          showError(out && out.field, out && out.error);
+        }
+      })
+      .catch(function() { showError(null, null); })
+      .then(function() { send.disabled = false; send.textContent = 'Send suggestion'; });
+  });
+
+  document.getElementById('again').addEventListener('click', function() {
+    form.reset(); loadedAt = Date.now(); clearErrors();
+    ['title', 'note'].forEach(function(id) { document.getElementById(id).dispatchEvent(new Event('input')); });
+    thanks.classList.remove('show'); form.style.display = ''; fTitle.focus();
+  });
+})();
+</script>
+<script src="/assets/funnel-config.js"></script>
+<script src="/assets/funnel.js" defer></script>
+</body>
+</html>
