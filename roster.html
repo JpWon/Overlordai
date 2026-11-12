@@ -96,15 +96,15 @@
   <li><span class="name">WUCHANG: Fallen Feathers</span></li>
 </ul>
 <!-- roster-list:end -->
-<p class="none" id="none">Not mapped yet. Overlord AI still helps with any single-player game and learns it as you play.</p>
+<p class="none" id="none">Not mapped yet. Overlord AI still helps with any single-player game and learns it as you play. <a href="/suggest" id="suggest-missing">Suggest it</a> and JP will see it.</p>
 
-<p class="outro">Overlord AI already knows every game here, from its areas and items to its bosses. Anything else, it learns as you play.</p>
+<p class="outro">Overlord AI already knows every game here, from its areas and items to its bosses. Anything else, it learns as you play. Don&rsquo;t see your game? <a href="/suggest">Suggest a game</a>.</p>
 </main>
 <footer><div class="in">
   <span>&copy; 2026 Overlord AI</span>
   <a href="/">Home</a><a href="/plans.html">Plans</a><a href="/support.html">Support / FAQ</a>
   <a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/contact.html">Contact</a>
-  <a href="/guides/">Guides</a>
+  <a href="/guides/">Guides</a><a href="/suggest">Suggest a game</a>
 </div></footer>
 <script src="/assets/atlas-catalog.js"></script>
 <script>
@@ -121,6 +121,7 @@
       if (hit) shown++;
     });
     none.style.display = shown ? 'none' : 'block';
+    document.getElementById('suggest-missing').href = '/suggest' + (q ? '?title=' + encodeURIComponent(find.value.trim()) : '');
   }
   find.addEventListener('input', filter);
 
