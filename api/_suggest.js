@@ -155,7 +155,8 @@ async function submitToSupabase(value, userId, keys, fetchImpl = fetch) {
       })
     });
     if (!r.ok) {
-      console.error('submit_game_suggestion failed', r.status);
+      const errText = await r.text();
+      console.error('submit_game_suggestion failed', r.status, errText, 'key prefix:', (key || '').slice(0, 8), 'len:', (key || '').length);
       return { ok: false, error: 'unavailable' };
     }
     const data = await r.json();
