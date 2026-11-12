@@ -130,7 +130,7 @@ test('route stores a valid suggestion through submit_game_suggestion only', asyn
   assert.equal(sent.p_user_id, null);
   assert.match(sent.p_keys[0], /^ip:[0-9a-f]{40}$/);
   assert.equal(calls[0].init.headers.apikey, 'sb_secret_test');
-  assert.equal(calls[0].init.headers.Authorization, undefined);   // new-style secret key goes in apikey only
+  assert.equal(calls[0].init.headers.Authorization, 'Bearer sb_secret_test');
 });
 
 test('route: invalid input never reaches Supabase', async () => {

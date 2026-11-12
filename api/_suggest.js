@@ -144,8 +144,7 @@ async function supabaseUserId(token, fetchImpl = fetch) {
 async function submitToSupabase(value, userId, keys, fetchImpl = fetch) {
   const key = serviceKey();
   if (!key) return { ok: false, error: 'not_configured' };
-  const headers = { apikey: key, 'Content-Type': 'application/json' };
-  if (!key.startsWith('sb_')) headers.Authorization = `Bearer ${key}`;   // legacy JWT service key
+  const headers = { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' };
   try {
     const r = await fetchImpl(`${SUPABASE_URL}/rest/v1/rpc/submit_game_suggestion`, {
       method: 'POST',
