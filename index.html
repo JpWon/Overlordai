@@ -1482,11 +1482,32 @@
        frame for three, then starts again (see the ended handler below) — so the attribute is
        autoplay, NOT loop. Silent and muted so it plays itself; the poster is the title-card
        frame so there is never a black block wherever autoplay is blocked. -->
+  <!-- JP 2026-11-14: phones and tablets (<= 1024px) get ONE still image — the clip's last
+       frame — and never download the video. So the video carries no src/poster in the markup;
+       the script right below gives it both only on a wider screen, at the same moment the old
+       <source> would have started loading. A tablet that loads narrow and turns wide gets the
+       video then. The still sits in the same box with the same object-fit, so it frames the
+       way the clip does behind the hero. The <picture> keeps desktop from fetching the still. -->
   <video id="heroVideo" class="hero-video hero-video--desktop" autoplay muted playsinline preload="auto"
-         poster="assets/hero/intro-poster.jpg" aria-hidden="true" tabindex="-1">
-    <source src="assets/hero/intro-loop.mp4" type="video/mp4">
-  </video>
-  <img class="hero-video hero-video--mobile" src="assets/hero/intro-poster.jpg" alt="Overlord AI" aria-hidden="true">
+         aria-hidden="true" tabindex="-1"></video>
+  <script>
+  (function(){
+    var v = document.getElementById('heroVideo');
+    var wide = window.matchMedia('(min-width: 1025px)');
+    function load(){
+      if (!wide.matches || v.getAttribute('src')) return;
+      v.poster = 'assets/hero/intro-poster.jpg';
+      v.src = 'assets/hero/intro-loop.mp4';
+    }
+    load();
+    if (wide.addEventListener) wide.addEventListener('change', load);
+    else if (wide.addListener) wide.addListener(load);
+  })();
+  </script>
+  <picture>
+    <source media="(min-width: 1025px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+    <img class="hero-video hero-video--mobile" src="assets/hero/intro-last.jpg" width="1280" height="720" alt="Overlord AI" aria-hidden="true">
+  </picture>
 
   <!-- JP 2026-11-09: the old "Overlord AI" word + tagline are gone from the hero. The clip
        says the name itself, and the tagline lives in the bottom-left meta line and in the
@@ -2046,12 +2067,13 @@
     drawCover(t);
     requestAnimationFrame(frame);
   }
-  // Motion respect or mobile/tablet: on mobile and tablets, or reduced motion, pause the video
-  // and hold on the last three seconds (full image pause) stagnant without looping.
+  // Motion respect: with reduced motion, pause the video and hold it on its last frame.
+  // Phones and tablets (<= 1024px) never get a video source at all (JP 2026-11-14) — they
+  // show the still image instead — so there is nothing to pause there. The ended handler is
+  // attached everywhere so a tablet that turns wide and loads the clip still holds/restarts.
   const heroVideo = document.getElementById('heroVideo');
   if (heroVideo){
-    const isMobileOrTablet = window.innerWidth <= 1024 || window.matchMedia('(max-width: 1024px)').matches;
-    if (reduced || isMobileOrTablet){
+    if (reduced){
       heroVideo.removeAttribute('autoplay');
       heroVideo.pause();
       const setStagnant = () => {
