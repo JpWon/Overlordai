@@ -334,6 +334,10 @@
   @media (max-width: 1024px) {
     .hero-video--desktop { display: none !important; }
     .hero-video--mobile { display: block !important; }
+    /* JP 2026-11-14: on a tall screen "cover" cut the end card down to "erlord", so the
+       still shows WHOLE ("contain") and the space above/below is filled with the card's
+       own edge colours (top #13151a, bottom #0a0911), so the bands read as part of it. */
+    .hero-video--mobile { object-fit: contain; background: linear-gradient(#13151a, #0a0911); }
   }
 
   /* JP 2026-11-09: the word is retired — the clip in the hero carries its own "Overlord AI",
