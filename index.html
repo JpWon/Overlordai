@@ -334,11 +334,10 @@
   @media (max-width: 1024px) {
     .hero-video--desktop { display: none !important; }
     .hero-video--mobile { display: block !important; }
-    /* JP 2026-11-14: on a tall screen "cover" cut the end card down to "erlord". The still
-       is a crop of his chosen card (intro-last.jpg) to the title + tagline only, the corner
-       text trimmed, so it can run larger; it shows WHOLE ("contain") and the space around
-       it is the crop's own edge colours (top #13141a, bottom #0b0a12). */
-    .hero-video--mobile { object-fit: contain; background: linear-gradient(#13141a, #0b0a12); }
+    /* JP 2026-11-14: the still fills the screen ("cover", like the clip). A phone or tablet
+       held upright gets a PORTRAIT re-set of the end card (title stacked, tagline on three
+       lines) so it fills vertically; held sideways it gets the landscape card. The
+       <picture> below picks between them by orientation. */
   }
 
   /* JP 2026-11-09: the word is retired — the clip in the hero carries its own "Overlord AI",
@@ -1511,7 +1510,8 @@
   </script>
   <picture>
     <source media="(min-width: 1025px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-    <img class="hero-video hero-video--mobile" src="assets/hero/intro-last-mobile.jpg" width="880" height="440" alt="Overlord AI" aria-hidden="true">
+    <source media="(orientation: portrait)" srcset="assets/hero/intro-last-portrait.jpg" width="1080" height="2340">
+    <img class="hero-video hero-video--mobile" src="assets/hero/intro-last.jpg" width="1280" height="720" alt="Overlord AI" aria-hidden="true">
   </picture>
 
   <!-- JP 2026-11-09: the old "Overlord AI" word + tagline are gone from the hero. The clip
