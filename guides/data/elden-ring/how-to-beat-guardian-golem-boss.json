@@ -1,0 +1,58 @@
+{
+  "slug": "how-to-beat-guardian-golem-boss",
+  "game": "elden-ring",
+  "game_title": "Elden Ring",
+  "game_page": "/eldenring.html",
+  "store_url": "https://store.steampowered.com/app/1245620/",
+  "query": "how to beat guardian golem elden ring",
+  "title": "How to Beat the Guardian Golem in Elden Ring",
+  "meta_desc": "Learn how to defeat the optional Guardian Golem boss in Limgrave's Highroad Cave. Find out its weaknesses and a simple strategy for victory.",
+  "published_at": "2026-11-15",
+  "atlas": {
+    "app_id": "1245620",
+    "updated": "2026-11-02"
+  },
+  "intro": "Deep within Limgrave, you can find an optional boss known as the Guardian Golem. This colossal foe is located at the end of Highroad Cave, a hidden network of caverns tucked away near the northern mouth of a river. This cave system is home to various forms of wildlife and the ruins of a long-gone civilization. Before facing the golem at the end of the cave, it helps to understand its unique properties and the best way to approach the fight.",
+  "intro_ref": [
+    "boss/guardian_golem_boss",
+    "rooms/highroad_cave"
+  ],
+  "steps": [
+    {
+      "heading": "Know Its Defenses",
+      "text": "The Guardian Golem is completely immune to all status effects, so bleed, frost, and poison won't be of any use here. It also has considerable damage negation against most non-physical damage types. However, its defenses are less effective against Magic damage compared to other elemental sources. When it comes to physical attacks, the golem is particularly susceptible to Strike damage, as it has no negation against it. It does have a mild resistance to other types of physical damage, but Strike weapons will be the most effective.",
+      "atlas_ref": [
+        "boss/guardian_golem_boss"
+      ]
+    },
+    {
+      "heading": "Stay Close to Its Ankles",
+      "text": "A straightforward and effective strategy for this battle is to stay as close as possible to the golem's ankles. By sticking behind its massive feet, you can consistently land hits while avoiding many of its frontal assaults. This tactic might feel familiar if you've encountered the regular, non-boss halberd golems out in the world, as the same principle applies here. Staying in this position is the key to controlling the flow of the fight and creating openings for your attacks.",
+      "atlas_ref": [
+        "boss/guardian_golem_boss"
+      ]
+    },
+    {
+      "heading": "Dodge Its Special Attacks",
+      "text": "Even when you're positioned behind the golem, you still need to be aware of a couple of specific attacks. If you see the golem start to raise its weapon to slam the butt of it into the ground, it's time to back away to avoid the resulting shockwave. Similarly, if the golem prepares to breathe fire, you'll want to create distance to avoid getting caught in the flames. After it completes these attacks, you can safely close the distance and return to attacking its ankles.",
+      "atlas_ref": [
+        "boss/guardian_golem_boss"
+      ]
+    }
+  ],
+  "outro": "By focusing on its ankles with a Strike weapon and dodging its ground slams and fire breath, you can bring this stone guardian down.",
+  "outro_ref": [
+    "boss/guardian_golem_boss"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": [],
+  "image": {
+    "src": "/assets/lux/banner-finish-tall.jpg",
+    "shape": "tall",
+    "phone": "/assets/lux/banner-finish-phone.jpg",
+    "alt": "Overlord AI: finish the game you quit. Free 30-minute demo",
+    "width": 160,
+    "height": 600,
+    "href": "/"
+  }
+}
