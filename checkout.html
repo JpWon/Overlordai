@@ -1024,18 +1024,21 @@ const PRODUCTS = {
         }
         return;
       }
+      /* Straight to the payment page (JP 2026-11-16): no extra click. replace() keeps this page out of the
+         back-button history, so Back from the payment page returns to the plans, not to a page that redirects again.
+         The button stays as a fallback link in case the browser holds the redirect. */
       const checkoutUrl = out.checkout_url;
       if (checkoutBtn) {
-        checkoutBtn.textContent = 'Proceed to Secure Checkout →';
+        checkoutBtn.textContent = 'Opening secure checkout…';
         checkoutBtn.href = checkoutUrl;
-        checkoutBtn.onclick = (e) => {
-          e.preventDefault();
-          if (window.OverlordFunnel) { try { window.OverlordFunnel.track('checkout_started', { plan: planKey }); } catch (_) {} }
-          window.location.assign(checkoutUrl);
-        };
       }
       say('Secure payment processed by Creem · Encrypted');
-      startPolling(0);
+      let tracked = Promise.resolve();
+      if (window.OverlordFunnel) {
+        try { tracked = Promise.resolve(window.OverlordFunnel.track('checkout_started', { plan: planKey })).catch(() => {}); } catch (_) {}
+      }
+      await Promise.race([tracked, new Promise(r => setTimeout(r, 600))]);
+      window.location.replace(checkoutUrl);
     } catch (err) {
       if (checkoutBtn) checkoutBtn.style.display = 'none';
       say('Checkout could not be reached. Check your connection and try again.');
