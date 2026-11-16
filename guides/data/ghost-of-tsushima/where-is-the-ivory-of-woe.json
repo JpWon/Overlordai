@@ -1,0 +1,61 @@
+{
+  "slug": "where-is-the-ivory-of-woe",
+  "game": "ghost-of-tsushima",
+  "game_title": "Ghost of Tsushima",
+  "game_page": "/soulslike.html",
+  "store_url": "https://store.steampowered.com/app/2215430/",
+  "query": "where is the ivory of woe in ghost of tsushima?",
+  "title": "Where to Find the Ivory of Woe in Ghost of Tsushima",
+  "meta_desc": "Find the Ivory of Woe vanity mask in Ghost of Tsushima. This guide shows its location in Kin Sanctuary and points out other collectibles nearby.",
+  "published_at": "2026-11-16",
+  "atlas": {
+    "app_id": "2215430",
+    "updated": "2026-11-04"
+  },
+  "intro": "The Ivory of Woe is a cosmetic vanity mask that can be found in the Kamiagata region of Tsushima. This collectible is located within Kin Sanctuary, an area that becomes accessible after progressing through the main story tale, \"Honor and Ash.\" While you're in the area, you can also find several other useful items and collectibles scattered around the settlement and the nearby frozen lake.",
+  "intro_ref": [
+    "loot/ivory_of_woe",
+    "rooms/kin_sanctuary"
+  ],
+  "steps": [
+    {
+      "heading": "Finding the Ivory of Woe",
+      "text": "The Ivory of Woe mask is located in Kin Sanctuary. Starting from the checkpoint, travel south toward the entrance of the settlement. You will find the mask sitting just outside one of the ruined houses in the area.",
+      "atlas_ref": [
+        "loot/ivory_of_woe"
+      ]
+    },
+    {
+      "heading": "Other Collectibles in the Settlement",
+      "text": "Kin Sanctuary holds more than just the mask. If you head west from the checkpoint, you can find a collectible record scroll called \"Cry for Help\" inside an intact house. Another scroll, \"Farewell,\" can be picked up by going southeast into the burned temple building; it's on the floor near a wooden supply shelf. For another cosmetic item, you can travel east from the checkpoint to a ridge that overlooks the ruined settlement. Interacting with the Haiku spot there will award you the Headband of Ruin.",
+      "atlas_ref": [
+        "loot/cry_for_help",
+        "loot/farewell",
+        "loot/headband_of_ruin"
+      ]
+    },
+    {
+      "heading": "Exploring the Frozen Lake",
+      "text": "The frozen lake next to Kin Sanctuary also has a few points of interest. Heading north from the checkpoint across the ice will lead you to a small island with a bamboo strike stand. Completing this mini-game increases Jin's maximum Resolve. There is another small island to the northwest of the checkpoint that contains a Pillar of Honor. Interacting with it will grant you the Midnight Hanabi, a cosmetic sword kit for your katana and wakizashi.",
+      "atlas_ref": [
+        "loot/kin_bamboo_strike",
+        "loot/midnight_hanabi"
+      ]
+    }
+  ],
+  "outro": "The Ivory of Woe is a purely cosmetic item for Jin's face and is not missable, so you can return to Kin Sanctuary to collect it at any time.",
+  "outro_ref": [
+    "loot/ivory_of_woe"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": [],
+  "image": {
+    "src": "/assets/lux/banner-levelup-wide.jpg",
+    "shape": "wide",
+    "phone": "/assets/lux/banner-levelup-phone.jpg",
+    "alt": "Overlord AI: level up faster. Free 30-minute demo",
+    "width": 728,
+    "height": 90,
+    "href": "/"
+  }
+}
