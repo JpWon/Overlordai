@@ -20,7 +20,6 @@
   rdt('track','PageVisit');
 </script>
 
-<script src="assets/founder-config.js"></script>
 <script src="assets/vendor/supabase-js.js"></script>
 <script src="assets/auth-config.js"></script>
 
@@ -721,64 +720,14 @@
       <div class="portal-topbar mono">
         <div class="status">
           <span class="dot"></span>
-          <span>Founder Access &middot; Zero Payment Required</span>
+          <span>Secure Checkout &middot; Encrypted</span>
         </div>
         <div id="clock">--:--:--</div>
       </div>
 
       <div class="portal-content">
-        <!-- Initial Pre-Pay State -->
-        <div id="portalPreState" class="portal-card">
-          <div class="surprise-badge mono">✦ FOUNDER ACCESS &middot; FREE THROUGH <span class="founder-access-date">NOVEMBER 15</span></div>
-          <h2 class="portal-title">Thank You For Trying Overlord!</h2>
-          <p class="portal-desc">
-            We are currently in open founder preview, which means <strong>full access is free through <span class="founder-access-date">November 15</span></strong>. No credit card required and zero charges. Download the full software, unlock your license, and start playing right now.
-          </p>
-
-          <form id="founderForm" class="portal-form">
-            <div class="oauth-wrap">
-              <span class="mono field-label">1-click sign-in:</span>
-              <div class="oauth-grid">
-                <button class="oauth__btn" type="button" data-oauth="google">
-                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                    <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.2-2.1 3.5-5.1 3.5-8.7z"/>
-                    <path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.9-3c-1.1.7-2.4 1.2-4 1.2-3.1 0-5.7-2.1-6.6-4.9H1.4v3.1A12 12 0 0 0 12 24z"/>
-                    <path fill="#FBBC05" d="M5.4 14.4a7.2 7.2 0 0 1 0-4.7V6.6H1.4a12 12 0 0 0 0 10.8l4-3z"/>
-                    <path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.4 6.6l4 3.1C6.3 6.9 8.9 4.8 12 4.8z"/>
-                  </svg>
-                  <span>Continue with Google</span>
-                  <span class="arr">&rarr;</span>
-                </button>
-                <button class="oauth__btn" type="button" data-oauth="apple">
-                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" class="apple">
-                    <path fill="currentColor" d="M16.4 12.7c0-2.6 2.1-3.8 2.2-3.9a4.8 4.8 0 0 0-3.8-2c-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9a5 5 0 0 0-4.2 2.6c-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5a11 11 0 0 0 1.4-2.9 4.5 4.5 0 0 1-2.6-4.1zM13.9 5.1c.7-.9 1.2-2 1.1-3.1-1 0-2.3.7-3 1.6-.7.8-1.2 1.9-1.1 3 1.1.1 2.3-.6 3-1.5z"/>
-                  </svg>
-                  <span>Continue with Apple</span>
-                  <span class="arr">&rarr;</span>
-                </button>
-              </div>
-              <div class="portal-or-divider mono"><span>or continue with email</span></div>
-            </div>
-
-            <div class="field-wrap">
-              <label for="feedbackInput" class="mono field-label">What plan were you looking to buy, or what game are you playing tonight? <span class="field-opt">(Optional)</span></label>
-              <textarea id="feedbackInput" class="portal-textarea" rows="2" placeholder="e.g. Elden Ring, Black Myth: Wukong, wanted to test the tactical radar..."></textarea>
-            </div>
-
-            <div class="field-wrap">
-              <label for="emailInput" class="mono field-label">Your Email <span style="color:var(--accent);font-weight:600;">* (Required for license key &amp; updates)</span></label>
-              <input type="email" id="emailInput" class="portal-input" placeholder="player@example.com" required>
-            </div>
-
-            <button type="submit" class="portal-btn" id="claimBtn">
-              <span>Claim Free Access &amp; Download Overlord &rarr;</span>
-            </button>
-            <p id="portalStatusMsg" class="mono" style="font-size:0.75rem; color:var(--neutral-on-background-weak); text-align:center; min-height:1.2em; margin-top:.4rem;"></p>
-          </form>
-        </div>
-
-        <!-- Creem Inline Embedded Checkout State (active from Nov 16 or on demo/test) -->
-        <div id="portalCreemState" class="portal-card hidden" style="max-width:640px;padding:1rem 1.25rem;">
+        <!-- Checkout state: the button opens the payment page -->
+        <div id="portalCreemState" class="portal-card" style="max-width:640px;padding:1rem 1.25rem;">
           <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:.4rem;">
             <div class="surprise-badge mono" id="creemBadge" style="margin-bottom:0;">SECURE CHECKOUT</div>
             <h2 class="portal-title" id="creemTitle" style="font-size:1.05rem;margin:0;">Enter Payment Details</h2>
@@ -801,13 +750,13 @@
           <div class="surprise-badge surprise-badge--success mono">✓ ACCESS GRANTED &middot; WELCOME ABOARD</div>
           <h2 class="portal-title">You're All Set!</h2>
           <p class="portal-desc">
-            Your complimentary Founder License has been activated. Grab the release package for your system below to get started.
+            Your license is active. Grab the release package for your system below to get started.
           </p>
 
           <div class="key-box mono">
-            <div class="key-box__label">Founder License Key:</div>
+            <div class="key-box__label">License:</div>
             <div class="key-box__code-row">
-              <code id="displayKey">OVR-FOUNDER-FREE-ACCESS-2026</code>
+              <code id="displayKey"></code>
               <button type="button" class="key-copy-btn" id="copyKeyBtn">COPY</button>
             </div>
           </div>
@@ -855,9 +804,8 @@
         <p class="license-caption" id="licenseCaption"></p>
 
         <div class="license-price-row">
-          <span class="license-price mono" id="licensePrice" style="text-decoration:line-through; opacity:0.4;">$14.99</span>
-          <span class="license-price mono" id="freePrice" style="color:#10b981; margin-left:8px;">$0.00</span>
-          <span class="license-period mono" id="licensePeriod">/ free through <span class="founder-access-date">November 15</span></span>
+          <span class="license-price mono" id="licensePrice">$14.99</span>
+          <span class="license-period mono" id="licensePeriod">/ month</span>
         </div>
       </div>
 
@@ -869,13 +817,9 @@
           <span id="lineItemName">Pantocrator License</span>
           <span class="mono" id="lineItemPrice">$14.99 / mo</span>
         </div>
-        <div class="breakdown-row" style="color:#10b981;">
-          <span id="founderDiscountLabel">Founder Access: free through <span class="founder-access-date">November 15</span></span>
-          <span class="mono" id="discountAmount">-$14.99</span>
-        </div>
         <div class="breakdown-row total">
           <span>Total due today</span>
-          <span class="mono" id="totalDuePrice" style="color:#10b981;">$0.00</span>
+          <span class="mono" id="totalDuePrice">$14.99</span>
         </div>
       </div>
 
@@ -922,60 +866,46 @@
 
 <script>
 /* ================= PRODUCT CONFIG ================= */
+const BASE_FEATURES = [
+  'A live game guidebook for your single-player PC games',
+  'Guidance through questlines, puzzles and hidden items as you play',
+  'Spoken answers, no tabbing out, so you stay in the flow',
+  'New games mapped daily',
+  'Windows 10/11, instant download and activation'
+];
+const PRO_FEATURES = BASE_FEATURES.concat([
+  'Up to three concurrent PC licenses under one account',
+  'Floating seat manager — reassign seats on demand',
+  'Priority game profile releases & insider builds'
+]);
 const PRODUCTS = {
-  demo: {
-    id: 'demo-trial',
-    kicker: '01 · FREE TRIAL & FOUNDER ACCESS',
-    title: 'Trial & Founder Pass',
-    caption: '',
-    price: '$0.00',
-    period: 'free through November 15',
-    lineItem: 'Overlord AI Founder Trial',
-    discount: '$0.00',
-    features: [
-      'Full live screen guidance & core guidebook',
-      'Linux and Windows 10/11 support',
-      'Built-in guides for every mapped game',
-      'Spoken answers in your co-pilot\'s voice',
-      'Instant software download & execution'
-    ]
-  },
   sub: {
-    id: 'subscription-monthly',
     kicker: '02 · MONTHLY SUBSCRIPTION',
     title: 'Pantocrator License',
-    caption: '',
-    price: '$14.99',
-    period: '/ month',
+    price: '$14.99', period: '/ month', per: ' / mo',
     lineItem: 'Pantocrator License (Monthly)',
-    discount: '-$14.99',
-    features: [
-      'A live game guidebook for your single-player PC games',
-      'Guidance through questlines, puzzles and hidden items as you play',
-      'Spoken answers, no tabbing out, so you stay in the flow',
-      'New games mapped daily',
-      'Windows 10/11, instant download and activation'
-    ]
+    features: BASE_FEATURES
+  },
+  sub_year: {
+    kicker: '02 · YEARLY SUBSCRIPTION',
+    title: 'Pantocrator License',
+    price: '$149.99', period: '/ year', per: ' / yr',
+    lineItem: 'Pantocrator License (Yearly)',
+    features: BASE_FEATURES
   },
   pro: {
-    id: 'pro-monthly',
     kicker: '03 · PRO 3-PC TIER',
     title: 'Pro Pantocrator License',
-    caption: '',
-    price: '$39.99',
-    period: '/ month',
+    price: '$39.99', period: '/ month', per: ' / mo',
     lineItem: 'Pro Pantocrator License · 3 PCs (Monthly)',
-    discount: '-$39.99',
-    features: [
-      'A live game guidebook for your single-player PC games',
-      'Guidance through questlines, puzzles and hidden items as you play',
-      'Spoken answers, no tabbing out, so you stay in the flow',
-      'New games mapped daily',
-      'Windows 10/11, instant download and activation',
-      'Up to three concurrent PC licenses under one account',
-      'Floating seat manager — reassign seats on demand',
-      'Priority game profile releases & insider builds'
-    ]
+    features: PRO_FEATURES
+  },
+  pro_year: {
+    kicker: '03 · PRO 3-PC TIER · YEARLY',
+    title: 'Pro Pantocrator License',
+    price: '$399.99', period: '/ year', per: ' / yr',
+    lineItem: 'Pro Pantocrator License · 3 PCs (Yearly)',
+    features: PRO_FEATURES
   }
 };
 
@@ -983,38 +913,23 @@ const PRODUCTS = {
 (() => {
   const urlParams = new URLSearchParams(window.location.search);
   const pParam = (urlParams.get('plan') || '').toLowerCase();
-  const planKey = (pParam === 'pro') ? 'pro' : ((pParam === 'demo') ? 'demo' : 'sub');
+  /* The free 30 minutes are claimed from the sign-in page, not here. */
+  if (pParam === 'demo') { window.location.replace('login.html?claim=demo'); return; }
+  const planKey = Object.prototype.hasOwnProperty.call(PRODUCTS, pParam) ? pParam : 'sub';
   const product = PRODUCTS[planKey];
+  const $ = id => document.getElementById(id);
+  const setText = (id, text) => { const el = $(id); if (el) el.textContent = text; };
 
-  // Populate Right Column: License Overview
-  const kickerEl = document.getElementById('licenseKicker');
-  if (kickerEl) kickerEl.textContent = product.kicker;
-  const titleEl = document.getElementById('licenseTitle');
-  if (titleEl) titleEl.textContent = product.title;
-  const captionEl = document.getElementById('licenseCaption');
-  if (captionEl) captionEl.textContent = product.caption;
-  const priceEl = document.getElementById('licensePrice');
-  if (priceEl) priceEl.textContent = product.price;
-  const periodEl = document.getElementById('licensePeriod');
-  if (periodEl) periodEl.textContent = '/ free through ' + (window.FOUNDER_ACCESS_END_LABEL || 'November 15');
-  const nameEl = document.getElementById('lineItemName');
-  if (nameEl) nameEl.textContent = product.lineItem;
-  const itemPriceEl = document.getElementById('lineItemPrice');
-  if (itemPriceEl) itemPriceEl.textContent = (planKey === 'demo') ? '$0.00' : product.price + ' / mo';
-  const discountEl = document.getElementById('discountAmount');
-  if (discountEl) discountEl.textContent = product.discount;
-  const totalDueEl = document.getElementById('totalDuePrice');
-  if (totalDueEl) totalDueEl.textContent = '$0.00';
+  // License overview
+  setText('licenseKicker', product.kicker);
+  setText('licenseTitle', product.title);
+  setText('licensePrice', product.price);
+  setText('licensePeriod', product.period);
+  setText('lineItemName', product.lineItem);
+  setText('lineItemPrice', product.price + product.per);
+  setText('totalDuePrice', product.price);
 
-  // Sync date across founder access labels from constant
-  if (window.FOUNDER_ACCESS_END_LABEL) {
-    document.querySelectorAll('.founder-access-date').forEach(el => {
-      el.textContent = window.FOUNDER_ACCESS_END_LABEL;
-    });
-  }
-
-  // Features
-  const featuresList = document.getElementById('featuresList');
+  const featuresList = $('featuresList');
   if (featuresList) {
     featuresList.innerHTML = product.features.map(f => `
       <li>
@@ -1032,274 +947,123 @@ const PRODUCTS = {
     auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
   }) : null;
 
-  async function recordFounderLead(payload) {
-    // 1. Always guarantee local resilience
-    try {
-      localStorage.setItem('overlord_founder_lead', JSON.stringify(payload));
-    } catch (e) {}
+  const creemState = $('portalCreemState');
+  const successState = $('portalSuccessState');
+  const displayKey = $('displayKey');
+  const copyBtn = $('copyKeyBtn');
+  const signInGate = $('creemSignInGate');
+  const signInBtn = $('creemSignInBtn');
+  const embedWrap = $('creemEmbedWrap');
+  const embedStatus = $('creemEmbedStatus');
+  const checkoutBtn = $('creemCheckoutBtn');
+  const returnUrl = '/checkout.html?plan=' + planKey;
+  const SUPPORT_LINE = 'Please try again in a moment, or email support@overlordai.co.';
+  const say = (text, color) => { if (embedStatus) { embedStatus.textContent = text; embedStatus.style.color = color || ''; } };
 
-    if (!cfg.url || !cfg.anonKey) return false;
-
-    // 2. Write to dedicated founder_leads table
-    try {
-      const res = await fetch(`${cfg.url}/rest/v1/founder_leads`, {
-        method: 'POST',
-        headers: {
-          'apikey': cfg.anonKey,
-          'Authorization': `Bearer ${cfg.anonKey}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify(payload)
-      });
-      if (res.ok) return true;
-    } catch (err) {}
-
-    // 3. Fallback write to waitlist table
-    try {
-      await fetch(`${cfg.url}/rest/v1/waitlist`, {
-        method: 'POST',
-        headers: {
-          'apikey': cfg.anonKey,
-          'Authorization': `Bearer ${cfg.anonKey}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({
-          email: payload.email,
-          feedback: payload.feedback || null,
-          plan: payload.plan || null,
-          license_key: payload.license_key || null
-        })
-      });
-    } catch (err) {}
-    return true;
-  }
-
-  // Handle Form Submission & Claim Action
-  const form = document.getElementById('founderForm');
-  const preState = document.getElementById('portalPreState');
-  const successState = document.getElementById('portalSuccessState');
-  const displayKey = document.getElementById('displayKey');
-  const copyBtn = document.getElementById('copyKeyBtn');
-  const statusMsg = document.getElementById('portalStatusMsg');
-
-  async function activateLicense(email, feedback, authProvider, userId) {
-    const randHex = Math.random().toString(36).substring(2, 6).toUpperCase();
-    const genKey = 'OVR-' + (planKey === 'pro' ? 'PRO' : 'FOUNDER') + '-' + randHex + '-2026';
-    if (displayKey) displayKey.textContent = genKey;
-
-    const payload = {
-      email,
-      feedback: feedback || null,
-      plan: planKey,
-      license_key: genKey,
-      auth_provider: authProvider || 'email',
-      user_id: userId || null,
-      ref: urlParams.get('ref') || null,
-      user_agent: navigator.userAgent || null,
-      created_at: new Date().toISOString()
-    };
-
-    await recordFounderLead(payload);
-
-    if (preState) preState.classList.add('hidden');
-    if (successState) successState.classList.remove('hidden');
-  }
-
-  // Fast-track OAuth Click Listeners
-  document.querySelectorAll('[data-oauth]').forEach(b => {
-    b.addEventListener('click', async () => {
-      const provider = b.dataset.oauth;
-      const feedbackVal = (document.getElementById('feedbackInput')?.value || '').trim();
-      if (feedbackVal) sessionStorage.setItem('ovr_pending_feedback', feedbackVal);
-      sessionStorage.setItem('ovr_pending_plan', planKey);
-
-      if (sbClient) {
-        const redirectUri = window.location.origin + window.location.pathname + '?plan=' + planKey + '&founder_oauth=1';
-        b.disabled = true;
-        b.style.opacity = '0.6';
-        if (statusMsg) {
-          statusMsg.textContent = 'Redirecting to ' + (provider === 'google' ? 'Google' : 'Apple') + '\u2026';
-          statusMsg.style.color = 'var(--accent)';
-        }
-        const { error } = await sbClient.auth.signInWithOAuth({
-          provider,
-          options: { redirectTo: redirectUri }
-        });
-        if (error) {
-          if (statusMsg) {
-            statusMsg.textContent = error.message || 'Could not connect to provider.';
-            statusMsg.style.color = '#ef4444';
-          }
-          b.disabled = false;
-          b.style.opacity = '1';
-        }
-      } else {
-        if (statusMsg) {
-          statusMsg.textContent = 'That sign-in option isn\'t available right now. Please enter your email below.';
-          statusMsg.style.color = '#ef4444';
-        }
-      }
+  if (signInBtn) {
+    signInBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      try { sessionStorage.setItem('overlord_after_auth', returnUrl); } catch (_) {}
+      window.location.assign('login.html');
     });
-  });
+  }
 
-  // Check for Creem Paid / Test Checkout Mode (always on for non-prod demo host, or >= PAID_CHECKOUT_START)
-  const onProdHost = /(^|\.)overlordai\.co$/i.test(window.location.hostname);
-  const creemTest = !onProdHost;
-  const paidStart = Date.parse(window.PAID_CHECKOUT_START || '2026-11-16T05:00:00Z');
-  const useCreem = (planKey === 'sub' || planKey === 'pro') && (creemTest || Date.now() >= paidStart);
-
-  if (useCreem) {
-    const topStatus = document.querySelector('.portal-topbar .status span:last-child');
-    if (topStatus) topStatus.textContent = 'Encrypted Checkout \u00b7 Creem Payment Processor';
-    if (priceEl) { priceEl.style.textDecoration = 'none'; priceEl.style.opacity = '1'; }
-    const freePriceEl = document.getElementById('freePrice');
-    if (freePriceEl) freePriceEl.classList.add('hidden');
-    if (periodEl) periodEl.textContent = product.period;
-    const discRow = document.getElementById('founderDiscountLabel')?.parentElement;
-    if (discRow) discRow.classList.add('hidden');
-    if (totalDueEl) { totalDueEl.textContent = product.price; totalDueEl.style.color = 'var(--neutral-on-background-strong)'; }
-    if (preState) { preState.classList.add('hidden'); preState.style.display = 'none'; }
-    const creemState = document.getElementById('portalCreemState');
-    if (creemState) creemState.classList.remove('hidden');
-
-    const switchSubBtn = document.getElementById('switchSubBtn');
-    const switchProBtn = document.getElementById('switchProBtn');
-    if (switchSubBtn && planKey === 'sub') switchSubBtn.style.borderColor = 'var(--accent)';
-    if (switchProBtn && planKey === 'pro') switchProBtn.style.borderColor = 'var(--accent)';
-
-    const signInGate = document.getElementById('creemSignInGate');
-    const signInBtn = document.getElementById('creemSignInBtn');
-    const embedWrap = document.getElementById('creemEmbedWrap');
-    const embedMount = document.getElementById('creemEmbedMount');
-    const embedStatus = document.getElementById('creemEmbedStatus');
-    const directLink = document.getElementById('creemDirectLink');
-    const returnUrl = '/checkout.html?plan=' + planKey + (creemTest ? '&checkout=creem' : '');
-    if (signInBtn) {
-      signInBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        try { sessionStorage.setItem('overlord_after_auth', returnUrl); } catch (_) {}
-        window.location.assign('login.html');
-      });
-    }
-
-    let pollTimer = null;
-    async function pollWebhookEntitlement() {
-      if (!sbClient) return;
-      try {
-        const { data: ent } = await sbClient.rpc('my_entitlement');
-        if (ent && (ent.plan === 'standard' || ent.plan === 'pro') && ['active', 'trialing', 'past_due', 'scheduled_cancel'].includes(ent.status)) {
-          if (pollTimer) clearInterval(pollTimer);
-          if (displayKey) displayKey.textContent = ent.licence_reference || ('OVR-' + ent.plan.toUpperCase() + '-ACTIVE');
-          const keyLabel = document.querySelector('.key-box__label');
-          if (keyLabel) keyLabel.textContent = 'Active License Key (' + ent.plan.toUpperCase() + '):';
-          if (creemState) creemState.classList.add('hidden');
-          if (successState) successState.classList.remove('hidden');
-        }
-      } catch (_) {}
-    }
-
-    if (urlParams.get('paid') === '1') {
-      if (embedStatus) {
-        embedStatus.textContent = '\u2713 Payment completed \u00b7 Webhook verified!';
-        embedStatus.style.color = '#10b981';
+  /* Paid access is granted by the back end only, once the payment provider confirms the payment.
+     This page never grants anything itself: it reads the signed-in account's entitlement. */
+  const PAID_PLANS = ['standard', 'pro'];
+  const OK_STATUS = ['active', 'trialing', 'past_due', 'scheduled_cancel'];
+  let pollTimer = null;
+  async function checkEntitlement() {
+    if (!sbClient) return false;
+    try {
+      const { data: ent } = await sbClient.rpc('my_entitlement');
+      if (!ent || !PAID_PLANS.includes(ent.plan) || !OK_STATUS.includes(ent.status)) return false;
+      if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+      const keyBox = document.querySelector('.key-box');
+      if (ent.licence_reference) {
+        if (displayKey) displayKey.textContent = ent.licence_reference;
+        const keyLabel = document.querySelector('.key-box__label');
+        if (keyLabel) keyLabel.textContent = (ent.plan === 'pro' ? 'Pro' : 'Subscription') + ' License:';
+      } else if (keyBox) {
+        keyBox.classList.add('hidden');
       }
-      if (displayKey) displayKey.textContent = 'OVR-' + (planKey === 'pro' ? 'PRO' : 'STANDARD') + '-TEST-ACTIVE';
-      const keyLabel = document.querySelector('.key-box__label');
-      if (keyLabel) keyLabel.textContent = 'Active License Key (' + (planKey === 'pro' ? 'PRO' : 'STANDARD') + '):';
       if (creemState) creemState.classList.add('hidden');
       if (successState) successState.classList.remove('hidden');
-    }
-
-    async function startCreemInline(session) {
-      if (signInGate) signInGate.classList.add('hidden');
-      if (embedWrap) embedWrap.classList.remove('hidden');
-      const checkoutBtn = document.getElementById('creemCheckoutBtn');
-      if (checkoutBtn) checkoutBtn.textContent = 'Preparing secure checkout…';
-      try {
-        const headers = { 'Content-Type': 'application/json' };
-        if (session && session.access_token) headers.Authorization = 'Bearer ' + session.access_token;
-        const r = await fetch('/api/checkout', {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({ plan: planKey })
-        });
-        const out = await r.json().catch(() => ({}));
-        if (!r.ok || !out.checkout_url) {
-          if (embedStatus) embedStatus.textContent = r.status === 401 ? 'Please sign in to start checkout.' : ('Checkout error: ' + (out.error || r.status));
-          if (r.status === 401 && signInGate) signInGate.classList.remove('hidden');
-          if (checkoutBtn) checkoutBtn.style.display = 'none';
-          return;
-        }
-        const themedUrl = out.checkout_url;
-        if (checkoutBtn) {
-          checkoutBtn.textContent = 'Proceed to Secure Checkout →';
-          checkoutBtn.href = themedUrl;
-          checkoutBtn.onclick = (e) => {
-            e.preventDefault();
-            window.location.assign(themedUrl);
-          };
-        }
-        if (embedStatus) embedStatus.textContent = 'Ready · Click above to open secure checkout';
-        pollTimer = setInterval(pollWebhookEntitlement, 3000);
-      } catch (err) {
-        if (embedStatus) embedStatus.textContent = 'Could not reach /api/checkout. Check connection.';
+      return true;
+    } catch (_) { return false; }
+  }
+  function startPolling(maxTries, onGiveUp) {
+    let tries = 0;
+    if (pollTimer) clearInterval(pollTimer);
+    pollTimer = setInterval(async () => {
+      tries += 1;
+      const done = await checkEntitlement();
+      if (!done && maxTries && tries >= maxTries) {
+        clearInterval(pollTimer); pollTimer = null;
+        if (onGiveUp) onGiveUp();
       }
-    }
-
-    if (sbClient) {
-      sbClient.auth.getSession().then(({ data }) => {
-        startCreemInline(data && data.session ? data.session : null);
-      }).catch(() => startCreemInline(null));
-    } else {
-      startCreemInline(null);
-    }
+    }, 3000);
   }
 
-  // Check for active session or OAuth redirect return (only in Founder Access mode)
-  if (sbClient && !useCreem) {
-    sbClient.auth.getSession().then(({ data }) => {
-      if (data && data.session && data.session.user) {
-        const user = data.session.user;
-        const email = user.email || '';
-        const emailInput = document.getElementById('emailInput');
-        if (emailInput && email) emailInput.value = email;
-
-        const isOauthReturn = urlParams.get('founder_oauth') === '1' || window.location.hash.includes('access_token');
-        if (isOauthReturn && email) {
-          const pendingFeedback = sessionStorage.getItem('ovr_pending_feedback') || '';
-          sessionStorage.removeItem('ovr_pending_feedback');
-          sessionStorage.removeItem('ovr_pending_plan');
-          activateLicense(email, pendingFeedback, user.app_metadata?.provider || 'oauth', user.id);
-        }
-      }
-    }).catch(() => {});
-  }
-
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = (document.getElementById('emailInput')?.value || '').trim();
-      const feedback = (document.getElementById('feedbackInput')?.value || '').trim();
-
-      if (!email) {
-        if (statusMsg) {
-          statusMsg.textContent = 'An email address is required to activate your license.';
-          statusMsg.style.color = '#ef4444';
+  async function startCheckout(session) {
+    if (signInGate) signInGate.classList.add('hidden');
+    if (embedWrap) embedWrap.classList.remove('hidden');
+    if (checkoutBtn) checkoutBtn.textContent = 'Preparing secure checkout…';
+    try {
+      const headers = { 'Content-Type': 'application/json' };
+      if (session && session.access_token) headers.Authorization = 'Bearer ' + session.access_token;
+      const r = await fetch('/api/checkout', { method: 'POST', headers, body: JSON.stringify({ plan: planKey }) });
+      const out = await r.json().catch(() => ({}));
+      if (!r.ok || !out.checkout_url) {
+        if (checkoutBtn) checkoutBtn.style.display = 'none';
+        if (r.status === 401) {
+          say('Please sign in to start checkout.');
+          if (signInGate) signInGate.classList.remove('hidden');
+        } else {
+          say('Checkout is not available right now. ' + SUPPORT_LINE);
         }
         return;
       }
-
-      const claimBtn = document.getElementById('claimBtn');
-      if (claimBtn) {
-        claimBtn.disabled = true;
-        claimBtn.innerHTML = '<span>Activating License&hellip;</span>';
+      const checkoutUrl = out.checkout_url;
+      if (checkoutBtn) {
+        checkoutBtn.textContent = 'Proceed to Secure Checkout →';
+        checkoutBtn.href = checkoutUrl;
+        checkoutBtn.onclick = (e) => {
+          e.preventDefault();
+          if (window.OverlordFunnel) { try { window.OverlordFunnel.track('checkout_started', { plan: planKey }); } catch (_) {} }
+          window.location.assign(checkoutUrl);
+        };
       }
-
-      await activateLicense(email, feedback, 'email', null);
-    });
+      say('Secure payment processed by Creem · Encrypted');
+      startPolling(0);
+    } catch (err) {
+      if (checkoutBtn) checkoutBtn.style.display = 'none';
+      say('Checkout could not be reached. Check your connection and try again.');
+    }
   }
+
+  async function init() {
+    let session = null;
+    if (sbClient) {
+      try { const { data } = await sbClient.auth.getSession(); session = data && data.session ? data.session : null; } catch (_) {}
+    }
+    if (urlParams.get('paid') === '1') {
+      /* Back from the payment page: wait for the confirmation, then show the license and downloads. */
+      setText('creemTitle', 'Confirming Your Payment');
+      if (checkoutBtn) checkoutBtn.style.display = 'none';
+      if (!session) {
+        say('Payment received. Sign in to see your license and downloads.');
+        if (signInGate) signInGate.classList.remove('hidden');
+        return;
+      }
+      say('Payment received. Activating your license…', '#10b981');
+      if (await checkEntitlement()) return;
+      startPolling(40, () => say('Still confirming your payment. Your receipt is on its way by email. Refresh this page in a minute, or email support@overlordai.co.'));
+      return;
+    }
+    startCheckout(session);
+  }
+  init();
 
   // Copy Key Button
   if (copyBtn && displayKey) {
@@ -1320,51 +1084,12 @@ const PRODUCTS = {
   }
 
   // Live ticking clock
-  const clock = document.getElementById('clock');
+  const clock = $('clock');
   if (clock) {
     const tick = () => { clock.textContent = new Date().toTimeString().slice(0,8); };
     tick();
     setInterval(tick, 1000);
   }
-})();
-
-/* ---------- NAV & CELESTIAL TOGGLE ---------- */
-(() => {
-  const drawer    = document.getElementById('navDrawer');
-  const backdrop  = document.getElementById('navBackdrop');
-  const hamburger = document.getElementById('navHamburger');
-  const btn       = document.getElementById('navToggleBtn');
-  let open = false;
-
-  function render(){
-    drawer.classList.toggle('is-open', open);
-    backdrop.classList.toggle('is-open', open);
-    hamburger.classList.toggle('is-open', open);
-    btn.setAttribute('aria-expanded', String(open));
-  }
-  hamburger.addEventListener('click', () => { open = !open; render(); });
-  backdrop.addEventListener('click', () => { open = false; render(); });
-
-  // Celestial Day/Night Toggle
-  const t    = document.getElementById('celestial-toggle');
-  const sun  = t.querySelector('.celestial-toggle__sun');
-  const moon = t.querySelector('.celestial-toggle__moon');
-  let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-
-  function renderTheme(){
-    sun.classList.toggle('celestial-toggle__icon--hidden', isDark);
-    sun.classList.toggle('celestial-toggle__icon--visible', !isDark);
-    moon.classList.toggle('celestial-toggle__icon--visible', isDark);
-    moon.classList.toggle('celestial-toggle__icon--hidden', !isDark);
-  }
-  t.addEventListener('click', () => {
-    isDark = !isDark;
-    const theme = isDark ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('data-theme', theme);
-    renderTheme();
-  });
-  renderTheme();
 })();
 </script>
 </body>

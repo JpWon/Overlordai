@@ -485,7 +485,7 @@
   .stat__k{display:block;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neutral-on-background-weak);}
   .stat__v{display:block;margin-top:.65rem;font-family:'Anton',sans-serif;font-weight:400;
     font-size:clamp(1.35rem,2.2vw,2rem);line-height:1.05;text-transform:uppercase;overflow-wrap:break-word;}
-  /* the plan's name is a word, not a number: one size down so "Subscription" / "Founder Access" never split */
+  /* the plan's name is a word, not a number: one size down so "Subscription" / "Free 30 minutes" never split */
   #tilePlan{font-size:clamp(1.1rem,1.6vw,1.55rem);}
   .stat__v em{font-style:normal;color:var(--accent);}
   .stat__sub{display:block;margin-top:.55rem;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
@@ -673,10 +673,6 @@
     </div>
 
     <div class="dash__head-action" id="smartDlWidget">
-      <div class="dl-badge mono" id="dlBadge" hidden style="font-size:0.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);text-align:center;display:flex;align-items:center;justify-content:center;gap:.4rem;margin-bottom:.15rem;font-weight:700;">
-        <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 8px var(--accent);"></span>
-        Founder Access
-      </div>
       <a class="btn btn--solid btn--smart-dl" id="smartDlBtn" href="https://github.com/JpWon/Overlordai/releases/latest">
         <span id="smartDlText">Download Overlord AI</span>
         <span class="arr">&rarr;</span>
@@ -748,7 +744,7 @@
         <h2>Downloads</h2>
         <div class="mono" style="font-size:0.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:.4rem;margin:.6rem 0 .5rem;font-weight:700;">
           <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 8px var(--accent);"></span>
-          <span data-founder-only hidden>Founder Access ·</span> <span data-rel-ver>Latest release</span>
+          <span data-rel-ver>Latest release</span>
         </div>
         <p class="sub">Native Linux and Windows release builds (<span data-rel-ver>Latest release</span>) with automated setup and 1-click execution.</p>
 
@@ -897,19 +893,8 @@
 <script src="assets/vendor/supabase-js.js"></script>
 <script src="assets/auth-config.js"></script>
 <script src="assets/auth.js"></script>
-<script src="assets/founder-config.js"></script>
 
 <script>
-/* ---------- Founder Access: while the period runs (assets/founder-config.js, through the end of that day, ET) ---------- */
-window.ovrFounderOpen = (() => {
-  const end = window.FOUNDER_ACCESS_END;
-  if (!end) return false;
-  const t = Date.parse(end + 'T23:59:59-05:00');
-  return Number.isFinite(t) && Date.now() <= t;
-})();
-document.querySelectorAll('[data-founder-only]').forEach(el => { el.hidden = !window.ovrFounderOpen; });
-(() => { const b = document.getElementById('dlBadge'); if (b) b.hidden = !window.ovrFounderOpen;
-         if (b && b.hidden) b.style.display = 'none'; })();
 </script>
 
 <script>
@@ -1014,8 +999,6 @@ document.querySelectorAll('[data-founder-only]').forEach(el => { el.hidden = !wi
 
   /* ----- plan (Overview tile + Billing) ----- */
   const PLAN_NAME = { standard: 'Subscription', sub: 'Subscription', subscription: 'Subscription', pro: 'Pro' };
-  const founder = !!window.ovrFounderOpen;
-  const founderEnd = window.FOUNDER_ACCESS_END_LABEL || '';
   const e = ent.error ? null : ent.data;
   const t = trial.error ? null : trial.data;
   const now = Date.now();
@@ -1045,19 +1028,12 @@ document.querySelectorAll('[data-founder-only]').forEach(el => { el.hidden = !wi
       tileSub = 'Active';
       billPlan = plan; billWhen = 'Active' + (endLabel ? ' · renews ' + endLabel : '');
     }
-  } else if (founder) {
-    tile = 'Founder Access'; tileSub = 'Free through ' + founderEnd;
-    billPlan = 'Founder Access'; billWhen = 'Free through ' + founderEnd + ' · no card on file';
   } else {
     tile = 'Free 30 minutes'; tileSub = t && t.exhausted_at ? 'All used' : minutesUsed + ' min used';
     billPlan = 'Free 30 minutes'; billWhen = (t && t.exhausted_at ? 'All used' : minutesUsed + ' min used') + ' · no card on file';
   }
   set('tilePlan', tile); set('tilePlanSub', tileSub);
   set('billPlan', billPlan); set('billWhen', billWhen);
-  /* during Founder Access the free minutes are still this account's real count, so they show once play has started */
-  if (!paid && founder && t && (Number(t.seconds_used) > 0 || t.exhausted_at)) {
-    set('billTrial', trialLine); $('billTrial').hidden = false;
-  }
 
   /* Billing's one button: the processor's portal once this account has a customer there; until then, the plans */
   const manage = $('manageBilling'), plans = $('seePlans');
