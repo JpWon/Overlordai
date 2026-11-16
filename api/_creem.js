@@ -98,8 +98,12 @@ function readBody(req) {
   try { return JSON.parse(req.body || '{}'); } catch (_) { return {}; }
 }
 
+/* Creem's own pages, or our checkout domain that Creem serves (live checkouts come back on it). */
 const isCreemUrl = u => {
-  try { const h = new URL(u).hostname; return /(^|\.)creem\.io$/i.test(h); } catch (_) { return false; }
+  try {
+    const { protocol, hostname } = new URL(u);
+    return protocol === 'https:' && (/(^|\.)creem\.io$/i.test(hostname) || hostname.toLowerCase() === 'checkout.overlordai.co');
+  } catch (_) { return false; }
 };
 
 module.exports = {
