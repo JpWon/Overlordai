@@ -739,7 +739,7 @@
           </div>
           <div id="creemEmbedWrap" style="display:flex;flex-direction:column;gap:14px;width:100%;align-items:center;padding:1.5rem 0;">
             <a id="creemCheckoutBtn" href="#" class="portal-btn" style="text-decoration:none;text-align:center;max-width:340px;width:100%;display:block;padding:16px 24px;font-size:1.05rem;">
-              <span>Proceed to Secure Checkout &rarr;</span>
+              <span>Preparing secure checkout&hellip;</span>
             </a>
             <span class="mono" id="creemEmbedStatus" style="font-size:.68rem;color:var(--neutral-on-background-weak);text-align:center;">Secure payment processed by Creem &middot; Encrypted</span>
           </div>
@@ -1024,18 +1024,21 @@ const PRODUCTS = {
         }
         return;
       }
+      /* Straight to the payment page (JP 2026-11-16): no extra click. replace() keeps this page out of the
+         back-button history, so Back from the payment page returns to the plans, not to a page that redirects again.
+         The button stays as a fallback link in case the browser holds the redirect. */
       const checkoutUrl = out.checkout_url;
       if (checkoutBtn) {
-        checkoutBtn.textContent = 'Proceed to Secure Checkout →';
+        checkoutBtn.textContent = 'Opening secure checkout…';
         checkoutBtn.href = checkoutUrl;
-        checkoutBtn.onclick = (e) => {
-          e.preventDefault();
-          if (window.OverlordFunnel) { try { window.OverlordFunnel.track('checkout_started', { plan: planKey }); } catch (_) {} }
-          window.location.assign(checkoutUrl);
-        };
       }
       say('Secure payment processed by Creem · Encrypted');
-      startPolling(0);
+      let tracked = Promise.resolve();
+      if (window.OverlordFunnel) {
+        try { tracked = Promise.resolve(window.OverlordFunnel.track('checkout_started', { plan: planKey })).catch(() => {}); } catch (_) {}
+      }
+      await Promise.race([tracked, new Promise(r => setTimeout(r, 600))]);
+      window.location.replace(checkoutUrl);
     } catch (err) {
       if (checkoutBtn) checkoutBtn.style.display = 'none';
       say('Checkout could not be reached. Check your connection and try again.');
