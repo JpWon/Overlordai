@@ -1,4 +1,4 @@
-/* POST /api/checkout   { plan: "sub" | "pro" }   Authorization: Bearer <Supabase access token>
+/* POST /api/checkout   { plan: "sub" | "pro" | "sub_year" | "pro_year" }   Authorization: Bearer <Supabase access token>
  * -> 200 { checkout_url }   (the page then sends the browser there)
  *
  * Creates a Creem checkout session server-side. It never grants access: the back end's
@@ -9,12 +9,9 @@ const c = require('./_creem');
 module.exports = async (req, res) => {
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return c.send(res, 405, { error: 'method_not_allowed' }); }
 
-  // Founder Access: production refuses paid checkout until the start time (preview and test-mode demo hosts are open for testing).
+  // Preview and demo hosts in test mode can run a checkout without signing in (test cards only).
   const host = String(req.headers['x-forwarded-host'] || req.headers.host || '');
   const isDemoTest = /^[a-z0-9-]+\.vercel\.app$/i.test(host) && String(process.env.CREEM_MODE || '').toLowerCase() === 'test';
-  if (process.env.VERCEL_ENV === 'production' && !isDemoTest && !c.paidCheckoutOpen()) {
-    return c.send(res, 403, { error: 'founder_access' });
-  }
 
   const reqBody = c.readBody(req);
   let user = await c.supabaseUser(c.bearer(req));
@@ -37,7 +34,7 @@ module.exports = async (req, res) => {
     product_id: productId,
     request_id: c.uuid(),
     units: 1,
-    success_url: `${c.siteOrigin(req)}/checkout.html?plan=${plan}&checkout=creem&paid=1`,
+    success_url: `${c.siteOrigin(req)}/checkout.html?plan=${plan}&paid=1`,
     metadata: { user_id: user.id, plan_id: def.plan_id, source: 'overlordai.co' }
   };
   if (user.email) body.customer = { email: user.email };

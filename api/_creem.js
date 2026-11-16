@@ -3,18 +3,17 @@
  * Secrets live only in Vercel env vars. Nothing here is sent to the browser except the
  * checkout / portal URL Creem returns.
  *
- *   CREEM_API_KEY           Creem API key (test key in Preview now; live key in Production on JP's go)
+ *   CREEM_API_KEY           Creem API key (live key in Production, test key in Preview)
  *   CREEM_MODE              "test" | "live"  -> test-api.creem.io | api.creem.io   (default "test")
  *   CREEM_PRODUCT_SUB       Creem product id for Subscription, monthly ($14.99)
  *   CREEM_PRODUCT_PRO       Creem product id for Pro, monthly ($39.99)
- *   PAID_CHECKOUT_START     optional ISO time; default 2026-11-16T05:00:00Z (midnight ET, Nov 16)
+ *   CREEM_PRODUCT_SUB_YEARLY / CREEM_PRODUCT_PRO_YEARLY   the yearly products ($149.99 / $399.99)
  *   SUPABASE_URL / SUPABASE_ANON_KEY   optional; default to the public values in assets/auth-config.js
  */
 const crypto = require('crypto');
 
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://bzxzhizvfzmldpkxxuqu.supabase.co';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'sb_publishable_LEJ4On121RzEpDlCgiqm8w_cDc8BROJ';
-const DEFAULT_START = '2026-11-16T05:00:00Z';
 
 const PLANS = {
   sub: { env: 'CREEM_PRODUCT_SUB', plan_id: 'standard', fallback: 'prod_3srYniobtWAgyh4etXZm82' },
@@ -27,11 +26,6 @@ function creemBase() {
   return String(process.env.CREEM_MODE || 'test').toLowerCase() === 'live'
     ? 'https://api.creem.io'
     : 'https://test-api.creem.io';
-}
-
-function paidCheckoutOpen(now = Date.now()) {
-  const start = Date.parse(process.env.PAID_CHECKOUT_START || DEFAULT_START);
-  return Number.isFinite(start) ? now >= start : false;
 }
 
 function send(res, status, body) {
@@ -104,11 +98,15 @@ function readBody(req) {
   try { return JSON.parse(req.body || '{}'); } catch (_) { return {}; }
 }
 
+/* Creem's own pages, or our checkout domain that Creem serves (live checkouts come back on it). */
 const isCreemUrl = u => {
-  try { const h = new URL(u).hostname; return /(^|\.)creem\.io$/i.test(h); } catch (_) { return false; }
+  try {
+    const { protocol, hostname } = new URL(u);
+    return protocol === 'https:' && (/(^|\.)creem\.io$/i.test(hostname) || hostname.toLowerCase() === 'checkout.overlordai.co');
+  } catch (_) { return false; }
 };
 
 module.exports = {
-  PLANS, creem, creemBase, paidCheckoutOpen, send, bearer, supabaseUser, supabaseRpc,
+  PLANS, creem, creemBase, send, bearer, supabaseUser, supabaseRpc,
   siteOrigin, readBody, isCreemUrl, uuid: () => crypto.randomUUID()
 };
