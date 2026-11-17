@@ -380,6 +380,48 @@
     .hint{font-size:.8rem;animation-name:pulse-touch;}
   }
   @keyframes pulse-touch{0%,100%{opacity:.45}50%{opacity:.95}}
+  /* ---- touch entry for the reveal (2026-11-16): the reveal follows the cursor, and a phone has
+     none, so touch visitors saw a black screen. Devices with no hover and a coarse pointer get
+     the desktop cursor's crosshair, centred and pulsing, until the first tap. Desktop untouched. */
+  .touch-reticle{display:none;}
+  @media (hover:none) and (pointer:coarse){
+    /* JP 2026-11-16: a glowing heartbeat (two beats, then a rest) so it reads as "touch me" */
+    .touch-reticle{
+      display:block;position:absolute;z-index:4;pointer-events:none;
+      left:50%;top:50%;width:44px;height:44px;
+      transform:translate(-50%,-50%);
+      /* JP 2026-11-16: no round halo; the glow traces the crosshair's four arms only */
+      animation:reticle-beat 1.8s ease-out infinite;
+      filter:opacity(calc(1 - var(--p, 0) * 3));       /* fades with the hero on scroll, like the hint */
+    }
+    .touch-reticle::before,.touch-reticle::after{
+      content:"";position:absolute;background:var(--neutral-on-background-strong);border-radius:1px;
+      animation:reticle-glow 1.8s ease-out infinite;
+    }
+    .touch-reticle::before{left:50%;top:7px;bottom:7px;width:1.5px;margin-left:-.75px;}
+    .touch-reticle::after{top:50%;left:7px;right:7px;height:1.5px;margin-top:-.75px;}
+    .touch-reticle.is-done{display:none;}
+  }
+  @keyframes reticle-beat{                                /* lub, dub, rest */
+    0%  {opacity:.55;transform:translate(-50%,-50%) scale(1);}
+    10% {opacity:1;  transform:translate(-50%,-50%) scale(1.28);}
+    20% {opacity:.75;transform:translate(-50%,-50%) scale(1.04);}
+    30% {opacity:1;  transform:translate(-50%,-50%) scale(1.2);}
+    55%,100%{opacity:.55;transform:translate(-50%,-50%) scale(1);}
+  }
+  @keyframes reticle-glow{                               /* a tight glow that follows each arm */
+    0%  {box-shadow:0 0 2px 0 rgba(109,92,255,.55), 0 0 5px 0 rgba(109,92,255,.25);}
+    10% {box-shadow:0 0 3px 1px rgba(160,140,255,1), 0 0 8px 1px rgba(125,105,255,.75);}
+    20% {box-shadow:0 0 2px 0 rgba(130,110,255,.7), 0 0 6px 0 rgba(109,92,255,.4);}
+    30% {box-shadow:0 0 3px 1px rgba(160,140,255,.95), 0 0 7px 1px rgba(125,105,255,.65);}
+    55%,100%{box-shadow:0 0 2px 0 rgba(109,92,255,.55), 0 0 5px 0 rgba(109,92,255,.25);}
+  }
+  @media (hover:none) and (pointer:coarse) and (prefers-reduced-motion:reduce){
+    /* still, but still there, with a steady glow */
+    .touch-reticle{animation:none;opacity:.95;}
+    .touch-reticle::before,.touch-reticle::after{animation:none;
+      box-shadow:0 0 3px 1px rgba(150,130,255,.85), 0 0 6px 0 rgba(109,92,255,.45);}
+  }
   /* phones: keep each corner in its own half so the bottom pair can't overlap */
   @media (max-width:520px){
     .meta{font-size:.62rem;letter-spacing:.1em;max-width:calc(50% - 1.75rem);}
@@ -1519,6 +1561,9 @@
        clip's end card. Everything else in the hero (cover mask, meta, hint) is unchanged. -->
 
   <canvas id="cover"></canvas>
+  <!-- touch devices have no cursor, so nothing reveals until they touch: a centred crosshair
+       (the desktop cursor's shape) invites the first tap. Hidden on hover devices by CSS. -->
+  <div class="touch-reticle" aria-hidden="true"></div>
 
   <div class="meta m-bl">A live game guidebook<br>for single-player PC games</div>
   <div class="meta m-br m-br--nudge">Watches, never touches<br>Linux and Windows&nbsp;&nbsp;© 2026</div>
@@ -1940,6 +1985,23 @@
   const chain = Array.from({length:CHAIN}, () => ({x:null, y:null}));
   let px = null, py = null, speed = 0, lx = null, ly = null;
   addEventListener('pointermove', e => { px = e.clientX; py = e.clientY; }, {passive:true});
+
+  // Touch entry (2026-11-16): a tap sends no pointermove, and a finger drag becomes a page scroll
+  // that cancels pointer events, so on a phone the cover never opened. On no-hover, coarse-pointer
+  // devices a tap reveals at the tap point (as if the mouse moved there and rested), and the finger
+  // then drives the reveal while it moves. Scrolling still works: nothing here prevents it.
+  if (matchMedia('(hover: none) and (pointer: coarse)').matches){
+    const reticle = document.querySelector('.touch-reticle');
+    const at = (x, y) => {
+      px = x; py = y;
+      if (reticle) reticle.classList.add('is-done');
+    };
+    addEventListener('pointerdown', e => at(e.clientX, e.clientY), {passive:true});
+    addEventListener('touchmove', e => {
+      const t = e.touches && e.touches[0];
+      if (t) at(t.clientX, t.clientY);
+    }, {passive:true});
+  }
 
   function stepChain(){
     if (px === null) return;
