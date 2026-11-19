@@ -1,0 +1,64 @@
+{
+  "slug": "marius-questline",
+  "game": "crimson-desert",
+  "game_title": "Crimson Desert",
+  "game_page": "/soulslike.html",
+  "store_url": "https://store.steampowered.com/app/3321460/",
+  "query": "marius questline in crimson desert: who marius is and how overlord helps",
+  "title": "Crimson Desert: Marius Questline Guide",
+  "meta_desc": "Find out who Marius is in Crimson Desert, where to find him, what his story is about, and how the Overlord AI can help you with his quests.",
+  "published_at": "2026-11-19",
+  "atlas": {
+    "app_id": "3321460",
+    "updated": "2026-11-09"
+  },
+  "intro": "In the world of Crimson Desert, building a place to call your own is a significant part of the adventure. One of the key figures you'll meet who can help with this is Marius. You will first encounter him in the Hernand region, a vast area that includes the Hernand Plains.",
+  "intro_ref": [
+    "npc/marius",
+    "rooms/howling_hill"
+  ],
+  "steps": [
+    {
+      "heading": "Who is Marius and where can you find him?",
+      "text": "Marius is a character located at the Howling Hill Camp, which serves as the Greymane Camp checkpoint in Hernand. This camp is a hub of activity where you can also find other characters like Damiane and Marshal Middler, and useful items such as an Abyss Cresset, an Abyss Transporter, and even some Clear Soup. You'll be directed to speak with Marius during Chapter 3 of the main story, specifically during the Homestead part.",
+      "atlas_ref": [
+        "npc/marius",
+        "rooms/howling_hill",
+        "npc/damiane",
+        "npc/marshal_middler",
+        "loot/abyss_cresset",
+        "loot/abyss_transporter",
+        "loot/clear_soup"
+      ]
+    },
+    {
+      "heading": "What is Marius's story about?",
+      "text": "Marius's questline is central to building up your personal base. Interacting with him is all about establishing and then growing your camp. His story arc involves a series of Greymane Camp Expansion Quests, which allow you to develop your homestead from a simple starting point into a more substantial and functional base of operations.",
+      "atlas_ref": [
+        "npc/marius"
+      ]
+    },
+    {
+      "heading": "How Overlord helps with this questline",
+      "text": "When you're playing with Overlord AI, it acts as a live game guidebook that makes following Marius's story seamless without spoiling the journey. The moment you start a conversation with Marius, Overlord recognizes him and understands where you are in his specific questline. It keeps track of your progress in the background. When you reach the correct location or milestone for the next part of his quest, Overlord will provide the information for that single step. It also gives you one critical heads-up if you are about to do something that could lock you out of his questline. This way, you get the help you need exactly when you need it, and the rest of the story remains a discovery.",
+      "atlas_ref": [
+        "npc/marius"
+      ]
+    }
+  ],
+  "outro": "Meeting Marius is your first step toward creating and expanding a personal foothold in the world of Crimson Desert, turning a simple camp into a thriving homestead.",
+  "outro_ref": [
+    "npc/marius"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": [],
+  "image": {
+    "src": "/assets/lux/banner-asset-npc-tall.jpg",
+    "shape": "tall",
+    "phone": "/assets/lux/banner-asset-npc-phone.jpg",
+    "alt": "Overlord AI: NPC questlines made easy. Free 30-minute demo",
+    "width": 160,
+    "height": 600,
+    "href": "/"
+  }
+}
