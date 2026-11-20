@@ -78,8 +78,23 @@
   const qs = new URLSearchParams(location.search);
   const hash = qs.get('token_hash') || '';
   const type = qs.get('type') || '';
+  const back = qs.get('redirect_to') || '';
   // the token never stays in the address bar or the history
   history.replaceState(null, '', location.pathname);
+
+  // A link the Overlord app asked for (JP 2026-11-20: "it sends me the magic link, but it does not
+  // log me into the app"). The app waits on this PC at 127.0.0.1:<port>/auth/callback for a code
+  // only its own request can redeem; signing in here instead left the app waiting. So an app link
+  // goes through Supabase's own check, which sends the browser back to the app with that code.
+  // Only the app's loopback address is accepted (never an open redirect), and Supabase checks it
+  // against the project's allowed return addresses too.
+  const APP_BACK = /^http:\/\/(127\.0\.0\.1|localhost):\d{2,5}\/auth\/callback$/;
+  const cfg = window.OVERLORD_SUPABASE || {};
+  if (hash && APP_BACK.test(back) && cfg.url && ['magiclink', 'signup'].includes(type)) {
+    location.replace(cfg.url.replace(/\/+$/, '') + '/auth/v1/verify?' + new URLSearchParams({
+      token: hash, type, redirect_to: back }).toString());
+    return;
+  }
   const LINES = { magiclink: 'Signing you in…', invite: 'Setting up your account…',
                   email_change: 'Confirming your new email…' };
   const line = document.getElementById('workingLine');
