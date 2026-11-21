@@ -1,0 +1,61 @@
+{
+  "slug": "old-man-gen-questline",
+  "game": "phantom-blade-zero",
+  "game_title": "Phantom Blade Zero",
+  "game_page": "/soulslike.html",
+  "store_url": "https://store.steampowered.com/app/4115450/",
+  "query": "old man gen questline in phantom blade zero: who old man gen is and how overlord helps",
+  "title": "Phantom Blade Zero: Old Man Gen's Questline",
+  "meta_desc": "Find out who Old Man Gen is in Phantom Blade Zero, where to find him, what his story is about, and how Overlord AI helps you navigate his questline.",
+  "published_at": "2026-11-21",
+  "atlas": {
+    "app_id": "4115450",
+    "updated": "2026-11-10"
+  },
+  "intro": "In the world of Phantom Blade Zero, you will encounter many unique characters with their own stories. One of the first you might meet is Old Man Gen, a figure whose questline, known as \"The Journey Home,\" adds another layer to your adventures in the Village of Lu.",
+  "intro_ref": [
+    "npc/old_man_gen"
+  ],
+  "steps": [
+    {
+      "heading": "Meeting Old Man Gen",
+      "text": "You will first come across Old Man Gen in the Village of Lu region. He can be found at his hideout, a location that also serves as a checkpoint where you can save your progress at a bell. Speaking with him on the porch of his house is where your involvement in his personal story, a quest called \"The Journey Home,\" begins. This hideout connects to other areas, including the Village of Lu Entrance and the Broken Puppet Pit, making it a central point for exploration in the area.",
+      "atlas_ref": [
+        "npc/old_man_gen",
+        "rooms/old_man_gen_s_hideout"
+      ]
+    },
+    {
+      "heading": "The Journey Home",
+      "text": "Old Man Gen's questline revolves around a narrative called \"The Journey Home.\" While the full story unfolds as you play, the events are centered on this theme of returning. Following this path eventually leads to you acquiring Old Man Gen's Brass Key, a significant item tied to his story. The quest also presents opportunities to find useful crafting materials, such as Solvent and Polished Forged Metal, in the same areas you explore while helping the old man.",
+      "atlas_ref": [
+        "npc/old_man_gen",
+        "loot/old_man_gen_s_brass_key",
+        "loot/solvent",
+        "loot/polished_forged_metal"
+      ]
+    },
+    {
+      "heading": "How Overlord helps with this questline",
+      "text": "Overlord AI acts as your live game guidebook to ensure you don't miss out on Old Man Gen's story. When you first talk to him, Overlord recognizes the character and begins tracking your progress through his specific questline. As you continue your adventure, it lets you know what the next step is right when you get to the correct location or trigger the next part of the story. If you're about to do something that could lock you out of the questline permanently, Overlord will give you a single, timely heads-up. It guides you one step at a time and never spoils what's coming up later, letting you experience the story for yourself.",
+      "atlas_ref": [
+        "npc/old_man_gen"
+      ]
+    }
+  ],
+  "outro": "Meeting characters like Old Man Gen is part of what makes the world feel alive, and his quest offers a deeper look into the lives of the people you meet.",
+  "outro_ref": [
+    "npc/old_man_gen"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": [],
+  "image": {
+    "src": "/assets/lux/banner-questline-wide.jpg",
+    "shape": "wide",
+    "phone": "/assets/lux/banner-questline-phone.jpg",
+    "alt": "Overlord AI: never break a questline. Free 30-minute demo",
+    "width": 728,
+    "height": 90,
+    "href": "/"
+  }
+}
