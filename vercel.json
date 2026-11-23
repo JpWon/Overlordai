@@ -85,6 +85,10 @@
     {
       "source": "/fair-play",
       "destination": "/fair-play.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
     }
   ],
   "headers": [
