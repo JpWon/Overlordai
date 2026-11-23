@@ -1,0 +1,60 @@
+{
+  "slug": "songstress-puppet-questline",
+  "game": "phantom-blade-zero",
+  "game_title": "Phantom Blade Zero",
+  "game_page": "/soulslike.html",
+  "store_url": "https://store.steampowered.com/app/4115450/",
+  "query": "songstress puppet questline in phantom blade zero: who songstress puppet is and how overlord helps",
+  "title": "Phantom Blade Zero: Songstress Puppet Questline Guide",
+  "meta_desc": "Learn about the Songstress Puppet in Phantom Blade Zero. Find out who she is, where to meet her, what her quest is about, and how Overlord AI helps you.",
+  "published_at": "2026-11-23",
+  "atlas": {
+    "app_id": "4115450",
+    "updated": "2026-11-10"
+  },
+  "intro": "In the world of Phantom Blade Zero, you’ll find many unique characters with their own stories to tell. One such character is the Songstress Puppet, a mysterious figure you can encounter in the Village of Lu region. Her personal questline, titled \"A Puppet's Wooden Heart,\" offers a glimpse into her story and purpose.",
+  "intro_ref": [
+    "npc/songstress_puppet"
+  ],
+  "steps": [
+    {
+      "heading": "Who is the Songstress Puppet?",
+      "text": "The Songstress Puppet is first found in the Temple of Blue Fireflies, an optional area connected to the Pangzhen Slums and the entrance to the Village of Lu. You will find her near the shrine at the temple's bell, which also serves as a checkpoint. Her quest begins after you approach her and listen to her song. This initial encounter sets you on a path that involves uncovering a message, as the questline leads to you eventually receiving the Songstress Puppet's Letter.",
+      "atlas_ref": [
+        "npc/songstress_puppet",
+        "rooms/temple_of_blue_fireflies"
+      ]
+    },
+    {
+      "heading": "Memories of the Past",
+      "text": "The story woven through the \"A Puppet's Wooden Heart\" questline seems to revolve around themes of memory and personal history. During your interactions with the Songstress Puppet at the temple, you can discover items that hint at a life lived long ago. Key items found in the same location include the Firefly's Memory Flower and the Young Mistress Ribbon, both suggesting a connection to a past identity or a cherished person from another time. These elements enrich the narrative surrounding the puppet's own wooden heart.",
+      "atlas_ref": [
+        "loot/firefly_s_memory_flower",
+        "loot/young_mistress_ribbon",
+        "npc/songstress_puppet"
+      ]
+    },
+    {
+      "heading": "How Overlord helps with this questline",
+      "text": "Overlord AI acts as your live, in-game guidebook for Phantom Blade Zero's quests. When you approach the Songstress Puppet, Overlord recognizes her and understands where you are in her storyline. It keeps track of your progress through \"A Puppet's Wooden Heart\" without you having to manage a journal. When you arrive at the correct location for the next part of the quest, Overlord provides the information you need to proceed. To help you experience the full story, it will also give you a single heads-up if you are about to make a decision that could lock you out of the questline permanently. Importantly, Overlord never spoils the story, only ever revealing the immediate next step.",
+      "atlas_ref": [
+        "npc/songstress_puppet"
+      ]
+    }
+  ],
+  "outro": "Meeting the Songstress Puppet is a chance to explore one of the more poignant side stories in the game, delving into a tale of music, memory, and what it means to have a heart.",
+  "outro_ref": [
+    "npc/songstress_puppet"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": [],
+  "image": {
+    "src": "/assets/lux/banner-asset-voice-tall.jpg",
+    "shape": "tall",
+    "phone": "/assets/lux/banner-asset-voice-phone.jpg",
+    "alt": "Overlord AI: a guidebook that talks. Free 30-minute demo",
+    "width": 160,
+    "height": 600,
+    "href": "/"
+  }
+}
