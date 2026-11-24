@@ -63,7 +63,17 @@
   function load() {
     if (index) return Promise.resolve(index);
     if (!loading) {
-      loading = fetch(INDEX_URL, { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (rows) {
+      var sitemap = fetch('/sitemap.xml', { cache: 'no-cache' }).then(function (r) { return r.text(); }).catch(function () { return ''; });
+      loading = Promise.all([fetch(INDEX_URL, { cache: 'no-cache' }).then(function (r) { return r.json(); }), sitemap]).then(function (res) {
+        var rows = res[0], known = {};
+        rows.forEach(function (r) { known[r.u] = 1; });
+        // Guides Lux publishes after the last index build: titled from the address until the next rebuild.
+        (res[1].match(/<loc>[^<]+<\/loc>/g) || []).forEach(function (loc) {
+          var m = /\/guides\/([a-z0-9-]+)\/([a-z0-9-]+)\.html</.exec(loc);
+          if (!m || known['/guides/' + m[1] + '/' + m[2] + '.html']) return;
+          var cap = function (s) { return s.replace(/-/g, ' ').replace(/\b[a-z]/g, function (c) { return c.toUpperCase(); }).replace(/\b(Ii|Iii|Iv)\b/g, function (x) { return x.toUpperCase(); }); };
+          rows.push({ t: cap(m[2]), d: cap(m[1]) + ' guide', u: '/guides/' + m[1] + '/' + m[2] + '.html', k: 'Guide', g: cap(m[1]), h: '', x: '' });
+        });
         index = rows.map(function (r) {
           r._t = ' ' + norm(r.t) + ' '; r._g = ' ' + norm(r.g) + ' '; r._d = ' ' + norm(r.d) + ' ';
           r._h = ' ' + norm(r.h) + ' '; r._x = ' ' + norm(r.x) + ' ';
