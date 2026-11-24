@@ -988,7 +988,7 @@
       <a class="nav-hover" href="login.html"><span class="nav-link-text">Log in</span></a>
     </div>
 
-    <!-- Right — Celestial toggle + Cart -->
+    <!-- Right — Celestial toggle + Search -->
     <div class="ovr-nav__side ovr-nav__side--end">
       <button id="celestial-toggle" class="celestial-toggle celestial-toggle--day" aria-label="Switch to dark mode">
         <div class="celestial-toggle__icon-wrapper">
@@ -1003,13 +1003,12 @@
         </div>
         <div class="celestial-toggle__glow"></div>
       </button>
-      <a class="icon-btn" href="plans.html" aria-label="shoppingCart">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 4h2.2l1.9 9.2a2 2 0 0 0 2 1.6h8a2 2 0 0 0 1.9-1.4l1.8-6.4H6.4"/>
-          <circle cx="9.3" cy="20.5" r="1.6"/>
-          <circle cx="17.7" cy="20.5" r="1.6"/>
+      <button type="button" class="icon-btn" data-site-search aria-label="Search the site" title="Search (/)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="10.5" cy="10.5" r="6.5"/>
+          <path d="M15.5 15.5L21 21"/>
         </svg>
-      </a>
+      </button>
     </div>
   </div>
 </nav>
@@ -1255,5 +1254,6 @@
 <script src="/assets/funnel-config.js"></script>
 <script src="/assets/funnel.js" defer></script>
   <script src="/assets/theme-transition.js" defer></script>
+<script src="/assets/site-search.js" defer></script>
 </body>
 </html>
