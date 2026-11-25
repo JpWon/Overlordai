@@ -1,0 +1,64 @@
+{
+  "slug": "curie-questline",
+  "game": "fallout-4",
+  "game_title": "Fallout 4",
+  "game_page": "/soulslike.html",
+  "store_url": "https://store.steampowered.com/app/377160/",
+  "query": "curie questline in fallout 4: who curie is and how overlord helps",
+  "title": "Fallout 4's Curie: The Quest for a Cure",
+  "meta_desc": "Learn about Curie in Fallout 4, her questline in Vault 81, and how Overlord AI can guide you through her story without spoilers.",
+  "published_at": "2026-11-25",
+  "atlas": {
+    "app_id": "377160",
+    "updated": "2026-11-16"
+  },
+  "intro": "In the Western Commonwealth, you'll find Vault 81, a unique, optional location that’s still inhabited. Getting inside requires passing a high Speech check or providing three Fusion Cores. Within this vault lives a memorable character named Curie, who has a fascinating story for you to uncover.",
+  "intro_ref": [
+    "npc/curie",
+    "rooms/vault_81"
+  ],
+  "steps": [
+    {
+      "heading": "Who is Curie?",
+      "text": "Curie is a researcher you can meet deep inside the secret section of Vault 81, a place you'll access during a quest called \"Hole in the Wall.\" She is located in her personal research laboratory at the very end of this hidden area. Her story involves her scientific work, which is central to obtaining the Vault 81 Mole Rat Cure. Following her narrative can also lead to her joining you as a companion on your travels through the Commonwealth.",
+      "atlas_ref": [
+        "npc/curie",
+        "loot/vault_81_mole_rat_cure"
+      ]
+    },
+    {
+      "heading": "The Community of Vault 81",
+      "text": "Vault 81 is more than just a quest location; it's a living community with its own residents like Gwen McNamara, Alexis Combes, and Doctor Jacob Forsythe. Alexis sells a powerful rifle called the Overseer's Guardian. The Vault is also where you can find the valuable Medicine Bobblehead. Exploring this area not only introduces you to Curie's story but also offers unique items and interactions with the other vault dwellers.",
+      "atlas_ref": [
+        "rooms/vault_81",
+        "npc/gwen_mcnamara",
+        "npc/alexis_combes",
+        "npc/doctor_jacob_forsythe",
+        "loot/medicine_bobblehead",
+        "loot/overseer_s_guardian"
+      ]
+    },
+    {
+      "heading": "How Overlord helps with this questline",
+      "text": "Overlord is your live game guidebook for navigating the Commonwealth and its many stories. When you first speak with Curie, Overlord recognizes her and begins tracking your progress through her unique questline. As you play, it tells you what your next step is, but only when you've reached the right location or fulfilled the necessary conditions. Overlord will give you one heads-up if you are about to make a decision that could close off her questline, helping you experience her full story. It guides you one step at a time and never spoils what's coming, ensuring you can enjoy the discovery for yourself.",
+      "atlas_ref": [
+        "npc/curie"
+      ]
+    }
+  ],
+  "outro": "Meeting Curie and exploring her story is a highlight of any journey through the wastelands of Fallout 4, leading to a cure and a potential new ally.",
+  "outro_ref": [
+    "npc/curie"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": [],
+  "image": {
+    "src": "/assets/lux/banner-gps-wide.jpg",
+    "shape": "wide",
+    "phone": "/assets/lux/banner-gps-phone.jpg",
+    "alt": "Overlord AI: know where to go next. Free 30-minute demo",
+    "width": 728,
+    "height": 90,
+    "href": "/"
+  }
+}
