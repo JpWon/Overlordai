@@ -989,6 +989,13 @@ const PRODUCTS = {
       }
       if (creemState) creemState.classList.add('hidden');
       if (successState) successState.classList.remove('hidden');
+      /* Google Ads "Paid subscription": only on the return from the payment page, and only now that the server has
+         confirmed the paid entitlement. Once per licence (funnel.js keeps it to one; transaction_id dedupes at Google). */
+      if (urlParams.get('paid') === '1' && window.OverlordFunnel && window.OverlordFunnel.purchase) {
+        const txn = ent.licence_reference || ent.id || ent.subscription_id || null;
+        const value = parseFloat(String(product.price).replace(/[^0-9.]/g, '')) || 1;
+        try { window.OverlordFunnel.purchase(txn, value, 'USD'); } catch (_) {}
+      }
       return true;
     } catch (_) { return false; }
   }
@@ -1095,6 +1102,9 @@ const PRODUCTS = {
   }
 })();
 </script>
+<!-- the funnel tracker: checkout_started, download_click (the installer links below) and the paid conversion -->
+<script src="/assets/funnel-config.js"></script>
+<script src="/assets/funnel.js" defer></script>
   <script src="/assets/theme-transition.js" defer></script>
 <script src="/assets/site-search.js" defer></script>
 </body>

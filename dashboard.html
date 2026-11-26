@@ -1178,6 +1178,7 @@ document.querySelectorAll('[data-plans-link]').forEach(a => a.addEventListener('
     if (!a || !window.OverlordFunnel || a.closest('.hash')) return;
     const os = a.dataset.dl === 'exe' || (a === btn && isWin) || /\.exe/.test(a.textContent) ? 'windows' : 'linux';
     window.OverlordFunnel.track('download_click', { os, version: 'latest' });
+    if (window.OverlordFunnel.downloadConversion) window.OverlordFunnel.downloadConversion();   // Google Ads too
   }, true);
 
   // Smooth switch to the full Downloads tab (delegated: render() rebuilds the "All downloads" link)
