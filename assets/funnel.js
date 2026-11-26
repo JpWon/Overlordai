@@ -78,11 +78,13 @@
       headers: { apikey: c.anonKey, Authorization: "Bearer " + ((who && who.jwt) || c.anonKey), "Content-Type": "application/json" }
     }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
   }
-  function conversion(kind) {
+  function conversion(kind, extra) {
     var labels = window.OVERLORD_FUNNEL || {};
-    var label = kind === "sign_up" ? labels.signUpLabel : labels.downloadLabel;
+    var label = kind === "sign_up" ? labels.signUpLabel : kind === "purchase" ? labels.purchaseLabel : labels.downloadLabel;
     if (!label || typeof window.gtag !== "function") return;
-    window.gtag("event", "conversion", { send_to: ADS_ID + "/" + label });
+    var p = { send_to: ADS_ID + "/" + label, transport_type: "beacon" };   // beacon: survives the page leaving (a download link)
+    if (extra) for (var k in extra) if (Object.prototype.hasOwnProperty.call(extra, k)) p[k] = extra[k];
+    window.gtag("event", "conversion", p);
   }
   function track(event, props) {
     if (!allowed()) return Promise.resolve(null);
@@ -122,7 +124,19 @@
     document.addEventListener("click", onDownload, true);
   }
 
-  window.OverlordFunnel = { track: track, anonId: function () { return allowed() ? anonId() : null; } };
+  /* purchase: once per licence on this browser (transaction_id also lets Google drop repeats). */
+  function purchase(txn, value, currency) {
+    if (!allowed() || !txn) return;
+    var key = "ovl_purchase_sent:" + txn;
+    if (ls(key)) return;
+    ls(key, "1");
+    conversion("purchase", { transaction_id: String(txn), value: Number(value) || 1, currency: currency || "USD" });
+  }
+  window.OverlordFunnel = {
+    track: track, anonId: function () { return allowed() ? anonId() : null; },
+    purchase: purchase,
+    downloadConversion: function () { if (allowed()) conversion("download_click"); }   // for links funnel.js can't see
+  };
   if (!window.OVERLORD_SUPABASE) {                        // pages without the sign-in scripts still know where to send
     var s = document.createElement("script");
     s.src = "/assets/auth-config.js";
