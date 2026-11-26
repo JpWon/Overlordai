@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Cookie consent: loads Google Ads, Reddit Ads and Rewardful only when allowed -->
+<!-- Cookie consent: loads Google Ads and Reddit Ads only when allowed -->
 <script src="assets/consent.js"></script>
-<!-- Rewardful affiliate tracking -->
-<script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
 <!-- Google tag (gtag.js) -->
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -989,21 +987,15 @@ const PRODUCTS = {
       }
       if (creemState) creemState.classList.add('hidden');
       if (successState) successState.classList.remove('hidden');
-      /* Google Ads "Paid subscription": only on the return from the payment page, only once the server has confirmed
-         the paid entitlement, and only when money was really charged (JP 2026-11-26: a confirmed card payment, not a
-         free demo and not a 100%-off free-year code). The amount is what Creem charged, as the payment webhook
-         recorded it (rpc my_last_paid). No amount, $0, or the check unavailable = nothing is sent. Once per licence. */
-      if (urlParams.get('paid') === '1' && window.OverlordFunnel && window.OverlordFunnel.purchase) {
+      /* Google Ads "Paid subscription": only on the return from the payment page and only once the server has confirmed
+         the paid entitlement (a free demo never gets here). JP 2026-11-26: count confirmed card purchases only, without
+         a database lookup. The 100%-off free-year codes work on the yearly Standard plan only ('sub_year'), so that one
+         plan is never counted here (it can't be told apart from a $0 code checkout); every other plan is a real charge
+         at its listed price. Once per licence (funnel.js keeps it to one; transaction_id dedupes at Google). */
+      if (urlParams.get('paid') === '1' && planKey !== 'sub_year' && window.OverlordFunnel && window.OverlordFunnel.purchase) {
         const txn = ent.licence_reference || ent.id || ent.subscription_id || null;
-        (async () => {
-          try {
-            const { data: pay, error } = await sbClient.rpc('my_last_paid');
-            const amount = !error && pay ? Number(pay.amount) : 0;
-            if (amount > 0 && (!pay.mode || pay.mode === 'live')) {
-              window.OverlordFunnel.purchase(txn, amount, pay.currency || 'USD');
-            }
-          } catch (_) { /* no confirmed charge: no conversion */ }
-        })();
+        const value = parseFloat(String(product.price).replace(/[^0-9.]/g, '')) || 1;
+        try { window.OverlordFunnel.purchase(txn, value, 'USD'); } catch (_) {}
       }
       return true;
     } catch (_) { return false; }

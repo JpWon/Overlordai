@@ -53,7 +53,7 @@
     ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid"].forEach(function (k) {
       if (q.get(k)) t[k] = q.get(k).slice(0, 200);
     });
-    var ref = q.get("ref") || q.get("via") || ls("ovl_ref");          // ?ref=, Rewardful's ?via=, the /lux door
+    var ref = q.get("ref") || q.get("creem_ref") || q.get("via") || ls("ovl_ref");   // ?ref=, a Creem partner link's creem_ref, ?via=, the /lux door
     if (ref) t.ref = String(ref).slice(0, 80);
     var promo = q.get("promo") || q.get("code");
     if (promo) t.promo = String(promo).slice(0, 40);
