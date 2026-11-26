@@ -19,10 +19,11 @@ window.va = window.va || function () { (window.vaq = window.vaq || []).push(argu
 
 /* Cookie consent (2026-10-16).
  *
- * The site's three cookie-setting tags - Google Ads (gtag.js), the Reddit Ads
- * pixel and Rewardful (partner referrals) - no longer load from the page. Each
- * page keeps its own queued calls (gtag(...), rdt(...), rewardful(...)); this
- * file loads the three scripts once consent allows, and they replay the queue.
+ * The site's cookie-setting tags - Google Ads (gtag.js) and the Reddit Ads
+ * pixel - no longer load from the page. Each page keeps its own queued calls
+ * (gtag(...), rdt(...)); this file loads the scripts once consent allows, and
+ * they replay the queue. (Rewardful was removed on 2026-11-26: Creem runs the
+ * partner program now.)
  *
  *   EU / EEA / UK / Switzerland (by the browser's time zone): nothing loads until
  *     the visitor presses Accept on the banner.
@@ -36,14 +37,11 @@ window.va = window.va || function () { (window.vaq = window.vaq || []).push(argu
   "use strict";
   var KEY = "ovr-consent-v1";
   var GTAG_ID = "AW-18496558698";
-  var RW_KEY = "f1219f";
   var loaded = false;
 
   // Queues, so page code can call these before (or without) the real scripts.
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-  window._rwq = "rewardful";
-  window.rewardful = window.rewardful || function () { (window.rewardful.q = window.rewardful.q || []).push(arguments); };
   if (!window.rdt) {
     var p = window.rdt = function () { p.sendEvent ? p.sendEvent.apply(p, arguments) : p.callQueue.push(arguments); };
     p.callQueue = [];
@@ -73,7 +71,6 @@ window.va = window.va || function () { (window.vaq = window.vaq || []).push(argu
     loaded = true;
     addScript("https://www.googletagmanager.com/gtag/js?id=" + GTAG_ID, {});
     addScript("https://www.redditstatic.com/ads/pixel.js", {});
-    addScript("https://r.wdfl.co/rw.js", { "data-rewardful": RW_KEY });
   }
 
   // ---- the banner ----------------------------------------------------------
@@ -105,8 +102,8 @@ window.va = window.va || function () { (window.vaq = window.vaq || []).push(argu
     var box = document.createElement("div");
     box.className = "ovr-cc"; box.id = "ovrCookieBanner";
     box.setAttribute("role", "dialog"); box.setAttribute("aria-live", "polite"); box.setAttribute("aria-label", "Cookie choices");
-    box.innerHTML = "<p>We'd like to use cookies to measure our ads (Google Ads, Reddit Ads), to credit partners who " +
-      "refer you (Rewardful), and to see which visits lead to downloads and sign-ups (a random visit ID). The site works the same either way. <a href=\"privacy.html#s8\">Privacy Policy</a></p>" +
+    box.innerHTML = "<p>We'd like to use cookies to measure our ads (Google Ads, Reddit Ads) and to see which" +
+      " visits lead to downloads and sign-ups (a random visit ID). The site works the same either way. <a href=\"privacy.html#s8\">Privacy Policy</a></p>" +
       "<div class=\"ovr-cc__row\"><button type=\"button\" data-c=\"denied\">Reject</button>" +
       "<button type=\"button\" data-c=\"granted\">Accept</button></div>";
     box.addEventListener("click", function (e) {

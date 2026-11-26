@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Cookie consent: loads Google Ads, Reddit Ads and Rewardful only when allowed -->
+<!-- Cookie consent: loads Google Ads and Reddit Ads only when allowed -->
 <script src="assets/consent.js"></script>
-<!-- Rewardful affiliate tracking -->
-<script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
 <!-- Google tag (gtag.js) -->
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -1370,17 +1368,6 @@
   };
   opts.forEach(b => b.addEventListener('click', () => apply(b.dataset.period)));
 })();
-</script>
-<script>
-// Rewardful: carry referral into checkout.html
-rewardful('ready', function () {
-  if (!window.Rewardful || !Rewardful.referral) return;
-  document.querySelectorAll('a[href*="checkout.html"]').forEach(function (a) {
-    var u = new URL(a.href, window.location.origin);
-    u.searchParams.set('ref', Rewardful.referral);
-    a.href = u.toString();
-  });
-});
 </script>
   <script src="/assets/signoff-reveal.js" defer></script>
 <script src="/assets/funnel-config.js"></script>
