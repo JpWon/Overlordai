@@ -35,6 +35,15 @@ test('the visitor\'s query string is carried through', () => {
     CREEM + '&utm_source=youtube&utm_campaign=pbz+run');
 });
 
+test('the route's own parameters never reach the destination', () => {
+  // seen live on 2026-11-28: the host appends the route's :slug, and Creem got "&slug=asianrobot"
+  assert.equal(r.target('asianrobot', '?__slug=asianrobot&slug=asianrobot'), CREEM);
+  assert.equal(r.target('asianrobot', '?utm_source=youtube&slug=asianrobot&__slug=asianrobot'), CREEM + '&utm_source=youtube');
+  const live = call('/api/r?__slug=asianrobot&utm_source=youtube&slug=asianrobot',
+    { __slug: 'asianrobot', utm_source: 'youtube', slug: 'asianrobot' });
+  assert.equal(live.headers.location, CREEM + '&utm_source=youtube');
+});
+
 test('a visitor can add parameters but never replace the affiliate code', () => {
   assert.equal(r.target('asianrobot', '?code=SOMEONE_ELSE&utm_source=x'), CREEM + '&utm_source=x');
 });
