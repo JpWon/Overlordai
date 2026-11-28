@@ -1,0 +1,58 @@
+{
+  "slug": "how-to-beat-soldier-of-godrick",
+  "game": "elden-ring",
+  "game_title": "Elden Ring",
+  "game_page": "/eldenring.html",
+  "store_url": "https://store.steampowered.com/app/1245620/",
+  "query": "how to beat soldier of godrick elden ring",
+  "title": "How to Beat Soldier of Godrick in Elden Ring",
+  "meta_desc": "A guide on how to defeat the Soldier of Godrick in the Cave of Knowledge, covering basic strategies, parrying, and performing critical attacks.",
+  "published_at": "2026-11-28",
+  "atlas": {
+    "app_id": "1245620",
+    "updated": "2026-11-02"
+  },
+  "intro": "The Soldier of Godrick is a valiant boss encountered within the Stranded Graveyard. This encounter serves as a tutorial for the player, taking place in a dungeon known as the Cave of Knowledge. You can find this area within the Limgrave region. While designed to teach game mechanics, approaching this fight with a solid plan can help you practice essential combat skills you'll use later on.",
+  "intro_ref": [
+    "boss/soldier_of_godrick",
+    "rooms/cave_of_knowledge"
+  ],
+  "steps": [
+    {
+      "heading": "General Approach and Positioning",
+      "text": "The first step in this tutorial battle is to approach the Soldier of Godrick with extreme caution. This means being mindful of your spacing and preparing for his actions rather than rushing in blindly. A recommended movement strategy is to strafe, or circle, around him in a counterclockwise direction. Maintaining this movement can help with positioning, allowing you to react to his moves and find openings to strike. This cautious, circular approach is a fundamental tactic that can be applied to many other encounters.",
+      "atlas_ref": [
+        "boss/soldier_of_godrick"
+      ]
+    },
+    {
+      "heading": "Exploiting a Parry",
+      "text": "One of the key mechanics this boss introduces is the ability to parry. The Soldier of Godrick can be parried, which involves using a shield or specific skill to deflect an incoming attack at the right moment. A successful parry will often interrupt the enemy's attack pattern and leave them temporarily defenseless. This creates a valuable window to follow up with your own attacks. Learning the timing to parry his moves is an excellent way to practice this defensive skill, which is highly effective against many foes.",
+      "atlas_ref": [
+        "boss/soldier_of_godrick"
+      ]
+    },
+    {
+      "heading": "Using Critical Attacks",
+      "text": "The Soldier of Godrick is specifically vulnerable to Critical Attacks. These are powerful, high-damage strikes that can only be performed when an enemy is in a staggered or vulnerable state. A successful parry is one way to create an opportunity for a Critical Attack. Taking advantage of this vulnerability is a core part of the fight's design. When the Soldier of Godrick is open, you can land a devastating blow that will significantly reduce his health. This fight is a perfect, controlled environment to learn the cues for when an enemy is open to a Critical Attack and how to execute it properly.",
+      "atlas_ref": [
+        "boss/soldier_of_godrick"
+      ]
+    }
+  ],
+  "outro": "By using caution, practicing your parries, and landing critical hits, you can overcome this valiant tutorial boss and complete this section of the Cave of Knowledge.",
+  "outro_ref": [
+    "boss/soldier_of_godrick"
+  ],
+  "youtube_credits": [],
+  "wiki_credits": [],
+  "image": {
+    "src": "/assets/lux/banner-asset-hud-tall.jpg",
+    "shape": "tall",
+    "phone": "/assets/lux/banner-asset-hud-phone.jpg",
+    "alt": "Overlord AI: the answer, at a glance. Free 30-minute demo",
+    "width": 160,
+    "height": 600,
+    "href": "/"
+  }
+}
