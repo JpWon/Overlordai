@@ -14,6 +14,8 @@ const REDIRECTS = {
 
 const HOME = 'https://overlordai.co/';
 const SLUG_PARAM = '__slug';
+/* The host also adds the route's own :slug to the query. Neither is the visitor's: both are dropped. */
+const ROUTE_PARAMS = [SLUG_PARAM, 'slug'];
 
 /* The slug as the map spells it: lower case, no slashes, no spaces. */
 function clean(slug) {
@@ -29,7 +31,7 @@ function target(slug, search) {
   const dest = REDIRECTS[clean(slug)];
   if (!dest) return HOME;
   const extra = new URLSearchParams(String(search || '').replace(/^\?/, ''));
-  extra.delete(SLUG_PARAM);
+  ROUTE_PARAMS.forEach((k) => extra.delete(k));
   if (![...extra.keys()].length) return dest;
   const url = new URL(dest);
   for (const [k, v] of extra) {
