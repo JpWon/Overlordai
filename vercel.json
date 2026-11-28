@@ -31,6 +31,18 @@
   ],
   "rewrites": [
     {
+      "source": "/r/:slug",
+      "destination": "/api/r?__slug=:slug"
+    },
+    {
+      "source": "/r/:slug/",
+      "destination": "/api/r?__slug=:slug"
+    },
+    {
+      "source": "/r",
+      "destination": "/api/r"
+    },
+    {
       "source": "/lux",
       "destination": "/lux.html"
     },
